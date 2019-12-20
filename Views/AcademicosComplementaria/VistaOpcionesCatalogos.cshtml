@@ -1,0 +1,205 @@
+﻿
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-topline-green">
+                <div class="card-head">
+                    <header>INFORMACIÓN COMPLEMENTARIA</header>
+                    <div class="tools">
+                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+
+                        <div class="card-body " id="bar-parent2">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Tipo personal
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarPersonal" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar tipo personal</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarPersonal" class="btn btn-success btn-sm m-b-10">
+                                                Agregar tipo personal</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Puestos existentes
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarPuestos" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar puestos</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarPuestos" class="btn btn-success btn-sm m-b-10">
+                                                Agregar puestos</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Laboratorios
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarLaboratorios" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar laboratorios</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarLaboratorios" class="btn btn-success btn-sm m-b-10">
+                                                Agregar laboratorio</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Periodo
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarPeriodos" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar periodos</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarPeriodos" class="btn btn-success btn-sm m-b-10">
+                                                Agregar periodos</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Tipo de titulo
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarTTitulo" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar tipo titulo</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarTTitulo" class="btn btn-success btn-sm m-b-10">
+                                                Agregar tipo titulo</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Titulos
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarGTitulo" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar titulos</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarGTitulo" class="btn btn-success btn-sm m-b-10">
+                                                Agregar titulos</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Distincion T/A
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarDistincionesTA" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar distincion T/A</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarDistincionesTA" class="btn btn-success btn-sm m-b-10">
+                                                Agregar distincion T/A</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Certificacion
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarCertificacion" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar certificaciones</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarCertificacion" class="btn btn-success btn-sm m-b-10">
+                                                Agregar certificaciones</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Instituciones/Empresas
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarInstiEmpre" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar instituciones y empresas</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarIE" class="btn btn-success btn-sm m-b-10">
+                                                Agregar instituciones y empresas</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Academias
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarAcademias" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar academias</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarAcademias" class="btn btn-success btn-sm m-b-10">
+                                                Agregar academias</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Programas Transversales
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarProTransversales" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar programas transversales</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarPTransversal" class="btn btn-success btn-sm m-b-10">
+                                                Agregar programas transversales</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Tipo Contratacion
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarTContratacion" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar tipo de contratacion</a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="InsertarTContratacion" class="btn btn-success btn-sm m-b-10">
+                                                Agregar tipo de contratacion</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="panel">
+                                        <header class="panel-heading panel-heading-blue">
+                                            Mapa Curricular
+                                        </header>
+                                        <div class="panel-body panel-heading-gray">
+                                            <a asp-controller="AcademicosComplementaria" asp-action="VCarreras" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar mapa curricular
+                                            </a>
+                                            <a asp-controller="AcademicosComplementaria" asp-action="SeleccionarCarrera" class="btn btn-success btn-sm m-b-10">
+                                                Agregar mapa curricular
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,66 @@
+﻿@model SGCFIEE.Models.TbRubrosexamenes
+@{
+
+
+    ViewData["Title"] = "Crear Rubro";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Información De Rubros Examen</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <form asp-action="CrearRubro" asp-antiforgery="true">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-head" id="idDatosPersonales">
+                                            <header>Rubros Examenes</header>
+                                        </div>
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <select class="form-control" id="programa">
+                                                            <option> Examen Ingreso </option>
+                                                            <option> Examen Interno </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RubroExamen">Nombre del Rubro</label>
+                                                        <input asp-for="RubroExamen" type="text" class="form-control" placeholder="Nombre del rubro" required="required">
+                                                        <span asp-validation-for="RubroExamen" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                    Cancelar
+                                </a>
+                                <input id="enviaru" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

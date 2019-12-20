@@ -1,0 +1,101 @@
+﻿@model SGCFIEE.Models.CompletoAlumnos
+@{
+    ViewData["Title"] = "Generar Reporte";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var y = (IEnumerable<TipoPeriodo>)ViewData["periodo"];
+    var z = (IEnumerable<TipoEventos>)ViewData["tipoevento"];
+    var cali = (IEnumerable<CalificacionAlumno>)ViewData["calificacion"];
+    var evento = (IEnumerable<AlumnoEvento>)ViewData["evento"];
+    var movilidad = (IEnumerable<AlumnoMovilidad>)ViewData["movilidad"];
+    var pafi = (IEnumerable<AlumnoPafi>)ViewData["pafi"];
+    var examen = (IEnumerable<AlumnoExamen>)ViewData["examen"];
+    var final = (IEnumerable<AlumnoFinal>)ViewData["Instancias"];
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="content">
+    <div class="card card-topline-gray" id="ReporteUV">
+        <div class="contenedor">
+            <img src="~/assets/img/FIEE.jpg" width="150" height="200" hspace="20" vspace="20" /> <br /> <br />
+            <div class="encima"><h3 class="center">Facultad de Ingeniería Eléctrica y Eléctronica</h3> </div>
+            <div class="centrado"><h4 class="center">Universidad Veracruzana</h4></div>
+        </div>
+        <div class="card-head">
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+
+                    <div class="row">
+                        <br /> <br />
+                        <div class="col-md-6 col-6 b-r">
+                            <strong>Nombre</strong>
+                            <br>
+                            <p id="Nombre">cosas</p>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-6 b-r">
+                            <strong>A. Paterno</strong>
+                            <br>
+                            <p id="A_paterno">cosas</p>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-6 b-r">
+                            <strong>A. Materno</strong>
+                            <br>
+                            <p id="A_materno">cosas</p>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <strong>Correo</strong>
+                            <br>
+                            <p id="email">cosas</p>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <strong>Fecha de Nacimiento</strong>
+                            <br>
+                            <p id="fecha">cosas</p>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <strong>Nacionalidad</strong>
+                            <br>
+                            <p id="Nacionalidad">cosas</p>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <strong>Estado Civil</strong>
+                            <br>
+                            <p id="Estadoc">cosas</p>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <strong>CURP</strong>
+                            <br>
+                            <p id="Curp">cosas</p>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <strong>Domicilio</strong>
+                            <br>
+                            <p id="Domicilio">cosas</p>
+                            <br>
+                        </div>
+                        <div class="col-md-6 col-6">
+                            <strong>Teléfono</strong>
+                            <br>
+                            <p id="Tel" class="text-muted">cosas</p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a id="tablaPDF" class="btn btn-danger btn-xs eliminar" title="Generar Reporte">
+        <i class="fa fa-trash-o "></i>
+    </a>
+</div>
+</html>

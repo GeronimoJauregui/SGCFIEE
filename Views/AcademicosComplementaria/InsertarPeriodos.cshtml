@@ -1,0 +1,70 @@
+﻿@model SGCFIEE.Models.TipoPeriodo;
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Crear periodo</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="CrearPeriodo" asp-antiforgery="true">
+                                            <div class="card-body " id="bar-parent2">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label asp-for="Nombre">Nombre del laboratorio</label>
+                                                            <input asp-for="Nombre" id="nom" type="text" class="form-control" placeholder="Nombre ...">
+                                                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label asp-for="FechaInicio">Fecha en la que inicia el periodo</label>
+                                                            <input asp-for="FechaInicio" id="nom" type="date" class="form-control" placeholder="Fecha inicial ...">
+                                                            <span asp-validation-for="FechaInicio" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label asp-for="FechaFin">Fecha en la que acaba el periodo</label>
+                                                            <input asp-for="FechaFin" id="nom" type="date" class="form-control" placeholder="Fecha final ...">
+                                                            <span asp-validation-for="FechaFin" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-success btn-sm m-b-10" id="enviarSolicitud">
+                                                Enviar
+                                            </button>
+                                        </form>
+                                        <a id="cancelarEdicion" asp-action="VistaOpcionesCatalogos" asp-controller="AcademicosComplementaria" type="submit" class="btn btn-default btn-sm m-b-10">
+                                            Cancelar
+                                        </a>
+                                        <a id="cancelarEdicion" asp-action="MostrarPeriodos" asp-controller="AcademicosComplementaria" type="submit" class="btn btn-success btn-sm m-b-10">
+                                            Mostrar tabla
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</html>

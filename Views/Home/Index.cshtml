@@ -1,0 +1,85 @@
+﻿@model SGCFIEE.Models.UsuarioLogin;
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta name="description" content="Responsive Admin Template" />
+    <meta name="author" content="SmartUniversity" />
+    <title>SGCFIEE | Universidad Veracruzana</title>
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <!-- icons -->
+    <link href="~/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/fonts/material-design-icons/material-icon.css" rel="stylesheet" type="text/css" />
+    <!-- bootstrap -->
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- style -->
+    <link rel="stylesheet" href="~/assets/css/pages/extra_pages.css">
+    <!-- favicon -->
+    <link rel="icon" href="@Url.Content("~/assets/img/logicon.jpg")" />
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6" style="padding-left: 0;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img class="img-responsive" src="~/assets/img/loginverdadero.jpg" alt="" style="width: 50%;height: 100%;position: fixed; box-sizing: inherit;">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6 ">
+                <div class="row">
+                    <div class="form-title">
+                        <h3 style="color:#18529D;">Universidad Veracruzana</h3>
+                        <h3 style="color:#666666;">Sistema Gestor de Calidad</h3>
+                        <h3 style="color:#666666;">Facultad de Ingenier&iacute;a El&eacute;ctrica y Electr&oacute;nica</h3>
+                    </div>
+
+                </div>
+                <!-- Login Form-->
+                <div class="row">
+                    <div class="login-form text-center">
+                        <div>
+                        </div>
+                        <div class="form formLogin">
+                            <form asp-action="Principal">
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    <label asp-for="matricula">Usuario</label>
+                                    <input asp-for="matricula" type="text" required="required"/>
+                                    <span asp-validation-for="matricula" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="password">Contrasena</label>
+                                    <input asp-for="password" name="password" type="password" placeholder="Contrase&ntilde;a" />
+                                    <span asp-validation-for="password" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-sm m-b-10">Entrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- start js include path -->
+    <script src="~/assets/plugins/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/assets/js/pages/extra_pages/pages.js" asp-append-version="true"></script>
+    <!-- end js include path -->
+</body>
+</html>

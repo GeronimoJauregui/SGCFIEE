@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SGCFIEE.Models.Academias>;
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+<script src="~/assets/js/pages/table/table_data.js"></script>
+<!DOCTYPE html>
+<html>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-topline-green">
+            <div class="card-head">
+                <header>Academias</header>
+                <div class="tools">
+                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row p-b-20">
+                    <div class="col-md-6 col-sm-6 col-6">
+                        <div class="btn-group">
+                            <a id="cancelarEdicion" asp-action="InsertarAcademias" asp-controller="AcademicosComplementaria" type="submit" class="btn btn-success btn-sm m-b-10">
+                                Insertar
+                            </a>
+                        </div>
+
+                        <a id="cancelarEdicion" asp-action="VistaOpcionesCatalogos" asp-controller="AcademicosComplementaria" type="submit" class="btn btn-default btn-sm m-b-10">
+                            Volver
+                        </a>
+                    </div>
+                </div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                    <thead>
+                        <tr>
+                            <th class="center">Nombre</th>
+                            <th class="center">Estado</th>
+                            <th class="center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="odd gradeX">
+                                <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                @if (item.Status == 1)
+                                {
+                                    <td class="center">Activo</td>
+                                }
+                                else
+                                {
+                                    <td class="center">Baja</td>
+                                }
+                            <td class="center">
+                                <a asp-route-id="@item.IdAcademias" asp-controller="AcademicosComplementaria" asp-action="EliminarAcademia" class="btn btn-danger btn-xs  deletepersonal" title="Eliminar">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                                <a asp-route-id="@item.IdAcademias" asp-controller="AcademicosComplementaria" asp-action="FormEditarAcademia" class="btn btn-primary btn-xs editar" title="Editar">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,87 @@
+﻿@model SGCFIEE.Models.ProgramaEducativo;
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+    var x = (IEnumerable<SGCFIEE.Models.ProgramaEducativo>)ViewData["carreras"];
+    var y = (IEnumerable<SGCFIEE.Models.TablaMatPE>)ViewData["mapa"];
+}
+
+<!DOCTYPE html>
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-topline-green">
+                <div class="card-head">
+                    <header>Mapa curricular</header>
+                    <div class="tools">
+                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                    </div>
+                </div>
+                <div class="white-box">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="TablaMatPE" asp-antiforgery="true">
+                                            <div class="form-group">
+                                                <div class="col-md-3 col-sm-3">
+                                                    <label asp-for="IdProgramaEducativo">Elija la carrera</label>
+                                                    <select asp-for="IdProgramaEducativo" id="tipo" class="form-control">
+                                                        @foreach (var item in x)
+                                                        {
+                                                            <option value="@item.IdProgramaEducativo">@Html.DisplayFor(itemView => item.Nombre)</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <br />
+                                                <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
+                                                    Buscar
+                                                </button>
+                                            </div>
+                                        </form>
+                                        <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                                        <thead>
+                                            <tr>
+                                                <th class="center">Nombre de la materia</th>
+                                                <th class="center">Area</th>
+                                                <th class="center">creditos</th>
+                                                <th class="center">Acciones</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in y)
+                                            {
+                                                <tr class="odd gradeX">
+                                                    <td class="center">@Html.DisplayFor(modelItem => item.nomMat)</td>
+                                                    <td class="center">@Html.DisplayFor(modelItem => item.area)</td>
+                                                    <td class="center">@Html.DisplayFor(modelItem => item.creditos)</td>
+                                                    <td class="center">
+                                                        <a asp-route-id="@item.idMapa" asp-action="EliminarMC" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                                            <i class="fa fa-trash-o "></i>
+                                                        </a>
+
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

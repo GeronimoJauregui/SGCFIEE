@@ -1,0 +1,112 @@
+﻿@model SGCFIEE.Models.CalificacionAlumno
+@{
+    ViewData["Title"] = "Agregar Calificacion";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var v = (IEnumerable<Academicos>)ViewData["academicos"];
+    var w = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+    var x = (IEnumerable<TbSalones>)ViewData["salones"];
+    var y = (IEnumerable<ExperienciaEducativa>)ViewData["experiencias"];
+    var z = (IEnumerable<CtTipoCalificacion>)ViewData["tipocali"];
+    var u = (IEnumerable<ModeloMCadd>)ViewData["mapa"];
+    var id = ViewData["idalumno"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Información De Calificación</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <form asp-action="CrearCali" asp-antiforgery="true">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-head" id="idDatosPersonales">
+                                            <header>Calificación</header>
+                                        </div>
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-sm-6">
+                                                    <input type="hidden" asp-for="idalumno" value="@id" />
+                                                    <div class="form-group">
+                                                        <label asp-for="Nrc">NRC del academico</label>
+                                                        <input asp-for="Nrc" id="nrcaca" type="text" class="form-control" placeholder="NRC" required="required">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Seleccione el nombre del academico</label>
+                                                        <select asp-for="IdAcademico" class="form-control" id="areaexp">
+                                                            @foreach (var item in v)
+                                                            {
+                                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Seleccione un periodo</label>
+                                                        <select asp-for="IdPeriodo" class="form-control" id="areaexp">
+                                                            @foreach (var item in w)
+                                                            {
+                                                                <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Seleccione un salon</label>
+                                                        <select asp-for="IdSalon" class="form-control" id="areaexp">
+                                                            @foreach (var item in x)
+                                                            {
+                                                                <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Seleccione la experiencia educativa</label>
+                                                        <select asp-for="IdMapaCurricular" class="form-control" id="areaexp">
+                                                            @foreach (var item in u)
+                                                            {
+                                                                <option value="@item.id">@Html.DisplayFor(modelItem => item.mat) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Calificacion">Calificacion</label>
+                                                        <input asp-for="Calificacion" id="calialum" type="number" class="form-control" placeholder="Calificacion" required="required">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Seleccione el tipo de calificación</label>
+                                                        <select asp-for="RTipoCalificacion" class="form-control" id="areaexp">
+                                                            @foreach (var item in z)
+                                                            {
+                                                                <option value="@item.IdCtTipoCalificacion">@Html.DisplayFor(modelItem => item.Tipo) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input id="enviacalialum" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,89 @@
+﻿@model SGCFIEE.Models.CtMovilidades;
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Editar Movilidad</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="GuardarEdicion" asp-antiforgery="true">
+                                            <div class="card-body " id="bar-parent2">
+                                                <div class="row">
+                                                    <input type="hidden" asp-for="IdCtMovilidades" />
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label asp-for="TipoMovilidades">Tipo de movilidad</label>
+                                                            @if (Model.TipoMovilidades == 1)
+                                                            {
+                                                        <select asp-for="TipoMovilidades" class="form-control">
+                                                            <option value=1>Nacional</option>
+                                                            <option value=2>Internacional</option>
+                                                        </select>
+                                                            }
+                                                            else
+                                                            {
+                                                        <select asp-for="TipoMovilidades" class="form-control">
+                                                            <option value=2>Internacional</option>
+                                                            <option value=1>Nacional</option>
+                                                        </select>        
+                                                            }
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label asp-for="PaisDestinoMovilidad">País destino</label>
+                                                            <input asp-for="PaisDestinoMovilidad" id="pais_destino" type="text" class="form-control">
+                                                            <span asp-validation-for="PaisDestinoMovilidad" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label asp-for="EntidadDestinoMovilidad">Entidad destino</label>
+                                                            <input asp-for="EntidadDestinoMovilidad" id="entidad_destino" type="text" class="form-control">
+                                                            <span asp-validation-for="EntidadDestinoMovilidad" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label asp-for="EscuelaDestinoMovilidad">Escuela destino</label>
+                                                            <input asp-for="EscuelaDestinoMovilidad" id="escuela_destino" type="text" class="form-control">
+                                                            <span asp-validation-for="EscuelaDestinoMovilidad" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label asp-for="TiempoPermanenciaMovilidad">Tiempo de permanencia</label>
+                                                            <input asp-for="TiempoPermanenciaMovilidad" id="tiempo_perm" type="text" class="form-control">
+                                                            <span asp-validation-for="TiempoPermanenciaMovilidad" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-success btn-sm m-b-10" id="guardarmovi">
+                                                Guardar cambios
+                                            </button>
+                                        </form>
+                                        
+                                        
+                                            <a id="cancelarEdicion" asp-controller="EstudiantesMovilidad" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                                Cancelar
+                                            </a>
+                                        
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

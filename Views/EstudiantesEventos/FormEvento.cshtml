@@ -1,0 +1,64 @@
+﻿@model SGCFIEE.Models.EventosAlumnos;
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+    var x = (SGCFIEE.Models.TbEventos)ViewData["evento"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-topline-green">
+                <div class="card-head">
+                    <header>@x.Nombre</header>
+                    <div class="tools">
+                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                    </div>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Formulario Eventos</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="RegistrarEventoAlu" asp-antiforgery="true">
+                                            <div class="col-md-3 col-sm-3">
+                                                <input type="hidden" asp-for="REvento" value="@x.IdEventos" />
+                                                <div class="form-group">
+                                                    <label asp-for="Fecha">Seleccione la fecha de participación</label>
+                                                    <input asp-for="Fecha" id="fech" type="date" class="form-control" placeholder="Fecha del evento">
+                                                    <span asp-validation-for="Fecha"></span>
+                                                </div>
+                                            </div>
+                                            <button id="registrarEvento" type="submit" class="btn btn-success btn-sm m-b-10">
+                                                Enviar
+                                            </button>
+                                        </form>
+                                        <a asp-controller="EstudiantesEventos" asp-action="Index" id="cancelarEdicion" type="submit" class="btn btn-default btn-sm m-b-10">
+                                            Cancelar
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

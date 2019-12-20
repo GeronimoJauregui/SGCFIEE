@@ -1,0 +1,67 @@
+﻿@model SGCFIEE.Models.TipoEventos
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var y = (IEnumerable <TipoEventos>)ViewData["tipos"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-topline-green">
+                <div class="card-head">
+                    <header>EVENTOS</header>
+                    <div class="tools">
+                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                    </div>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Formulario Eventos</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="OpcionesEventos" asp-antiforgery="true">
+                                            <div class="form-group">
+                                                <div class="col-md-3 col-sm-3">
+                                                    <label asp-for="IdEventos">Elija la categoria del evento</label>
+                                                    <select asp-for="IdEventos" id="tipo" class="form-control">
+                                                        <option value="0">Seleccionar...</option>
+                                                        @foreach (var item in y)
+                                                        {
+                                                            <option value=@item.IdEventos>@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <br />
+                                                      <button id="registrarEvento" type="submit" class="btn btn-success btn-sm m-b-10">
+                                                          Enviar
+                                                      </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,99 @@
+﻿@model  IEnumerable<SGCFIEE.Models.TablaPafi>
+@{
+    ViewData["Title"] = "Index";
+    var x = (int)ViewData["tipo"];
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+    <script src="~/assets/js/pages/table/table_data.js"></script>
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-topline-green">
+                <div class="card-head">
+                    <header>Pafis</header>
+                    <div class="tools">
+                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                    </div>
+                </div>
+            
+            <div class="card-body">
+                <div class="row p-b-20">
+                    <div class="col-md-6 col-sm-6 col-6">
+                        @if (x == 3)
+                        {
+                            <div class="btn-group">
+                                <a asp-controller="EstudiantesPafis" asp-action="SolicitudPafi" class="btn btn-success btn-sm m-b-10">
+                                    Solicitar pafi
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                    <thead>
+                        <tr>
+                            <th class="center">Alumnos inscritos</th>
+                            <th class="center">Nombre del pafi</th>
+                            <th class="center">Horario</th>
+                            <th class="center">Nombre del academico</th>
+                            <th class="center">Salon</th>
+                            <th class="center">Acciones</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="odd gradeX">
+                                <td class="center">@Html.DisplayFor(modelItem => item.TotalAlum)</td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.NombrePafi)</td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.Horario)</td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.NombreMaestro)</td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.ClvSalon)</td>
+                                <td class="center">
+                                    <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="DetallesPafi" class="btn btn-success btn-xs infoextra" title="Toda la información">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                    @if (x == 1)
+                                    {
+                                        <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="FormEditar" class="btn btn-primary btn-xs editar" title="Editar">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a data-value="@item.idPafi" data-controlador="EstudiantesPafis" data-accion="Eliminar" name="laeliminacion" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                        <a data-controlador="EstudiantesPafis" data-accion="Index" hidden name="actualizar">
+                                        </a>
+                                    }
+                                    @if (x == 3)
+                                    {
+                                        @if (item.ocupado == 0)
+                                        {
+                                            <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="Inscribir" class="btn btn-success btn-xs eliminar" title="Enlistar">
+                                                <i class="fa fa-sign-in "></i>
+                                            </a>
+                                        }
+                                        @if (item.ocupado == 1)
+                                        {
+                                            <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="Desenlistar" class="btn btn-danger btn-xs eliminar" title="Desenlistar">
+                                                <i class="fa fa-sign-out "></i>
+                                            </a>
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+</html>

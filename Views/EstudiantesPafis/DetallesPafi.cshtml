@@ -1,0 +1,73 @@
+﻿@model SGCFIEE.Models.InformacionPafiCompleta;
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">@Model.nombrePafi</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="card-body " id="bar-parent2">
+                                        <div class="row">
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Nombre del academico</strong>
+                                                <p id="Matematicas" class="text-muted">@Html.DisplayFor(model => model.nombreMaestro)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Apellido paterno</strong>
+                                                <p id="Matematicas" class="text-muted">@Html.DisplayFor(model => model.ApePaterno)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Apellido materno</strong>
+                                                <p id="Matematicas" class="text-muted">@Html.DisplayFor(model => model.ApePaterno)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Número de Horas</strong>
+                                                <p id="Matematicas" class="text-muted">@Html.DisplayFor(model => model.totHoras)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Salon</strong>
+                                                <p id="Matematicas" class="text-muted">@Html.DisplayFor(model => model.clave_salon)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Numero de horas</strong>
+                                                <p id="Matematicas" class="text-muted">@Html.DisplayFor(model => model.totHoras)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Estado</strong>
+                                                <p id="Matematicas" class="text-muted">@Html.DisplayFor(model => model.edo)</p>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

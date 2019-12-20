@@ -1,0 +1,90 @@
+﻿@model SGCFIEE.Models.CtMovilidades
+@{
+
+
+    ViewData["Title"] = "Editar Movilidad";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Información De Movilidad</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <form asp-action="EditarMovilidad" asp-antiforgery="true">
+                                <div class="row">
+                                    <input asp-for="IdCtMovilidades" value="@Model.IdCtMovilidades" hidden />
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-head">
+                                            <header>Movilidades</header>
+                                        </div>
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-sm-6">
+                                                    <label>Tipo De Movilidad</label><br />
+                                                    <div class="radio p-0">
+                                                        <input checked="true" type="radio" name="optionsRadios2" id="nacional" value="true">
+                                                        <label for="nacional">
+                                                            Nacional
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio p-0">
+                                                        <input type="radio" name="optionsRadios2" id="internacional" value="false">
+                                                        <label for="internacional">
+                                                            Internacional
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="PaisDestinoMovilidad">Pais Destino</label>
+                                                        <input asp-for="PaisDestinoMovilidad" type="text" class="form-control" placeholder="Pais destino">
+                                                        <span asp-validation-for="PaisDestinoMovilidad" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="EntidadDestinoMovilidad">Entidad Destino</label>
+                                                        <input asp-for="EntidadDestinoMovilidad" type="text" class="form-control" placeholder="Entidad destino">
+                                                        <span asp-validation-for="EntidadDestinoMovilidad" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="EscuelaDestinoMovilidad">Escuela Destino</label>
+                                                        <input asp-for="EscuelaDestinoMovilidad" type="text" class="form-control" placeholder="Escuela destino">
+                                                        <span asp-validation-for="EscuelaDestinoMovilidad" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="TiempoPermanenciaMovilidad">Tiempo De Permanencia</label>
+                                                        <input asp-for="TiempoPermanenciaMovilidad" type="text" class="form-control" placeholder="Tiempo de permanencia">
+                                                        <span asp-validation-for="TiempoPermanenciaMovilidad" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                    Cancelar
+                                </a>
+                                <input id="enviamov" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

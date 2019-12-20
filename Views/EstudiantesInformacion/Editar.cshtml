@@ -1,0 +1,219 @@
+﻿@model SGCFIEE.Models.DatosAlumno
+@{
+
+
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Home/Principal.cshtml";
+
+    var y = (IEnumerable<ProgramaEducativo>)ViewData["programa"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <form asp-action="Editar" asp-antiforgery="true">
+                            <div class="tab-pane fontawesome-demo active show" id="tab1">
+
+                                <div class="row">
+                                    <input asp-for="IdDatosPersonales" value="@Model.IdDatosPersonales" hidden />
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-head" id="idDatosPersonales">
+                                            <header>Generales</header>
+                                        </div>
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label asp-for="Nombre">Nombre</label>
+                                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre">
+                                                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="ApellidoPaterno">Apellido Paterno</label>
+                                                        <input asp-for="ApellidoPaterno" type="text" class="form-control" placeholder="Apellido paterno">
+                                                        <span asp-validation-for="ApellidoPaterno" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="ApellidoMaterno">Apellido Materno</label>
+                                                        <input asp-for="ApellidoMaterno" type="text" class="form-control" placeholder="Apellido materno">
+                                                        <span asp-validation-for="ApellidoMaterno" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Correo">Correo</label>
+                                                        <input asp-for="Correo" type="email" class="form-control" placeholder="Correo">
+                                                        <span asp-validation-for="Correo" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="FechaNacimiento">Fecha de Nacimiento</label>
+                                                        <input asp-for="FechaNacimiento" type="date" class="form-control" placeholder="Fecha de nacimiento">
+                                                        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Nacionalidad">Nacionalidad</label>
+                                                        <input asp-for="Nacionalidad" type="text" class="form-control" placeholder="Nacionalidad">
+                                                        <span asp-validation-for="Nacionalidad" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="EstadoCivil">Estado Civil</label>
+                                                        <input asp-for="EstadoCivil" type="text" class="form-control" placeholder="Estado civil">
+                                                        <span asp-validation-for="EstadoCivil" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Género</label>
+                                                        <select asp-for="Genero" class="form-control" id="programa">
+                                                            <option value="1">Hombre </option>
+                                                            <option value="2">Mujer </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Trabaja</label>
+                                                        <select asp-for="Trabaja" class="form-control" id="programa">
+                                                            <option value="1">Si </option>
+                                                            <option value="2">No </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="IngresoMensual">Ingreso mensual aproximado</label>
+                                                        <input asp-for="IngresoMensual" type="number" class="form-control" placeholder="Ingreso mensula aproximado">
+                                                        <span asp-validation-for="IngresoMensual" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Curp">CURP</label>
+                                                        <input asp-for="Curp" type="text" class="form-control" placeholder="Curp">
+                                                        <span asp-validation-for="Curp" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="card-head">
+                                                        <header>Domicilio</header>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Calle">Calle</label>
+                                                        <input asp-for="Calle" type="text" class="form-control" placeholder="Calle">
+                                                        <span asp-validation-for="Calle" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Colonia">Colonia</label>
+                                                        <input asp-for="Colonia" type="text" class="form-control" placeholder="Colonia" reuiqred>
+                                                        <span asp-validation-for="Colonia" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Ciudad">Ciudad</label>
+                                                        <input asp-for="Ciudad" type="text" class="form-control" placeholder="Ciudad">
+                                                        <span asp-validation-for="Ciudad" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Municipio">Municipio</label>
+                                                        <input asp-for="Municipio" type="text" class="form-control" placeholder="Municipio">
+                                                        <span asp-validation-for="Municipio" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Estado">Estado</label>
+                                                        <input asp-for="Estado" type="text" class="form-control" placeholder="Estado">
+                                                        <span asp-validation-for="Estado" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Pais">Pais</label>
+                                                        <input asp-for="Pais" type="text" class="form-control" placeholder="Pais">
+                                                        <span asp-validation-for="Pais" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="CodigoPostal">Código Postal</label>
+                                                        <input asp-for="CodigoPostal" type="number" class="form-control" placeholder="Codigo postal">
+                                                        <span asp-validation-for="CodigoPostal" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RecidenciaActual">Residencia Actual</label>
+                                                        <input asp-for="RecidenciaActual" type="text" class="form-control" placeholder="Residencia acual">
+                                                        <span asp-validation-for="RecidenciaActual" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Telefono">Teléfono</label>
+                                                        <input asp-for="Telefono" type="number" class="form-control" placeholder="Telefono">
+                                                        <span asp-validation-for="Telefono" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <br /> <br />
+                            <div class="tab-pane" id="tab2">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-head">
+                                            <header>Académicos</header>
+                                        </div>
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label asp-for="Matricula">Matrícula</label>
+                                                        <input asp-for="Matricula" type="text" class="form-control" placeholder="Matricula">
+                                                        <span asp-validation-for="Matricula" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="CorreoInstitucional">Correo Institucional</label>
+                                                        <input asp-for="CorreoInstitucional" type="text" class="form-control" placeholder="Correo institucional">
+                                                        <span asp-validation-for="CorreoInstitucional" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="AnioIngreso">Año de ingreso</label>
+                                                        <input asp-for="AnioIngreso" type="number" class="form-control" placeholder="Año de ingreso">
+                                                        <span asp-validation-for="AnioIngreso" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Modalidad">Modalidad</label>
+                                                        <input asp-for="Modalidad" type="text" class="form-control" placeholder="Modalidad">
+                                                        <span asp-validation-for="Modalidad" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+
+                                                    <div class="form-group">
+                                                        <label asp-for="Bachillerato">Bachillerato de Procedencia</label>
+                                                        <input asp-for="Bachillerato" type="text" class="form-control" placeholder="Bachillerato de procedencia">
+                                                        <span asp-validation-for="Bachillerato" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <label >Programa Educativo</label>
+                                                        <select asp-for="RProgramaEducativo" class="form-control" id="programa">
+                                                            @foreach (var item in y)
+                                                            {
+                                                                <option value="@item.IdProgramaEducativo">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a asp-controller="EstudiantesInformacion" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                    Cancelar
+                                </a>
+                                <input id="enviadatosa" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

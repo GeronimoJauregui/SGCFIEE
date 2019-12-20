@@ -1,0 +1,103 @@
+﻿@model SGCFIEE.Models.ProgramaEducativo
+@{
+    ViewData["Title"] = "Editar Programa";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Información Del Programa</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <form asp-action="EditarPrograma" asp-antiforgery="true">
+                            <div class="tab-pane fontawesome-demo active show" id="tab1">
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-head" id="idDatosPersonales">
+                                            <header>Programa Educativo</header>
+                                        </div>
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+                                                <input asp-for="IdProgramaEducativo" value="@Model.IdProgramaEducativo" hidden />
+                                                <div class="col-md-6 col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label asp-for="Nombre">Nombre del programa</label>
+                                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre del programa">
+                                                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Creditos">Creditos</label>
+                                                        <input asp-for="Creditos" type="number" class="form-control" placeholder="Creditos">
+                                                        <span asp-validation-for="Creditos" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="ClvPrograma">Clave del programa</label>
+                                                        <input asp-for="ClvPrograma" type="text" class="form-control" placeholder="Enter ...">
+                                                        <span asp-validation-for="ClvPrograma" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Facultad">Facultad</label>
+                                                        <input asp-for="Facultad" type="text" class="form-control" placeholder="Clave del programa">
+                                                        <span asp-validation-for="Facultad" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Campus">Campus</label>
+                                                        <input asp-for="Campus" type="text" class="form-control" placeholder="Campus">
+                                                        <span asp-validation-for="Campus" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="Nivel">Nivel</label>
+                                                        <input asp-for="Nivel" type="text" class="form-control" placeholder="Nivel">
+                                                        <span asp-validation-for="Nivel" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="CreditosMinXp">Creditos min por periodo</label>
+                                                        <input asp-for="CreditosMinXp" type="number" class="form-control" placeholder="Creditos min por periodo">
+                                                        <span asp-validation-for="CreditosMinXp" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="CreditosMaxXp">Creditos max por periodo</label>
+                                                        <input asp-for="CreditosMaxXp" type="number" class="form-control" placeholder="Creditos max por periodo">
+                                                        <span asp-validation-for="CreditosMaxXp" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Area">Area</label>
+                                                        <input asp-for="Area" type="text" class="form-control" placeholder="Area">
+                                                        <span asp-validation-for="Area" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                    Cancelar
+                                </a>
+                                <input id="enviaprogra" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

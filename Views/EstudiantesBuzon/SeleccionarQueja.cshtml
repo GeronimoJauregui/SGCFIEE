@@ -1,0 +1,58 @@
+﻿@model SGCFIEE.Models.CtMovilidades;
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+    var x = (int)ViewData["tipo"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-topline-green">
+                <div class="card-head">
+                    <header>Sugerencias</header>
+                    <div class="tools">
+                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                    </div>
+                </div>
+                <div class="white-box">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="CargarTabla" asp-antiforgery="true">
+                                            <div class="form-group">
+                                                <div class="col-md-3 col-sm-3">
+                                                    <label asp-for="TipoMovilidades">Elija el tipo de sugerencias que desee ver:</label>
+                                                    <select asp-for="TipoMovilidades" id="tipo" class="form-control">
+                                                        <option value="0">Seleccionar...</option>
+                                                        <option value="1">Sugerencias en infrestructura</option>
+                                                        <option value="2">Sugerencias en academicos</option>
+                                                    </select>
+                                                </div>
+                                                <br />
+                                                <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
+                                                    Enviar
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

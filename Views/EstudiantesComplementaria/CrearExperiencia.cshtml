@@ -1,0 +1,89 @@
+﻿@model SGCFIEE.Models.ExperienciaEducativa
+@using SGCFIEE.Models
+@{
+
+
+    ViewData["Title"] = "Crear Experiencia";
+    Layout = "~/Views/Home/Principal.cshtml";
+
+    var y = (IEnumerable<AreaExperienciaEducativa>)ViewData["area"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Información De Experiencias Educativas</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <form asp-action="CrearExperiencia" asp-antiforgery="true">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-head">
+                                            <header>Experiencia Educativa</header>
+                                        </div>
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label asp-for="Nombre">Nombre Experiencia Educativa</label>
+                                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre de experiencia educativa" required="required">
+                                                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="Creditos">Creditos</label>
+                                                        <input asp-for="Creditos" type="number" class="form-control" placeholder="Creditos" required="required">
+                                                        <span asp-validation-for="Creditos" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Area</label>
+                                                        <select asp-for="IdArea" class="form-control" id="areaexp">
+                                                            @foreach (var item in y) {
+                                                                <option value="@item.IdAreaExperienciaEducativa">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="Horas">Horas</label>
+                                                        <input asp-for="Horas" type="number" class="form-control" placeholder="Horas" required="required">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>IES</label>
+                                                        <select class="form-control" id="areaexp">
+                                                                <option value=""> </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                    Cancelar
+                                </a>
+                                <input id="enviaexpe" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

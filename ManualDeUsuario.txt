@@ -1,0 +1,5 @@
+Buenas noches, maestro para crear un usuario de tipo admin, como eso era parte del trabajo que iban a realizar Geronimo y David nos vimos en la necesidad
+de crear un usuario de ese tipo al momento de escribir root en el form de login y dar enter, eso automaticamente genera un usuario con nombre "root2" y 
+contraseña de: "root", apartir de ahi podra ingresar al sistema como admin al sistema, y poder ver la funcionalidad de este apartir de ahi.
+Al igual es importante mencionar que los catalogos deben estar llenos, en la base de datos alojada en el repo esta el diagrama de lo necesario para cada catalogo, espero
+que nos podamos ver el martes para la presentacion, gracias y buenas noches.

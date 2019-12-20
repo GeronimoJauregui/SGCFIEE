@@ -1,0 +1,150 @@
+﻿@model SGCFIEE.Models.AlumnoFinal
+@{
+
+
+    ViewData["Title"] = "Crea Final";
+    Layout = "~/Views/Home/Principal.cshtml";
+
+    var aca = (IEnumerable<Academicos>)ViewData["academicos"];
+    var idalum = ViewData["idalumno"];
+    var empresas = (IEnumerable<CtEmpresaServPrac>)ViewData["empresa"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-topline-green">
+                <div class="card-head">
+                    <header>Estancia Final</header>
+                    <div class="tools">
+                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                    </div>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Agregar Servicio y/o Practicas</a></li>
+                            <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">Agregar Forma de Titulacion</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-head" id="idDatosPersonales">
+                                        <header>Servicio y/o Practicas</header>
+                                    </div>
+                                    <div class="card-body " id="bar-parent2">
+                                        <form asp-action="CrearServicio" asp-antiforgery="true">
+                                            <div class="form-group">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <input id="" type="hidden" asp-for="ralumno" value="@idalum" class="form-control">
+                                                        <label>Seleccione la empresa</label>
+                                                        <select asp-for="rempresa" class="form-control" id="programa">
+                                                            @foreach (var item in empresas)
+                                                            {
+                                                                <option value="@item.IdCtEmpresas">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+                                                        <input id="" type="hidden" value="Guardar" class="form-control">
+                                                        <label asp-for="fechainiserv">Fecha inicio</label>
+                                                        <input asp-for="fechainiserv" type="date" class="form-control" placeholder="Fecha inicio" required="required">
+                                                        <span asp-validation-for="fechainiserv" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input id="" type="hidden" value="Guardar" class="form-control">
+                                                        <label asp-for="fechafinserv">Fecha fin</label>
+                                                        <input asp-for="fechafinserv" type="date" class="form-control" placeholder="Fecha fin" required="required">
+                                                        <span asp-validation-for="fechafinserv" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tipo de estancia</label>
+                                                        <select asp-for="tiposervprac" class="form-control" id="programa">
+                                                            <option value="1">Servicio Social</option>
+                                                            <option value="2">Practicas Profesionales</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                                        </form>
+                                        <a asp-controller="EstudiantesInformacion" asp-action="CrearEmpresa" class="right">
+                                            Si no se muestra la empresa a seleccionar, se peude aguregar desde aqui
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-head" id="idDatosPersonales">
+                                        <header>Formas de Titulacion</header>
+                                    </div>
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="CrearExprecpcional" asp-antiforgery="true">
+                                            <div class="form-group">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <input id="" type="hidden" asp-for="ralumno" value="@idalum" class="form-control">
+                                                        <label asp-for="nombreexpre">Nombre del trabajo</label>
+                                                        <input asp-for="nombreexpre" type="text" class="form-control" placeholder="Titulo">
+                                                        <span asp-validation-for="nombreexpre" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input id="" type="hidden" value="" class="form-control">
+                                                        <label asp-for="fechafinexp">Fecha fin</label>
+                                                        <input asp-for="fechafinexp" type="date" class="form-control" placeholder="Fecha donde culminó">
+                                                        <span asp-validation-for="fechafinexp" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Seleccione su asesor</label>
+                                                        <select asp-for="rasesor" class="form-control" id="programa">
+                                                            @foreach (var item in aca)
+                                                            {
+                                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Tipo de estancia</label>
+                                                        <select asp-for="tiposervprac" class="form-control" id="programa">
+                                                            <option value="1">Tesis</option>
+                                                            <option value="2">Tesina</option>
+                                                            <option value="3">Proyecto practico tecnico</option>
+                                                            <option value="4">Proyecto practico</option>
+                                                            <option value="5">Monografia</option>
+                                                            <option value="6">Examen</option>
+                                                            <option value="7">Promedio</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                                            </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

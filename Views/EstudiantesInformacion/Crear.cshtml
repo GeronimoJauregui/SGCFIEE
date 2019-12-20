@@ -1,0 +1,218 @@
+﻿@model SGCFIEE.Models.Alumnos
+@{
+
+
+    ViewData["Title"] = "Crear";
+    Layout = "~/Views/Home/Principal.cshtml";
+
+    var y = (IEnumerable<ProgramaEducativo>)ViewData["progra"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <form asp-action="Crear" asp-antiforgery="true">
+                            <div class="tab-pane fontawesome-demo active show" id="tab1">
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-head" id="idDatosPersonales">
+                                            <header>Generales</header>
+                                        </div>
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-sm-6">
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Nombre">Nombre</label>
+                                                        <input asp-for="RDatosPersonNavigation.Nombre" type="text" class="form-control" placeholder="Nombre" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Nombre" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.ApellidoPaterno">Apellido Paterno</label>
+                                                        <input asp-for="RDatosPersonNavigation.ApellidoPaterno" type="text" class="form-control" placeholder="Apellido paterno" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.ApellidoPaterno" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.ApellidoMaterno">Apellido Materno</label>
+                                                        <input asp-for="RDatosPersonNavigation.ApellidoMaterno" type="text" class="form-control" placeholder="Apellido materno" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.ApellidoMaterno" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Correo">Correo</label>
+                                                        <input asp-for="RDatosPersonNavigation.Correo" type="email" class="form-control" placeholder="Correo" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Correo" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.FechaNacimiento">Fecha de Nacimiento</label>
+                                                        <input asp-for="RDatosPersonNavigation.FechaNacimiento" type="date" class="form-control" placeholder="Fecha de nacimiento">
+                                                        <span asp-validation-for="RDatosPersonNavigation.FechaNacimiento" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Nacionalidad">Nacionalidad</label>
+                                                        <input asp-for="RDatosPersonNavigation.Nacionalidad" type="text" class="form-control" placeholder="Nacionalidad">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Nacionalidad" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.EstadoCivil">Estado Civil</label>
+                                                        <input asp-for="RDatosPersonNavigation.EstadoCivil" type="text" class="form-control" placeholder="Estado civil">
+                                                        <span asp-validation-for="RDatosPersonNavigation.EstadoCivil" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Género</label>
+                                                        <select asp-for="RDatosPersonNavigation.Genero" class="form-control" id="programa">
+                                                            <option value="1">Hombre </option>
+                                                            <option value="2">Mujer </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Trabaja</label>
+                                                        <select asp-for="RDatosPersonNavigation.Trabaja" class="form-control" id="programa">
+                                                            <option value="1">Si </option>
+                                                            <option value="2">No </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.IngresoMensual">Ingreso mensual aproximado</label>
+                                                        <input asp-for="RDatosPersonNavigation.IngresoMensual" type="number" class="form-control" placeholder="Ingreso mensula aproximado">
+                                                        <span asp-validation-for="RDatosPersonNavigation.IngresoMensual" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Curp">CURP</label>
+                                                        <input asp-for="RDatosPersonNavigation.Curp" type="text" class="form-control" placeholder="Curp" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Curp" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="card-head">
+                                                        <header>Domicilio</header>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Calle">Calle</label>
+                                                        <input asp-for="RDatosPersonNavigation.Calle" type="text" class="form-control" placeholder="Calle">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Calle" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Colonia">Colonia</label>
+                                                        <input asp-for="RDatosPersonNavigation.Colonia" type="text" class="form-control" placeholder="Colonia" reuiqred>
+                                                        <span asp-validation-for="RDatosPersonNavigation.Colonia" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Ciudad">Ciudad</label>
+                                                        <input asp-for="RDatosPersonNavigation.Ciudad" type="text" class="form-control" placeholder="Ciudad" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Ciudad" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Municipio">Municipio</label>
+                                                        <input asp-for="RDatosPersonNavigation.Municipio" type="text" class="form-control" placeholder="Municipio" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Municipio" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Estado">Estado</label>
+                                                        <input asp-for="RDatosPersonNavigation.Estado" type="text" class="form-control" placeholder="Estado" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Estado" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Pais">Pais</label>
+                                                        <input asp-for="RDatosPersonNavigation.Pais" type="text" class="form-control" placeholder="Pais">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Pais" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.CodigoPostal">Código Postal</label>
+                                                        <input asp-for="RDatosPersonNavigation.CodigoPostal" type="number" class="form-control" placeholder="Codigo postal" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.CodigoPostal" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.RecidenciaActual">Residencia Actual</label>
+                                                        <input asp-for="RDatosPersonNavigation.RecidenciaActual" type="text" class="form-control" placeholder="Residencia acual" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.RecidenciaActual" class="text-danger"></span>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label asp-for="RDatosPersonNavigation.Telefono">Teléfono</label>
+                                                        <input asp-for="RDatosPersonNavigation.Telefono" type="number" class="form-control" placeholder="Telefono" required="required">
+                                                        <span asp-validation-for="RDatosPersonNavigation.Telefono" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <br/> <br/>
+                                         <div class="tab-pane" id="tab2">
+                                             <div class="row">
+                                                 <div class="col-md-12 col-sm-12">
+                                                     <div class="card-head">
+                                                         <header>Académicos</header>
+                                                     </div>
+                                                     <div class="card-body " id="bar-parent2">
+                                                         <div class="row">
+                                                             <div class="col-md-6 col-sm-6">
+                                                                 <!-- text input -->
+                                                                 <div class="form-group">
+                                                                     <label asp-for="Matricula">Matrícula</label>
+                                                                     <input asp-for="Matricula" type="text" class="form-control" placeholder="Matricula" required="required">
+                                                                     <span asp-validation-for="Matricula" class="text-danger"></span>
+                                                                 </div>
+                                                                 <div class="form-group">
+                                                                     <label asp-for="CorreoInstitucional">Correo Institucional</label>
+                                                                     <input asp-for="CorreoInstitucional" type="email" class="form-control" placeholder="Correo institucional" required="required">
+                                                                     <span asp-validation-for="CorreoInstitucional" class="text-danger"></span>
+                                                                 </div>
+                                                                 <div class="form-group">
+                                                                     <label asp-for="AnioIngreso">Año de ingreso</label>
+                                                                     <input asp-for="AnioIngreso" type="number" class="form-control" placeholder="Año de ingreso">
+                                                                     <span asp-validation-for="AnioIngreso" class="text-danger"></span>
+                                                                 </div>
+                                                                 <div class="form-group">
+                                                                     <label asp-for="Modalidad">Modalidad</label>
+                                                                     <input asp-for="Modalidad" type="text" class="form-control" placeholder="Modalidad" required="required">
+                                                                     <span asp-validation-for="Modalidad" class="text-danger"></span>
+                                                                 </div>
+                                                             </div>
+                                                             <div class="col-md-6 col-sm-6">
+
+                                                                 <div class="form-group">
+                                                                     <label asp-for="Bachillerato">Bachillerato de Procedencia</label>
+                                                                     <input asp-for="Bachillerato" type="text" class="form-control" placeholder="Bachillerato de procedencia">
+                                                                     <span asp-validation-for="Bachillerato" class="text-danger"></span>
+                                                                 </div>
+                                                                 <div class="form-group">
+
+                                                                     <label>Programa Educativo</label>
+                                                                     <select asp-for="RProgramaEducativo" class="form-control" id="programa">
+                                                                         @foreach (var item in y)
+                                                                         {
+                                                                         <option value="@item.IdProgramaEducativo">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                                         }
+                                                                     </select>
+
+                                                                 </div>
+                                                             </div>
+
+                                                         </div>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                             <a asp-controller="EstudiantesInformacion" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                                 Cancelar
+                                             </a>
+                                             <input id="enviadatosa" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                                         </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
