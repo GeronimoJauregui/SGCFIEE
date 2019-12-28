@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace SGCFIEE.Controllers
 {
-    public class ConsejoTecnicoController : Controller
+    public class AcademicosConsejoTecnicoController : Controller
     {
 
         // GET: /<controller>/

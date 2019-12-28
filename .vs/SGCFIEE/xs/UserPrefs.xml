@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
   <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/ConsejoTecnico/Crear.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Home/Principal.cshtml">
     <Files>
-      <File FileName="Controllers/ConsejoTecnicoController.cs" Line="32" Column="72" />
-      <File FileName="Views/ConsejoTecnico/Crear.cshtml" Line="42" Column="137" />
-      <File FileName="Views/ConsejoTecnico/Index.cshtml" Line="27" Column="31" />
-      <File FileName="Views/ConsejoTecnico/Editar.cshtml" Line="2" Column="1" />
+      <File FileName="Controllers/ConsejoTecnicoController.cs" Line="40" Column="10" />
+      <File FileName="Views/AcademicosConsejoTecnico/Crear.cshtml" Line="43" Column="48" />
+      <File FileName="Views/AcademicosConsejoTecnico/Editar.cshtml" Line="41" Column="72" />
+      <File FileName="Views/AcademicosConsejoTecnico/Index.cshtml" Line="53" Column="76" />
+      <File FileName="Views/Home/Principal.cshtml" Line="176" Column="78" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,10 +15,10 @@
             <Node name="SGCFIEE" expanded="True">
               <Node name="Controllers" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="ConsejoTecnico" expanded="True">
-                  <Node name="Crear.cshtml" selected="True" />
+                <Node name="AcademicosConsejoTecnico" expanded="True" />
+                <Node name="Home" expanded="True">
+                  <Node name="Principal.cshtml" selected="True" />
                 </Node>
-                <Node name="EstudiantesPafis" expanded="True" />
               </Node>
             </Node>
           </Node>

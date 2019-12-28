@@ -394,7 +394,6 @@ C:/Users/abrah/Documents/TrabajoWEBSGCFIEE/SGCFIEE/SGCFIEE/SGCFIEE/obj/Debug/net
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComplementaria/TablaMatPE.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComplementaria/VCarreras.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComplementaria/VistaOpcionesCatalogos.cshtml.g.cs
-/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/ConsejoTecnico/Index.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesBuzon/CrearProblema.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesBuzon/Index.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesBuzon/SeleccionarQueja.cshtml.g.cs
@@ -468,5 +467,6 @@ C:/Users/abrah/Documents/TrabajoWEBSGCFIEE/SGCFIEE/SGCFIEE/SGCFIEE/obj/Debug/net
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/SGCFIEE.dll
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/SGCFIEE.pdb
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/SGCFIEE.csproj.CopyComplete
-/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/ConsejoTecnico/Crear.cshtml.g.cs
-/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/ConsejoTecnico/Editar.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosConsejoTecnico/Crear.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosConsejoTecnico/Editar.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosConsejoTecnico/Index.cshtml.g.cs
