@@ -112,9 +112,9 @@ namespace SGCFIEE.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=localhost;Port=56971;Database=sgcfiee;User=azure;Password=6#vWHD_$;");
-                //optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=1234;");
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                //optionsBuilder.UseMySql("Server=localhost;Port=56971;Database=sgcfiee;User=azure;Password=6#vWHD_$;");
+                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=1234567890;");
             }
         }
 

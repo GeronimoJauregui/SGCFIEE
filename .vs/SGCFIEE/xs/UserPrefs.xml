@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
+  <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/ConsejoTecnico/Crear.cshtml">
+    <Files>
+      <File FileName="Controllers/ConsejoTecnicoController.cs" Line="32" Column="72" />
+      <File FileName="Views/ConsejoTecnico/Crear.cshtml" Line="42" Column="137" />
+      <File FileName="Views/ConsejoTecnico/Index.cshtml" Line="27" Column="31" />
+      <File FileName="Views/ConsejoTecnico/Editar.cshtml" Line="2" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="SGCFIEE" expanded="True">
+            <Node name="SGCFIEE" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="ConsejoTecnico" expanded="True">
+                  <Node name="Crear.cshtml" selected="True" />
+                </Node>
+                <Node name="EstudiantesPafis" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

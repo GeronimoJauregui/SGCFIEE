@@ -54,11 +54,11 @@
                                 @Html.AntiForgeryToken()
                                 <div class="form-group">
                                     <label asp-for="matricula">Usuario</label>
-                                    <input asp-for="matricula" type="text" required="required"/>
+                                    <input asp-for="matricula" type="text" required="required" placeholder="Usuario"/>
                                     <span asp-validation-for="matricula" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="password">Contrasena</label>
+                                    <label asp-for="password">Contraseña</label>
                                     <input asp-for="password" name="password" type="password" placeholder="Contrase&ntilde;a" />
                                     <span asp-validation-for="password" class="text-danger"></span>
                                 </div>

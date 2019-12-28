@@ -21,9 +21,9 @@
                 <div class="row p-b-20">
                     <div class="col-md-6 col-sm-6 col-6">
                         <div class="btn-group">
-                            <button id="agregar" type="button" class="btn btn-success btn-sm m-b-10">
-                                Agregar <i class="fa fa-plus"></i>
-                            </button>
+                            <a asp-controller="ConsejoTecnico" asp-action="Crear" class="btn btn-success btn-sm m-b-10">
+                                Agregar
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -50,9 +50,9 @@
                                 </button>
                             </td>
                             <td class="center">
-                                <button class="btn btn-primary btn-xs modificar">
+                                <a asp-controller="ConsejoTecnico" asp-action="Editar" class="btn btn-primary btn-xs modificar">
                                     <i class="fa fa-pencil"></i>
-                                </button>
+                                </a>
                                 <button class="btn btn-danger btn-xs eliminar">
                                     <i class="fa fa-trash-o "></i>
                                 </button>

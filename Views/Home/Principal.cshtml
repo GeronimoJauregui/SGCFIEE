@@ -181,50 +181,50 @@
                             }
                             @if(x != 2){
                             
-                            <li class="nav-item start ">
-                                <a href="#" class="nav-link nav-toggle">
-                                    <i class="material-icons">dashboard</i>
-                                    <span class="title">Estudiantes</span>
-                                    <span class="arrow"></span>
-                                </a>
-                                <ul class="sub-menu">
-                                    <li class="nav-item ">
-                                        <a asp-controller="EstudiantesInformacion" asp-action="Index" class="nav-link ">
-                                            <span class="title">Información General</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a asp-controller="EstudiantesPafis" asp-action="Index" class="nav-link ">
-                                            <span class="title">PAFIs</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item ">
-                                        <a asp-controller="EstudiantesMovilidad" asp-action="EleccionMovilidades" id="movilidad" class="nav-link ">
-                                            <span class="title">Movilidad</span>
-                                        </a>
-                                    </li>
-                                    @if (x == 3)
-                                    {
-                                        <li class="nav-item">
-                                            <a asp-controller="EstudiantesEventos" asp-action="Index" class="nav-link ">
-                                                <span class="title">Registro de Eventos</span>
+                                <li class="nav-item start ">
+                                    <a href="#" class="nav-link nav-toggle">
+                                        <i class="material-icons">dashboard</i>
+                                        <span class="title">Estudiantes</span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="sub-menu">
+                                        <li class="nav-item ">
+                                            <a asp-controller="EstudiantesInformacion" asp-action="Index" class="nav-link ">
+                                                <span class="title">Información General</span>
                                             </a>
                                         </li>
                                         <li class="nav-item ">
-                                            <a asp-controller="EstudiantesExamen" asp-action="Index" class="nav-link ">
-                                                <span class="title">Registro de Exámenes</span>
+                                            <a asp-controller="EstudiantesPafis" asp-action="Index" class="nav-link ">
+                                                <span class="title">PAFIs</span>
                                             </a>
                                         </li>
-                                    }
-                                    <li class="nav-item ">
-                                        <a asp-controller="EstudiantesBuzon" asp-action="Index" class="nav-link ">
-                                            <span class="title">Buzón de Sugerencias</span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                        <li class="nav-item ">
+                                            <a asp-controller="EstudiantesMovilidad" asp-action="EleccionMovilidades" id="movilidad" class="nav-link ">
+                                                <span class="title">Movilidad</span>
+                                            </a>
+                                        </li>
+                                        @if (x == 3)
+                                        {
+                                            <li class="nav-item">
+                                                <a asp-controller="EstudiantesEventos" asp-action="Index" class="nav-link ">
+                                                    <span class="title">Registro de Eventos</span>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item ">
+                                                <a asp-controller="EstudiantesExamen" asp-action="Index" class="nav-link ">
+                                                    <span class="title">Registro de Exámenes</span>
+                                                </a>
+                                            </li>
+                                        }
+                                        <li class="nav-item ">
+                                            <a asp-controller="EstudiantesBuzon" asp-action="Index" class="nav-link ">
+                                                <span class="title">Buzón de Sugerencias</span>
+                                            </a>
+                                        </li>
+                                    </ul>
 
-                            </li>
-                            }
+                                </li>
+                             }
                             @if(x==1){
                             <li class="nav-item start ">
                                 <a href="#" class="nav-link nav-toggle">
