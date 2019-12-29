@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#proyectosE").DataTable();
+    });
+</script>
+
+<!DOCTYPE html>
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>PUBLICACIONES</header>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active" data-toggle="tab">Artículos</a></li>
+                            <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">Congresos</a></li>
+                            <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">Revistas</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Reportes técnicos</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Libros</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Capítulos de libros</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Patentes</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Direcciones de trabajos recepcionales</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Concursos</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active fontawesome-demo" id="tab1">
+                            <div id="Artículos">
+                               
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2">            
+                            <div id="Congresos">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">            
+                           <div id="Revistas">
+                               
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Reportes_técnicos">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Libros">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Capítulos_libros">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Patentes">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Direcciones_trabajos_recepcionales">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Concursos">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</html>
+
+<script src="~/assets/js/pages/table/table_data.js"></script>

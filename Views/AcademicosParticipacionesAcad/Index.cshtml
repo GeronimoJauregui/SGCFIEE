@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#proyectosE").DataTable();
+    });
+</script>
+
+<!DOCTYPE html>
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>PARTICIPACIONES ACADÉMICAS</header>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active" data-toggle="tab">Participación en cuerpos académicos</a></li>
+                            <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">Ponencias</a></li>
+                            <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">Conferencias</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Cursos o Talleres</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Albitraje de productos académicos</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Revisor</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Evaluador</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active fontawesome-demo" id="tab1">
+                            <div id="Participación_cuerpos_académicos">
+                               
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2">            
+                            <div id="Ponencias">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">            
+                           <div id="Conferencias">
+                               
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Cursos_Talleres">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Albitraje_productos_académicos">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Revisor">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Evaluador">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</html>
+
+<script src="~/assets/js/pages/table/table_data.js"></script>

@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#proyectosE").DataTable();
+    });
+</script>
+
+<!DOCTYPE html>
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>COMISIONES</header>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item center"><a href="#tab1" class="nav-link active" data-toggle="tab">Jurado de<br>Ex. Oposición</a></li>
+                            <li class="nav-item center"><a href="#tab2" class="nav-link" data-toggle="tab">Jurado de experiencia<br>recepcional</a></li>
+                            <li class="nav-item center"><a href="#tab3" class="nav-link" data-toggle="tab">Prejurado de experiencia<br>recepcional </a></li>
+                            <li class="nav-item center"><a href="#tab4" class="nav-link" data-toggle="tab">Participación en el<br>PLADEA </a></li>
+                            <li class="nav-item center"><a href="#tab4" class="nav-link" data-toggle="tab">Participación activa en el rediseño o actualización<br>del plan de estudios</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active fontawesome-demo" id="tab1">
+                            <div id="Jurado_Oposición">
+                               
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2">            
+                            <div id="Jurado_experiencia">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">            
+                           <div id="Prejurado_experiencia">
+                               
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Participación_PLADEA">
+                                
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="Participación_rediseño">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</html>
+
+<script src="~/assets/js/pages/table/table_data.js"></script>
