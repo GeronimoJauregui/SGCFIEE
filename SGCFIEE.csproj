@@ -37,6 +37,10 @@
 
   <ItemGroup>
     <Folder Include="Views\AcademicosConsejoTecnico\" />
+    <Folder Include="Views\AcademicosCoordinadores\" />
+    <Folder Include="Views\AcademicosInstructorEduContinua\" />
+    <Folder Include="Views\AcademicosProduccion\" />
+    <Folder Include="Views\AcademicosEvaluaciones\" />
   </ItemGroup>
 
 </Project>

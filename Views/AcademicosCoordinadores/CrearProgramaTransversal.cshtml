@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "CrearProgramaTransversal";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>COORDINADOR DE PROGRAMA TRANSVERSAL</header>        
+                </div>
+                <div class="card-body " id="bar-parent2">
+                <form enctype='multipart/form-data' method="POST" onsubmit="return validacion_datosProgramaT()" action="Academicos_Coordinadores" name="formtransversal">
+                <input type="text" name="ACCION" id="ACCION" value="Guardar_ProgramaT" hidden="true">
+                <input type="text" name="OPCION" id="OPCION" value="1" hidden="true">
+                <div class="row">
+                    <div class="col-md-6 col-md-6">
+
+                        <div class="form-group">
+                            <label>Académico</label>
+                            <select id="academico" name="id_academico" class="form-control">
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Programa transversal</label>
+                            <select id="programa_transversal" name="id_programa_transversal" class="form-control">
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-6">
+                        <div class="form-group">
+                            <label>Periodo de inicio</label>
+                            <select id="periodoinicio" name="id_periodo_inicio" class="form-control">
+                                    <option></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Periodo de termino </label>
+                            <select id="periodocierre" name="id_periodo_cierre" class="form-control">
+                                    <option></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Archivo de evidencia:</label><br>
+                            <input type="file" id="archivoT" name="Archivo" class="default">
+                        </div>
+                        <br>
+                        <input id="guardarprograma" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                         <a asp-controller="AcademicosCoordinadores" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                            Cancelar
+                         </a>
+                    </div>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
+</html>

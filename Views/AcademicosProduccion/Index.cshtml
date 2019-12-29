@@ -1,0 +1,273 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#proyectosE").DataTable();
+    });
+</script>
+
+<!DOCTYPE html>
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>PRODUCCIÓN</header>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active" data-toggle="tab">Material didactico</a></li>
+                            <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">Manuales de practica</a></li>
+                            <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">Libros para una EE</a></li>
+                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Proyecto educativo innovador</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active fontawesome-demo" id="tab1">
+                            <div id="tabla_MDidacticos">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosProduccion" asp-action="CrearMaterialDidactico" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example3">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center" style="width: 100px;"> Número de personal </th>
+                                                            <th class="center"> Nombre de académico</th>
+                                                            <th class="center"> Notas de clase </th>
+                                                            <th class="center"> Acetatos </th>
+                                                            <th class="center"> Videos </th>
+                                                            <th class="center"> Programas </th>
+                                                            <th class="center"> Prototipos </th>
+                                                            <th class="center"> Periodo </th>
+                                                            <th class="center"> Evidencia </th>
+                                                            <th class="center"> Acción </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX" id="${listado_materialD.id_material_didactico}">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                
+                                                            </td>
+                                                            <td class="center"> 
+                                                                
+                                                            </td>
+                                                            <td class="center"> 
+                                                                
+                                                            </td>
+                                                            <td class="center">
+                                                                
+                                                            </td>
+                                                            <td class="center"> 
+                                                                
+                                                            </td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosProduccion" asp-action="EditarMaterialDidactico" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <a asp-controller="AcademicosProduccion" asp-action="EliminarMaterialDidactico" class="btn btn-danger btn-xs">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2">            
+                            <div id="tabla_MPracticas">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosProduccion" asp-action="CrearMPractica" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example4">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center" style="width: 100px;"> Número de personal </th>
+                                                            <th class="center"> Nombre del académico</th>
+                                                            <th class="center"> Nombre del manual de practica </th>
+                                                            <th class="center"> Periodo </th>
+                                                            <th class="center"> Evidencia </th>
+                                                            <th class="center"> Acción </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                            <tr class="odd gradeX" id="${listado_manualesP.id_manuales_practica}">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td class="center">
+                                                                    <button class="btn btn-primary btn-xs">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td class="center">
+                                                                    <a asp-controller="AcademicosProduccion" asp-action="EditarMPractica" class="btn btn-primary btn-xs">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                    <a asp-controller="AcademicosProduccion" asp-action="EliminarMPractica" class="btn btn-danger btn-xs">
+                                                                        <i class="fa fa-trash-o "></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">            
+                           <div id="tabla_LibrosEE">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosProduccion" asp-action="CrearLibroEE" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center" style="width: 100px;"> Número de personal </th>
+                                                            <th class="center"> Nombre del académico</th>
+                                                            <th class="center"> Nombre del libro para una EE </th>
+                                                            <th class="center"> Periodo </th>
+                                                            <th class="center"> Evidencia </th>
+                                                            <th class="center"> Acción </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX" id="${listado_libroee.id_libroEE}">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosProduccion" asp-action="EditarLibroEE" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <a asp-controller="AcademicosProduccion" asp-action="EliminarLibroEE" class="btn btn-danger btn-xs">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">            
+                            <div id="tabla_ProyectosE">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosProduccion" asp-action="CrearProyectosE" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="proyectosE">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal </th>
+                                                            <th class="center"> Nombre del académico</th>
+                                                            <th class="center"> Descripción </th>
+                                                            <th class="center"> Periodo </th>
+                                                            <th class="center"> Evidencia </th>
+                                                            <th class="center"> Acción </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX" id="${listado_proyectoEdu.id_proyecto_edu}">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center"></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosProduccion" asp-action="EditarProyectosE" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <a asp-controller="AcademicosProduccion" asp-action="EditarProyectosE" class="btn btn-danger btn-xs">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</html>
+
+<script src="~/assets/js/pages/table/table_data.js"></script>

@@ -1,12 +1,8 @@
 ﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
   <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/Home/Principal.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/AcademicosEvaluaciones/EditarEvalTutor.cshtml">
     <Files>
-      <File FileName="Controllers/ConsejoTecnicoController.cs" Line="40" Column="10" />
-      <File FileName="Views/AcademicosConsejoTecnico/Crear.cshtml" Line="43" Column="48" />
-      <File FileName="Views/AcademicosConsejoTecnico/Editar.cshtml" Line="41" Column="72" />
-      <File FileName="Views/AcademicosConsejoTecnico/Index.cshtml" Line="53" Column="76" />
-      <File FileName="Views/Home/Principal.cshtml" Line="176" Column="78" />
+      <File FileName="Views/AcademicosEvaluaciones/EditarEvalTutor.cshtml" Line="27" Column="49" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,9 +11,8 @@
             <Node name="SGCFIEE" expanded="True">
               <Node name="Controllers" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="AcademicosConsejoTecnico" expanded="True" />
-                <Node name="Home" expanded="True">
-                  <Node name="Principal.cshtml" selected="True" />
+                <Node name="AcademicosEvaluaciones" expanded="True">
+                  <Node name="EditarEvalTutor.cshtml" selected="True" />
                 </Node>
               </Node>
             </Node>

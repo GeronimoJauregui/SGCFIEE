@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "EditarLibroEE";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>LIBRO PARA UNA EE</header>        
+                </div>
+                <div class="card-body " id="bar-parent2">
+                    <div class="row">
+                        <div class="col-md-6 col-md-6">
+                            <div class="form-group">
+                                <label>Académico</label>
+                                <select id="academicos" class="form-control">
+                                        <option></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Periodo</label>
+                                <select id="periodo" class="form-control">
+                                        <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-6">  
+                            <div class="form-group">
+                                <label>Nombre del libro para una EE</label>
+                                <input id="nombre" type="text" placeholder="Ingresar..." class="form-control" value="">
+                            </div>
+                            <div class="form-group">
+                                <label>Subir evidencia:</label><br>
+                                <input type="file" class="default" id="archivo" name="Archivo">
+                            </div>
+                            <br>
+                            <input id="actualizarLibroEE" type="button" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <a asp-controller="AcademicosProduccion" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                            Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
