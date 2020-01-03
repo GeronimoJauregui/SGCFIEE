@@ -25,58 +25,517 @@
                             <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">Congresos</a></li>
                             <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">Revistas</a></li>
                             <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Reportes técnicos</a></li>
-                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Libros</a></li>
-                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Capítulos de libros</a></li>
-                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Patentes</a></li>
-                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Direcciones de trabajos recepcionales</a></li>
-                            <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Concursos</a></li>
+                            <li class="nav-item"><a href="#tab5" class="nav-link" data-toggle="tab">Libros</a></li>
+                            <li class="nav-item"><a href="#tab6" class="nav-link" data-toggle="tab">Capítulos de libros</a></li>
+                            <li class="nav-item"><a href="#tab7" class="nav-link" data-toggle="tab">Patentes</a></li>
+                            <li class="nav-item"><a href="#tab8" class="nav-link" data-toggle="tab">Direcciones de trabajos recepcionales</a></li>
+                            <li class="nav-item"><a href="#tab9" class="nav-link" data-toggle="tab">Concursos</a></li>
                         </ul>
                     </div>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane active fontawesome-demo" id="tab1">
                             <div id="Artículos">
-                               
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearArticulos" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="example4" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Nacional<br>o<br>Internacional</th>
+                                                            <th class="center"> Registro</th>
+                                                            <th class="center"> Arbitrada</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosPublicaciones" asp-action="EditarArticulos" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab2">            
                             <div id="Congresos">
-                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearCongresos" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="example4" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Nacional<br>o<br>Internacional</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosPublicaciones" asp-action="EditarCongresos" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab3">            
                            <div id="Revistas">
-                               
+                               <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearRevistas" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="example4" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Nacional<br>o<br>Internacional</th>
+                                                            <th class="center"> Registro</th>
+                                                            <th class="center"> Arbitrada</th>
+                                                            <th class="center"> ISSN</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosPublicaciones" asp-action="EditarRevistas" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab4">            
                             <div id="Reportes_técnicos">
-                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearReportes" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="example4" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Empresa<br>o<br>Sector beneficiado</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosPublicaciones" asp-action="EditarReportes" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab4">            
+                        <div class="tab-pane" id="tab5">            
                             <div id="Libros">
-                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearLibros" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="example4" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Título de la obra</th>
+                                                            <th class="center"> Editorial</th>
+                                                            <th class="center"> ISBN</th>
+                                                            <th class="center"> Año</th>
+                                                            <th class="center"> Tiraje</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosPublicaciones" asp-action="EditarLibros" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab4">            
+                        <div class="tab-pane" id="tab6">            
                             <div id="Capítulos_libros">
-                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearCapitulosLibros" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="example4" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Titulo del capítulo</th>
+                                                            <th class="center"> Editorial</th>
+                                                            <th class="center"> ISBN</th>
+                                                            <th class="center"> Año</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosPublicaciones" asp-action="EditarCapitulosLibros" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab4">            
+                        <div class="tab-pane" id="tab7">            
                             <div id="Patentes">
-                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearPatentes" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="example4" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Nacional<br>o<br>Internacional</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosPublicaciones" asp-action="EditarPatentes" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab4">            
+                        <div class="tab-pane" id="tab8">            
                             <div id="Direcciones_trabajos_recepcionales">
-                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearTrabajosRecep" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="example4" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Modalidad</th>
+                                                            <th class="center"> Nombre del trabajo</th>
+                                                            <th class="center"> Nombre del alumno</th>
+                                                            <th class="center"> Academia que revisó</th>
+                                                            <th class="center"> Fecha</th>
+                                                            <th class="center"> Número de CT</th>
+                                                            <th class="center"> Estatus</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosPublicaciones" asp-action="EditarTrabajosRecep" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab4">            
+                        <div class="tab-pane" id="tab9">            
                             <div id="Concursos">
-                                
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearConcursos" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="example4" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Nacional<br>o<br>Internacional</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr class="odd gradeX">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td class="center">
+                                                                <button class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-download"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td class="center">
+                                                                <a asp-controller="AcademicosPublicaciones" asp-action="EditarConcursos" class="btn btn-primary btn-xs">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

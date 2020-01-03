@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "CrearMaterialDidactico";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>DIRECCIONES DE TRABAJOS RECEPCIONALES</header>        
+                </div>
+                <div class="card-body " id="bar-parent2">
+                    <form enctype='multipart/form-data' method="POST" onsubmit="return validacion_datosMaterial()" action="Academicos_Produccion" name="fileMDidactico">
+                    <input type="text" name="ACCION" id="ACCION" value="Guardar_Material" hidden="true">
+                    <div class="row">
+                        <div class="col-md-6 col-md-6">
+
+                            <div class="form-group">
+                                <label>Académico</label>
+                                <select id="academicos" class="form-control" name="id_academico">
+                                        <option></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Modalidad</label>
+                                <select id="modalidad" class="form-control" name="id_academico">
+                                        <option></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del trabajo</label>
+                                <input id="trabajo" type="text" class="form-control" placeholder="Ingresar...">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del alumno</label>
+                                <input id="alumno" type="text" class="form-control" placeholder="Ingresar...">
+                            </div>
+                            <div class="form-group">
+                                <label>Academia que revisó</label>
+                                <select id="academia" class="form-control" name="id_academico">
+                                        <option></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-6">
+                            <div class="form-group">
+                                <label>Fecha en que revisó</label>
+                                <input id="fecha" type="date" class="form-control" placeholder="Ingresar...">
+                            </div>
+                            <div class="form-group">
+                                <label>Numero de CT</label>
+                                <input id="ct" type="number" class="form-control" placeholder="Ingresar...">
+                            </div>
+                            <div class="form-group">
+                                Estatus:
+                                <div class="radio p-0">
+                                    <input type="radio" name="notas" id="optionsRadios1" value="1">
+                                    <label for="optionsRadios1">
+                                        En proceso
+                                    </label>
+                                </div>
+                                <div class="radio p-0">
+                                    <input type="radio" name="notas" id="optionsRadios2" value="0" >
+                                    <label for="optionsRadios2">
+                                        Con fecha de presentación
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de presentación</label>
+                                <input id="fecha" type="date" class="form-control" placeholder="Ingresar...">
+                            </div>
+                            <div class="form-group">
+                                <label>Evidencia:</label><br>
+                                <input type="file" class="default" id="archivo" name="Archivo">
+                            </div>
+                            <br>
+                            <input id="guardarMaterial" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <a asp-controller="AcademicosPublicaciones" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                            Cancelar
+                            </a>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
