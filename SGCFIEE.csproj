@@ -15,6 +15,8 @@
     <None Remove="Views\Estudiantes\**" />
     <None Remove="Views\NewFolder1\**" />
     <Content Remove="Views\ConsejoTecnico\Crear.cshtml" />
+    <Content Remove="Views\AcademicosPublicaciones\CrearArticulos.cshtml" />
+    <Content Remove="Views\AcademicosPublicaciones\CrearPatentes.cshtml" />
   </ItemGroup>
 
 

@@ -22,6 +22,66 @@ namespace SGCFIEE.Controllers
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
         }
+        [Authorize]
+        public IActionResult CrearJurOposicion()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult EditarJurOposicion()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult CrearJurExperiencia()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult EditarJurExperiencia()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult CrearPreJurExperiencia()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult EditarPreJurExperiencia()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult CrearPLADEA()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult EditarPLADEA()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult CrearPartRedisenio()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult EditarPartRedisenio()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

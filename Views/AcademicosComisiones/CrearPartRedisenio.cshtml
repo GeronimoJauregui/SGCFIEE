@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "CrearCapitulosLibros";
+    ViewData["Title"] = "CrearPartRedisenio";
     Layout = "~/Views/Home/Principal.cshtml";
 }
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
         <div class="col-md-12 col-sm-12">
             <div class="card card-box">
                 <div class="card-topline-green card-head">
-                    <header>CAPÍTULO DEL LIBRO</header>        
+                    <header>PARTICIPACIÓN ACTIVA EN EL REDISEÑO O ACTUALIZACIÓN DEL PLAN DE ESTUDIOS</header>        
                 </div>
                 <div class="card-body " id="bar-parent2">
                     <form enctype='multipart/form-data' method="POST" onsubmit="return validacion_datosMaterial()" action="Academicos_Produccion" name="fileMDidactico">
@@ -24,22 +24,22 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Titulo del capítulo</label>
-                                <input id="titulo" type="text" class="form-control" placeholder="Ingresar...">
+                                <label>Área académica</label>
+                                <input id="comision" type="text" class="form-control" placeholder="Ingresar...">
                             </div>
                             <div class="form-group">
-                                <label>Editorial</label>
-                                <input id="editorial" type="text" class="form-control" placeholder="Ingresar...">
+                                <label>Entidad académica</label>
+                                <input id="meta" type="text" class="form-control" placeholder="Ingresar...">
                             </div>
                         </div>
                         <div class="col-md-6 col-md-6">
                             <div class="form-group">
-                                <label>ISBN</label>
-                                <input id="isbn" type="text" class="form-control" placeholder="Ingresar...">
+                                <label>Programa educativo</label>
+                                <input id="accion" type="text" class="form-control" placeholder="Ingresar...">
                             </div>
                             <div class="form-group">
-                                <label>Año</label>
-                                <input id="anio" type="number" class="form-control" placeholder="Ingresar...">
+                                <label>Tipo de participación</label>
+                                <input id="fecha" type="text" class="form-control" placeholder="Ingresar...">
                             </div>
                             <div class="form-group">
                                 <label>Evidencia:</label><br>
@@ -47,7 +47,7 @@
                             </div>
                             <br>
                             <input id="guardarMaterial" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosPublicaciones" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                            <a asp-controller="AcademicosComisiones" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
                             Cancelar
                             </a>
                         </div>
