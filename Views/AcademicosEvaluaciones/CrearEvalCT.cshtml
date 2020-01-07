@@ -1,6 +1,9 @@
-﻿@{
+﻿@model SGCFIEE.Models.EvaluacionConsejoTecnico;
+@{
     ViewData["Title"] = "CrearEvalCT";
     Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
 }
 <!DOCTYPE html>
 
@@ -12,38 +15,47 @@
                     <header>EVALUACIÓN DEL CONSEJO TECNICO</header>        
                 </div>
                 <div class="card-body " id="bar-parent2">
-                    <div class="row">
-                        <div class="col-md-6 col-md-6">
-
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select id="academico" class="form-control">
-                                        <option></option>
-                                </select>
+                    <form asp-action="GuardarEvalCT" asp-antiforgery="true">
+                        <div class="row">
+                            <div class="col-md-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad){
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Periodo</label>
+                                    <select asp-for="IdPeriodo" class="form-control">
+                                        @foreach (var item in perio){
+                                            <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Periodo</label>
-                                <select id="periodo" class="form-control">
-                                        <option></option>
-                                </select>
+                            <div class="col-md-6 col-md-6">                       
+                                <div class="form-group">
+                                    <label>Calificación del desempeño</label>
+                                    <input asp-for="CalificacionDesempenio" type="number" class="form-control" min="0" max="100" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="CalificacionDesempenio" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Calificación de gestión</label>
+                                    <input asp-for="CalificacionGestion" type="number" class="form-control" min="0" max="100" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="CalificacionGestion" class="text-danger"></span>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                    Guardar
+                                </button>
+                                <a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalCT" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                    Cancelar
+                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-md-6">                       
-                            <div class="form-group">
-                                <label>Calificación del desempeño</label>
-                                <input id="calificacion1" type="number" class="form-control" min="0" max="100" placeholder="Ingresar...">
-                            </div>
-                            <div class="form-group">
-                                <label>Calificación de gestión</label>
-                                <input id="calificacion2" type="number" class="form-control"  min="0" max="100" placeholder="Ingresar...">
-                            </div>
-                            <br>
-                            <input id="guardarEvaCT" type="button" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosEvaluaciones" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
-                                Cancelar
-                             </a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

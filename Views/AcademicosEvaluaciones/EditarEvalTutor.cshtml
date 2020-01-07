@@ -1,47 +1,76 @@
-﻿@{
-    ViewData["Title"] = "EditarEvalTutor";
-    Layout = "~/Views/Home/Principal.cshtml";
-}
-<!DOCTYPE html>
+﻿    @model SGCFIEE.Models.TbCalificacionTutor;
+    @{
+        ViewData["Title"] = "EditarEvalTutor";
+        Layout = "~/Views/Home/Principal.cshtml";
+        var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+        var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+    }
 
-<html>
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <div class="card card-box">
-                <div class="card-topline-green card-head">
-                    <header>EVALUACIÓN DEL TUTORADO</header>        
-                </div>
-                <div class="card-body " id="bar-parent2">
-                    <div class="row">
-                        <div class="col-md-6 col-md-6">
+    <!DOCTYPE html>
 
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select id="academico" class="form-control">
-                                        <option></option>
-                                </select>
+    <html>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="card card-box">
+                    <div class="card-topline-green card-head">
+                        <header>EVALUACIÓN DEL TUTORADO</header>        
+                    </div>
+                    <div class="card-body " id="bar-parent2">
+                        <form asp-action="ActualizarEvalTutor" asp-antiforgery="true">
+                            <div class="row">
+                                <input type="hidden" asp-for="IdTbCalificacionTutor"/>
+                                <div class="col-md-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Académico</label>
+                                        <select asp-for="RAcademicos" class="form-control">
+                                            @foreach (var item in acad)
+                                            {
+                                                @if (item.IdAcademicos != Model.RAcademicos)
+                                                {
+                                                    <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                                }
+                                                else
+                                                {
+                                                    <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Periodo</label>
+                                        <select asp-for="RPeriodo" class="form-control">
+                                           @foreach (var item in perio)
+                                           {
+                                                @if (item.IdPeriodo != Model.RPeriodo)
+                                                {
+                                                    <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                }
+                                                else
+                                                {
+                                                    <option selected value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                }
+                                           }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-md-6">                       
+                                    <div class="form-group">
+                                        <label>Calificación</label>
+                                        <input asp-for="Calificacion" type="number" placeholder="Ingresar..." min="0" max="100" class="form-control" required="required" value=@Model.Calificacion>
+                                        <span asp-validation-for="Calificacion" class="text-danger"></span>
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                        Guardar
+                                    </button>
+                                    <a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalTutor" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                        Cancelar
+                                     </a>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Periodo</label>
-                                <select id="periodo" class="form-control">
-                                        <option></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-md-6">                       
-                            <div class="form-group">
-                                <label>Calificación</label>
-                                <input id="calificacion" type="number" placeholder="Ingresar..." min="0" max="100" class="form-control" value="">
-                            </div>
-                            <br>
-                            <input id="actualizarEvaTutor" type="button" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosEvaluaciones" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
-                                Cancelar
-                             </a>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</html>
+    </html>

@@ -4,6 +4,7 @@ $(document).ready(function () {
     $("#evaluacionCT").DataTable();
     $("#evaluacionEstud").DataTable();
     $("#evaluacionTutor").DataTable();
+    $("#tabla_califEE").DataTable();
     /*Módulo Producción*/
     $("#MDidactico").DataTable();
     $("#MPractica").DataTable();

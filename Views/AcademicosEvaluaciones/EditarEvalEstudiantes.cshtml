@@ -1,6 +1,9 @@
-﻿@{
+﻿@model SGCFIEE.Models.EvaluacionEstudiantes;
+@{
     ViewData["Title"] = "EditarEvalEstudiantes";
     Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
 }
 <!DOCTYPE html>
 
@@ -12,33 +15,59 @@
                     <header>EVALUACIÓN DE ESTUDIANTES</header>        
                 </div>
                 <div class="card-body " id="bar-parent2">
-                    <div class="row">
-                        <div class="col-md-6 col-md-6">
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select id="academico1" class="form-control">
-                                        <option></option>
-                                </select>
+                    <form asp-action="ActualizarEvalEstudiantes" asp-antiforgery="true">
+                        <div class="row">
+                            <input type="hidden" asp-for="IdEvaluacionEstudiantes"/>
+                            <div class="col-md-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            @if (item.IdAcademicos != Model.IdAcademico)
+                                            {
+                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                            }
+                                            else
+                                            {
+                                                <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Periodo</label>
+                                    <select asp-for="IdPeriodo" class="form-control">
+                                        @foreach (var item in perio)
+                                        {
+                                            @if (item.IdPeriodo != Model.IdPeriodo)
+                                            {
+                                                <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            }
+                                            else
+                                            {
+                                                <option selected value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Periodo</label>
-                                <select id="periodo1" class="form-control">
-                                        <option></option>
-                                </select>
+                            <div class="col-md-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Calificación</label>
+                                    <input asp-for="Calificacion" type="number" placeholder="Ingresar..." min="0" max="100" class="form-control" required="required" value=@Model.Calificacion>
+                                    <span asp-validation-for="Calificacion" class="text-danger"></span>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                    Guardar
+                                </button>
+                                <a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalEstudiantes" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                    Cancelar
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-md-6">
-                            <div class="form-group">
-                                <label>Calificación</label>
-                                <input id="calificacion1" type="number" placeholder="Ingresar..." min="0" max="100" class="form-control" value="">
-                            </div>
-                            <br>
-                            <input id="actualizarEvaEstu" type="button" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosEvaluaciones" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
-                                Cancelar
-                             </a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

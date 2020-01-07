@@ -152,7 +152,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item ">
-                                            <a asp-controller="AcademicosEvaluaciones" asp-action="Index" class="nav-link ">
+                                            <a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalEstudiantes" class="nav-link ">
                                                 <span class="title">Evaluaciones</span>
                                             </a>
                                         </li>
@@ -356,6 +356,7 @@
     <script type="text/javascript" src="~/assets/js/pages/html2canvas.js"></script>
      <!--academicos-->
     <script type="text/javascript" src="~/assets/js/pages/academicos/datatable.js"></script>
+    <script type="text/javascript" src="~/assets/js/pages/academicos/eliminardato.js"></script>
     <script>
         $(document).ready(function () {
             $('#tablaPDF').on('click', function () {
@@ -385,7 +386,7 @@
                         confirmButtonColor: "#DD6B55",
                         confirmButtonText: "Confirmar",
                         closeOnConfirm: false
-                    }, function () {                            
+                    }, function () {
                             $.get('' + controlador + '/' + accion, { id: value }).then(function () {
                                 $.get('' + controlador + '/' + 'Index').then(function () {
                                     var newDoc = document.open("text/html", "replace");
