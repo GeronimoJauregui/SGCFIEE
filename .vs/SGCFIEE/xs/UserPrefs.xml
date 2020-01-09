@@ -1,10 +1,6 @@
 ﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
   <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="wwwroot/assets/js/pages/academicos/datatable.js">
-    <Files>
-      <File FileName="Views/AcademicosEvaluaciones/DatosEvalEstudiantes.cshtml" Line="66" Column="1" />
-      <File FileName="wwwroot/assets/js/pages/academicos/datatable.js" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
@@ -13,19 +9,10 @@
               <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="AcademicosEvaluaciones" expanded="True" />
-                <Node name="EstudiantesInformacion" expanded="True" />
-              </Node>
-              <Node name="wwwroot" expanded="True">
-                <Node name="assets" expanded="True">
-                  <Node name="js" expanded="True">
-                    <Node name="pages" expanded="True">
-                      <Node name="academicos" expanded="True">
-                        <Node name="datatable.js" selected="True" />
-                      </Node>
-                    </Node>
-                  </Node>
+                <Node name="AcademicosEvaluaciones" expanded="True">
+                  <Node name="EditarEvalTutor.cshtml" selected="True" />
                 </Node>
+                <Node name="AcademicosInstructorEduContinua" expanded="True" />
               </Node>
             </Node>
           </Node>

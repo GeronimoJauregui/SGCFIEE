@@ -25,19 +25,19 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListCalifEstudiantes = (from calif in context.EvaluacionEstudiantes
-                               join acad in context.Academicos on calif.IdAcademico equals acad.IdAcademicos
-                               join perio in context.TipoPeriodo on calif.IdPeriodo equals perio.IdPeriodo
-                               select new TablaCalifEstudiantes
-                               {
-                                   IdCalifEstudiantes = calif.IdEvaluacionEstudiantes,
-                                   NumPersonal = acad.NumeroPersonal,
-                                   Nombre = acad.Nombre,
-                                   ApellidoPaterno = acad.ApellidoPaterno,
-                                   ApellidoMaterno = acad.ApellidoMaterno,
-                                   Calificacion = calif.Calificacion,
-                                   Periodo = perio.Nombre,
-                                   Status = acad.Status
-                               }
+                                        join acad in context.Academicos on calif.IdAcademico equals acad.IdAcademicos
+                                        join perio in context.TipoPeriodo on calif.IdPeriodo equals perio.IdPeriodo
+                                        select new TablaCalifEstudiantes
+                                        {
+                                            IdCalifEstudiantes = calif.IdEvaluacionEstudiantes,
+                                            NumPersonal = acad.NumeroPersonal,
+                                            Nombre = acad.Nombre,
+                                            ApellidoPaterno = acad.ApellidoPaterno,
+                                            ApellidoMaterno = acad.ApellidoMaterno,
+                                            Calificacion = calif.Calificacion,
+                                            Periodo = perio.Nombre,
+                                            Status = acad.Status
+                                        }
                                ).Where(calif => calif.Status == 1).ToList();
             }
             return View(ListCalifEstudiantes);

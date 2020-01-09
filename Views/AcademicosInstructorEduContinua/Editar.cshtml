@@ -1,6 +1,9 @@
-﻿@{
+﻿@model SGCFIEE.Models.RecursosExternos;
+@{
     ViewData["Title"] = "Editar";
     Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
 }
 <!DOCTYPE html>
 
@@ -12,37 +15,64 @@
                     <header>INSTRUCTOR DE EDUCACIÓN CONTINUA</header>        
                 </div>
                 <div class="card-body " id="bar-parent2">
-                    <div class="row">
-                        <div class="col-md-6 col-md-6">
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select id="academico" class="form-control">
-                                        <option></option>
-                                </select>
-                            </div>
-                            <div class="form-group" >
-                                <label>Periodo</label>
-                                    <select id="periodo" class="form-control" >
-                                        <option></option>
+                    <form asp-action="ActualizarInstructorEdu" asp-antiforgery="true">
+                        <div class="row">
+                            <input type="hidden" asp-for="IdRecursosExternos"/>
+                            <div class="col-md-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select asp-for="IdAcademicos" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            @if (item.IdAcademicos != Model.IdAcademicos)
+                                            {
+                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                            }
+                                            else
+                                            {
+                                                <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                            }
+                                        }
                                     </select>
+                                </div>
+                                <div class="form-group" >
+                                    <label>Periodo</label>
+                                     <select asp-for="IdPeriodo" class="form-control">
+                                        @foreach (var item in perio)
+                                        {
+                                            @if (item.IdPeriodo != Model.IdPeriodo)
+                                            {
+                                                <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            }
+                                            else
+                                            {
+                                                <option selected value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Nombre del ingreso</label>
+                                    <input asp-for="Nombre" type="text" placeholder="Ingresar..." class="form-control" required="required" value=@Model.Nombre>
+                                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cantidad de ingreso</label>
+                                    <input asp-for="Ingreso" type="number" placeholder="Ingresar..." class="form-control" required="required" value=@Model.Ingreso>
+                                    <span asp-validation-for="Ingreso" class="text-danger"></span>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                    Guardar
+                                </button>
+                                <a asp-controller="AcademicosInstructorEduContinua" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-md-6">
-                            <div class="form-group">
-                                <label>Nombre del ingreso</label>
-                                <input id="nomingreso" type="text" class="form-control" placeholder="Ingresar..." value="" >
-                            </div>
-                            <div class="form-group">
-                                <label>Cantidad de ingreso</label>
-                                <input id="ingreso" type="number" class="form-control" placeholder="Ingresar..." value="">
-                            </div>
-                            <br>
-                            <input id="modificarIEC" type="button" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosInstructorEduContinua" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
-                            Cancelar
-                            </a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

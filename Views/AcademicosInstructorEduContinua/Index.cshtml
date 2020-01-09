@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  IEnumerable<SGCFIEE.Models.TablaInstructorEduCont>
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Home/Principal.cshtml";
 }
@@ -39,21 +40,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd gradeX">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="center">
-                                    <a asp-controller="AcademicosInstructorEduContinua" asp-action="Editar" class="btn btn-primary btn-xs editardatos">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <button class="btn btn-danger btn-xs eliminardatos">
-                                        <i class="fa fa-trash-o "></i>
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="odd gradeX">
+                                    <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NomIngreso)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Ingreso)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
+                                    <td class="center">
+                                        <a asp-route-id="@item.IdInstructorEdu" asp-controller="AcademicosInstructorEduContinua" asp-action="Editar" class="btn btn-primary btn-xs editardatos">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a data-value="@item.IdInstructorEdu" data-controlador="AcademicosInstructorEduContinua" data-accion="Eliminar" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>

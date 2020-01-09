@@ -52,6 +52,7 @@
     <Folder Include="Views\AcademicosComisiones\" />
     <Folder Include="Views\AcademicosReportes\" />
     <Folder Include="wwwroot\assets\js\pages\academicos\" />
+    <Folder Include="Archivos\" />
   </ItemGroup>
 
 </Project>
