@@ -15,13 +15,14 @@
                     <header>PROYECTO EDUCATIVO INNOVADOR</header>        
                 </div>
                 <div class="card-body " id="bar-parent2">
-                    <form asp-action="GuardarProyectosE" asp-antiforgery="true" enctype="multipart/form-data" method="post">
+                    <form asp-controller="AcademicosProduccion" asp-action="GuardarProyectosE" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6 col-md-6">
                                 <div class="form-group">
                                     <label>Académico</label>
                                     <select asp-for="IdAcademico" class="form-control">
-                                        @foreach (var item in acad){
+                                        @foreach (var item in acad)
+                                        {
                                             <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
                                         }
                                     </select>
@@ -29,7 +30,8 @@
                                 <div class="form-group">
                                     <label>Periodo</label>
                                     <select asp-for="IdPeriodo" class="form-control">
-                                        @foreach (var item in perio){
+                                        @foreach (var item in perio)
+                                        {
                                             <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
                                         }
                                     </select>
@@ -38,12 +40,12 @@
                             <div class="col-md-6 col-md-6">  
                                 <div class="form-group">
                                     <label>Descripción sobre el proyecto educativo innovador</label>
-                                    <textarea asp-for="Descripcion" class="form-control" rows="3" placeholder="Ingresar..." spellcheck="false" name="descripcion" required="required"></textarea>
+                                    <textarea asp-for="Descripcion" class="form-control" rows="3" placeholder="Ingresar..." spellcheck="false" name="descripcion" required="required">@Model.Descripcion</textarea>
                                     <span asp-validation-for="Descripcion" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Subir evidencia:</label><br>
-                                    <input asp-for="Archivo" type="file" class="default" id="archivo" name="Archivo" required="required">
+                                    <label asp-for="Archivo">Subir evidencia:</label><br>
+                                    <input asp-for="Archivo" type="file" class="default" id="archivo" name="file" required="required">
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">

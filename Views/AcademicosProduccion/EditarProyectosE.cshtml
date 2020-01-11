@@ -1,50 +1,79 @@
-﻿@{
+﻿@model SGCFIEE.Models.ProyectoEducativos;
+@{
     ViewData["Title"] = "CrearProyectosE";
     Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
 }
 <!DOCTYPE html>
 
 <html>
     <div class="row">
         <div class="col-md-12 col-sm-12">
-            <div class="card card-box">
-                <div class="card-topline-green card-head">
-                    <header>PROYECTO EDUCATIVO INNOVADOR</header>        
-                </div>
-                <div class="card-body " id="bar-parent2">
-                    <div class="row">
-                        <div class="col-md-6 col-md-6">
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select id="academicos" class="form-control">
-                                        <option></option>
-                                </select>
+            <form asp-controller="AcademicosProduccion" asp-action="ActualizarProyectosE" method="post" enctype="multipart/form-data">
+                <div class="card card-box">
+                    <div class="card-topline-green card-head">
+                        <header>PROYECTO EDUCATIVO INNOVADOR</header>        
+                    </div>
+                    <div class="card-body " id="bar-parent2">
+                        <div class="row">
+                            <input type="hidden" asp-for="IdProyectoEducativos"/>
+                            <div class="col-md-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            @if (item.IdAcademicos != Model.IdAcademico)
+                                            {
+                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                            }
+                                            else
+                                            {
+                                                <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Periodo</label>
+                                    <select asp-for="IdPeriodo" class="form-control">
+                                        @foreach (var item in perio)
+                                        {
+                                            @if (item.IdPeriodo != Model.IdPeriodo)
+                                            {
+                                                <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            }
+                                            else
+                                            {
+                                                <option selected value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Periodo</label>
-                                <select id="periodo" class="form-control">
-                                        <option></option>
-                                </select>
+                            <div class="col-md-6 col-md-6">  
+                                <div class="form-group">
+                                    <label>Descripción sobre el proyecto educativo innovador</label>
+                                    <textarea asp-for="Descripcion" class="form-control" rows="3" placeholder="Ingresar..." spellcheck="false" name="descripcion" required="required"></textarea>
+                                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Actualizar evidencia:  @Model.Archivo</label><br>
+                                    <input type="file" class="default" id="archivo" name="file">
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                    Guardar
+                                </button>
+                                <a asp-controller="AcademicosProduccion" asp-action="IndexProyectosE" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                                </a>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-md-6">  
-                            <div class="form-group">
-                                <label>Descripción sobre el proyecto educativo innovador</label>
-                                <textarea id="descripcion" class="form-control" placeholder="Ingresar..." rows="3"  spellcheck="false"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Subir evidencia:</label><br>
-                                <input type="file" class="default" multiple="">
-                            </div>
-                            <br>
-                            <input id="actualizarProyectoE" type="button" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosProduccion" asp-action="IndexProyectosE" class="btn btn-default btn-sm m-b-10" style="float:right">
-                            Cancelar
-                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </html>

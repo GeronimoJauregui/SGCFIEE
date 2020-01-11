@@ -6,13 +6,11 @@
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="AcademicosInstructorEduContinuaController.cs" selected="True" />
+              </Node>
               <Node name="Views" expanded="True">
-                <Node name="AcademicosEvaluaciones" expanded="True">
-                  <Node name="EditarEvalTutor.cshtml" selected="True" />
-                </Node>
-                <Node name="AcademicosInstructorEduContinua" expanded="True" />
+                <Node name="AcademicosProduccion" expanded="True" />
               </Node>
             </Node>
           </Node>
