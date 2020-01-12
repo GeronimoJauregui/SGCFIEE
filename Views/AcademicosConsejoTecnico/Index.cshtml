@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  IEnumerable<SGCFIEE.Models.TablaCT> 
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Home/Principal.cshtml";
 }
@@ -39,25 +40,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="odd gradeX">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="center">
-                                <button class="btn btn-primary btn-xs descargar">
-                                    <i class="fa fa-download"></i>
-                                </button>
-                            </td>
-                            <td class="center">
-                                <a asp-controller="AcademicosConsejoTecnico" asp-action="Editar" class="btn btn-primary btn-xs modificar">
-                                    <i class="fa fa-pencil"></i>
-                                </a>
-                                <button class="btn btn-danger btn-xs eliminar">
-                                    <i class="fa fa-trash-o "></i>
-                                </button>
-                            </td>
-                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="odd gradeX">
+                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PeriodoInicio)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PeriodoTermino)</td>
+                                <td class="center">
+                                    <a asp-route-filename="@item.Archivo" asp-controller="AcademicosConsejoTecnico" asp-action="Descargar" class="btn btn-primary btn-xs" title="Descargar evidencia">
+                                        <i class="fa fa-download"></i>
+                                    </a>
+                                </td>
+                                <td class="center">
+                                    <a asp-route-id="@item.IdCT" asp-controller="AcademicosConsejoTecnico" asp-action="Editar" class="btn btn-primary btn-xs modificar" title="Editar">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a data-value="@item.IdCT" data-controlador="AcademicosConsejoTecnico" data-accion="Eliminar" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                        <i class="fa fa-trash-o "></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>

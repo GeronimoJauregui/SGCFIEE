@@ -61,6 +61,7 @@
     <Folder Include="wwwroot\Archivos\Coordinador\" />
     <Folder Include="wwwroot\Archivos\Coordinador\Academia\" />
     <Folder Include="wwwroot\Archivos\Coordinador\ProgramaTransversal\" />
+    <Folder Include="wwwroot\Archivos\ConsejoTecnico\" />
   </ItemGroup>
 
 </Project>
