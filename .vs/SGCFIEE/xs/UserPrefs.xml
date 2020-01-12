@@ -6,9 +6,29 @@
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Views" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="AcademicosCoordinadoresController.cs" selected="True" />
+              </Node>
+              <Node name="Models" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="AcademicosCoordinadores" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="Archivos" expanded="True">
+                  <Node name="Coordinador" expanded="True">
+                    <Node name="Academia" expanded="True" />
+                    <Node name="ProgramaTransversal" expanded="True" />
+                  </Node>
+                </Node>
+              </Node>
             </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State name="__root__">
+          <Node name="SGCFIEE" expanded="True">
+            <Node name="SGCFIEE" selected="True" />
           </Node>
         </State>
       </Pad>

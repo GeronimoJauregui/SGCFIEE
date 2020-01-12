@@ -1,0 +1,90 @@
+﻿@model  IEnumerable<SGCFIEE.Models.TablaAcademia> 
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+<script src="~/assets/js/pages/table/table_data.js"></script>
+
+<!DOCTYPE html>
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>COORDINADORES</header>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a asp-controller="AcademicosCoordinadores" asp-action="IndexAcademia" class="nav-link active">Coordinadores de academia</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosCoordinadores" asp-action="IndexProgramaTransversal" class="nav-link">Coordinadores de programas transversales</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <div id="tabla_academias">
+                               <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosCoordinadores" asp-action="CrearAcademia" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="Academias">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Academia </th>
+                                                            <th class="center"> Periodo inicio </th>
+                                                            <th class="center"> Periodo termino </th>
+                                                            <th class="center"> Evidencia </th>
+                                                            <th class="center"> Acción </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr class="odd gradeX">
+                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.NombreAcademia)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.PeriodoInicio)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.PeriodoTermino)</td>
+                                                                <td class="center">
+                                                                    <a asp-route-filename="@item.Archivo" asp-controller="AcademicosCoordinadores" asp-action="DescargarAcademia" class="btn btn-primary btn-xs" title="Descargar evidencia">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="center">
+                                                                    <a asp-route-id="@item.IdCoordinadorAcademia" asp-controller="AcademicosCoordinadores" asp-action="EditarAcademia" class="btn btn-primary btn-xs" title="Editar">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                    <a data-value="@item.IdCoordinadorAcademia" data-controlador="AcademicosCoordinadores" data-accion="EliminarAcademia" data-regreso="IndexAcademia" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                        <i class="fa fa-trash-o "></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>        
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</html>
+

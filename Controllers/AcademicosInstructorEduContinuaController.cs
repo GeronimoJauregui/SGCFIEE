@@ -38,7 +38,7 @@ namespace SGCFIEE.Controllers
                                             Periodo = perio.Nombre,
                                             Status = acad.Status
                                         }
-                                    ).Where(calif => calif.Status == 1).ToList();
+                                    ).ToList();
             }
             return View(ListInstructorEdu);
         }

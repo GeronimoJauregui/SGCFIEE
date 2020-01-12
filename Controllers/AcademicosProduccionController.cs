@@ -40,7 +40,7 @@ namespace SGCFIEE.Controllers
                                         Periodo = perio.Nombre,
                                         Status = acad.Status
                                     }
-                               ).Where(calif => calif.Status == 1).ToList();
+                               ).ToList();
             }
             return View(ListLibroEE);
         }
@@ -70,7 +70,7 @@ namespace SGCFIEE.Controllers
                                    Periodo = perio.Nombre,
                                    Status = acad.Status
                                }
-                               ).Where(calif => calif.Status == 1).ToList();
+                               ).ToList();
             }
             return View(ListMaterialD);
         }
@@ -96,7 +96,7 @@ namespace SGCFIEE.Controllers
                                    Periodo = perio.Nombre,
                                    Status = acad.Status
                                }
-                               ).Where(calif => calif.Status == 1).ToList();
+                               ).ToList();
             }
             return View(ListMPractica);
         }
@@ -122,7 +122,7 @@ namespace SGCFIEE.Controllers
                                    Periodo = perio.Nombre,
                                    Status = acad.Status
                                }
-                               ).Where(calif => calif.Status == 1).ToList();
+                               ).ToList();
             }
             return View(ListProyectosEdu);
         }

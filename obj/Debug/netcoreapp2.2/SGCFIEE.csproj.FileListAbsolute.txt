@@ -470,7 +470,6 @@ C:/Users/abrah/Documents/TrabajoWEBSGCFIEE/SGCFIEE/SGCFIEE/SGCFIEE/obj/Debug/net
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosConsejoTecnico/Crear.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosConsejoTecnico/Editar.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosConsejoTecnico/Index.cshtml.g.cs
-/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosCoordinadores/Index.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosCoordinadores/CrearProgramaTransversal.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosCoordinadores/EditarProgramaTransversal.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosCoordinadores/CrearAcademia.cshtml.g.cs
@@ -534,3 +533,5 @@ C:/Users/abrah/Documents/TrabajoWEBSGCFIEE/SGCFIEE/SGCFIEE/SGCFIEE/obj/Debug/net
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosProduccion/IndexMaterialDidactico.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosProduccion/IndexMPractica.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosProduccion/IndexProyectosE.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosCoordinadores/IndexAcademia.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosCoordinadores/IndexProgramaTransversal.cshtml.g.cs

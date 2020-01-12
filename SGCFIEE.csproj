@@ -58,6 +58,9 @@
     <Folder Include="wwwroot\Archivos\Produccion\LibroEE\" />
     <Folder Include="wwwroot\Archivos\Produccion\ManualesPractica\" />
     <Folder Include="wwwroot\Archivos\Produccion\MaterialDidactico\" />
+    <Folder Include="wwwroot\Archivos\Coordinador\" />
+    <Folder Include="wwwroot\Archivos\Coordinador\Academia\" />
+    <Folder Include="wwwroot\Archivos\Coordinador\ProgramaTransversal\" />
   </ItemGroup>
 
 </Project>
