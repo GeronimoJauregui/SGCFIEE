@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  IEnumerable<SGCFIEE.Models.TablaMaterialD> 
+@{
     ViewData["Title"] = "IndexMaterialDidactico";
     Layout = "~/Views/Home/Principal.cshtml";
 }
@@ -57,39 +58,57 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="odd gradeX" id="${listado_materialD.id_material_didactico}">
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td class="center">
-                                                                
-                                                            </td>
-                                                            <td class="center"> 
-                                                                
-                                                            </td>
-                                                            <td class="center"> 
-                                                                
-                                                            </td>
-                                                            <td class="center">
-                                                                
-                                                            </td>
-                                                            <td class="center"> 
-                                                                
-                                                            </td>
-                                                            <td></td>
-                                                            <td class="center">
-                                                                <button class="btn btn-primary btn-xs">
-                                                                    <i class="fa fa-download"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td class="center">
-                                                                <a asp-controller="AcademicosProduccion" asp-action="EditarMaterialDidactico" class="btn btn-primary btn-xs">
-                                                                    <i class="fa fa-pencil"></i>
-                                                                </a>
-                                                                <a asp-controller="AcademicosProduccion" asp-action="EliminarMaterialDidactico" class="btn btn-danger btn-xs">
-                                                                    <i class="fa fa-trash-o "></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr class="odd gradeX">
+                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                                <td class="center">
+                                                                    @if (item.NotasClase == 1)
+                                                                    { <i class="fa fa-check"></i>  }
+                                                                    @if (item.NotasClase == 0)
+                                                                    {<i class="fa fa-times"></i>}
+                                                                </td>
+                                                                <td class="center"> 
+                                                                    @if (item.Acetatos == 1)
+                                                                    { <i class="fa fa-check"></i>  }
+                                                                    @if (item.Acetatos == 0)
+                                                                    {<i class="fa fa-times"></i>}
+                                                                </td>
+                                                                <td class="center"> 
+                                                                    @if (item.Videos == 1)
+                                                                    { <i class="fa fa-check"></i>  }
+                                                                    @if (item.Videos == 0)
+                                                                    {<i class="fa fa-times"></i>}
+                                                                </td>
+                                                                <td class="center">
+                                                                    @if (item.Programas == 1)
+                                                                    { <i class="fa fa-check"></i>  }
+                                                                    @if (item.Programas == 0)
+                                                                    {<i class="fa fa-times"></i>}
+                                                                </td>
+                                                                <td class="center"> 
+                                                                    @if (item.Prototipos == 1)
+                                                                    { <i class="fa fa-check"></i>  }
+                                                                    @if (item.Prototipos == 0)
+                                                                    {<i class="fa fa-times"></i>}
+                                                                </td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
+                                                                <td class="center">
+                                                                    <a asp-route-filename="@item.Archivo" asp-controller="AcademicosProduccion" asp-action="DescargarMaterialDidactico" class="btn btn-primary btn-xs" title="Descargar evidencia">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="center">
+                                                                    <a asp-route-id="@item.IdMDidactico" asp-controller="AcademicosProduccion" asp-action="EditarMaterialDidactico" class="btn btn-primary btn-xs" title="Editar">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                    <a data-value="@item.IdMDidactico" data-controlador="AcademicosProduccion" data-accion="EliminarMaterialDidactico" data-regreso="IndexMaterialDidactico" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                        <i class="fa fa-trash-o "></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
                                                     </tbody>
                                                 </table>
                                             </div>

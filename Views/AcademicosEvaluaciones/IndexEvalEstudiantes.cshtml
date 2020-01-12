@@ -57,13 +57,13 @@
                                                                 <td>@Html.DisplayFor(modelItem => item.Calificacion)</td>
                                                                 <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
                                                                 <td class="center">
-                                                                    <a asp-route-id="@item.IdCalifEstudiantes" asp-controller="AcademicosEvaluaciones" asp-action="DatosEvalEstudiantes" class="btn btn-success btn-xs">
+                                                                    <a asp-route-id="@item.IdCalifEstudiantes" asp-controller="AcademicosEvaluaciones" asp-action="DatosEvalEstudiantes" class="btn btn-success btn-xs" title="Calificación por EE">
                                                                         <i class="fa fa-check"></i>
                                                                     </a>
-                                                                    <a asp-route-id="@item.IdCalifEstudiantes" asp-controller="AcademicosEvaluaciones" asp-action="EditarEvalEstudiantes" class="btn btn-primary btn-xs">
+                                                                    <a asp-route-id="@item.IdCalifEstudiantes" asp-controller="AcademicosEvaluaciones" asp-action="EditarEvalEstudiantes" class="btn btn-primary btn-xs" title="Editar">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
-                                                                    <a data-value="@item.IdCalifEstudiantes" data-controlador="AcademicosEvaluaciones" data-accion="EliminarEvalEstudiantes" data-regreso="IndexEvalEstudiantes" name="eliminardato" class="btn btn-danger btn-xs">
+                                                                    <a data-value="@item.IdCalifEstudiantes" data-controlador="AcademicosEvaluaciones" data-accion="EliminarEvalEstudiantes" data-regreso="IndexEvalEstudiantes" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
                                                                         <i class="fa fa-trash-o "></i>
                                                                     </a>
                                                                 </td>

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  IEnumerable<SGCFIEE.Models.TablaMPractica> 
+@{
     ViewData["Title"] = "IndexMPractica";
     Layout = "~/Views/Home/Principal.cshtml";
 }
@@ -54,25 +55,28 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                            <tr class="odd gradeX" id="${listado_manualesP.id_manuales_practica}">
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr class="odd gradeX">
+                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.NombreManual)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
                                                                 <td class="center">
-                                                                    <button class="btn btn-primary btn-xs">
+                                                                    <a asp-route-filename="@item.Archivo" asp-controller="AcademicosProduccion" asp-action="DescargarMPractica" class="btn btn-primary btn-xs" title="Descargar evidencia">
                                                                         <i class="fa fa-download"></i>
-                                                                    </button>
+                                                                    </a>
                                                                 </td>
                                                                 <td class="center">
-                                                                    <a asp-controller="AcademicosProduccion" asp-action="EditarMPractica" class="btn btn-primary btn-xs">
+                                                                    <a asp-route-id="@item.IdMPractica" asp-controller="AcademicosProduccion" asp-action="EditarMPractica" class="btn btn-primary btn-xs" title="Editar">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
-                                                                    <a asp-controller="AcademicosProduccion" asp-action="EliminarMPractica" class="btn btn-danger btn-xs">
+                                                                    <a data-value="@item.IdMPractica" data-controlador="AcademicosProduccion" data-accion="EliminarMPractica" data-regreso="IndexMPractica" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
                                                                         <i class="fa fa-trash-o "></i>
                                                                     </a>
                                                                 </td>
                                                             </tr>
+                                                        }
                                                     </tbody>
                                                 </table>
                                             </div>

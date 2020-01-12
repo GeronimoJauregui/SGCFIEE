@@ -60,10 +60,10 @@
                                                                 <td>@Html.DisplayFor(modelItem => item.CalifGestion)</td>
                                                                 <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
                                                                 <td class="center">
-                                                                    <a asp-route-id="@item.IdCalifCT" asp-controller="AcademicosEvaluaciones" asp-action="EditarEvalCT" class="btn btn-primary btn-xs">
+                                                                    <a asp-route-id="@item.IdCalifCT" asp-controller="AcademicosEvaluaciones" asp-action="EditarEvalCT" class="btn btn-primary btn-xs" title="Editar">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
-                                                                    <a data-value="@item.IdCalifCT" data-controlador="AcademicosEvaluaciones" data-accion="EliminarEvalCT" data-regreso="IndexEvalCT" name="eliminardato" class="btn btn-danger btn-xs">
+                                                                    <a data-value="@item.IdCalifCT" data-controlador="AcademicosEvaluaciones" data-accion="EliminarEvalCT" data-regreso="IndexEvalCT" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
                                                                         <i class="fa fa-trash-o "></i>
                                                                     </a>
                                                                 </td>

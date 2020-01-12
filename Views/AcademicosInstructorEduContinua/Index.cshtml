@@ -49,10 +49,10 @@
                                     <td>@Html.DisplayFor(modelItem => item.Ingreso)</td>
                                     <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
                                     <td class="center">
-                                        <a asp-route-id="@item.IdInstructorEdu" asp-controller="AcademicosInstructorEduContinua" asp-action="Editar" class="btn btn-primary btn-xs editardatos">
+                                        <a asp-route-id="@item.IdInstructorEdu" asp-controller="AcademicosInstructorEduContinua" asp-action="Editar" class="btn btn-primary btn-xs editardatos" title="Editar">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a data-value="@item.IdInstructorEdu" data-controlador="AcademicosInstructorEduContinua" data-accion="Eliminar" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs">
+                                        <a data-value="@item.IdInstructorEdu" data-controlador="AcademicosInstructorEduContinua" data-accion="Eliminar" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
                                             <i class="fa fa-trash-o "></i>
                                         </a>
                                     </td>

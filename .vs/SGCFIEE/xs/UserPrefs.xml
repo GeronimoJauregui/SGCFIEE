@@ -6,12 +6,8 @@
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="AcademicosInstructorEduContinuaController.cs" selected="True" />
-              </Node>
-              <Node name="Views" expanded="True">
-                <Node name="AcademicosProduccion" expanded="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Views" expanded="True" />
             </Node>
           </Node>
         </State>

@@ -1,4 +1,4 @@
-﻿@model  IEnumerable<SGCFIEE.Models.TablaProyectosEdu>
+﻿@model  IEnumerable<SGCFIEE.Models.TablaProyectosEdu>  
 @{
     ViewData["Title"] = "IndexProyectosE";
     Layout = "~/Views/Home/Principal.cshtml";
@@ -61,15 +61,15 @@
                                                                 <td class="center">@Html.DisplayFor(modelItem => item.Descripcion)</td>
                                                                 <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
                                                                 <td class="center">
-                                                                    <a asp-route-filename="@item.Archivo" asp-controller="AcademicosProduccion" asp-action="DescargarProyectosE" class="btn btn-primary btn-xs">
+                                                                    <a asp-route-filename="@item.Archivo" asp-controller="AcademicosProduccion" asp-action="DescargarProyectosE" class="btn btn-primary btn-xs" title="Descargar evidencia">
                                                                         <i class="fa fa-download"></i>
                                                                     </a>
                                                                 </td>
                                                                 <td class="center">
-                                                                    <a asp-route-id="@item.IdProyectoEdu" asp-controller="AcademicosProduccion" asp-action="EditarProyectosE" class="btn btn-primary btn-xs">
+                                                                    <a asp-route-id="@item.IdProyectoEdu" asp-controller="AcademicosProduccion" asp-action="EditarProyectosE" class="btn btn-primary btn-xs" title="Editar">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
-                                                                    <a data-value="@item.IdProyectoEdu" data-controlador="AcademicosProduccion" data-accion="EliminarProyectosE" data-regreso="IndexProyectosE" name="eliminardato" class="btn btn-danger btn-xs">
+                                                                    <a data-value="@item.IdProyectoEdu" data-controlador="AcademicosProduccion" data-accion="EliminarProyectosE" data-regreso="IndexProyectosE" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
                                                                         <i class="fa fa-trash-o "></i>
                                                                     </a>
                                                                 </td>
@@ -89,4 +89,3 @@
         </div>    
     </div>
 </html>
-

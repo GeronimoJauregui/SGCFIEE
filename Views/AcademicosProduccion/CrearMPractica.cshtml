@@ -1,6 +1,10 @@
-﻿@{
+﻿@model SGCFIEE.Models.ManualesPractica;
+
+@{
     ViewData["Title"] = "CrearMPractica";
     Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
 }
 <!DOCTYPE html>
 
@@ -12,40 +16,47 @@
                     <header>MANUAL DE PRACTICA</header>        
                 </div>
                 <div class="card-body " id="bar-parent2">
-                    <form enctype='multipart/form-data' method="POST" onsubmit="return validacion_datosMPractica()" action="Academicos_Produccion" name="fileMPractica">
-                    <input type="text" name="ACCION" id="ACCION" value="Guardar_MPractica" hidden="true">
-                    <input type="text" name="Opcion" id="opcion" value="1" hidden="true">
-                    <div class="row">
-                        <div class="col-md-6 col-md-6">
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select id="academicos" class="form-control" name="id_academico">
-                                        <option></option>
-                                </select>
+                    <form asp-controller="AcademicosProduccion" asp-action="GuardarMPractica" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Periodo</label>
+                                    <select asp-for="IdPeriodo" class="form-control">
+                                        @foreach (var item in perio)
+                                        {
+                                            <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Periodo</label>
-                                <select id="periodo" class="form-control" name="id_periodo">
-                                        <option></option>
-                                </select>
+                            <div class="col-md-6 col-md-6">  
+                                <div class="form-group">
+                                    <label>Nombre del manual de practica</label>
+                                    <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Subir evidencia:</label><br>
+                                    <input asp-for="Archivo" type="file" class="default" id="archivo" name="file" required="required">
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                    Guardar
+                                </button>
+                                <a asp-controller="AcademicosProduccion" asp-action="IndexMPractica" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-md-6">  
-                            <div class="form-group">
-                                <label>Nombre del manual de practica</label>
-                                <input id="nombre" type="text" class="form-control" placeholder="Ingresar..." name="manual">
-                            </div>
-                            <div class="form-group">
-                                <label>Subir evidencia:</label><br>
-                                <input type="file" class="default" id="archivo" name="Archivo">
-                            </div>
-                            <br>
-                            <input id="guardarMPractica" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosProduccion" asp-action="IndexMPractica" class="btn btn-default btn-sm m-b-10" style="float:right">
-                            Cancelar
-                            </a>
-                        </div>
-                    </div>
                     </form>
                 </div>
             </div>

@@ -55,6 +55,9 @@
     <Folder Include="wwwroot\Archivos\" />
     <Folder Include="wwwroot\Archivos\Produccion\" />
     <Folder Include="wwwroot\Archivos\Produccion\ProyectoEducativoInnovador\" />
+    <Folder Include="wwwroot\Archivos\Produccion\LibroEE\" />
+    <Folder Include="wwwroot\Archivos\Produccion\ManualesPractica\" />
+    <Folder Include="wwwroot\Archivos\Produccion\MaterialDidactico\" />
   </ItemGroup>
 
 </Project>
