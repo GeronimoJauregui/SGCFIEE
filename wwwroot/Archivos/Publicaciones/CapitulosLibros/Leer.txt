@@ -1,0 +1,2 @@
+El titulo del archivo esta compuesto por:
+IdRegistro_IdAcademico_NombreDelAarchivoOrignal

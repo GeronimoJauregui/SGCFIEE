@@ -1,0 +1,99 @@
+﻿@model  IEnumerable<SGCFIEE.Models.TablaCongresos> 
+@{
+    ViewData["Title"] = "IndexCongresos";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>PUBLICACIONES</header>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a asp-controller="AcademicosPublicaciones" asp-action="IndexArticulos" class="nav-link">Artículos</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosPublicaciones" asp-action="IndexCongresos" class="nav-link active">Congresos</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosPublicaciones" asp-action="IndexRevistas" class="nav-link">Revistas</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosPublicaciones" asp-action="IndexReportesTecnicos" class="nav-link">Reportes técnicos</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosPublicaciones" asp-action="IndexLibros" class="nav-link">Libros</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosPublicaciones" asp-action="IndexCapitulos" class="nav-link">Capítulos de libros</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosPublicaciones" asp-action="IndexPatentes" class="nav-link">Patentes</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosPublicaciones" asp-action="IndexTrabajoRecep" class="nav-link">Direcciones de trabajos recepcionales</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosPublicaciones" asp-action="IndexConcursos" class="nav-link">Concursos</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        
+                        <div class="tab-pane active" id="tab2">            
+                            <div id="Congresos">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosPublicaciones" asp-action="CrearCongresos" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaCongresos" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Nombre del congreso</th>
+                                                            <th class="center"> Nacional<br>o<br>Internacional</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                         @foreach (var item in Model)
+                                                         {
+                                                            <tr class="odd gradeX">
+                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                                <td class="center">@Html.DisplayFor(modelItem => item.NombreCongreso)</td>
+                                                                <td class="center">@Html.DisplayFor(modelItem => item.Tipo)</td>
+                                                                <td class="center">
+                                                                     <a asp-route-filename="@item.Archivo" asp-controller="AcademicosPublicaciones" asp-action="DescargarCongresos" class="btn btn-primary btn-xs" title="Descargar evidencia">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="center">
+                                                                    <a asp-route-id="@item.IdCongresos" asp-controller="AcademicosPublicaciones" asp-action="EditarCongresos" class="btn btn-primary btn-xs" title="Editar">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                    <a data-value="@item.IdCongresos" data-controlador="AcademicosPublicaciones" data-accion="EliminarCongresos" data-regreso="IndexCongresos" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                        <i class="fa fa-trash-o "></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                         }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</html>
+
+<script src="~/assets/js/pages/table/table_data.js"></script>

@@ -1,6 +1,9 @@
-﻿@{
+﻿@model SGCFIEE.Models.Congresos;
+@{
     ViewData["Title"] = "CrearCongresos";
     Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var lugar = (IEnumerable<TipoLocNacInter>)ViewData["lugar"];
 }
 <!DOCTYPE html>
 
@@ -12,44 +15,48 @@
                     <header>CONGRESO</header>        
                 </div>
                 <div class="card-body " id="bar-parent2">
-                    <form enctype='multipart/form-data' method="POST" onsubmit="return validacion_datosMaterial()" action="Academicos_Produccion" name="fileMDidactico">
-                    <input type="text" name="ACCION" id="ACCION" value="Guardar_Material" hidden="true">
-                    <div class="row">
-                        <div class="col-md-6 col-md-6">
+                    <form asp-controller="AcademicosPublicaciones" asp-action="GuardarCongresos" method="post" enctype="multipart/form-data"> 
+                        <div class="row">
+                            <div class="col-md-6 col-md-6">
 
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select id="academicos" class="form-control" name="id_academico">
-                                        <option></option>
-                                </select>
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tipo</label>
+                                    <select asp-for="IdNacInt" class="form-control">
+                                        @foreach (var item in lugar)
+                                        {
+                                            <option value="@item.IdTipo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <div class="radio p-0">
-                                    <input type="radio" name="notas" id="optionsRadios1" value="1">
-                                    <label for="optionsRadios1">
-                                        Nacional
-                                    </label>
+                            <div class="col-md-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Nombre del congreso</label>
+                                    <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="Nombre" class="text-danger"></span>
                                 </div>
-                                <div class="radio p-0">
-                                    <input type="radio" name="notas" id="optionsRadios2" value="0" >
-                                    <label for="optionsRadios2">
-                                        Internacional
-                                    </label>
+                                <div class="form-group">
+                                    <label>Subir evidencia:</label><br>
+                                    <input asp-for="Archivo" type="file" class="default" id="archivo" name="file" required="required">
                                 </div>
+                                <br>
+                                <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                    Guardar
+                                </button>
+                                <a asp-controller="AcademicosPublicaciones" asp-action="IndexCongresos" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6 col-md-6">
-                            <div class="form-group">
-                                <label>Evidencia:</label><br>
-                                <input type="file" class="default" id="archivo" name="Archivo">
-                            </div>
-                            <br>
-                            <input id="guardarMaterial" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosPublicaciones" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
-                            Cancelar
-                            </a>
-                        </div>
-                    </div>
                     </form>
                 </div>
             </div>

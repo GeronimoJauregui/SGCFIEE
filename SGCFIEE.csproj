@@ -62,6 +62,16 @@
     <Folder Include="wwwroot\Archivos\Coordinador\Academia\" />
     <Folder Include="wwwroot\Archivos\Coordinador\ProgramaTransversal\" />
     <Folder Include="wwwroot\Archivos\ConsejoTecnico\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\Articulos\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\Congresos\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\Revistas\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\ReportesTecnicos\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\Libros\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\CapitulosLibros\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\Patentes\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\TrabajosRecepcionales\" />
+    <Folder Include="wwwroot\Archivos\Publicaciones\Concursos\" />
   </ItemGroup>
 
 </Project>

@@ -492,7 +492,6 @@ C:/Users/abrah/Documents/TrabajoWEBSGCFIEE/SGCFIEE/SGCFIEE/SGCFIEE/obj/Debug/net
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosEvaluaciones/EditarEvalCT.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosEvaluaciones/EditarEvalEstudiantes.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosEvaluaciones/EditarEvalTutor.cshtml.g.cs
-/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/Index.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosParticipacionesAcad/Index.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComisiones/Index.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosReportes/Index.cshtml.g.cs
@@ -535,3 +534,12 @@ C:/Users/abrah/Documents/TrabajoWEBSGCFIEE/SGCFIEE/SGCFIEE/SGCFIEE/obj/Debug/net
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosProduccion/IndexProyectosE.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosCoordinadores/IndexAcademia.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosCoordinadores/IndexProgramaTransversal.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexArticulos.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexCapitulos.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexConcursos.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexCongresos.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexLibros.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexPatentes.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexReportesTecnicos.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexRevistas.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexTrabajoRecep.cshtml.g.cs

@@ -1,8 +1,24 @@
-﻿@{
+﻿@model SGCFIEE.Models.TrabajosRecepcionales;
+@{
     ViewData["Title"] = "CrearTrabajosRecep";
     Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var academia = (IEnumerable<Academias>)ViewData["academia"];
+    var alum = (IEnumerable<DatosPersonales>)ViewData["alumnos"];
+    var grados = (IEnumerable<GradoTitulo>)ViewData["grados"];
+    var modalidad = (IEnumerable<TipoModalidad>)ViewData["modalidad"];
 }
 <!DOCTYPE html>
+
+<script>
+    function mostrar() {
+        if (document.trabajos.status[1].checked == true) {
+            document.getElementById('fecha').style.display='block';
+        } else {
+            document.getElementById('fecha').style.display='none';
+        }
+    }
+</script>
 
 <html>
     <div class="row">
@@ -12,77 +28,101 @@
                     <header>DIRECCIONES DE TRABAJOS RECEPCIONALES</header>        
                 </div>
                 <div class="card-body " id="bar-parent2">
-                    <form enctype='multipart/form-data' method="POST" onsubmit="return validacion_datosMaterial()" action="Academicos_Produccion" name="fileMDidactico">
-                    <input type="text" name="ACCION" id="ACCION" value="Guardar_Material" hidden="true">
-                    <div class="row">
-                        <div class="col-md-6 col-md-6">
+                    <form asp-controller="AcademicosPublicaciones" asp-action="GuardarTrabajosRecep" method="post" enctype="multipart/form-data" name="trabajos"> 
+                        <div class="row">
+                            <div class="col-md-6 col-md-6">
 
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select id="academicos" class="form-control" name="id_academico">
-                                        <option></option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Modalidad</label>
-                                <select id="modalidad" class="form-control" name="id_academico">
-                                        <option></option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Nombre del trabajo</label>
-                                <input id="trabajo" type="text" class="form-control" placeholder="Ingresar...">
-                            </div>
-                            <div class="form-group">
-                                <label>Nombre del alumno</label>
-                                <input id="alumno" type="text" class="form-control" placeholder="Ingresar...">
-                            </div>
-                            <div class="form-group">
-                                <label>Academia que revisó</label>
-                                <select id="academia" class="form-control" name="id_academico">
-                                        <option></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-md-6">
-                            <div class="form-group">
-                                <label>Fecha en que revisó</label>
-                                <input id="fecha" type="date" class="form-control" placeholder="Ingresar...">
-                            </div>
-                            <div class="form-group">
-                                <label>Numero de CT</label>
-                                <input id="ct" type="number" class="form-control" placeholder="Ingresar...">
-                            </div>
-                            <div class="form-group">
-                                Estatus:
-                                <div class="radio p-0">
-                                    <input type="radio" name="notas" id="optionsRadios1" value="1">
-                                    <label for="optionsRadios1">
-                                        En proceso
-                                    </label>
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    </select>
                                 </div>
-                                <div class="radio p-0">
-                                    <input type="radio" name="notas" id="optionsRadios2" value="0" >
-                                    <label for="optionsRadios2">
-                                        Con fecha de presentación
-                                    </label>
+                                <div class="form-group">
+                                    <label>Modalidad</label>
+                                    <select asp-for="IdModalidad" class="form-control">
+                                        @foreach (var item in modalidad)
+                                        {
+                                            <option value="@item.IdModalidad">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre del trabajo</label>
+                                    <input asp-for="NombreTrabajo" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="NombreTrabajo" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre del alumno</label>
+                                    <select asp-for="IdAlumno" class="form-control">
+                                        @foreach (var item in alum)
+                                        {
+                                            <option value="@item.IdDatosPersonales">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Academia que revisó</label>
+                                    <select asp-for="IdAcademia" class="form-control">
+                                        @foreach (var item in academia)
+                                        {
+                                            <option value="@item.IdAcademias">@Html.DisplayFor(modelItem => item.Nombre )</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label>Fecha de presentación</label>
-                                <input id="fecha" type="date" class="form-control" placeholder="Ingresar...">
+                            <div class="col-md-6 col-md-6">
+                                
+                                <div class="form-group">
+                                    <label>Numero de CT</label>
+                                    <input asp-for="NumeroConsejoT" type="number" class="form-control" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="NumeroConsejoT" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Grado</label>
+                                    <select asp-for="IdGrado" class="form-control">
+                                        @foreach (var item in grados)
+                                        {
+                                            <option value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    Status:
+                                    <div class="radio p-0">
+                                        <input type="radio" name="status" id="status_1" value="1" onclick="mostrar()" checked>
+                                        <label for="status_1">
+                                            En proceso
+                                        </label>
+                                    </div>
+                                    <div class="radio p-0">
+                                        <input type="radio" name="status" id="status_0" value="0" onclick="mostrar()" >
+                                        <label for="status_0">
+                                            Fecha Presentación
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display:none" id="fecha">
+                                    <label>Fecha de presentación</label>
+                                    <input asp-for="FechaPresentacion" type="date" class="form-control" placeholder="Ingresar...">
+                                    <span asp-validation-for="FechaPresentacion" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                   <label>Subir evidencia:</label><br>
+                                    <input asp-for="Archivo" type="file" class="default" id="archivo" name="file" required="required">
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                    Guardar
+                                </button>
+                                <a asp-controller="AcademicosPublicaciones" asp-action="IndexTrabajoRecep" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                                </a>
                             </div>
-                            <div class="form-group">
-                                <label>Evidencia:</label><br>
-                                <input type="file" class="default" id="archivo" name="Archivo">
-                            </div>
-                            <br>
-                            <input id="guardarMaterial" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosPublicaciones" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
-                            Cancelar
-                            </a>
                         </div>
-                    </div>
                     </form>
                 </div>
             </div>
