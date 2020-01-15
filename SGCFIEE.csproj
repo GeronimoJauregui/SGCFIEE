@@ -72,6 +72,11 @@
     <Folder Include="wwwroot\Archivos\Publicaciones\Patentes\" />
     <Folder Include="wwwroot\Archivos\Publicaciones\TrabajosRecepcionales\" />
     <Folder Include="wwwroot\Archivos\Publicaciones\Concursos\" />
+    <Folder Include="wwwroot\Archivos\ParticipacionAcad\" />
+    <Folder Include="wwwroot\Archivos\ParticipacionAcad\CuerposAcademicos\" />
+    <Folder Include="wwwroot\Archivos\ParticipacionAcad\PonenciasConferencias\" />
+    <Folder Include="wwwroot\Archivos\ParticipacionAcad\CursosTalleres\" />
+    <Folder Include="wwwroot\Archivos\ParticipacionAcad\Arbitraje\" />
   </ItemGroup>
 
 </Project>

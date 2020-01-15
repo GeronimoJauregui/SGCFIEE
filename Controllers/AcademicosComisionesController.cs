@@ -17,19 +17,7 @@ namespace SGCFIEE.Controllers
     {
         // GET: /<controller>/
         [Authorize]
-        public IActionResult Index()
-        {
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            return View();
-        }
-        [Authorize]
-        public IActionResult CrearJurOposicion()
-        {
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            return View();
-        }
-        [Authorize]
-        public IActionResult EditarJurOposicion()
+        public IActionResult IndexJurExperiencia()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
@@ -46,26 +34,33 @@ namespace SGCFIEE.Controllers
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
         }
+
+
+
+
         [Authorize]
-        public IActionResult CrearPreJurExperiencia()
+        public IActionResult IndexJurOposicion()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
         }
         [Authorize]
-        public IActionResult EditarPreJurExperiencia()
+        public IActionResult CrearJurOposicion()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
         }
         [Authorize]
-        public IActionResult CrearPLADEA()
+        public IActionResult EditarJurOposicion()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
         }
+
+
+
         [Authorize]
-        public IActionResult EditarPLADEA()
+        public IActionResult IndexPartRedisenio()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
@@ -82,6 +77,60 @@ namespace SGCFIEE.Controllers
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
         }
+
+
+
+
+
+        [Authorize]
+        public IActionResult IndexPLADEA()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult CrearPLADEA()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult EditarPLADEA()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+
+
+
+
+
+        [Authorize]
+        public IActionResult IndexPreJurExperiencia()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult CrearPreJurExperiencia()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [Authorize]
+        public IActionResult EditarPreJurExperiencia()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+
+
+
+        
+        
+        
+        
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

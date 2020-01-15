@@ -1,6 +1,10 @@
-﻿@{
+﻿@model SGCFIEE.Models.CaAcademicos;
+@{
     ViewData["Title"] = "CrearPartCuerpos";
     Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var nivel = (IEnumerable<CanivelJerarquico>)ViewData["nivel"];
+    var cuerpo = (IEnumerable<CuerposAcademicos>)ViewData["cuerpo"];
 }
 <!DOCTYPE html>
 
@@ -12,49 +16,64 @@
                     <header>PARTICIPACIÓN EN CUERPOS ACADÉMICOS</header>        
                 </div>
                 <div class="card-body " id="bar-parent2">
-                    <form enctype='multipart/form-data' method="POST" onsubmit="return validacion_datosMaterial()" action="Academicos_Produccion" name="fileMDidactico">
-                    <input type="text" name="ACCION" id="ACCION" value="Guardar_Material" hidden="true">
-                    <div class="row">
-                        <div class="col-md-6 col-md-6">
+                    <form asp-controller="AcademicosParticipacionesAcad" asp-action="GuardarPartCuerpos" method="post" enctype="multipart/form-data"> 
+                        <div class="row">
+                            <div class="col-md-6 col-md-6">
 
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select id="academicos" class="form-control" name="id_academico">
-                                        <option></option>
-                                </select>
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Cuerpo académico</label>
+                                    <select asp-for="IdCuerpoAcademico" class="form-control">
+                                        @foreach (var item in cuerpo)
+                                        {
+                                            <option value="@item.IdCuerpoAcademico">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Fecha de registro</label>
+                                    <input asp-for="FechaRegistro" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="FechaRegistro" class="text-danger"></span>
+                                </div>
+                                
                             </div>
-                            <div class="form-group">
-                                <label>Cuerpo académico</label>
-                                <select id="cuerpo" class="form-control" name="id_academico">
-                                        <option></option>
-                                </select>
+                            <div class="col-md-6 col-md-6">
+                                <div class="form-group">
+                                    <label>Tipo de participación</label>
+                                    <select asp-for="IdCanivelJerarquico" class="form-control">
+                                        @foreach (var item in nivel)
+                                        {
+                                            <option value="@item.IdCanivelJerarquico">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    Estado:<br>
+                                    <input asp-for="Status" type="radio" value="1" checked /> Vigente<br>
+                                    <input asp-for="Status" type="radio" value="0" /> No vigente
+                                </div>
+                                <div class="form-group">
+                                    <label>Subir evidencia:</label><br>
+                                    <input asp-for="Archivo" type="file" class="default" id="archivo" name="file" required="required">
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                    Guardar
+                                </button>
+                                <a asp-controller="AcademicosParticipacionesAcad" asp-action="IndexPartCuerpos" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                                </a>
                             </div>
-                            <div class="form-group">
-                                <label>Registro</label>
-                                <input id="registro" type="text" class="form-control" placeholder="Ingresar...">
-                            </div>
-                            
                         </div>
-                        <div class="col-md-6 col-md-6">
-                            <div class="form-group">
-                                <label>Tipo de participación</label>
-                                <input id="participacion" type="text" class="form-control" placeholder="Ingresar...">
-                            </div>
-                            <div class="form-group">
-                                <label>Años de vigencia</label>
-                                <input id="vigencia" type="text" class="form-control" placeholder="Ingresar...">
-                            </div>
-                            <div class="form-group">
-                                <label>Evidencia:</label><br>
-                                <input type="file" class="default" id="archivo" name="Archivo">
-                            </div>
-                            <br>
-                            <input id="guardarMaterial" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <a asp-controller="AcademicosParticipacionesAcad" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
-                            Cancelar
-                            </a>
-                        </div>
-                    </div>
                     </form>
                 </div>
             </div>

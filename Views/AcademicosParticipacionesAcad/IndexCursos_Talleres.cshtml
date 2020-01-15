@@ -1,0 +1,101 @@
+﻿@model  IEnumerable<SGCFIEE.Models.TablaCursoTaller> 
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>PARTICIPACIONES ACADÉMICAS</header>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a asp-controller="AcademicosParticipacionesAcad" asp-action="IndexPartCuerpos" class="nav-link">Participación en cuerpos académicos</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosParticipacionesAcad" asp-action="IndexPonencias_Conferencias" class="nav-link">Ponencias o Conferencias</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosParticipacionesAcad" asp-action="IndexCursos_Talleres" class="nav-link active">Cursos o Talleres</a></li>
+                            <li class="nav-item"><a asp-controller="AcademicosParticipacionesAcad" asp-action="IndexArbitraje" class="nav-link">Arbitraje de productos académicos</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        
+                        <div class="tab-pane active" id="tab3">            
+                            <div id="Cursos_Talleres">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <div class="row p-b-20">
+                                                <div class="col-md-6 col-sm-6 col-6">
+                                                    <div class="btn-group">
+                                                        <a asp-controller="AcademicosParticipacionesAcad" asp-action="CrearCursos_Talleres" class="btn btn-success btn-sm m-b-10">
+                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaCursos" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Número de personal</th>
+                                                            <th class="center"> Nombre<br>del<br>académico</th>
+                                                            <th class="center"> Tipo de evento</th>
+                                                            <th class="center"> Titulo</th>
+                                                            <th class="center"> Fecha</th>
+                                                            <th class="center"> Evidencia</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr class="odd gradeX">
+                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                                <td class="center"> 
+                                                                    @if (item.Tipo == 1)
+                                                                    { <div>Curso</div>  }
+                                                                    @if (item.Tipo == 0)
+                                                                    {<div>Tallere</div>}
+                                                                </td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                                                                <td class="center">
+                                                                     <a asp-route-filename="@item.Archivo" asp-controller="AcademicosParticipacionesAcad" asp-action="DescargarCursos_Talleres" class="btn btn-primary btn-xs" title="Descargar evidencia">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="center">
+                                                                    <a asp-route-id="@item.IdCursoTaller" asp-controller="AcademicosParticipacionesAcad" asp-action="EditarCursos_Talleres" class="btn btn-primary btn-xs" title="Editar">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                    <a data-value="@item.IdCursoTaller" data-controlador="AcademicosParticipacionesAcad" data-accion="EliminarCursos_Talleres" data-regreso="IndexCursos_Talleres" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                        <i class="fa fa-trash-o "></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</html>
+
+<script src="~/assets/js/pages/table/table_data.js"></script>

@@ -492,8 +492,6 @@ C:/Users/abrah/Documents/TrabajoWEBSGCFIEE/SGCFIEE/SGCFIEE/SGCFIEE/obj/Debug/net
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosEvaluaciones/EditarEvalCT.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosEvaluaciones/EditarEvalEstudiantes.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosEvaluaciones/EditarEvalTutor.cshtml.g.cs
-/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosParticipacionesAcad/Index.cshtml.g.cs
-/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComisiones/Index.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosReportes/Index.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/EditarArticulos.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/CrearCongresos.cshtml.g.cs
@@ -543,3 +541,12 @@ C:/Users/abrah/Documents/TrabajoWEBSGCFIEE/SGCFIEE/SGCFIEE/SGCFIEE/obj/Debug/net
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexReportesTecnicos.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexRevistas.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosPublicaciones/IndexTrabajoRecep.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosParticipacionesAcad/IndexArbitraje.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosParticipacionesAcad/IndexCursos_Talleres.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosParticipacionesAcad/IndexPartCuerpos.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosParticipacionesAcad/IndexPonencias_Conferencias.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComisiones/IndexJurExperiencia.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComisiones/IndexJurOposicion.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComisiones/IndexPartRedisenio.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComisiones/IndexPLADEA.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComisiones/IndexPreJurExperiencia.cshtml.g.cs

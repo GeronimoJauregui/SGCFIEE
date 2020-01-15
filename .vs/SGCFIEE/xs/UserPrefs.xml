@@ -1,28 +1,21 @@
 ﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
   <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/AcademicosPublicaciones/EditarTrabajosRecep.cshtml">
-    <Files>
-      <File FileName="Views/AcademicosPublicaciones/IndexTrabajoRecep.cshtml" Line="73" Column="241" />
-      <File FileName="Views/AcademicosPublicaciones/EditarTrabajosRecep.cshtml" Line="130" Column="43" />
-      <File FileName="Views/AcademicosPublicaciones/CrearTrabajosRecep.cshtml" Line="1" Column="1" />
-      <File FileName="Views/EstudiantesPafis/FormEditar.cshtml" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
               <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="EvaluadoresAcademicos.cs" selected="True" />
+              </Node>
               <Node name="Views" expanded="True">
-                <Node name="AcademicosPublicaciones" expanded="True">
-                  <Node name="EditarTrabajosRecep.cshtml" selected="True" />
-                </Node>
-                <Node name="EstudiantesPafis" expanded="True" />
+                <Node name="AcademicosParticipacionesAcad" expanded="True" />
               </Node>
               <Node name="wwwroot" expanded="True">
                 <Node name="Archivos" expanded="True">
-                  <Node name="Publicaciones" expanded="True" />
+                  <Node name="ParticipacionAcad" expanded="True" />
                 </Node>
               </Node>
             </Node>
