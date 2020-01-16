@@ -46,7 +46,7 @@ $(document).ready(function() {
     
     $('#example4').DataTable( {
         "scrollX": true
-    } );
+    });
     
     $('#saveStage').DataTable( {
     	 "scrollX": true,

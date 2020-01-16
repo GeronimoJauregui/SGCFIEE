@@ -18,6 +18,463 @@ namespace SGCFIEE.Controllers
             return View();
         }
 
+
+
+
+        [Authorize]
+        public IActionResult MostrarLocalizacion()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            List<TipoLocNacInter> loc = new List<TipoLocNacInter>();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                loc = context.TipoLocNacInter.ToList();
+            }
+            return View(loc);
+        }
+        [Authorize]
+        public IActionResult InsertarLocalizacion()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarLocalizacion(TipoLocNacInter datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.TipoLocNacInter.Add(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarLocalizacion");
+        }
+        [Authorize]
+        public IActionResult EditarLocalizacion(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                TipoLocNacInter datos = context.TipoLocNacInter.Where(s => s.IdTipo == id).Single();
+                return View(datos);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarLocalizacion(TipoLocNacInter datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.TipoLocNacInter.Update(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarLocalizacion");
+        }
+        public IActionResult EliminarLocalizacion(int id)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                TipoLocNacInter eliminar = context.TipoLocNacInter.Where(s => s.IdTipo == id).Single();
+                context.TipoLocNacInter.Remove(eliminar);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarLocalizacion");
+        }
+
+
+
+
+        [Authorize]
+        public IActionResult MostrarEditorial()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            List<Editorial> edit = new List<Editorial>();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                edit = context.Editorial.ToList();
+            }
+            return View(edit);
+        }
+        [Authorize]
+        public IActionResult InsertarEditorial()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarEditorial(Editorial datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.Editorial.Add(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarEditorial");
+        }
+        [Authorize]
+        public IActionResult EditarEditorial(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                Editorial datos = context.Editorial.Where(s => s.IdEditorial == id).Single();
+                return View(datos);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarEditorial(Editorial datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.Editorial.Update(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarEditorial");
+        }
+        public IActionResult EliminarEditorial(int id)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                Editorial eliminar = context.Editorial.Where(s => s.IdEditorial == id).Single();
+                context.Editorial.Remove(eliminar);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarEditorial");
+        }
+
+
+
+
+        [Authorize]
+        public IActionResult MostrarNivel()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            List<CanivelJerarquico> nivel = new List<CanivelJerarquico>();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                nivel = context.CanivelJerarquico.ToList();
+            }
+            return View(nivel);
+        }
+        [Authorize]
+        public IActionResult InsertarNivel()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarNivel(CanivelJerarquico datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.CanivelJerarquico.Add(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarNivel");
+        }
+        [Authorize]
+        public IActionResult EditarNivel(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                CanivelJerarquico datos = context.CanivelJerarquico.Where(s => s.IdCanivelJerarquico == id).Single();
+                return View(datos);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarNivel(CanivelJerarquico datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.CanivelJerarquico.Update(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarNivel");
+        }
+        public IActionResult EliminarNivel(int id)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                CanivelJerarquico eliminar = context.CanivelJerarquico.Where(s => s.IdCanivelJerarquico == id).Single();
+                context.CanivelJerarquico.Remove(eliminar);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarNivel");
+        }
+
+
+
+
+        [Authorize]
+        public IActionResult MostrarProducto()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            List<TipoEvaluador> produc = new List<TipoEvaluador>();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                produc = context.TipoEvaluador.ToList();
+            }
+            return View(produc);
+        }
+        [Authorize]
+        public IActionResult InsertarProducto()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarProducto(TipoEvaluador datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.TipoEvaluador.Add(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarProducto");
+        }
+        [Authorize]
+        public IActionResult EditarProducto(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                TipoEvaluador datos = context.TipoEvaluador.Where(s => s.IdTipoEvaluador == id).Single();
+                return View(datos);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarProducto(TipoEvaluador datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.TipoEvaluador.Update(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarProducto");
+        }
+        public IActionResult EliminarProducto(int id)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                TipoEvaluador eliminar = context.TipoEvaluador.Where(s => s.IdTipoEvaluador == id).Single();
+                context.TipoEvaluador.Remove(eliminar);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarProducto");
+        }
+
+
+
+
+        [Authorize]
+        public IActionResult MostrarModalidad()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            List<TipoModalidad> modal = new List<TipoModalidad>();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                modal = context.TipoModalidad.ToList();
+            }
+            return View(modal);
+        }
+        [Authorize]
+        public IActionResult InsertarModalidad()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarModalidad(TipoModalidad datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.TipoModalidad.Add(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarModalidad");
+        }
+        [Authorize]
+        public IActionResult EditarModalidad(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                TipoModalidad datos = context.TipoModalidad.Where(s => s.IdModalidad == id).Single();
+                return View(datos);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarModalidad(TipoModalidad datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.TipoModalidad.Update(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarModalidad");
+        }
+        public IActionResult EliminarModalidad(int id)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                TipoModalidad eliminar = context.TipoModalidad.Where(s => s.IdModalidad == id).Single();
+                context.TipoModalidad.Remove(eliminar);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarModalidad");
+        }
+
+
+
+        [Authorize]
+        public IActionResult MostrarCuerpos()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            List<TablaCuerpo> cuerpoAca = new List<TablaCuerpo>();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                        cuerpoAca = (from datos in context.CuerposAcademicos
+                                      join estado in context.CuerpoEstados on datos.IdEstado equals estado.IdEstado
+                                      select new TablaCuerpo
+                                      {
+                                          IdCuerpo= datos.IdCuerpoAcademico,
+                                          NombreCuerpo = datos.Nombre,
+                                          Estado = estado.Nombre
+                                      }
+                                    ).ToList();
+            }
+            return View(cuerpoAca);
+        }
+        [Authorize]
+        public IActionResult InsertarCuerpo()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var estado = context.CuerpoEstados.ToList();
+                ViewData["estados"] = estado;
+            }
+                return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarCuerpo(CuerposAcademicos datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.CuerposAcademicos.Add(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarCuerpos");
+        }
+        [Authorize]
+        public IActionResult EditarCuerpo(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                CuerposAcademicos datos = context.CuerposAcademicos.Where(s => s.IdCuerpoAcademico == id).Single();
+                var estado = context.CuerpoEstados.ToList();
+                ViewData["estados"] = estado;
+                return View(datos);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarCuerpo(CuerposAcademicos datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.CuerposAcademicos.Update(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarCuerpos");
+        }
+        public IActionResult EliminarCuerpo(int id)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                CuerposAcademicos eliminar = context.CuerposAcademicos.Where(s => s.IdCuerpoAcademico == id).Single();
+                context.CuerposAcademicos.Remove(eliminar);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarCuerpos");
+        }
+
+
+        [Authorize]
+        public IActionResult MostrarEstado()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            List<CuerpoEstados> estado = new List<CuerpoEstados>();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                estado = context.CuerpoEstados.ToList();
+            }
+            return View(estado);
+        }
+        [Authorize]
+        public IActionResult InsertarEstado()
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarEstado(CuerpoEstados datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.CuerpoEstados.Add(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarEstado");
+        }
+        [Authorize]
+        public IActionResult EditarEstado(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                CuerpoEstados datos = context.CuerpoEstados.Where(s => s.IdEstado == id).Single();
+                return View(datos);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarEstado(CuerpoEstados datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.CuerpoEstados.Update(datos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarEstado");
+        }
+        public IActionResult EliminarEstado(int id)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                CuerpoEstados eliminar = context.CuerpoEstados.Where(s => s.IdEstado == id).Single();
+                context.CuerpoEstados.Remove(eliminar);
+                context.SaveChanges();
+            }
+            return RedirectToAction("MostrarEstado");
+        }
+
+
+
+
+
         [Authorize]
         public IActionResult MostrarPersonal()
         {

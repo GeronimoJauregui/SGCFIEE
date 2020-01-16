@@ -1,0 +1,82 @@
+﻿@model SGCFIEE.Models.CuerposAcademicos;
+@{
+    Layout = "~/Views/Home/Principal.cshtml";
+    var estado = (IEnumerable<CuerpoEstados>)ViewData["estados"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green"></div>
+                <div class="white-box">
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Crear cuerpo académico</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="GuardarCuerpo" asp-antiforgery="true">
+                                            <div class="card-body " id="bar-parent2">
+                                                <div class="btn-group" style="float:right">
+                                                    <a  asp-action="MostrarEstado" asp-controller="AcademicosComplementaria" class="btn btn-default btn-sm m-b-10" >
+                                                        Mostrar tabla de estado
+                                                    </a>
+                                                </div>
+                                                <div class="btn-group" style="float:right">
+                                                    <a  asp-action="InsertarEstado" asp-controller="AcademicosComplementaria" class="btn btn-success btn-sm m-b-10" >
+                                                        Insertar estado
+                                                    </a>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label asp-for="Nombre">Nombre de la cuerpo academico</label>
+                                                            <input asp-for="Nombre" id="nom" type="text" class="form-control" placeholder="Nombre ...">
+                                                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Estado del cuerpo académico</label>
+                                                        <select asp-for="IdEstado" class="form-control">
+                                                            @foreach (var item in estado)
+                                                            {
+                                                                <option value="@item.IdEstado">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                            </div>
+                                            <button type="submit" class="btn btn-success btn-sm m-b-10" id="enviarSolicitud">
+                                                Guardar
+                                            </button>
+                                            <a id="cancelarEdicion" asp-action="VistaOpcionesCatalogos" asp-controller="AcademicosComplementaria" class="btn btn-default btn-sm m-b-10">
+                                            Cancelar
+                                            </a>
+                                            <a id="cancelarEdicion" asp-action="MostrarCuerpos" asp-controller="AcademicosComplementaria" class="btn btn-success btn-sm m-b-10">
+                                                Mostrar tabla
+                                            </a>
+                                        </form>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</html>

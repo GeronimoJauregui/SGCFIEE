@@ -15,12 +15,6 @@
     <None Remove="Views\Estudiantes\**" />
     <None Remove="Views\NewFolder1\**" />
     <Content Remove="Views\ConsejoTecnico\Crear.cshtml" />
-    <Content Remove="Views\AcademicosPublicaciones\CrearArticulos.cshtml" />
-    <Content Remove="Views\AcademicosPublicaciones\CrearPatentes.cshtml" />
-    <Content Remove="Views\AcademicosParticipacionesAcad\CrearArbitraje.cshtml" />
-    <Content Remove="Views\AcademicosParticipacionesAcad\CrearPonencias_Conferencias.cshtml" />
-    <Content Remove="Views\AcademicosParticipacionesAcad\CrearPartCuerpos.cshtml" />
-    <Content Remove="Views\AcademicosParticipacionesAcad\EditarArbitraje.cshtml" />
   </ItemGroup>
 
 

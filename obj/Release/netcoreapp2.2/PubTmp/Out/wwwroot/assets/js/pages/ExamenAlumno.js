@@ -9,6 +9,7 @@
                 , "TipoExamen": $(this).find('select[name="tipoExamen"] option:selected').val()
             });
         });
+        alert("Calificaciones guardadas");
         $.post("EstudiantesExamen/Crear", { json: JSON.stringify(arreglo) });
     });
 });
