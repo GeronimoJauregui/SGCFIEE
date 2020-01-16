@@ -1,6 +1,8 @@
-﻿@{
+﻿@model SGCFIEE.Models.ParticipacionPladea;
+@{
     ViewData["Title"] = "CrearPLADEA";
     Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
 }
 <!DOCTYPE html>
 
@@ -18,34 +20,43 @@
 
                                 <div class="form-group">
                                     <label>Académico</label>
-                                    <select id="academicos" class="form-control" name="id_academico">
-                                            <option></option>
+                                    <select asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Nombre de la comisión</label>
-                                    <input id="comision" type="text" class="form-control" placeholder="Ingresar...">
+                                    <input asp-for="Comision" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="Comision" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Meta</label>
-                                    <input id="meta" type="text" class="form-control" placeholder="Ingresar...">
+                                    <input asp-for="Meta" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="Meta" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-md-6">
                                 <div class="form-group">
                                     <label>Acción</label>
-                                    <input id="accion" type="text" class="form-control" placeholder="Ingresar...">
+                                    <input asp-for="Accion" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="Accion" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Fecha</label>
-                                    <input id="fecha" type="date" class="form-control" placeholder="Ingresar...">
+                                    <input asp-for="Fecha" type="date" class="form-control" placeholder="Ingresar..." required="required">
+                                    <span asp-validation-for="Fecha" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Evidencia:</label><br>
-                                    <input type="file" class="default" id="archivo" name="Archivo">
+                                    <label>Subir evidencia:</label><br>
+                                    <input asp-for="Archivo" type="file" class="default" id="archivo" name="file" required="required">
                                 </div>
                                 <br>
-                                <input id="guardarMaterial" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                    Guardar
+                                </button>
                                 <a asp-controller="AcademicosComisiones" asp-action="IndexPLADEA" class="btn btn-default btn-sm m-b-10" style="float:right">
                                 Cancelar
                                 </a>

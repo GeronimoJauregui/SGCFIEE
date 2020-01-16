@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  IEnumerable<SGCFIEE.Models.TablaPreJurExperiencia> 
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Home/Principal.cshtml";
 }
@@ -53,26 +54,29 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="odd gradeX">
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td class="center">
-                                                                <button class="btn btn-primary btn-xs">
-                                                                    <i class="fa fa-download"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td class="center">
-                                                                <a asp-controller="AcademicosComisiones" asp-action="EditarPreJurExperiencia" class="btn btn-primary btn-xs">
-                                                                    <i class="fa fa-pencil"></i>
-                                                                </a>
-                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
-                                                                    <i class="fa fa-trash-o "></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr class="odd gradeX">
+                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.NombreAlum) @Html.DisplayFor(modelItem => item.ApellidoPaternoAlum) @Html.DisplayFor(modelItem => item.ApellidoMaternoAlum)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Modalidad)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.NombreTrabajo)</td>
+                                                                <td class="center">
+                                                                     <a asp-route-filename="@item.Archivo" asp-controller="AcademicosComisiones" asp-action="DescargarPreJurExperiencia" class="btn btn-primary btn-xs" title="Descargar evidencia">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="center">
+                                                                    <a asp-route-id="@item.IdJurado" asp-controller="AcademicosComisiones" asp-action="EditarPreJurExperiencia" class="btn btn-primary btn-xs" title="Editar">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                    <a data-value="@item.IdJurado" data-controlador="AcademicosComisiones" data-accion="EliminarPreJurExperiencia" data-regreso="IndexPreJurExperiencia" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                        <i class="fa fa-trash-o "></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
                                                     </tbody>
                                                 </table>
                                             </div>

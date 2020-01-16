@@ -1,4 +1,5 @@
-﻿@{
+﻿@model  IEnumerable<SGCFIEE.Models.TablaJurOposicion> 
+@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Home/Principal.cshtml";
 }
@@ -45,33 +46,41 @@
                                                             <th class="center"> Número de personal</th>
                                                             <th class="center"> Nombre<br>del<br>académico</th>
                                                             <th class="center"> Tipo de<br>examen</th>
-                                                            <th class="center"> Nombre de la<br>EE o PE</th>
+                                                            <th class="center"> Nombre de la<br>EE</th>
                                                             <th class="center"> Fecha</th>
                                                             <th class="center"> Evidencia</th>
                                                             <th class="center"> Acción</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="odd gradeX">
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td class="center">
-                                                                <button class="btn btn-primary btn-xs">
-                                                                    <i class="fa fa-download"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td class="center">
-                                                                <a asp-controller="AcademicosComisiones" asp-action="EditarJurOposicion" class="btn btn-primary btn-xs">
-                                                                    <i class="fa fa-pencil"></i>
-                                                                </a>
-                                                                <button class="btn btn-danger btn-xs eliminar_cooracademia">
-                                                                    <i class="fa fa-trash-o "></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr class="odd gradeX">
+                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                                <td class="center"> 
+                                                                    @if (item.TipoExamen == 1)
+                                                                    { <div>EE</div>  }
+                                                                    @if (item.TipoExamen == 0)
+                                                                    {<div>TC</div>}
+                                                                </td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Ee)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                                                                <td class="center">
+                                                                     <a asp-route-filename="@item.Archivo" asp-controller="AcademicosComisiones" asp-action="DescargarJurOposicion" class="btn btn-primary btn-xs" title="Descargar evidencia">
+                                                                        <i class="fa fa-download"></i>
+                                                                    </a>
+                                                                </td>
+                                                                <td class="center">
+                                                                    <a asp-route-id="@item.IdJurado" asp-controller="AcademicosComisiones" asp-action="EditarJurOposicion" class="btn btn-primary btn-xs" title="Editar">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                    <a data-value="@item.IdJurado" data-controlador="AcademicosComisiones" data-accion="EliminarJurOposicion" data-regreso="IndexJurOposicion" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                        <i class="fa fa-trash-o "></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
                                                     </tbody>
                                                 </table>
                                             </div>

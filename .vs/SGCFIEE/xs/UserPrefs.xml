@@ -6,16 +6,9 @@
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True">
-                <Node name="EvaluadoresAcademicos.cs" selected="True" />
-              </Node>
-              <Node name="Views" expanded="True">
-                <Node name="AcademicosParticipacionesAcad" expanded="True" />
-              </Node>
               <Node name="wwwroot" expanded="True">
                 <Node name="Archivos" expanded="True">
-                  <Node name="ParticipacionAcad" expanded="True" />
+                  <Node name="Comisiones" expanded="True" />
                 </Node>
               </Node>
             </Node>

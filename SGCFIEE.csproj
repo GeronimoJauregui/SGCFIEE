@@ -77,6 +77,12 @@
     <Folder Include="wwwroot\Archivos\ParticipacionAcad\PonenciasConferencias\" />
     <Folder Include="wwwroot\Archivos\ParticipacionAcad\CursosTalleres\" />
     <Folder Include="wwwroot\Archivos\ParticipacionAcad\Arbitraje\" />
+    <Folder Include="wwwroot\Archivos\Comisiones\" />
+    <Folder Include="wwwroot\Archivos\Comisiones\JuradoExperienciaRecepcional\" />
+    <Folder Include="wwwroot\Archivos\Comisiones\PreJuradoExperienciaRecepcional\" />
+    <Folder Include="wwwroot\Archivos\Comisiones\JuradoOposicion\" />
+    <Folder Include="wwwroot\Archivos\Comisiones\PLADEA\" />
+    <Folder Include="wwwroot\Archivos\Comisiones\RedesenioPlanEstudio\" />
   </ItemGroup>
 
 </Project>
