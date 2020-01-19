@@ -1,0 +1,149 @@
+﻿@{
+    ViewData["Title"] = "DetallesEEUV";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var eep = (IEnumerable<pExperienciaEduPeriodo>)ViewData["EEP"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-topline-green">
+                <div class="card-head">
+                    <header>DATOS DE LA EXPERIENCIA EDUCATIVA</header>
+                    <div class="tools">
+                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                    </div>
+                </div>
+                <div class="card-body ">
+                    <div class="row">
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Nombre de académico</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep) {
+                                    @Html.DisplayFor(modelItem => item.academico)
+                                }
+                            </p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>NRC</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.Nrc)
+                                }
+                                                    </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Experiencia educativa</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.EE)
+                                }
+                            </p>
+                        </div>
+                        <div class="col-md-5 col-6">
+                            <strong>Área</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.area)
+                                }
+                                                    </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Periodo</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.periodo)
+                                }
+                                                    </p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Programa educativo</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.PE)
+                                }
+                                                    </p>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Número de creditos</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.creditos)
+                                }
+                                                    </p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Número de horas</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.horas)
+                                }
+                                                    </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Salón</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.salon)
+                                }
+                                                    </p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Tipo de contratación</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.tipo_contratacion)
+                                }
+                                                    </p>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col-md-5 col-6">
+                            <strong>Calificación</strong>
+                            <br>
+                            <p class="text-muted">
+                                @foreach (var item in eep)
+                                {
+                                    @Html.DisplayFor(modelItem => item.CalificacionAcademico)
+                                }
+                                                    </p>
+                        </div>
+                    </div><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

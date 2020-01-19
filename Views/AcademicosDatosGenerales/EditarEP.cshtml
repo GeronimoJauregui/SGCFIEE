@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewData["Title"] = "EditarEP";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var ep = (IEnumerable<pExperienciaProfesional>)ViewData["ep"];
+    var academico = (int)ViewData["academico"];
+    var tipo = (int)ViewData["tipo"];
+}
+
+<!DOCTYPE html>
+<html>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>DATOS DEL ACADÉMICO</header>
+            </div>
+            <div class="white-box">
+                <!-- Nav tabs -->
+                <div class="p-rl-20">
+                    <ul class="nav customtab nav-tabs" role="tablist">
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarDG" class="nav-link">Datos generales</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarGA" class="nav-link">Grados académicos</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarCertificaciones" class="nav-link">Certificaciones</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarCD" class="nav-link">Cursos/Diplomados</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarEP" class="nav-link active">Experiencia profesional</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarTC" class="nav-link">Tipo de contratación</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarDistinciones" class="nav-link">Reconocimientos académicos</a></li>
+                    </ul>
+                </div>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active fontawesome-demo" id="tab1">
+                        <div class="col-md-12 col-sm-12">
+                            <div>
+                                <div class="row p-b-20">
+                                    <div class="col-md-6 col-sm-6 col-6">
+                                        <div class="btn-group">
+                                            <button id="agregarEP" type="button" class="btn btn-success btn-sm m-b-10">
+                                                Agregar <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table-scrollable">
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column " style="width: 100%" id="tabla_ep">
+                                        <thead>
+                                            <tr>
+                                                <th class="center">Empresa</th>
+                                                <th class="center">Puesto</th>
+                                                <th class="center">Área de desarrollo profesional</th>
+                                                <th class="center">Años de antigüedad en años</th>
+                                                <th class="center">Evidencia</th>
+                                                <th class="center">Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in ep)
+                                            {
+                                            <tr>
+                                                <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.empresa)</td>
+                                                <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.TipoPuesto)</td>
+                                                <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.AreaDesarrollo)</td>
+                                                <td class="mdl-data-table__cell--non-numeric">10</td>
+                                                <td class="mdl-data-table__cell--non-numeric center">
+                                                    <a class="btn btn-primary btn-xs" asp-route-filename="@item.Archivo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarEP">
+                                                        <i class="fa fa-download"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="center">
+                                                    <button class="btn btn-primary btn-xs modificarep">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </button>
+                                                    <button class="btn btn-danger btn-xs eliminarep">
+                                                        <i class="fa fa-trash-o "></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

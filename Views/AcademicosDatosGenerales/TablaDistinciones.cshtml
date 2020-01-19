@@ -1,0 +1,53 @@
+﻿@model SGCFIEE.Models.DistincionesTa;
+@{
+    ViewData["Title"] = "TablaTC";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var td = (IEnumerable<TipoDistincionTa>)ViewData["td"];
+    var academico = (int)ViewData["academico"];
+}
+
+<html>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>Reconocimientos académicos</header>
+            </div>
+            <div class="card-body " id="bar-parent2">
+                <form asp-controller="AcademicosDatosGenerales" asp-action="GuardarDistinciones" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <input asp-for="IdAcademico" type="hidden" value="@academico">
+                        <div class="col-md-6 col-sm-6">
+
+                            <div class="form-group">
+                                <label>Tipo de distinción</label>
+                                <select id="distincion" asp-for="IdDistinciones" name="id_distincion" class="form-control">
+                                    @foreach (var item in td)
+                                    {
+                                        <option value="@item.IdDistincion">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                Vigencia
+                                <input asp-for="Vigencia" id="vigencia" type="date" class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <label>Archivo de evidencia</label><br>
+                            <input type="file" asp-for="Archivo" class="default" id="archivodistincion" name="file">
+                            <br>
+                            <input id="guardardistincion" type="submit" value="Guardar y Finalizar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <br> <br>
+                            <a asp-controller="AcademicosDatosGenerales" asp-action="Index" type="button" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                Omitir y Finalizar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

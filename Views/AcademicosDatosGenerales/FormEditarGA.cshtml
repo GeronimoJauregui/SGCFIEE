@@ -1,0 +1,112 @@
+﻿@model SGCFIEE.Models.Estudios;
+@{
+    ViewData["Title"] = "TablaGA";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var NombreTitulo = (IEnumerable<NombreTitulo>)ViewData["nt"];
+    var GradoTitulo = (IEnumerable<GradoTitulo>)ViewData["gt"];
+    var ies = (IEnumerable<InstitucionesEmpresas>)ViewData["ies"];
+    var academico = (int)ViewData["academico"];
+    var tipo = (int)ViewData["tipo"];
+}
+
+<html>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>Grados académicos</header>
+            </div>
+            <div class="card-body " id="bar-parent2">
+                <form asp-controller="AcademicosDatosGenerales" asp-action="FormActualizarTablaGA" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <input asp-for="IdAcademico" type="hidden" value="@academico">
+                            <input asp-for="IdEstudios" type="hidden">
+                            <div class="form-group">
+                                <label>Nombre del titulo</label>
+                                <select asp-for="IdNombreTitulo" class="form-control">
+                                    @foreach (var item in NombreTitulo)
+                                    {
+                                        @if (item.IdNombreTitulo != Model.IdNombreTitulo)
+                                        {
+                                            <option value="@item.IdNombreTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdNombreTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>IES</label>
+                                <select asp-for="IdInstitucion" class="form-control">
+                                    @foreach (var item in ies)
+                                    {
+                                        @if (item.IdIE != Model.IdInstitucion)
+                                        {
+                                            <option value="@item.IdIE">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdIE">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Grado obtenido</label>
+                                <select asp-for="IdGradoTitulo" class="form-control">
+                                    @foreach (var item in GradoTitulo)
+                                    {
+                                        @if (item.IdGradoTitulo != Model.IdGradoTitulo)
+                                        {
+                                            <option value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                Fecha de egreso
+                                <input name="FechaDeEgreso" asp-for="FechaDeEgreso" value="@Model.FechaDeEgreso" id="fechaegreso" type="date" class="form-control">
+                                <br>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+
+                            <div class="form-group">
+                                Fecha de titulación
+                                <input asp-for="FechaDeTitulacion" value="@Model.FechaDeTitulacion" name="FechaDeTitulacion" id="fechatitulacion" type="date" class="form-control">
+                                <br>
+                            </div>
+                            <div class="form-group">
+                                <label>Reconocimiento</label>
+                                <input asp-for="AcrePnpc" type="radio" value="0"> Ninguno <br>
+                                <input asp-for="AcrePnpc" type="radio" value="1"> Acreditado <br>
+                                <input asp-for="AcrePnpc" type="radio" value="2"> PNPC
+                            </div>
+                            <label>Subir titulo</label><br>
+                            <input asp-for="ArchivoTitulo" type="file" class="default" value="@Model.ArchivoTitulo" name="file">
+                            <br>
+                            <label>Subir cedula</label><br>
+                            <input asp-for="ArchivoCedula" type="file" class="default" value="@Model.ArchivoCedula" name="file2">
+                            <br>
+                            <br>
+                            <input type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <br>
+                            <br>
+                            <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarGA" type="button" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                Volver
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

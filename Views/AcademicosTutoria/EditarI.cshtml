@@ -1,0 +1,93 @@
+﻿@model SGCFIEE.Models.Tutores;
+@{
+    ViewData["Title"] = "EditarI";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var alum = (IEnumerable<pAcademicosAlumnos>)ViewData["alumnos"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>TUTORADO</header>
+            </div>
+            <div class="card-body " id="bar-parent2">
+                <form asp-action="ActualizarI" asp-antiforgery="true">
+                    <div class="row">
+                        <input type="hidden" asp-for="IdTutores" />
+                        <div class="col-md-6 col-md-6">
+                            <div class="form-group">
+                                <label>Académico</label>
+                                <select class="form-control" asp-for="IdAcademicos" id="academico">
+                                    @foreach (var item in acad)
+                                    {
+                                        @if (item.IdAcademicos != Model.IdAcademicos)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group" hidden="">
+                                Miembro
+                                <div class="radio p-0">
+                                    <input type="radio" name="tipo" id="optionsRadios1" value="0">
+                                    <input type="radio" name="id" id="id" value="">
+                                    <c:if test=""></c:if>" >
+                                    <label for="optionsRadios1">
+                                        Alumno de la facultad
+                                    </label>
+                                </div>
+                                <div class="radio p-0">
+                                    <input type="radio" name="tipo" id="optionsRadios2" value="1" test="">checked="">
+                                    <label for="optionsRadios2">
+                                        Alumno externo de la facultad
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-6">
+                            <div class="form-group" id="A_interno" test="">
+                                <label>Alumno</label>
+                                <select class="form-control" asp-for="IdAlumno" id="alumno">
+                                    @foreach (var item in alum)
+                                    {
+                                        @if (item.IdAlumnos != Model.IdAlumno)
+                                        {
+                                            <option value="@item.IdAlumnos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.A_paterno) @Html.DisplayFor(modelItem => item.A_materno)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdAlumnos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.A_paterno) @Html.DisplayFor(modelItem => item.A_materno)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group" id="nombre" test="">
+                                <label>Nombre del alumno</label>
+                                <input type="text" id="nombre_A" class="form-control" placeholder="Ingresar..." value="">
+                            </div>
+                            <div class="form-group" id="matricula" test="">
+                                <label>Matricula</label>
+                                <input type="text" id="matricula_A" class="form-control" placeholder="Ingresar..." value="">
+                            </div>
+                            <input id="guardar" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <a asp-controller="AcademicosTutoria" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
+

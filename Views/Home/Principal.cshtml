@@ -132,22 +132,22 @@
                                     </a>
                                     <ul class="sub-menu">
                                         <li class="nav-item">
-                                            <a id="academicos_datosgenerales" class="nav-link ">
+                                            <a asp-controller="AcademicosDatosGenerales" asp-action="Index" class="nav-link ">
                                                 <span class="title">Datos generales</span>
                                             </a>
                                         </li>
                                         <li class="nav-item ">
-                                            <a id="academicos_EE" class="nav-link ">
+                                            <a asp-controller="AcademicosExperienciaEducativa" asp-action="Index" class="nav-link ">
                                                 <span class="title">Experiencias educativas</span>
                                             </a>
                                         </li>
                                         <li class="nav-item ">
-                                            <a id="academicos_pafis" class="nav-link ">
+                                            <a asp-controller="AcademicosPafis" asp-action="Index" class="nav-link ">
                                                 <span class="title">PAFIs</span>
                                             </a>
                                         </li>
                                         <li class="nav-item ">
-                                            <a id="academicos_tutoria" class="nav-link ">
+                                            <a asp-controller="AcademicosTutoria" asp-action="Index" class="nav-link ">
                                                 <span class="title">Tutoria</span>
                                             </a>
                                         </li>
@@ -357,6 +357,7 @@
      <!--academicos-->
     <script type="text/javascript" src="~/assets/js/pages/academicos/datatable.js"></script>
     <script type="text/javascript" src="~/assets/js/pages/academicos/eliminardato.js"></script>
+    <script type="text/javascript" src="~/assets/js/pages/academicos/tutoria.js"></script>
     <script>
         $(document).ready(function () {
             $('#tablaPDF').on('click', function () {

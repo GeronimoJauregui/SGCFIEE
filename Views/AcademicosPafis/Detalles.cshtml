@@ -1,0 +1,132 @@
+﻿@model SGCFIEE.Models.pPafisAcademicos;
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-topline-green">
+            <div class="card-head">
+                <header>DATOS DEL PAFIs</header>
+                <div class="tools">
+                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                </div>
+            </div>
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Nombre del académico</strong>
+                        <br>
+                        <p class="text-muted">@Model.Nombre_academico</p>
+                    </div>
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Nombre del PAFIs</strong>
+                        <br>
+                        <p class="text-muted">@Model.Nombre_pafi</p>
+                    </div>
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Horario</strong>
+                        <br>
+                        <p class="text-muted">@Model.Horario</p>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 col-6">
+                        <strong>Número de horas</strong>
+                        <br>
+                        <p class="text-muted">@Model.NumHoras</p>
+                    </div>
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Tipo</strong>
+                        <br>
+                        @if (Model.Tipopafi == 0)
+                        {
+                            <p class="text-muted">Nivelatorio</p>
+                        }
+                        @if (Model.Tipopafi == 1)
+                        {
+                            <p class="text-muted">Remedial</p>
+                        }
+                    </div>
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Estado</strong>
+                        <br>
+                        @if (Model.Estado == 0)
+                        {
+                            <p class="text-muted">Solicitud</p>
+                        }
+                        @if (Model.Estado == 1)
+                        {
+                            <p class="text-muted">Constancia</p>
+                        }
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Proceso</strong>
+                        <br>
+                        @if (Model.Solicitud == 0)
+                        {
+                            <p class="text-muted">Alumno solicito por escrito</p>
+                        }
+                        @if (Model.Solicitud == 1)
+                        {
+                            <p class="text-muted">Académico solicito por escrito</p>
+                        }
+                    </div>
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Periodo</strong>
+                        <br>
+                        <p class="text-muted">@Model.Periodo</p>
+                    </div>
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Salon</strong>
+                        <br>
+                        <p class="text-muted">@Model.Salon</p>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Programa al que impacta</strong>
+                        <br>
+                        <p class="text-muted">@Model.PE</p>
+                    </div>
+                    <div class="col-md-4 col-6">
+                        <strong>Número de consejo tecnico</strong>
+                        <br>
+                        <p class="text-muted">@Model.NumeroCt</p>
+                    </div>
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Archivo PAFIs</strong>
+                        <br>
+                        <a class="btn btn-primary btn-xs" asp-route-filename="@Model.ArchivoPafi" asp-controller="AcademicosPafis" asp-action="Descargar" >
+                            <i class="fa fa-download"></i>
+                        </a>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-4 col-6 b-r">
+                        <strong>Acta de academia donde se autorizó</strong>
+                        <br>
+                        <a class="btn btn-primary btn-xs" asp-route-filename="@Model.ArchivoActaA" asp-controller="AcademicosPafis" asp-action="Descargar">
+                            <i class="fa fa-download"></i>
+                        </a>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -77,6 +77,17 @@
     <Folder Include="wwwroot\Archivos\Comisiones\JuradoOposicion\" />
     <Folder Include="wwwroot\Archivos\Comisiones\PLADEA\" />
     <Folder Include="wwwroot\Archivos\Comisiones\RedesenioPlanEstudio\" />
+    <Folder Include="Views\AcademicosPafis\" />
+    <Folder Include="Views\AcademicosExperienciaEducativa\" />
+    <Folder Include="Views\AcademicosDatosGenerales\" />
+    <Folder Include="wwwroot\Archivos\DatosGenerales\" />
+    <Folder Include="wwwroot\Archivos\DatosGenerales\Certificaciones\" />
+    <Folder Include="wwwroot\Archivos\DatosGenerales\Cursos_Diplomados\" />
+    <Folder Include="wwwroot\Archivos\DatosGenerales\Distinciones\" />
+    <Folder Include="wwwroot\Archivos\DatosGenerales\Estudios\" />
+    <Folder Include="wwwroot\Archivos\DatosGenerales\Exp_Profesional\" />
+    <Folder Include="wwwroot\Archivos\DatosGenerales\ptc\" />
+    <Folder Include="wwwroot\Archivos\PafisAcademicos\" />
   </ItemGroup>
 
 </Project>

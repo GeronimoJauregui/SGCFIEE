@@ -1,0 +1,110 @@
+﻿@model SGCFIEE.Models.PafisAcademicos;
+@{
+    ViewData["Title"] = "Crear";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+    var pe = (IEnumerable<ProgramaEducativo>)ViewData["pe"];
+    var salones = (IEnumerable<TbSalones>)ViewData["salones"];
+}
+
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>PAFIs</header>
+                </div>
+                <div class="card-body " id="bar-parent2">
+                    <form asp-controller="AcademicosPafis" asp-action="Guardar" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <!-- select -->
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select id="academico" asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nombre del PAFI</label>
+                                    <input type="text" asp-for="Nombre" class="form-control"  placeholder="Ingresar...">
+                                </div>
+                                <!-- radio -->
+                                <div class="form-group">
+                                    Tipo <br>
+                                    <input asp-for="Tipopafi" type="radio" value="0" checked=""> Nivelatorio <br>
+                                    <input asp-for="Tipopafi" type="radio" value="1"> Remedial
+                                </div>
+                                <div class="form-group">
+                                    Estado <br>
+                                    <input asp-for="Estado" type="radio" value="0" checked=""> Solicitud <br>
+                                    <input asp-for="Estado" type="radio" value="1" > Constancia
+                                </div>
+                                <div class="form-group">
+                                    Proceso <br>
+                                    <input asp-for="Solicitud" type="radio" value="0" checked=""> Alumno solicito por escrito <br>
+                                    <input asp-for="Solicitud" type="radio" value="1" > Académico solicito por escrito
+                                </div>
+                                <div class="form-group">
+                                    <label>Horario</label>
+                                    <input type="text" asp-for="Horario" class="form-control" name="horario" placeholder="Ingresar..." id="horario">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Núm. Horas</label>
+                                    <input type="number" asp-for="NumHoras" class="form-control" placeholder="Ingresar..." min="1">
+                                </div>
+                                <div class="form-group">
+                                    <label>Periodo</label>
+                                    <select id="periodo" asp-for="IdPeriodo" class="form-control">
+                                        @foreach (var item in perio)
+                                        {
+                                            <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Salón</label>
+                                    <select id="salon" asp-for="IdSalon" class="form-control">
+                                        @foreach (var item in salones)
+                                        {
+                                            <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Programa al que impacta</label>
+                                    <select asp-for="IdProgramaImpacta" class="form-control">
+                                        @foreach (var item in pe)
+                                        {
+                                            <option value="@item.IdProgramaEducativo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Núm. de consejo técnico</label>
+                                    <input type="number" asp-for="NumeroCt"  class="form-control" placeholder="Ingresar..." min="1">
+                                </div>
+                                <label>Subir archivo PAFIs</label><br>
+                                <input asp-for="ArchivoPafi" type="file" class="default" name="file" required="required">
+                                <br><br>
+                                <label>Subir acta academia donde se autorizó</label><br>
+                                <input asp-for="ArchivoActaA" type="file" class="default" name="file" required="required">
+                                <br>
+                                <input id="guardar" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                <a asp-controller="AcademicosPafis" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

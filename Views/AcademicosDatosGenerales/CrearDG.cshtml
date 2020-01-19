@@ -1,0 +1,100 @@
+﻿@model SGCFIEE.Models.Academicos;
+@{
+    ViewData["Title"] = "CrearDG";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var pe = (IEnumerable<ProgramaEducativo>)ViewData["pe"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>Datos generales</header>
+            </div>
+            <div class="white-box">
+                <div class="tab-content">
+                    <form asp-controller="AcademicosDatosGenerales" asp-action="GuardarDG">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                    <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar...">
+                                </div>
+                                <div class="form-group">
+                                    <label>Apellido paterno</label>
+                                    <input asp-for="ApellidoPaterno" type="text" class="form-control" placeholder="Ingresar...">
+                                </div>
+                                <div class="form-group">
+                                    <label>Apellido materno</label>
+                                    <input asp-for="ApellidoMaterno" type="text" class="form-control" placeholder="Ingresar...">
+                                </div>
+                                <div class="form-group">
+                                    <label>CURP</label>
+                                    <input asp-for="Curp" type="text" class="form-control" placeholder="Ingresar...">
+                                </div>
+                                <div class="form-group">
+                                    <label>Correo institucional</label>
+                                    <input asp-for="CorreoInstitucional" type="text" class="form-control" placeholder="Ingresar...">
+                                </div>
+                                <div class="form-group">
+                                    <label>Correo alternativo</label>
+                                    <input asp-for="CorreoAlternativo" type="text" class="form-control" placeholder="Ingresar...">
+                                </div>
+                                <div class="form-group">
+                                    Fecha de nacimiento
+                                    <input asp-for="FechaNacimiento" type="date" class="form-control">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Sexo</label> <br>
+                                    <input asp-for="Sexo" type="radio" value="1" checked=""> Masculino <br>
+                                    <input asp-for="Sexo" type="radio" value="0"> Femenino
+                                </div>
+                                <div class="form-group">
+                                    <label>Número de teléfono</label>
+                                    <input asp-for="Celular" type="text" class="form-control" placeholder="Ingresar...">
+                                </div>
+                                <div class="form-group">
+                                    <label>Número de personal</label>
+                                    <input asp-for="NumeroPersonal" type="number" class="form-control" min="0" placeholder="Ingresar...">
+                                </div>
+                                <div class="form-group">
+                                    <label>Programa educativo</label>
+                                    <select asp-for="IdProgramaEducativo" class="form-control">
+                                        @foreach (var item in pe)
+                                        {
+                                            <option value="@item.IdProgramaEducativo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Estado</label>
+                                    <select asp-for="Status" id="estado"  class="form-control">
+                                        <option value="1">Activo</option>
+                                        <option value="2">Inactivo</option>
+                                        <option value="3">Incapacitado</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    Fecha de ingreso a la UV
+                                    <input asp-for="FechaIngresoUv" id="fechaingreso" name="FechaIngresoUv" type="date" class="form-control">
+                                </div>
+                                <br>
+                                <input id="guardargenerales" type="submit" value="Siguiente" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                <a asp-controller="AcademicosDatosGenerales" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

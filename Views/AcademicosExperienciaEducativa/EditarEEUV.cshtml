@@ -1,0 +1,138 @@
+﻿@model SGCFIEE.Models.ExperienciaEducativaPeriodo;
+@{
+    ViewData["Title"] = "DetallesEEUV";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+
+    var mcee = (IEnumerable<MCEE>)ViewData["ExpEdu"];
+    var salones = (IEnumerable<TbSalones>)ViewData["salones"];
+    var tipo_contratacionee = (IEnumerable<TipoContratacionee>)ViewData["tipo_contratacionee"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-topline-green">
+            <div class="card-head">
+                <header>DATOS DE LA EXPERIENCIA EDUCATIVA</header>
+                <div class="tools">
+                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                </div>
+            </div>
+            <div class="card-body " id="bar-parent2">
+                <form asp-action="ActualizarEEUV" asp-antiforgery="true">
+                    <div class="row">
+                        <input type="hidden" asp-for="IdExperienciaEducativaPeriodo" />
+                        <input asp-for="Status" type="hidden" value="@Model.Status">
+                        <input asp-for="IdInstitucionSuperior" type="hidden" value="@Model.IdInstitucionSuperior">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Académico</label>
+                                <select id="academico" asp-for="IdAcademico" class="form-control">
+                                    @foreach (var item in acad)
+                                    {
+                                        @if (item.IdAcademicos != Model.IdAcademico)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>NRC</label>
+                                <input id="nrc" asp-for="Nrc" type="number" class="form-control" min="0" value="@Model.Nrc">
+                            </div>
+                            <div class="form-group">
+                                <label>Experiencia educativa</label>
+                                <select id="EE" asp-for="IdMapaCurricular" class="form-control">
+                                    @foreach (var item in mcee)
+                                    {
+                                        @if (item.IdMapaCurricular != Model.IdMapaCurricular)
+                                        {
+                                            <option value="@item.IdMapaCurricular">@Html.DisplayFor(modelItem => item.NombreEE) ----> @Html.DisplayFor(modelItem => item.NombrePE)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdMapaCurricular">@Html.DisplayFor(modelItem => item.NombreEE) ----> @Html.DisplayFor(modelItem => item.NombrePE)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Periodo</label>
+                                <select id="periodo" asp-for="IdPeriodo" class="form-control">
+                                    @foreach (var item in perio)
+                                    {
+                                        @if (item.IdPeriodo != Model.IdPeriodo)
+                                        {
+                                            <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+
+                            <div class="form-group">
+                                <label>Salón</label>
+                                <select id="salon" asp-for="IdSalon" class="form-control">
+                                    @foreach (var item in salones)
+                                    {
+                                        @if (item.IdTbSalones != Model.IdSalon)
+                                        {
+                                            <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de contratación</label>
+                                <select id="contratacion" asp-for="IdContratacionEe" class="form-control">
+                                    @foreach (var item in tipo_contratacionee)
+                                    {
+                                        @if (item.IdTipoContratacion != Model.IdContratacionEe)
+                                        {
+                                            <option value="@item.IdTipoContratacion">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdTipoContratacion">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Calificación</label>
+                                <input id="calificacion" asp-for="CalificacionAcademico" type="number" min="0" max="100" class="form-control" value="@Model.CalificacionAcademico">
+                            </div>
+
+                            <br>
+                            <input id="modificarEEUV" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <a asp-controller="AcademicosExperienciaEducativa" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

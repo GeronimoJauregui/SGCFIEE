@@ -1,0 +1,97 @@
+﻿@model SGCFIEE.Models.ExperienciaEducativaPeriodo;
+@{
+    ViewData["Title"] = "CrearEEUV";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+
+    var mcee = (IEnumerable<MCEE>)ViewData["ExpEdu"];
+    var salones = (IEnumerable<TbSalones>)ViewData["salones"];
+    var tipo_contratacionee = (IEnumerable<TipoContratacionee>)ViewData["tipo_contratacionee"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>AGREGAR EXPERIENCIA EDUCATIVA</header>
+            </div>
+            <div class="white-box">
+                <div class="card-body " id="bar-parent2">
+                    <form asp-action="GuardarEEUV" asp-antiforgery="true">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select id="academico" asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>NRC</label>
+                                    <input id="nrc" asp-for="Nrc" type="number" class="form-control" min="0" placeholder="Ingresar...">
+                                </div>
+                                <div class="form-group">
+                                    <label>Experiencia educativa</label>
+                                    <select id="EE" asp-for="IdMapaCurricular" class="form-control">
+                                        @foreach (var item in mcee)
+                                        {
+                                            <option value="@item.IdMapaCurricular">@Html.DisplayFor(modelItem => item.NombreEE) ----> @Html.DisplayFor(modelItem => item.NombrePE)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Periodo</label>
+                                    <select id="periodo" asp-for="IdPeriodo" class="form-control">
+                                        @foreach (var item in perio)
+                                        {
+                                            <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+
+                                <div class="form-group">
+                                    <label>Salón</label>
+                                    <select id="salon" asp-for="IdSalon" class="form-control">
+                                        @foreach (var item in salones)
+                                        {
+                                            <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tipo de contratación</label>
+                                    <select id="contratacion" asp-for="IdContratacionEe" class="form-control">
+                                        @foreach (var item in tipo_contratacionee)
+                                        {
+                                            <option value="@item.IdTipoContratacion">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Calificación</label>
+                                    <input id="calificacion" type="number" asp-for="CalificacionAcademico" class="form-control" min="0" max="100" placeholder="Ingresar...">
+                                </div>
+
+                                <br>
+                                <input id="guardarEEUV" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                <a asp-controller="AcademicosExperienciaEducativa" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

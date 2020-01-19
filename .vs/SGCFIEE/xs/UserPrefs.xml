@@ -6,13 +6,18 @@
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True" />
               <Node name="Models" expanded="True" />
-              <Node name="Views" expanded="True">
-                <Node name="AcademicosComplementaria" expanded="True">
-                  <Node name="VistaOpcionesCatalogos.cshtml" selected="True" />
+              <Node name="Views" expanded="True" />
+              <Node name="wwwroot" expanded="True">
+                <Node name="assets" expanded="True">
+                  <Node name="js" expanded="True">
+                    <Node name="pages" expanded="True">
+                      <Node name="academicos" expanded="True">
+                        <Node name="eliminardato.js" selected="True" />
+                      </Node>
+                    </Node>
+                  </Node>
                 </Node>
-                <Node name="AcademicosConsejoTecnico" expanded="True" />
               </Node>
             </Node>
           </Node>

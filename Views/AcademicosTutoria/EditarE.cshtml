@@ -1,0 +1,59 @@
+﻿@model SGCFIEE.Models.TutoradosExternos;
+@{
+    ViewData["Title"] = "EditarE";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>TUTORADO</header>
+            </div>
+            <div class="card-body " id="bar-parent2">
+                <form asp-action="ActualizarE" asp-antiforgery="true">
+                    <div class="row">
+                        <input type="hidden" asp-for="IdTutoradosExternos" />
+                        <div class="col-md-6 col-md-6">
+                            <div class="form-group">
+                                <label>Académico</label>
+                                <select class="form-control" asp-for="IdAcademico" id="academico">
+                                    @foreach (var item in acad)
+                                    {
+                                        @if (item.IdAcademicos != Model.IdAcademico)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-6">
+                            <div class="form-group" test="">
+                                <label>Nombre del alumno</label>
+                                <input type="text" asp-for="Nombre" class="form-control" placeholder="Ingresar..." value="@Model.Nombre">
+                            </div>
+                            <div class="form-group" test="">
+                                <label>Matricula</label>
+                                <input type="text" asp-for="Matricula" class="form-control" placeholder="Ingresar..." value="@Model.Matricula">
+                            </div>
+                            <input id="guardar" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <a asp-controller="AcademicosTutoria" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
+

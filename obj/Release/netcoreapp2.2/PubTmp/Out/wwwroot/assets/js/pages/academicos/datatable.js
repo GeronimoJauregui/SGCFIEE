@@ -1,5 +1,18 @@
 ﻿
 $(document).ready(function () {
+    /*Módulo Datos Generales*/
+    $("#tabla_academicos").DataTable();
+    $("#tablaCD").DataTable();
+    $("#tablaCertifi").DataTable();
+    $("#tablaep").DataTable();
+    $("#tablaga").DataTable();
+    /*Módulo PAFIS*/
+    $("#tabla_pafis").DataTable();
+    /*Módulo Tutoria*/
+    $("#tabla_tutoria").DataTable();
+    /*Módelo EE*/
+    $("#tabla_EEUV").DataTable();
+    $("#tabla_EEExterna").DataTable();
     /*Módulo Evaluaciones*/
     $("#evaluacionCT").DataTable();
     $("#evaluacionEstud").DataTable();

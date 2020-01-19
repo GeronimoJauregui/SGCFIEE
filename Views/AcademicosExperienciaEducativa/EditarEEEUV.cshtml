@@ -1,0 +1,107 @@
+﻿@model SGCFIEE.Models.ExperienciaEducativaPeriodo;
+@{
+    ViewData["Title"] = "EditarEEEUV";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+    var ee = (IEnumerable<MCEE>)ViewData["ee"];
+    var ies = (IEnumerable<InstitucionesEmpresas>)ViewData["ies"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>AGREGAR EXPERIENCIA EDUCATIVA</header>
+            </div>
+            <div class="white-box">
+                <div class="card-body " id="bar-parent2">
+                    <form asp-action="ActualizarEEEUV" asp-antiforgery="true">
+                        <div class="row">
+                            <input type="hidden" asp-for="IdExperienciaEducativaPeriodo" />
+                            <input asp-for="Status" type="hidden" value="@Model.Status">
+                            <div class="col-md-6 col-sm-6">
+
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select id="academico" asp-for="IdAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            @if (item.IdAcademicos != Model.IdAcademico)
+                                            {
+                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                            }
+                                            else
+                                            {
+                                                <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Institución nivel superior</label>
+                                    <select id="instituciones" asp-for="IdInstitucionSuperior" class="form-control">
+                                        @foreach (var item in ies)
+                                        {
+                                            @if (item.IdIE != Model.IdInstitucionSuperior)
+                                            {
+                                                <option value="@item.IdIE">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                            }
+                                            else
+                                            {
+                                                <option selected value="@item.IdIE">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Experiencia educativa</label>
+
+                                        <select id="EE" asp-for="IdMapaCurricular" class="form-control">
+                                            @foreach (var item in ee)
+                                            {
+                                                @if (item.IdMapaCurricular != Model.IdMapaCurricular)
+                                                {
+                                                    <option value="@item.IdMapaCurricular">@Html.DisplayFor(modelItem => item.NombreEE)</option>
+                                                }
+                                                else
+                                                {
+                                                    <option selected value="@item.IdMapaCurricular">@Html.DisplayFor(modelItem => item.NombreEE)</option>
+                                                }
+                                            }
+                                        </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Periodo</label>
+                                        <select id="periodo" asp-for="IdPeriodo" class="form-control">
+                                            @foreach (var item in perio)
+                                            {
+                                                @if (item.IdPeriodo != Model.IdPeriodo)
+                                                {
+                                                    <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                }
+                                                else
+                                                {
+                                                    <option selected value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                }
+                                            }
+                                        </select>
+                                </div>
+                                <br>
+                                <input id="modificarEEEUV" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                <a asp-controller="AcademicosExperienciaEducativa" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>

@@ -1,0 +1,65 @@
+﻿@model SGCFIEE.Models.ptutorados
+@{
+    ViewData["Title"] = "Agregar";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var alum = (IEnumerable<pAcademicosAlumnos>)ViewData["alumnos"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>TUTORADO</header>
+            </div>
+            <div class="card-body " id="bar-parent2">
+                <form asp-action="Guardar" asp-antiforgery="true">
+                    <div class="row">
+                        <div class="col-md-6 col-md-6">
+                            <div class="form-group">
+                                <label>Académico</label>
+                                <select class="form-control" asp-for="IdAcademicos" id="academico">
+                                    @foreach (var item in acad)
+                                    {
+                                        <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                Miembro <br>
+                                <input asp-for="Tipotutorado" type="radio" name="Tipotutorado" value="0" checked=""> Alumno de la facultad <br>
+                                <input asp-for="Tipotutorado" type="radio" name="Tipotutorado" value="1"> Alumno externo de la facultad
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-6">
+                            <div class="form-group" id="A_interno">
+                                <label>Alumno</label>
+                                <select class="form-control" asp-for="IdAlumno" id="alumno">
+                                    @foreach (var item in alum)
+                                    {
+                                        <option value="@item.IdAlumnos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.A_paterno) @Html.DisplayFor(modelItem => item.A_materno)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group" id="nombre">
+                                <label>Nombre del alumno</label>
+                                <input type="text" asp-for="Nombre" id="nombre_A" class="form-control" placeholder="Ingresar...">
+                            </div>
+                            <div class="form-group" id="matricula">
+                                <label>Matricula</label>
+                                <input type="text" id="matricula_A" asp-for="Matricula" class="form-control" placeholder="Ingresar...">
+                            </div>
+                            <input id="guardar" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <a asp-controller="AcademicosTutoria" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

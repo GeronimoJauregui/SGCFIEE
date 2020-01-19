@@ -1,0 +1,100 @@
+﻿@model SGCFIEE.Models.ExperienciaProfesional;
+@{
+    ViewData["Title"] = "TablaEP";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var ies = (IEnumerable<InstitucionesEmpresas>)ViewData["ies"];
+    var tp = (IEnumerable<TipoPuesto>)ViewData["tp"];
+    var ep = (IEnumerable<pExperienciaProfesional>)ViewData["ep"];
+    var academico = (int)ViewData["academico"];
+}
+
+<html>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>Experiencia profesional</header>
+            </div>
+            <div class="card-body " id="bar-parent2">
+                <form asp-controller="AcademicosDatosGenerales" asp-action="GuardarTablaEP" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <input asp-for="IdAcademico" type="hidden" value="@academico">
+                            <div class="form-group">
+                                <label>Empresa</label>
+                                <select asp-for="IdEmpresa" class="form-control">
+                                    @foreach (var item in ies)
+                                    {
+                                        <option value="@item.IdIE">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Puesto</label>
+                                <select id="puesto" asp-for="IdTipoPuesto" class="form-control">
+                                    @foreach (var item in tp)
+                                    {
+                                        <option value="@item.IdPuesto">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Áreas de desarrollo profesional</label>
+                                <input id="areadesarrollo" asp-for="AreaDesarrollo" type="text" class="form-control" placeholder="Ingresar...">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <div style="text-align: center"> Tiempo de servicio </div>
+                                Fecha de inicio
+                                <input id="fechainicio" type="date" asp-for="FechaInicio" class="form-control">
+                                <br>
+                                Fecha de termino
+                                <input id="fechatermino" type="date" asp-for="FechaFin" class="form-control">
+                            </div>
+                            <label>Subir contrato</label><br>
+                            <input asp-for="Archivo" type="file" class="default" name="file" id="archivoexperiencia">
+                            <br>
+                            <input id="guardarexperiencia" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <br>
+                            <br>
+                            <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="TablaEP" type="button" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                Siguiente
+                            </a>
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="table-scrollable">
+                        <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable" id="tablaep">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Empresa</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Puesto</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Área de desarrollo profesional</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Años de antigüedad en años</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ep)
+                                {
+                                    <tr>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.empresa)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.TipoPuesto)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.AreaDesarrollo)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">10</td>
+                                    </tr>
+                                }
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

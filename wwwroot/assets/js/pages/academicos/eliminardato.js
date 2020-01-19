@@ -12,8 +12,8 @@
         confirmButtonText: "Confirmar",
         closeOnConfirm: false
     }, function () {
-            $.get("https://localhost:5001/" + controlador + "/" + accion, { id: value }).then(function () {
-                $.get("https://localhost:5001/" + controlador + "/" + regreso).then(function () {
+            $.get("https://sgcfiee.azurewebsites.net/" + controlador + "/" + accion, { id: value }).then(function () {
+                $.get("https://sgcfiee.azurewebsites.net/" + controlador + "/" + regreso).then(function () {
                 var newDoc = document.open("text/html", "replace");
                 newDoc.write(arguments[0]);
                 newDoc.close();

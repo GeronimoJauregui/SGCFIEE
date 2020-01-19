@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "DetallesTC";
+    Layout = "~/Views/Home/Principal.cshtml";
+    int idtp = (int)ViewData["idtp"];
+    var tp = (string)ViewData["tp"];
+    var tc2 = "";
+    var tc =  new ContratacionPtc();
+    if(idtp == 1){
+        tc = (ContratacionPtc)ViewData["tc"];
+    }
+    if(idtp == 3){
+        tc2 = (string)ViewData["tc"];
+    }
+    var academico = (int)ViewData["academico"];
+    var tipo = (int)ViewData["tipo"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="card card-topline-green">
+    <div class="white-box">
+        @if (tipo == 2)
+        {
+            <button id="modificar_academico" type="button" class="btn btn-success btn-sm m-b-10">
+                Modificar <i class="fa fa-plus"></i>
+            </button>
+        }
+        <div class="p-rl-20">
+            <ul class="nav customtab nav-tabs" role="tablist">
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesDG" class="nav-link">Datos generales</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesGA" class="nav-link">Grados académicos</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesCertificaciones" class="nav-link">Certificaciones</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesCD" class="nav-link active">Cursos/Diplomados</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesEP" class="nav-link">Experiencia profesional</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesTC" class="nav-link active">Tipo de contratación</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesDistinciones" class="nav-link">Reconocimientos académicos</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab6">
+                <div class="row center">
+                    <div class="col-md-5 col-6 b-r">
+                        <strong>Tipo de contratación</strong>
+                        <br>
+                        <p class="text-muted" id="tipo_contratacion">@tp</p>
+                    </div>
+                    @if (idtp == 3)
+                    {
+                        <div class="col-md-5 col-6 b-r" id="laboratorio">
+                            <strong>Laboratorio</strong>
+                            <br>
+                            <p class="text-muted">@tc2</p>
+                        </div>
+                    }
+                    @if (idtp == 1)
+                    {
+                        <div class="col-md-5 col-6 b-r" id="nombramiento">
+                            <strong>Fecha de nombramiento</strong>
+                            <br>
+                            <p class="text-muted">@tc.FechaNombramiento</p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r" id="evidencia">
+                            <strong>Evidencia</strong><br>
+                            <a class="btn btn-primary btn-xs" asp-route-filename="@tc.Archivo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarTC">
+                                <i class="fa fa-download"></i>
+                            </a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

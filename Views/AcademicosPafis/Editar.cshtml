@@ -1,0 +1,142 @@
+﻿@model SGCFIEE.Models.PafisAcademicos;
+
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+    var pe = (IEnumerable<ProgramaEducativo>)ViewData["pe"];
+    var salones = (IEnumerable<TbSalones>)ViewData["salones"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>PAFIs</header>
+            </div>
+            <div class="card-body " id="bar-parent2">
+                <form asp-controller="AcademicosPafis" asp-action="Actualizar" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <input type="hidden" asp-for="IdPafis" />
+                        <div class="col-md-6 col-sm-6">
+                            <!-- select -->
+                            <div class="form-group">
+                                <label>Académico</label>
+                                <select class="form-control" asp-for="IdAcademico" id="academico">
+                                    @foreach (var item in acad)
+                                    {
+                                        @if (item.IdAcademicos != Model.IdAcademico)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre del PAFI</label>
+                                <input type="text" asp-for="Nombre" class="form-control" id="nombre_pafi" value="@Model.Nombre">
+                            </div>
+                            <!-- radio -->
+                            <div class="form-group">
+                                Tipo <br>
+                                <input asp-for="Tipopafi" type="radio" value="0" if (Model.Tipopafi= =0) {checked}> Nivelatorio <br>
+                                <input asp-for="Tipopafi" type="radio" value="1" if (Model.Tipopafi= =1) {checked}> Remedial
+                            </div>
+                            <div class="form-group">
+                                Estado <br>
+                                <input asp-for="Estado" type="radio" value="0" if (Model.Estado= =0) {checked}> Solicitud <br>
+                                <input asp-for="Estado" type="radio" value="1" if (Model.Estado= =1) {checked}> Constancia
+                                <div class="form-group">
+                                    Proceso <br>
+                                    <input asp-for="Solicitud" type="radio" value="0" if (Model.Solicitud= =0) {checked}> Alumno solicito por escrito <br>
+                                    <input asp-for="Solicitud" type="radio" value="1" if (Model.Solicitud= =1) {checked}> Académico solicito por escrito
+                                    <div class="form-group">
+                                        <label>Horario</label>
+                                        <input type="text" asp-for="Horario" class="form-control" placeholder="Ingresar..." value="@Model.Horario" id="horario">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Núm. Horas</label>
+                                <input type="number" asp-for="NumHoras" class="form-control" placeholder="Ingresar..." min="1" id="num_horas" value="@Model.NumHoras">
+                            </div>
+                            <div class="form-group">
+                                <label>Periodo</label>
+                                <select id="periodo" asp-for="IdPeriodo" class="form-control">
+                                    @foreach (var item in perio)
+                                    {
+                                        @if (item.IdPeriodo != Model.IdPeriodo)
+                                        {
+                                            <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Salón</label>
+                                <select id="salon" asp-for="IdSalon" class="form-control">
+                                    @foreach (var item in salones)
+                                    {
+                                        @if (item.IdTbSalones != Model.IdSalon)
+                                        {
+                                            <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Programa al que impacta</label>
+                                <select asp-for="IdProgramaImpacta" class="form-control">
+                                    @foreach (var item in pe)
+                                    {
+                                        @if (item.IdProgramaEducativo != Model.IdProgramaImpacta)
+                                        {
+                                            <option value="@item.IdProgramaEducativo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdProgramaEducativo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Núm. de consejo técnico</label>
+                                <input type="number" asp-for="NumeroCt" class="form-control" placeholder="Ingresar..." min="1" id="num_ct" value="@Model.NumeroCt">
+                            </div>
+                            <label>Actualizar archivo PAFIs: @Model.ArchivoPafi </label><br>
+                            <input type="file" class="default" multiple="">
+                            <br><br>
+                            <label>Actualizar acta academia donde se autorizó: @Model.ArchivoActaA</label><br>
+                            <input type="file" class="default" id="archivo" name="file">
+                            <br>
+                            <input id="guardar" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <a asp-controller="AcademicosPafis" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

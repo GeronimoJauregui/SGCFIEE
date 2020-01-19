@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "DetallesCD";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var cd = (IEnumerable<pCursosDiplomadoFormacion>)ViewData["cd"];
+    var academico = (int)ViewData["academico"];
+    var tipo = (int)ViewData["tipo"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="card card-topline-green">
+    <div class="white-box">
+        @if (tipo == 2)
+        {
+            <button id="modificar_academico" type="button" class="btn btn-success btn-sm m-b-10">
+                Modificar <i class="fa fa-plus"></i>
+            </button>
+        }
+        <div class="p-rl-20">
+            <ul class="nav customtab nav-tabs" role="tablist">
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesDG" class="nav-link">Datos generales</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesGA" class="nav-link">Grados académicos</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesCertificaciones" class="nav-link">Certificaciones</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesCD" class="nav-link active">Cursos/Diplomados</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesEP" class="nav-link">Experiencia profesional</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesTC" class="nav-link">Tipo de contratación</a></li>
+                <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="DetallesDistinciones" class="nav-link">Reconocimientos académicos</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab4">
+                <div class="row">
+                    <div class="table-scrollable">
+                        <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Curso/Diplomado</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Nombre</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Número de horas</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Pedagógico/Disciplinar</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Nombre de la empresa/IES</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Lugar</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Fecha</th>
+                                    <th class="mdl-data-table__cell--non-numeric" style="width: 100px;">Evidencia</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in cd)
+                                {
+                                    <tr>
+                                        <td class="mdl-data-table__cell--non-numeric">@if (item.CursoDiplomado == 0)
+                                        {<div>Curso</div>} @if (item.CursoDiplomado == 1)
+                                        {<div>Diplomado</div>}</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Horas)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@if (item.PD == 0)
+                                        {<div>Pedagógico</div>} @if (item.PD == 1)
+                                        {<div>Disciplinar</div>}</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.institucion)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Lugar)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Fecha)</td>
+                                        <td class="mdl-data-table__cell--non-numeric center">
+                                            <a class="btn btn-primary btn-xs" asp-route-filename="@item.Archivo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarCD">
+                                                <i class="fa fa-download"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
