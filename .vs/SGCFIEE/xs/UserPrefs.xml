@@ -5,9 +5,7 @@
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
-            <Node name="SGCFIEE" expanded="True">
-              <Node name="ManualDeUsuario.txt" selected="True" />
-            </Node>
+            <Node name="SGCFIEE" expanded="True" />
           </Node>
         </State>
       </Pad>
