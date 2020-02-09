@@ -1,4 +1,5 @@
-﻿@model  IEnumerable<SGCFIEE.Models.TablaTrabajosRecep> 
+﻿@model  IEnumerable<SGCFIEE.Models.TablaTrabajosRecep>
+
 @{
     ViewData["Title"] = "IndexTrabajosRecep";
     Layout = "~/Views/Home/Principal.cshtml";
@@ -57,7 +58,7 @@
                                                             <th class="center"> Grado</th>
                                                             <th class="center"> Número de CT</th>
                                                             <th class="center"> Estatus</th>
-                                                            <th class="center"> Fecha de presentación</th>
+                                                            <th class="center"> Fecha de presentación<br>(aa/mm/dd)</th>
                                                             <th class="center"> Evidencia</th>
                                                             <th class="center"> Acción</th>
                                                         </tr>
@@ -75,13 +76,14 @@
                                                                 <td class="center">@Html.DisplayFor(modelItem => item.Grado)</td>
                                                                 <td class="center">@Html.DisplayFor(modelItem => item.NumCT)</td>
                                                                 <td class="center">
-                                                                    @if (item.Fecha != null)
+                                                                    @if (item.Proceso == 1)
                                                                     { <div>Fecha de presentación</div> }
-                                                                    @if (item.Fecha == null)
+                                                                    @if (item.Proceso == 0)
                                                                     { <div>En proceso </div>}
                                                                 </td>
                                                                 <td class="center">
                                                                     @if (item.Fecha != null)
+                                                                        
                                                                     { <div>@Html.DisplayFor(modelItem => item.Fecha)</div> }
                                                                     @if (item.Fecha == null)
                                                                     { <div>-</div>}

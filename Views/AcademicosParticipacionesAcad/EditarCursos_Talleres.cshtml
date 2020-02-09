@@ -36,8 +36,8 @@
                                 </div>
                                 <div class="form-group">
                                     Seleccione:<br>
-                                    <input asp-for="CT" type="radio" value="1" if (Model.CT == 1) {checked } /> Curso<br>
-                                    <input asp-for="CT" type="radio" value="0" if (Model.CT == 0) {checked } /> Taller
+                                    <input asp-for="CT" type="radio" value="1"/> Curso<br>
+                                    <input asp-for="CT" type="radio" value="0"/> Taller
                                 </div>
                             </div>
                             <div class="col-md-6 col-md-6">
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Fecha</label>
-                                    <input asp-for="Fecha" type="text" class="form-control" placeholder="Ingresar..." required="required" value="@Model.Fecha">
+                                    <input asp-for="Fecha" type="text" class="form-control" placeholder="mm/dd/aa" required="required" value="@ViewData["fecha"]">
                                     <span asp-validation-for="Fecha" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">

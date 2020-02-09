@@ -12,8 +12,9 @@
 
 <script>
     function mostrar() {
-        if (document.trabajos.status[1].checked == true) {
-            document.getElementById('fecha').style.display='block';
+        if (document.trabajos.Proceso[1].checked == true) {
+            document.getElementById('fecha').style.display = 'block';
+            
         } else {
             document.getElementById('fecha').style.display='none';
         }
@@ -91,23 +92,13 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    Status:
-                                    <div class="radio p-0">
-                                        <input type="radio" name="status" id="status_1" value="1" onclick="mostrar()" checked>
-                                        <label for="status_1">
-                                            En proceso
-                                        </label>
-                                    </div>
-                                    <div class="radio p-0">
-                                        <input type="radio" name="status" id="status_0" value="0" onclick="mostrar()" >
-                                        <label for="status_0">
-                                            Fecha Presentación
-                                        </label>
-                                    </div>
+                                    Estado:<br>
+                                    <input asp-for="Proceso" type="radio" name="Proceso" id="status_1" value="0" onclick="mostrar()" checked/> En proceso<br>
+                                    <input asp-for="Proceso" type="radio" name="Proceso" id="status_0" value="1" onclick="mostrar()"/> Fecha de presentación
                                 </div>
                                 <div class="form-group" style="display:none" id="fecha">
                                     <label>Fecha de presentación</label>
-                                    <input asp-for="FechaPresentacion" type="date" class="form-control" placeholder="Ingresar...">
+                                    <input asp-for="FechaPresentacion" type="date" class="form-control" placeholder="mm/dd/aa">
                                     <span asp-validation-for="FechaPresentacion" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">

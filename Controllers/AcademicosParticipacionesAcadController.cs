@@ -192,7 +192,7 @@ namespace SGCFIEE.Controllers
                                        Archivo = datos.Archivo,
                                        Tipo = datos.CT,
                                        Titulo = datos.Titulo,
-                                       Fecha = datos.Fecha,
+                                       Fecha = datos.Fecha.ToString(),
                                        Status = acad.Status
                                    }
                                ).ToList();
@@ -247,6 +247,9 @@ namespace SGCFIEE.Controllers
                 
                 var acad = context.Academicos.ToList();
                 ViewData["academicos"] = acad;
+                string fecha = DatosCursosTalleres.Fecha.ToString();
+                string[] resultado = fecha.Split(' ');
+                ViewData["fecha"] = resultado[0];
                 return View(DatosCursosTalleres);
             }
         }
@@ -341,7 +344,7 @@ namespace SGCFIEE.Controllers
                                        ApellidoPaterno = acad.ApellidoPaterno,
                                        ApellidoMaterno = acad.ApellidoMaterno,
                                        Archivo = datos.Archivo,
-                                       Fecha = datos.FechaRegistro,
+                                       Fecha = datos.FechaRegistro.ToString(),
                                        StatusAcademico = datos.Status,
                                        NombreNivel = nivel.Nombre,
                                        NombreCuerpo = cuerpo.Nombre,
@@ -406,6 +409,9 @@ namespace SGCFIEE.Controllers
                 ViewData["academicos"] = acad;
                 ViewData["nivel"] = nivel;
                 ViewData["cuerpo"] = cuerpo;
+                string fecha = DatosCA.FechaRegistro.ToString();
+                string[] resultado = fecha.Split(' ');
+                ViewData["fecha"] = resultado[0];
                 return View(DatosCA);
             }
         }
@@ -499,7 +505,7 @@ namespace SGCFIEE.Controllers
                               ApellidoPaterno = acad.ApellidoPaterno,
                               ApellidoMaterno = acad.ApellidoMaterno,
                               Archivo = datos.Archivo,
-                              Fecha = datos.Fecha,
+                              Fecha = datos.Fecha.ToString(),
                               NombrePonConf = datos.Nombre,
                               TipoPonenConfe = datos.PonenciaConferencia,
                               tipo = tipo.Nombre,
@@ -560,6 +566,9 @@ namespace SGCFIEE.Controllers
                 var nac = context.TipoLocNacInter.ToList();
                 ViewData["academicos"] = acad;
                 ViewData["nac"] = nac;
+                string fecha = DatosPC.Fecha.ToString();
+                string[] resultado = fecha.Split(' ');
+                ViewData["fecha"] = resultado[0];
                 return View(DatosPC);
             }
         }

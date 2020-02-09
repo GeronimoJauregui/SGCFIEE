@@ -11,7 +11,7 @@ namespace SGCFIEE.Models
         public String Archivo { get; set; }
         public int? Tipo { get; set; }
         public String Titulo { get; set; }
-        public DateTime? Fecha { get; set; }
+        public String Fecha { get; set; }
         public int? Status { get; set; }
     }
 }

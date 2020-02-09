@@ -14,7 +14,8 @@ namespace SGCFIEE.Models
         public String Modalidad { get; set; }
         public String Grado { get; set; }
         public String Academia { get; set; }
-        public DateTime? Fecha { get; set; }
+        public int? Proceso { get; set; }
+        public String Fecha { get; set; }
         public int? NumCT { get; set; }
         public String Archivo { get; set; }
         public String NombreTrabajo { get; set; }

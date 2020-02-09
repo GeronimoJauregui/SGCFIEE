@@ -47,7 +47,7 @@
                                                             <th class="center"> Nombre<br>del<br>académico</th>
                                                             <th class="center"> Tipo de<br>examen</th>
                                                             <th class="center"> Nombre de la<br>EE</th>
-                                                            <th class="center"> Fecha</th>
+                                                            <th class="center"> Fecha<br>(aa/mm/dd)</th>
                                                             <th class="center"> Evidencia</th>
                                                             <th class="center"> Acción</th>
                                                         </tr>
@@ -65,7 +65,7 @@
                                                                     {<div>TC</div>}
                                                                 </td>
                                                                 <td>@Html.DisplayFor(modelItem => item.Ee)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.Fecha)</td>
+                                                                <td class="center">@Html.DisplayFor(modelItem => item.Fecha)</td>
                                                                 <td class="center">
                                                                      <a asp-route-filename="@item.Archivo" asp-controller="AcademicosComisiones" asp-action="DescargarJurOposicion" class="btn btn-primary btn-xs" title="Descargar evidencia">
                                                                         <i class="fa fa-download"></i>

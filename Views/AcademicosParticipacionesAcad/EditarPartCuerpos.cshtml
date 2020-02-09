@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Fecha de registro</label>
-                                    <input asp-for="FechaRegistro" type="text" class="form-control" placeholder="Ingresar..." required="required" value="@Model.FechaRegistro">
+                                    <input asp-for="FechaRegistro" type="text" class="form-control" placeholder="mm/dd/aa" required="required" value="@ViewData["fecha"]">
                                     <span asp-validation-for="FechaRegistro" class="text-danger"></span>
                                 </div>
                                 
@@ -78,8 +78,8 @@
                                 </div>
                                 <div class="form-group">
                                     Registrada:<br>
-                                    <input asp-for="Status" type="radio" value="1" if (Model.Registro == 1) {checked } /> Si<br>
-                                    <input asp-for="Status" type="radio" value="0" if (Model.Registro == 0) {checked } /> No
+                                    <input asp-for="Status" type="radio" value="1" a> Si<br>
+                                    <input asp-for="Status" type="radio" value="0" > No
                                 </div>
                                 <div class="form-group">
                                     <label>Actualizar evidencia:  @Model.Archivo</label><br>

@@ -13,7 +13,7 @@ namespace SGCFIEE.Models
         public String ApellidoMaternoAlum { get; set; }
         public String Modalidad { get; set; }
         public String NombreTrabajo { get; set; }
-        public DateTime? Fecha { get; set; }
+        public String Fecha { get; set; }
         public String Archivo { get; set; }
         public int? JuradoPrejurado { get; set; }
         public int? Status { get; set; }

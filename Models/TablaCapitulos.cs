@@ -12,7 +12,7 @@ namespace SGCFIEE.Models
         public String Titulo { get; set; }
         public String ISBN { get; set; }
         public String Editorial { get; set; }
-        public DateTime? Anio { get; set; }
+        public int? Anio { get; set; }
         public int? Status { get; set; }
     }
 }

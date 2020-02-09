@@ -9,6 +9,7 @@ using Fiver.Mvc.FileUpload.Models.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
+using System.Globalization;
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace SGCFIEE.Controllers
@@ -92,6 +93,7 @@ namespace SGCFIEE.Controllers
                 Articulos DatosArticulo = context.Articulos.Where(s => s.IdArticulos == id).Single();
                 var lugar = context.TipoLocNacInter.Where(s => s.Nombre != "Local").ToList();
                 var acad = context.Academicos.ToList();
+                
                 ViewData["lugar"] = lugar;
                 ViewData["academicos"] = acad;
                 return View(DatosArticulo);
@@ -1106,19 +1108,23 @@ namespace SGCFIEE.Controllers
                                     NombreAlum = datosalum.Nombre,
                                     ApellidoPaternoAlum = datosalum.ApellidoPaterno,
                                     ApellidoMaternoAlum = datosalum.ApellidoMaterno,
+                                    Proceso = datos.Proceso,
                                     Modalidad = mod.Nombre,
                                     Grado = grado.Nombre,
                                     Academia = academia.Nombre,
-                                    Fecha = datos.FechaPresentacion,
+                                    Fecha = datos.FechaPresentacion.ToString(),
                                     NumCT = datos.NumeroConsejoT,
                                     Archivo = datos.Archivo,
                                     NombreTrabajo = datos.NombreTrabajo,
                                     Status = acad.Status
                                 }
                                ).ToList();
+                
+
             }
             return View(ListTrabajosRecep);
         }
+        
         [Authorize]
         public IActionResult CrearTrabajosRecep()
         {
@@ -1176,11 +1182,16 @@ namespace SGCFIEE.Controllers
                 var alum = context.DatosPersonales.ToList();
                 var grados = context.GradoTitulo.ToList();
                 var modalidad = context.TipoModalidad.ToList();
+                
                 ViewData["academicos"] = acad;
                 ViewData["academia"] = academia;
                 ViewData["alumnos"] = alum;
                 ViewData["grados"] = grados;
                 ViewData["modalidad"] = modalidad;
+                string fecha = DatosTrabajos.FechaPresentacion.ToString();
+                string[] resultado = fecha.Split(' ');
+                ViewData["fecha"] = resultado[0];
+
                 return View(DatosTrabajos);
             }
         }
@@ -1204,8 +1215,10 @@ namespace SGCFIEE.Controllers
                 }
 
             }
+            if (datos.Proceso == 0) datos.FechaPresentacion = null;
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                
                 context.TrabajosRecepcionales.Update(datos);
                 context.SaveChanges();
                 TempData["Mensaje"] = "La informacion se ha guardado correctamente";

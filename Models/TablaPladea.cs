@@ -11,7 +11,7 @@ namespace SGCFIEE.Models
         public String Comision { get; set; }
         public String Meta { get; set; }
         public String Accion { get; set; }
-        public DateTime? Fecha { get; set; }
+        public String Fecha { get; set; }
         public String Archivo { get; set; }
         public int? Status { get; set; }
     }

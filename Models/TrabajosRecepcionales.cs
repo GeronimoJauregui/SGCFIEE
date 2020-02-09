@@ -17,6 +17,7 @@ namespace SGCFIEE.Models
         public string NombreTrabajo { get; set; }
         public int? IdAcademico { get; set; }
         public int? IdAcademia { get; set; }
+        public int? Proceso { get; set; }
         public DateTime? FechaPresentacion { get; set; }
         public int? NumeroConsejoT { get; set; }
         public string Archivo { get; set; }

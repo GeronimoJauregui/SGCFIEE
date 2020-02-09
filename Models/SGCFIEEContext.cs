@@ -507,7 +507,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Anio)
                     .HasColumnName("anio")
-                    .HasColumnType("date");
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
@@ -3311,6 +3311,10 @@ namespace SGCFIEE.Models
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
+
+                entity.Property(e => e.Proceso)
+                    .HasColumnName("Proceso")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.FechaPresentacion)
                     .HasColumnName("Fecha_Presentacion")

@@ -1,0 +1,4 @@
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp3.0/SGCFIEE.csprojAssemblyReference.cache
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp3.0/SGCFIEE.MvcApplicationPartsAssemblyInfo.cache
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp3.0/SGCFIEE.AssemblyInfoInputs.cache
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp3.0/SGCFIEE.AssemblyInfo.cs

@@ -41,7 +41,7 @@ namespace SGCFIEE.Controllers
                                        ApellidoMaternoAlum = datosG.ApellidoMaterno,
                                        Modalidad = modalidad.Nombre,
                                        NombreTrabajo = trabajo.NombreTrabajo,
-                                       Fecha = trabajo.FechaPresentacion,
+                                       Fecha = trabajo.FechaPresentacion.ToString(),
                                        Archivo = datos.Archivo,
                                        JuradoPrejurado = datos.JuradoPrejurado,
                                        Status = acad.Status
@@ -273,7 +273,7 @@ namespace SGCFIEE.Controllers
                                           ApellidoMaterno = acad.ApellidoMaterno,
                                           Ee = ee.Nombre,
                                           TipoExamen = datos.TipoExamen,
-                                          Fecha = datos.Fecha,
+                                          Fecha = datos.Fecha.ToString(),
                                           Archivo = datos.Archivo,
                                           Status = acad.Status
                                       }
@@ -333,7 +333,9 @@ namespace SGCFIEE.Controllers
                 var Ee = context.ExperienciaEducativa.ToList();
                 ViewData["academicos"] = acad;
                 ViewData["ExperienciasE"] = Ee;
-
+                string fecha = DatosJur.Fecha.ToString();
+                string[] resultado = fecha.Split(' ');
+                ViewData["fecha"] = resultado[0];
                 return View(DatosJur);
             }
         }
@@ -583,7 +585,7 @@ namespace SGCFIEE.Controllers
                                         Comision = datos.Comision,
                                         Meta = datos.Meta,
                                         Accion = datos.Accion,
-                                        Fecha = datos.Fecha,
+                                        Fecha = datos.Fecha.ToString(),
                                         Archivo = datos.Archivo,
                                         Status = acad.Status
                                     }
@@ -639,6 +641,9 @@ namespace SGCFIEE.Controllers
 
                 var acad = context.Academicos.ToList();
                 ViewData["academicos"] = acad;
+                string fecha = DatosPladea.Fecha.ToString();
+                string[] resultado = fecha.Split(' ');
+                ViewData["fecha"] = resultado[0];
                 return View(DatosPladea);
             }
         }
