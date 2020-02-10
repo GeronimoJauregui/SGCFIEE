@@ -5,7 +5,18 @@
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
-            <Node name="SGCFIEE" expanded="True" />
+            <Node name="SGCFIEE" expanded="True">
+              <Node name="Views" expanded="True">
+                <Node name="Home" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="assets" expanded="True">
+                  <Node name="css" expanded="True">
+                    <Node name="login.css" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
           </Node>
         </State>
       </Pad>
