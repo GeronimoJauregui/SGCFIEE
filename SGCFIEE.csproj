@@ -15,6 +15,7 @@
     <None Remove="Views\Estudiantes\**" />
     <None Remove="Views\NewFolder1\**" />
     <Content Remove="Views\ConsejoTecnico\Crear.cshtml" />
+    <Content Remove="wwwroot\assets\img\default1.jpg" />
   </ItemGroup>
 
 
