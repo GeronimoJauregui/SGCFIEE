@@ -1047,10 +1047,60 @@ namespace SGCFIEE.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
+        [Authorize]
+        public IActionResult AcademicosLibros(int id)
+        {
+            List<TablaAcadLibros> ListAcadLibros = new List<TablaAcadLibros>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadLibros = (from datos in context.AcademicoLibro
+                                    join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                    where datos.IdLibroAcad == id
+                                    select new TablaAcadLibros
+                                    {
+                                        IdAcadLibros = datos.IdAcademicoLibro,
+                                        NumPersonal = acad.NumeroPersonal,
+                                        Nombre = acad.Nombre,
+                                        ApellidoPaterno = acad.ApellidoPaterno,
+                                        ApellidoMaterno = acad.ApellidoMaterno,
+                                        IdLibros = datos.IdLibroAcad
+                                    }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idLibros"] = id;
+            }
+            return View(ListAcadLibros);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadLibros(int idAcademico, int libros)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicoLibro AcadLibros = new AcademicoLibro();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadLibros.IdAcademico = idAcademico;
+                AcadLibros.IdLibroAcad = libros;
+                context.AcademicoLibro.Add(AcadLibros);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosLibros", new { id = AcadLibros.IdLibroAcad });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadLibros(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicoLibro eliminar = context.AcademicoLibro.Where(w => w.IdAcademicoLibro == id).Single();
+                context.AcademicoLibro.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosLibros", new { id = id_acad });
+            }
+        }
 
 
-
-       [Authorize]
+        [Authorize]
         public IActionResult IndexCapitulos()
         {
             List<TablaCapitulos> ListCapitulos = new List<TablaCapitulos>();
@@ -1210,6 +1260,57 @@ namespace SGCFIEE.Controllers
             }
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
+        }
+        [Authorize]
+        public IActionResult AcademicosCapituloLibros(int id)
+        {
+            List<TablaAcadCapLibros> ListAcadCapLibros = new List<TablaAcadCapLibros>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadCapLibros = (from datos in context.AcademicoCapLibro
+                                  join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                  where datos.IdCapLibro == id
+                                  select new TablaAcadCapLibros
+                                  {
+                                      IdAcadCapLibros = datos.IdAcademicoCapLibro,
+                                      NumPersonal = acad.NumeroPersonal,
+                                      Nombre = acad.Nombre,
+                                      ApellidoPaterno = acad.ApellidoPaterno,
+                                      ApellidoMaterno = acad.ApellidoMaterno,
+                                      IdCapLibros = datos.IdCapLibro
+                                  }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idCapLibros"] = id;
+            }
+            return View(ListAcadCapLibros);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadCapLibros(int idAcademico, int Caplibros)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicoCapLibro AcadCapLibros = new AcademicoCapLibro();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadCapLibros.IdAcademico = idAcademico;
+                AcadCapLibros.IdCapLibro = Caplibros;
+                context.AcademicoCapLibro.Add(AcadCapLibros);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosCapituloLibros", new { id = AcadCapLibros.IdCapLibro });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadCapLibros(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicoCapLibro eliminar = context.AcademicoCapLibro.Where(w => w.IdAcademicoCapLibro == id).Single();
+                context.AcademicoCapLibro.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosCapituloLibros", new { id = id_acad });
+            }
         }
 
 
@@ -1375,7 +1476,57 @@ namespace SGCFIEE.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
-
+        [Authorize]
+        public IActionResult AcademicosPatentes(int id)
+        {
+            List<TablaAcadPatentes> ListAcadPatentes = new List<TablaAcadPatentes>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadPatentes = (from datos in context.AcademicosPatentes
+                                     join acad in context.Academicos on datos.IdAcademicos equals acad.IdAcademicos
+                                     where datos.IdPatentes == id
+                                     select new TablaAcadPatentes
+                                     {
+                                         IdAcadPatentes = datos.IdAcademicosPatentes,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         IdPatentes = datos.IdPatentes
+                                     }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idPatentes"] = id;
+            }
+            return View(ListAcadPatentes);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadPatentes(int idAcademico, int patentes)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicosPatentes AcadPatentes = new AcademicosPatentes();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadPatentes.IdAcademicos = idAcademico;
+                AcadPatentes.IdPatentes = patentes;
+                context.AcademicosPatentes.Add(AcadPatentes);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosPatentes", new { id = AcadPatentes.IdPatentes });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadPatentes(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicosPatentes eliminar = context.AcademicosPatentes.Where(w => w.IdAcademicosPatentes == id).Single();
+                context.AcademicosPatentes.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosPatentes", new { id = id_acad });
+            }
+        }
 
 
 
@@ -1574,7 +1725,57 @@ namespace SGCFIEE.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
-
+        [Authorize]
+        public IActionResult AcademicosTrabajosRecep(int id)
+        {
+            List<TablaAcadTrabajosRecep> ListAcadTrabajosRecep = new List<TablaAcadTrabajosRecep>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadTrabajosRecep = (from datos in context.AcademicoTrabajosRecep
+                                    join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                    where datos.IdTrabajosRecep == id
+                                    select new TablaAcadTrabajosRecep
+                                    {
+                                        IdAcadTrabajos = datos.IdAcademicoTrabajosRecep,
+                                        NumPersonal = acad.NumeroPersonal,
+                                        Nombre = acad.Nombre,
+                                        ApellidoPaterno = acad.ApellidoPaterno,
+                                        ApellidoMaterno = acad.ApellidoMaterno,
+                                        IdTrabajos = datos.IdTrabajosRecep
+                                    }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idTrabajos"] = id;
+            }
+            return View(ListAcadTrabajosRecep);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadTrabajosRecep(int idAcademico, int trabajos)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicoTrabajosRecep AcadTrabajos = new AcademicoTrabajosRecep();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadTrabajos.IdAcademico = idAcademico;
+                AcadTrabajos.IdTrabajosRecep = trabajos;
+                context.AcademicoTrabajosRecep.Add(AcadTrabajos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosTrabajosRecep", new { id = AcadTrabajos.IdTrabajosRecep });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadTrabajosRecep(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicoTrabajosRecep eliminar = context.AcademicoTrabajosRecep.Where(w => w.IdAcademicoTrabajosRecep == id).Single();
+                context.AcademicoTrabajosRecep.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosTrabajosRecep", new { id = id_acad });
+            }
+        }
 
 
 
@@ -1741,8 +1942,58 @@ namespace SGCFIEE.Controllers
             }
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
-        }*/
-
+        }
+        [Authorize]
+        public IActionResult AcademicosConcursos(int id)
+        {
+            List<TablaAcadConcursos> ListAcadConcursos = new List<TablaAcadConcursos>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadConcursos = (from datos in context.AcademicoConcursos
+                                         join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                         where datos.IdConcursos == id
+                                         select new TablaAcadConcursos
+                                         {
+                                             IdAcadConcursos = datos.IdAcademicoConcursos,
+                                             NumPersonal = acad.NumeroPersonal,
+                                             Nombre = acad.Nombre,
+                                             ApellidoPaterno = acad.ApellidoPaterno,
+                                             ApellidoMaterno = acad.ApellidoMaterno,
+                                             IdConcursos = datos.IdConcursos
+                                         }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idConcursos"] = id;
+            }
+            return View(ListAcadConcursos);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadConcursos(int idAcademico, int concursos)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicoConcursos AcadConcursos = new AcademicoConcursos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadConcursos.IdAcademico = idAcademico;
+                AcadConcursos.IdConcursos = concursos;
+                context.AcademicoConcursos.Add(AcadConcursos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosConcursos", new { id = AcadConcursos.IdConcursos });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadConcursos(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicoConcursos eliminar = context.AcademicoConcursos.Where(w => w.IdAcademicoConcursos == id).Single();
+                context.AcademicoConcursos.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosConcursos", new { id = id_acad });
+            }
+        }
 
 
 

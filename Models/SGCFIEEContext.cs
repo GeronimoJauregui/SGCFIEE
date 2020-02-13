@@ -874,9 +874,6 @@ namespace SGCFIEE.Models
 
                 entity.ToTable("CA_academicos");
 
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_academico_cuerpo_idx");
-
                 entity.HasIndex(e => e.IdCanivelJerarquico)
                     .HasName("fk_cuerpoacademico_nivel_idx");
 
@@ -895,10 +892,6 @@ namespace SGCFIEE.Models
                     .HasColumnName("Fecha_Registro")
                     .HasColumnType("date");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdCanivelJerarquico)
                     .HasColumnName("id_CANivel_jerarquico")
                     .HasColumnType("int(11)");
@@ -908,11 +901,6 @@ namespace SGCFIEE.Models
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Status).HasColumnType("int(11)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.CaAcademicos)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_academico_cuerpo");
 
                 entity.HasOne(d => d.IdCanivelJerarquicoNavigation)
                     .WithMany(p => p.CaAcademicos)

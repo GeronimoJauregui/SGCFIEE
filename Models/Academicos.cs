@@ -23,7 +23,6 @@ namespace SGCFIEE.Models
             AcademicosJuradoRecep = new HashSet<AcademicosJuradoRecep>();
             AcademicosPatentes = new HashSet<AcademicosPatentes>();
             Asistencias = new HashSet<Asistencias>();
-            CaAcademicos = new HashSet<CaAcademicos>();
             Certificaciones = new HashSet<Certificaciones>();
             ConsejoTecnico = new HashSet<ConsejoTecnico>();
             ContratacionPtc = new HashSet<ContratacionPtc>();
@@ -89,7 +88,6 @@ namespace SGCFIEE.Models
         public virtual ICollection<AcademicosJuradoRecep> AcademicosJuradoRecep { get; set; }
         public virtual ICollection<AcademicosPatentes> AcademicosPatentes { get; set; }
         public virtual ICollection<Asistencias> Asistencias { get; set; }
-        public virtual ICollection<CaAcademicos> CaAcademicos { get; set; }
         public virtual ICollection<Certificaciones> Certificaciones { get; set; }
         public virtual ICollection<ConsejoTecnico> ConsejoTecnico { get; set; }
         public virtual ICollection<ContratacionPtc> ContratacionPtc { get; set; }

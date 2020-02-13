@@ -7,7 +7,6 @@ namespace SGCFIEE.Models
     {
         public CuerposAcademicos()
         {
-            AcademicosCuerposAcad = new HashSet<AcademicosCuerposAcad>();
             CaAcademicos = new HashSet<CaAcademicos>();
             CaAlumnos = new HashSet<CaAlumnos>();
         }
@@ -17,7 +16,6 @@ namespace SGCFIEE.Models
         public int? IdEstado { get; set; }
 
         public virtual CuerpoEstados IdEstadoNavigation { get; set; }
-        public virtual ICollection<AcademicosCuerposAcad> AcademicosCuerposAcad { get; set; }
         public virtual ICollection<CaAcademicos> CaAcademicos { get; set; }
         public virtual ICollection<CaAlumnos> CaAlumnos { get; set; }
     }

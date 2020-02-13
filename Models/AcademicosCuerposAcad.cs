@@ -10,6 +10,6 @@ namespace SGCFIEE.Models
         public int? IdCuerpoAcad { get; set; }
 
         public virtual Academicos IdAcademicoNavigation { get; set; }
-        public virtual CuerposAcademicos IdCuerpoAcadNavigation { get; set; }
+        public virtual CaAcademicos IdCuerpoAcadNavigation { get; set; }
     }
 }
