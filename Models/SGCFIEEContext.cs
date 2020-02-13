@@ -16,7 +16,22 @@ namespace SGCFIEE.Models
         }
 
         public virtual DbSet<Academias> Academias { get; set; }
+        public virtual DbSet<AcademicoArticulos> AcademicoArticulos { get; set; }
+        public virtual DbSet<AcademicoCapLibro> AcademicoCapLibro { get; set; }
+        public virtual DbSet<AcademicoConcursos> AcademicoConcursos { get; set; }
+        public virtual DbSet<AcademicoCongresos> AcademicoCongresos { get; set; }
+        public virtual DbSet<AcademicoLibro> AcademicoLibro { get; set; }
+        public virtual DbSet<AcademicoPonenciasConf> AcademicoPonenciasConf { get; set; }
+        public virtual DbSet<AcademicoReportesT> AcademicoReportesT { get; set; }
+        public virtual DbSet<AcademicoRevistas> AcademicoRevistas { get; set; }
+        public virtual DbSet<AcademicoTrabajosRecep> AcademicoTrabajosRecep { get; set; }
         public virtual DbSet<Academicos> Academicos { get; set; }
+        public virtual DbSet<AcademicosCuerposAcad> AcademicosCuerposAcad { get; set; }
+        public virtual DbSet<AcademicosCursosTaller> AcademicosCursosTaller { get; set; }
+        public virtual DbSet<AcademicosEvaluadores> AcademicosEvaluadores { get; set; }
+        public virtual DbSet<AcademicosJurOposicion> AcademicosJurOposicion { get; set; }
+        public virtual DbSet<AcademicosJuradoRecep> AcademicosJuradoRecep { get; set; }
+        public virtual DbSet<AcademicosPatentes> AcademicosPatentes { get; set; }
         public virtual DbSet<Alumnos> Alumnos { get; set; }
         public virtual DbSet<AreaExperienciaEducativa> AreaExperienciaEducativa { get; set; }
         public virtual DbSet<Articulos> Articulos { get; set; }
@@ -112,8 +127,7 @@ namespace SGCFIEE.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //optionsBuilder.UseMySql("Server=localhost;Port=56971;Database=sgcfiee;User=azure;Password=6#vWHD_$;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=1234567890;");
             }
         }
@@ -125,8 +139,6 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdAcademias)
                     .HasName("PRIMARY");
 
-                entity.ToTable("academias");
-
                 entity.Property(e => e.IdAcademias)
                     .HasColumnName("idAcademias")
                     .HasColumnType("int(11)");
@@ -136,12 +148,316 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.Status).HasColumnType("int(11)");
             });
 
+            modelBuilder.Entity<AcademicoArticulos>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicoArticulos)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academico_idx");
+
+                entity.HasIndex(e => e.IdArticulo)
+                    .HasName("fk_tabla_articulos_idx");
+
+                entity.Property(e => e.IdAcademicoArticulos)
+                    .HasColumnName("idAcademicoArticulos")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdArticulo)
+                    .HasColumnName("idArticulo")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicoArticulos)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_acadArticulo_academico");
+
+                entity.HasOne(d => d.IdArticuloNavigation)
+                    .WithMany(p => p.AcademicoArticulos)
+                    .HasForeignKey(d => d.IdArticulo)
+                    .HasConstraintName("fk_tabla_articulos");
+            });
+
+            modelBuilder.Entity<AcademicoCapLibro>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicoCapLibro)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academico_idx");
+
+                entity.HasIndex(e => e.IdCapLibro)
+                    .HasName("fk_tabla_capLibro_idx");
+
+                entity.Property(e => e.IdAcademicoCapLibro)
+                    .HasColumnName("idAcademicoCapLibro")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdCapLibro)
+                    .HasColumnName("idCapLibro")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicoCapLibro)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_tablaCapLibro_academico");
+
+                entity.HasOne(d => d.IdCapLibroNavigation)
+                    .WithMany(p => p.AcademicoCapLibro)
+                    .HasForeignKey(d => d.IdCapLibro)
+                    .HasConstraintName("fk_tabla_capLibro");
+            });
+
+            modelBuilder.Entity<AcademicoConcursos>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicoConcursos)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academicos_idx");
+
+                entity.HasIndex(e => e.IdConcursos)
+                    .HasName("fk_tabla_concursos_idx");
+
+                entity.Property(e => e.IdAcademicoConcursos)
+                    .HasColumnName("idAcademicoConcursos")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdConcursos)
+                    .HasColumnName("idConcursos")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicoConcursos)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_AcadConcurso_academicos");
+
+                entity.HasOne(d => d.IdConcursosNavigation)
+                    .WithMany(p => p.AcademicoConcursos)
+                    .HasForeignKey(d => d.IdConcursos)
+                    .HasConstraintName("fk_tabla_concursos");
+            });
+
+            modelBuilder.Entity<AcademicoCongresos>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicoCongresos)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_Academico_idx");
+
+                entity.HasIndex(e => e.IdCongreso)
+                    .HasName("fk_tabla_Congreso_idx");
+
+                entity.Property(e => e.IdAcademicoCongresos)
+                    .HasColumnName("idAcademicoCongresos")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdCongreso)
+                    .HasColumnName("idCongreso")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicoCongresos)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_acadcongreso_Academico");
+
+                entity.HasOne(d => d.IdCongresoNavigation)
+                    .WithMany(p => p.AcademicoCongresos)
+                    .HasForeignKey(d => d.IdCongreso)
+                    .HasConstraintName("fk_tabla_Congreso");
+            });
+
+            modelBuilder.Entity<AcademicoLibro>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicoLibro)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_Academico_idx");
+
+                entity.HasIndex(e => e.IdLibroAcad)
+                    .HasName("fk_tabla_Libro_idx");
+
+                entity.Property(e => e.IdAcademicoLibro)
+                    .HasColumnName("idAcademicoLibro")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdLibroAcad)
+                    .HasColumnName("idLibroAcad")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicoLibro)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_acadLibro_Academico");
+
+                entity.HasOne(d => d.IdLibroAcadNavigation)
+                    .WithMany(p => p.AcademicoLibro)
+                    .HasForeignKey(d => d.IdLibroAcad)
+                    .HasConstraintName("fk_tabla_Libro");
+            });
+
+            modelBuilder.Entity<AcademicoPonenciasConf>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicoPonenciasConf)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academicos_idx");
+
+                entity.HasIndex(e => e.IdPonenciasConf)
+                    .HasName("fk_tabla_ponenciaconf_idx");
+
+                entity.Property(e => e.IdAcademicoPonenciasConf)
+                    .HasColumnName("idAcademicoPonenciasConf")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdPonenciasConf)
+                    .HasColumnName("idPonenciasConf")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicoPonenciasConf)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_AcadPonencia_academicos");
+
+                entity.HasOne(d => d.IdPonenciasConfNavigation)
+                    .WithMany(p => p.AcademicoPonenciasConf)
+                    .HasForeignKey(d => d.IdPonenciasConf)
+                    .HasConstraintName("fk_tabla_ponenciaconf");
+            });
+
+            modelBuilder.Entity<AcademicoReportesT>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicoReportesT)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academicos_idx");
+
+                entity.HasIndex(e => e.IdReportesTec)
+                    .HasName("fk_tabla_reportes_idx");
+
+                entity.Property(e => e.IdAcademicoReportesT)
+                    .HasColumnName("idAcademicoReportesT")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdReportesTec)
+                    .HasColumnName("idReportesTec")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicoReportesT)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_tabla_academicos");
+
+                entity.HasOne(d => d.IdReportesTecNavigation)
+                    .WithMany(p => p.AcademicoReportesT)
+                    .HasForeignKey(d => d.IdReportesTec)
+                    .HasConstraintName("fk_tabla_reportes");
+            });
+
+            modelBuilder.Entity<AcademicoRevistas>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicorevistas)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academico_idx");
+
+                entity.HasIndex(e => e.IdRevista)
+                    .HasName("fk_tabla_revistas_idx");
+
+                entity.Property(e => e.IdAcademicorevistas)
+                    .HasColumnName("idAcademicorevistas")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdRevista)
+                    .HasColumnName("idRevista")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicoRevistas)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_tabla_academico");
+
+                entity.HasOne(d => d.IdRevistaNavigation)
+                    .WithMany(p => p.AcademicoRevistas)
+                    .HasForeignKey(d => d.IdRevista)
+                    .HasConstraintName("fk_tabla_revistas");
+            });
+
+            modelBuilder.Entity<AcademicoTrabajosRecep>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicoTrabajosRecep)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academico_idx");
+
+                entity.HasIndex(e => e.IdTrabajosRecep)
+                    .HasName("fk_tabla_trabajosrecep_idx");
+
+                entity.Property(e => e.IdAcademicoTrabajosRecep)
+                    .HasColumnName("idAcademicoTrabajosRecep")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdTrabajosRecep)
+                    .HasColumnName("idTrabajosRecep")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicoTrabajosRecep)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_tablaTrabajos_academico");
+
+                entity.HasOne(d => d.IdTrabajosRecepNavigation)
+                    .WithMany(p => p.AcademicoTrabajosRecep)
+                    .HasForeignKey(d => d.IdTrabajosRecep)
+                    .HasConstraintName("fk_tabla_trabajosrecep");
+            });
+
             modelBuilder.Entity<Academicos>(entity =>
             {
                 entity.HasKey(e => e.IdAcademicos)
                     .HasName("PRIMARY");
-
-                entity.ToTable("academicos");
 
                 entity.HasIndex(e => e.IdProgramaEducativo)
                     .HasName("fk_academicos_programaE_idx");
@@ -214,12 +530,214 @@ namespace SGCFIEE.Models
                     .HasConstraintName("fk_academicos_Tipo_Personal");
             });
 
+            modelBuilder.Entity<AcademicosCuerposAcad>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicosCuerposAcad)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academicos_idx");
+
+                entity.HasIndex(e => e.IdCuerpoAcad)
+                    .HasName("fk_tabla_cuerpo_idx");
+
+                entity.Property(e => e.IdAcademicosCuerposAcad)
+                    .HasColumnName("idAcademicosCuerposAcad")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdCuerpoAcad)
+                    .HasColumnName("idCuerpoAcad")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicosCuerposAcad)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_AcadCuerpo_academicos");
+
+                entity.HasOne(d => d.IdCuerpoAcadNavigation)
+                    .WithMany(p => p.AcademicosCuerposAcad)
+                    .HasForeignKey(d => d.IdCuerpoAcad)
+                    .HasConstraintName("fk_tabla_cuerpo");
+            });
+
+            modelBuilder.Entity<AcademicosCursosTaller>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicosCursosTaller)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academico_idx");
+
+                entity.HasIndex(e => e.IdCursosDiplo)
+                    .HasName("fk_tabla_CursoTaller_idx");
+
+                entity.Property(e => e.IdAcademicosCursosTaller)
+                    .HasColumnName("idAcademicosCursosTaller")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdCursosDiplo)
+                    .HasColumnName("idCursosDiplo")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicosCursosTaller)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_AcadCurso_academico");
+
+                entity.HasOne(d => d.IdCursosDiploNavigation)
+                    .WithMany(p => p.AcademicosCursosTaller)
+                    .HasForeignKey(d => d.IdCursosDiplo)
+                    .HasConstraintName("fk_AcadCursos_CursoTaller");
+            });
+
+            modelBuilder.Entity<AcademicosEvaluadores>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicosEvaluadores)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academicos_idx");
+
+                entity.HasIndex(e => e.IdEvaluadores)
+                    .HasName("fk_tabla_evaluadores_idx");
+
+                entity.Property(e => e.IdAcademicosEvaluadores)
+                    .HasColumnName("idAcademicosEvaluadores")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdEvaluadores)
+                    .HasColumnName("idEvaluadores")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicosEvaluadores)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_AcadEval_academicos");
+
+                entity.HasOne(d => d.IdEvaluadoresNavigation)
+                    .WithMany(p => p.AcademicosEvaluadores)
+                    .HasForeignKey(d => d.IdEvaluadores)
+                    .HasConstraintName("fk_tabla_evaluadores");
+            });
+
+            modelBuilder.Entity<AcademicosJurOposicion>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicosJurOposicion)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academico_idx");
+
+                entity.HasIndex(e => e.IdJurado)
+                    .HasName("fk_tabla_jurado_idx");
+
+                entity.Property(e => e.IdAcademicosJurOposicion)
+                    .HasColumnName("idAcademicosJurOposicion")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdJurado)
+                    .HasColumnName("idJurado")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicosJurOposicion)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_AcadJurOpo_academico");
+
+                entity.HasOne(d => d.IdJuradoNavigation)
+                    .WithMany(p => p.AcademicosJurOposicion)
+                    .HasForeignKey(d => d.IdJurado)
+                    .HasConstraintName("fk_tablaJurOpo_jurado");
+            });
+
+            modelBuilder.Entity<AcademicosJuradoRecep>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicosJuradoRecep)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_tabla_academico_idx");
+
+                entity.HasIndex(e => e.IdJurado)
+                    .HasName("fk_tabla_jurado_idx");
+
+                entity.Property(e => e.IdAcademicosJuradoRecep)
+                    .HasColumnName("idAcademicosJuradoRecep")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademico)
+                    .HasColumnName("idAcademico")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdJurado)
+                    .HasColumnName("idJurado")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.AcademicosJuradoRecep)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_AcadJurRecep_academico");
+
+                entity.HasOne(d => d.IdJuradoNavigation)
+                    .WithMany(p => p.AcademicosJuradoRecep)
+                    .HasForeignKey(d => d.IdJurado)
+                    .HasConstraintName("fk_tabla_jurado");
+            });
+
+            modelBuilder.Entity<AcademicosPatentes>(entity =>
+            {
+                entity.HasKey(e => e.IdAcademicosPatentes)
+                    .HasName("PRIMARY");
+
+                entity.HasIndex(e => e.IdAcademicos)
+                    .HasName("fk_tabla_academicos_idx");
+
+                entity.HasIndex(e => e.IdPatentes)
+                    .HasName("fk_tabla_patentes_idx");
+
+                entity.Property(e => e.IdAcademicosPatentes)
+                    .HasColumnName("idAcademicosPatentes")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdAcademicos)
+                    .HasColumnName("idAcademicos")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.IdPatentes)
+                    .HasColumnName("idPatentes")
+                    .HasColumnType("int(11)");
+
+                entity.HasOne(d => d.IdAcademicosNavigation)
+                    .WithMany(p => p.AcademicosPatentes)
+                    .HasForeignKey(d => d.IdAcademicos)
+                    .HasConstraintName("fk_tablaPatente_academicos");
+
+                entity.HasOne(d => d.IdPatentesNavigation)
+                    .WithMany(p => p.AcademicosPatentes)
+                    .HasForeignKey(d => d.IdPatentes)
+                    .HasConstraintName("fk_tabla_patentes");
+            });
+
             modelBuilder.Entity<Alumnos>(entity =>
             {
                 entity.HasKey(e => e.IdAlumnos)
                     .HasName("PRIMARY");
-
-                entity.ToTable("alumnos");
 
                 entity.HasIndex(e => e.RDatosPerson)
                     .HasName("fk_alumnos_datos_idx");
@@ -274,7 +792,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdAreaExperienciaEducativa)
                     .HasName("PRIMARY");
 
-                entity.ToTable("area_experiencia_educativa");
+                entity.ToTable("Area_Experiencia_Educativa");
 
                 entity.Property(e => e.IdAreaExperienciaEducativa)
                     .HasColumnName("idArea_Experiencia_Educativa")
@@ -290,11 +808,6 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdArticulos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("articulos");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_Arti_Aca_idx");
-
                 entity.HasIndex(e => e.IdTipoNI)
                     .HasName("fk_Arti_N_I_idx");
 
@@ -306,10 +819,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdTipoNI)
                     .HasColumnName("id_tipoN_I")
                     .HasColumnType("int(11)");
@@ -317,11 +826,6 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.Nombre).HasColumnType("varchar(90)");
 
                 entity.Property(e => e.Registro).HasColumnType("int(11)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.Articulos)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_Arti_Aca");
 
                 entity.HasOne(d => d.IdTipoNINavigation)
                     .WithMany(p => p.Articulos)
@@ -333,8 +837,6 @@ namespace SGCFIEE.Models
             {
                 entity.HasKey(e => e.IdAsistencias)
                     .HasName("PRIMARY");
-
-                entity.ToTable("asistencias");
 
                 entity.HasIndex(e => e.RAcademicos)
                     .HasName("fk_asistencias_academicos_idx");
@@ -370,7 +872,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCa)
                     .HasName("PRIMARY");
 
-                entity.ToTable("ca_academicos");
+                entity.ToTable("CA_academicos");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_academico_cuerpo_idx");
@@ -428,7 +930,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCa)
                     .HasName("PRIMARY");
 
-                entity.ToTable("ca_alumnos");
+                entity.ToTable("CA_alumnos");
 
                 entity.HasIndex(e => e.IdAlumno)
                     .HasName("id_alumnos_idx");
@@ -479,7 +981,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCanivelJerarquico)
                     .HasName("PRIMARY");
 
-                entity.ToTable("canivel_jerarquico");
+                entity.ToTable("CANivel_jerarquico");
 
                 entity.Property(e => e.IdCanivelJerarquico)
                     .HasColumnName("id_CANivel_jerarquico")
@@ -493,10 +995,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCapLibro)
                     .HasName("PRIMARY");
 
-                entity.ToTable("cap_libro");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_CapL_Academico_idx");
+                entity.ToTable("Cap_Libro");
 
                 entity.HasIndex(e => e.IdEditorial)
                     .HasName("fk_CapL_Editorial_idx");
@@ -511,10 +1010,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdEditorial)
                     .HasColumnName("id_Editorial")
                     .HasColumnType("int(11)");
@@ -524,11 +1019,6 @@ namespace SGCFIEE.Models
                     .HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Titulo).HasColumnType("varchar(90)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.CapLibro)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_CapL_Academico");
 
                 entity.HasOne(d => d.IdEditorialNavigation)
                     .WithMany(p => p.CapLibro)
@@ -540,8 +1030,6 @@ namespace SGCFIEE.Models
             {
                 entity.HasKey(e => e.IdCertificaciones)
                     .HasName("PRIMARY");
-
-                entity.ToTable("certificaciones");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_certificacion_academicos_idx");
@@ -581,11 +1069,6 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdConcursos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("concursos");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_concursos_academico_idx");
-
                 entity.HasIndex(e => e.IdNacInter)
                     .HasName("fk_concursos_NacInt_idx");
 
@@ -595,20 +1078,11 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdNacInter)
                     .HasColumnName("id_Nac_Inter")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Nombre).HasColumnType("varchar(75)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.Concursos)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_concursos_academico");
 
                 entity.HasOne(d => d.IdNacInterNavigation)
                     .WithMany(p => p.Concursos)
@@ -621,11 +1095,6 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCongresos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("congresos");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_congreso_aca_idx");
-
                 entity.HasIndex(e => e.IdNacInt)
                     .HasName("fk_congresos_N_I_idx");
 
@@ -635,20 +1104,11 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdNacInt)
                     .HasColumnName("id_Nac_Int")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Nombre).HasColumnType("varchar(90)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.Congresos)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_congreso_aca");
 
                 entity.HasOne(d => d.IdNacIntNavigation)
                     .WithMany(p => p.Congresos)
@@ -661,7 +1121,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdConsejoTecnico)
                     .HasName("PRIMARY");
 
-                entity.ToTable("consejo_tecnico");
+                entity.ToTable("Consejo_tecnico");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_CT_academicos_idx");
@@ -750,7 +1210,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCoordinadorAcademia)
                     .HasName("PRIMARY");
 
-                entity.ToTable("coordinador_academia");
+                entity.ToTable("Coordinador_Academia");
 
                 entity.HasIndex(e => e.IdAcadademia)
                     .HasName("fk_CA_academias_idx");
@@ -814,7 +1274,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCoordinadorProgramaTransversal)
                     .HasName("PRIMARY");
 
-                entity.ToTable("coordinador_programa_transversal");
+                entity.ToTable("Coordinador_Programa_Transversal");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_CPT_academicos_idx");
@@ -878,7 +1338,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCtEmpresas)
                     .HasName("PRIMARY");
 
-                entity.ToTable("ct_empresa_serv_prac");
+                entity.ToTable("Ct_Empresa_Serv_Prac");
 
                 entity.Property(e => e.IdCtEmpresas)
                     .HasColumnName("idCt_Empresas")
@@ -896,7 +1356,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCtExperienciaRecepcional)
                     .HasName("PRIMARY");
 
-                entity.ToTable("ct_experienciarecepcional");
+                entity.ToTable("Ct_ExperienciaRecepcional");
 
                 entity.HasIndex(e => e.RAsesor)
                     .HasName("fk_asesorAcademico_er_idx");
@@ -927,7 +1387,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCtMovilidades)
                     .HasName("PRIMARY");
 
-                entity.ToTable("ct_movilidades");
+                entity.ToTable("Ct_Movilidades");
 
                 entity.Property(e => e.IdCtMovilidades)
                     .HasColumnName("idCt_Movilidades")
@@ -963,7 +1423,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCtProblemas)
                     .HasName("PRIMARY");
 
-                entity.ToTable("ct_problemas");
+                entity.ToTable("Ct_Problemas");
 
                 entity.Property(e => e.IdCtProblemas)
                     .HasColumnName("idCt_Problemas")
@@ -979,7 +1439,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCtTipoCalificacion)
                     .HasName("PRIMARY");
 
-                entity.ToTable("ct_tipo_calificacion");
+                entity.ToTable("Ct_Tipo_Calificacion");
 
                 entity.Property(e => e.IdCtTipoCalificacion)
                     .HasColumnName("id_Ct_Tipo_Calificacion")
@@ -993,7 +1453,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdEstado)
                     .HasName("PRIMARY");
 
-                entity.ToTable("cuerpo_estados");
+                entity.ToTable("Cuerpo_Estados");
 
                 entity.Property(e => e.IdEstado)
                     .HasColumnName("id_Estado")
@@ -1007,7 +1467,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCuerpoAcademico)
                     .HasName("PRIMARY");
 
-                entity.ToTable("cuerpos_academicos");
+                entity.ToTable("Cuerpos_Academicos");
 
                 entity.HasIndex(e => e.IdEstado)
                     .HasName("tk_cuerpo_estado_idx");
@@ -1033,7 +1493,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCD)
                     .HasName("PRIMARY");
 
-                entity.ToTable("cursos/diplomado_formacion");
+                entity.ToTable("Cursos/Diplomado_Formacion");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_C/D_academicos_idx");
@@ -1089,10 +1549,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCursosTalleres)
                     .HasName("PRIMARY");
 
-                entity.ToTable("cursos/talleres_aplicacion");
-
-                entity.HasIndex(e => e.IdAcademicos)
-                    .HasName("fk_cursos_talleres_academico_idx");
+                entity.ToTable("Cursos/Talleres_Aplicacion");
 
                 entity.Property(e => e.IdCursosTalleres)
                     .HasColumnName("id_Cursos_Talleres")
@@ -1106,16 +1563,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Fecha).HasColumnType("date");
 
-                entity.Property(e => e.IdAcademicos)
-                    .HasColumnName("id_academicos")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.Titulo).HasColumnType("varchar(100)");
-
-                entity.HasOne(d => d.IdAcademicosNavigation)
-                    .WithMany(p => p.CursosTalleresAplicacion)
-                    .HasForeignKey(d => d.IdAcademicos)
-                    .HasConstraintName("fk_cursos_talleres_academico");
             });
 
             modelBuilder.Entity<DatosPersonales>(entity =>
@@ -1123,7 +1571,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdDatosPersonales)
                     .HasName("PRIMARY");
 
-                entity.ToTable("datos_personales");
+                entity.ToTable("Datos_Personales");
 
                 entity.Property(e => e.IdDatosPersonales)
                     .HasColumnName("id_Datos_Personales")
@@ -1193,7 +1641,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdDistinciones)
                     .HasName("PRIMARY");
 
-                entity.ToTable("distinciones_ta");
+                entity.ToTable("Distinciones_TA");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("id_academico_idx");
@@ -1243,8 +1691,6 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdEditorial)
                     .HasName("PRIMARY");
 
-                entity.ToTable("editorial");
-
                 entity.Property(e => e.IdEditorial)
                     .HasColumnName("idEditorial")
                     .HasColumnType("int(11)");
@@ -1256,8 +1702,6 @@ namespace SGCFIEE.Models
             {
                 entity.HasKey(e => e.IdEstudios)
                     .HasName("PRIMARY");
-
-                entity.ToTable("estudios");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_estudios_academico_idx");
@@ -1334,7 +1778,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdConsejoTecnico)
                     .HasName("PRIMARY");
 
-                entity.ToTable("evaluacion_consejo_tecnico");
+                entity.ToTable("Evaluacion_Consejo_Tecnico");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_CT_academicos_idx");
@@ -1374,7 +1818,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdEvaluacionEstudiantes)
                     .HasName("PRIMARY");
 
-                entity.ToTable("evaluacion_estudiantes");
+                entity.ToTable("Evaluacion_Estudiantes");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_evaluacionE_academico_idx");
@@ -1410,10 +1854,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdEvaluadoresAcademicos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("evaluadores_academicos");
-
-                entity.HasIndex(e => e.IdAcademicos)
-                    .HasName("fk_evaluadores_academicos_idx");
+                entity.ToTable("Evaluadores_Academicos");
 
                 entity.HasIndex(e => e.IdTipoEvaluador)
                     .HasName("fk_evaluadores_tipo_idx");
@@ -1424,10 +1865,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.IdAcademicos)
-                    .HasColumnName("idAcademicos")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdTipoEvaluador)
                     .HasColumnName("idTipo_Evaluador")
                     .HasColumnType("int(11)");
@@ -1437,11 +1874,6 @@ namespace SGCFIEE.Models
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Status).HasColumnType("int(11)");
-
-                entity.HasOne(d => d.IdAcademicosNavigation)
-                    .WithMany(p => p.EvaluadoresAcademicos)
-                    .HasForeignKey(d => d.IdAcademicos)
-                    .HasConstraintName("fk_evaluadores_academicos");
 
                 entity.HasOne(d => d.IdTipoEvaluadorNavigation)
                     .WithMany(p => p.EvaluadoresAcademicos)
@@ -1455,7 +1887,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdEventosAlumnos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("eventos_alumnos");
+                entity.ToTable("Eventos_Alumnos");
 
                 entity.HasIndex(e => e.RAlumno)
                     .HasName("fk_eventos_alumnos_idx");
@@ -1495,7 +1927,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdExperienciaEducativa)
                     .HasName("PRIMARY");
 
-                entity.ToTable("experiencia_educativa");
+                entity.ToTable("Experiencia_Educativa");
 
                 entity.HasIndex(e => e.IdArea)
                     .HasName("fk_ee_area_idx");
@@ -1527,7 +1959,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdExperienciaEducativaPeriodo)
                     .HasName("PRIMARY");
 
-                entity.ToTable("experiencia_educativa_periodo");
+                entity.ToTable("Experiencia_Educativa_Periodo");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_eep_academicos_idx");
@@ -1617,7 +2049,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdEp)
                     .HasName("PRIMARY");
 
-                entity.ToTable("experiencia_profesional");
+                entity.ToTable("Experiencia_profesional");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_Experiencia_academico_idx");
@@ -1682,7 +2114,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdGradoTitulo)
                     .HasName("PRIMARY");
 
-                entity.ToTable("grado_titulo");
+                entity.ToTable("Grado_Titulo");
 
                 entity.Property(e => e.IdGradoTitulo)
                     .HasColumnName("idGrado_Titulo")
@@ -1696,7 +2128,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdIE)
                     .HasName("PRIMARY");
 
-                entity.ToTable("instituciones/empresas");
+                entity.ToTable("Instituciones/Empresas");
 
                 entity.Property(e => e.IdIE)
                     .HasColumnName("id_I/E")
@@ -1714,10 +2146,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdJexposicion)
                     .HasName("PRIMARY");
 
-                entity.ToTable("jurado_examen_oposicion");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_Jexposicion_academico_idx");
+                entity.ToTable("Jurado_Examen_Oposicion");
 
                 entity.HasIndex(e => e.IdEe)
                     .HasName("fk_Jexposicion_EE_idx");
@@ -1730,10 +2159,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Fecha).HasColumnType("date");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdEe)
                     .HasColumnName("id_EE")
                     .HasColumnType("int(11)");
@@ -1741,11 +2166,6 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.TipoExamen)
                     .HasColumnName("tipo_examen")
                     .HasColumnType("int(11)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.JuradoExamenOposicion)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_exposicion_academico");
 
                 entity.HasOne(d => d.IdEeNavigation)
                     .WithMany(p => p.JuradoExamenOposicion)
@@ -1758,10 +2178,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdJer)
                     .HasName("PRIMARY");
 
-                entity.ToTable("jurado_experiencia_recepcional");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_JER_academico_idx");
+                entity.ToTable("Jurado_Experiencia_Recepcional");
 
                 entity.HasIndex(e => e.IdTr)
                     .HasName("fk_JER_TR_idx");
@@ -1772,10 +2189,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdTr)
                     .HasColumnName("id_TR")
                     .HasColumnType("int(11)");
@@ -1783,11 +2196,6 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.JuradoPrejurado)
                     .HasColumnName("Jurado/Prejurado")
                     .HasColumnType("int(11)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.JuradoExperienciaRecepcional)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_JER_academico");
 
                 entity.HasOne(d => d.IdTrNavigation)
                     .WithMany(p => p.JuradoExperienciaRecepcional)
@@ -1799,8 +2207,6 @@ namespace SGCFIEE.Models
             {
                 entity.HasKey(e => e.IdLaboratorio)
                     .HasName("PRIMARY");
-
-                entity.ToTable("laboratorio");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_labo_academico_idx");
@@ -1840,7 +2246,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdLibroEe)
                     .HasName("PRIMARY");
 
-                entity.ToTable("libroee");
+                entity.ToTable("libroEE");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_libroEE_academico_idx");
@@ -1880,10 +2286,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdLibrosAcademicos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("libros_academicos");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_libros_academicos_idx");
+                entity.ToTable("Libros_Academicos");
 
                 entity.HasIndex(e => e.IdEditorial)
                     .HasName("fk_libros_editorial_idx");
@@ -1897,10 +2300,6 @@ namespace SGCFIEE.Models
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
-
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("idAcademico")
-                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.IdEditorial)
                     .HasColumnName("id_Editorial")
@@ -1916,12 +2315,6 @@ namespace SGCFIEE.Models
                     .IsRequired()
                     .HasColumnType("varchar(50)");
 
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.LibrosAcademicos)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_libros_academicos");
-
                 entity.HasOne(d => d.IdEditorialNavigation)
                     .WithMany(p => p.LibrosAcademicos)
                     .HasForeignKey(d => d.IdEditorial)
@@ -1933,7 +2326,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdMaterialesPractica)
                     .HasName("PRIMARY");
 
-                entity.ToTable("manuales_practica");
+                entity.ToTable("Manuales_Practica");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_manuales_academicos_idx");
@@ -1973,7 +2366,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdMapaCurricular)
                     .HasName("PRIMARY");
 
-                entity.ToTable("mapa_curricular");
+                entity.ToTable("Mapa_Curricular");
 
                 entity.HasIndex(e => e.IdExperienciaEducativa)
                     .HasName("fk_mapa_ee_idx");
@@ -2011,7 +2404,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdMateriaDidactico)
                     .HasName("PRIMARY");
 
-                entity.ToTable("materia_didactico");
+                entity.ToTable("Materia_Didactico");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_material_academico_idx");
@@ -2061,7 +2454,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdNombreTitulo)
                     .HasName("PRIMARY");
 
-                entity.ToTable("nombre_titulo");
+                entity.ToTable("Nombre_Titulo");
 
                 entity.Property(e => e.IdNombreTitulo)
                     .HasColumnName("idNombre_Titulo")
@@ -2167,8 +2560,6 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdPagos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("pagos");
-
                 entity.HasIndex(e => e.RAcademicos)
                     .HasName("fk_Pagos_academicos_idx");
 
@@ -2199,7 +2590,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdPladea)
                     .HasName("PRIMARY");
 
-                entity.ToTable("participacion_pladea");
+                entity.ToTable("Participacion_PLADEA");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_PLADEA_academicos_idx");
@@ -2234,10 +2625,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdPatentesAcademicos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("patentes_academicos");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_patentes_academicos_idx");
+                entity.ToTable("Patentes_Academicos");
 
                 entity.HasIndex(e => e.IdNacI)
                     .HasName("fk_patentes_N_I_idx");
@@ -2248,10 +2636,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("idAcademico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdNacI)
                     .HasColumnName("id_Nac_I")
                     .HasColumnType("int(11)");
@@ -2259,12 +2643,6 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasColumnType("varchar(90)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.PatentesAcademicos)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_patentes_academicos");
 
                 entity.HasOne(d => d.IdNacINavigation)
                     .WithMany(p => p.PatentesAcademicos)
@@ -2280,9 +2658,6 @@ namespace SGCFIEE.Models
 
                 entity.ToTable("ponencias/conferencias");
 
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_ponencia_academico_idx");
-
                 entity.HasIndex(e => e.IdTipo)
                     .HasName("fk_ponencia_tipo_idx");
 
@@ -2294,10 +2669,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Fecha).HasColumnType("date");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdTipo)
                     .HasColumnName("id_tipo")
                     .HasColumnType("int(11)");
@@ -2307,11 +2678,6 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.PonenciaConferencia)
                     .HasColumnName("Ponencia/Conferencia")
                     .HasColumnType("int(11)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.PonenciasConferencias)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_ponencia_academico");
 
                 entity.HasOne(d => d.IdTipoNavigation)
                     .WithMany(p => p.PonenciasConferencias)
@@ -2324,7 +2690,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdProgramaEducativo)
                     .HasName("PRIMARY");
 
-                entity.ToTable("programa_educativo");
+                entity.ToTable("Programa_Educativo");
 
                 entity.Property(e => e.IdProgramaEducativo)
                     .HasColumnName("idPrograma_Educativo")
@@ -2362,7 +2728,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdProgramasTrasversales)
                     .HasName("PRIMARY");
 
-                entity.ToTable("programas_trasversales");
+                entity.ToTable("Programas_Trasversales");
 
                 entity.Property(e => e.IdProgramasTrasversales)
                     .HasColumnName("idProgramas_Trasversales")
@@ -2378,7 +2744,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdProyectoEducativos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("proyecto_educativos");
+                entity.ToTable("Proyecto_Educativos");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_proyecto_academicos_idx");
@@ -2418,7 +2784,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdRecursosExternos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("recursos_externos");
+                entity.ToTable("Recursos_Externos");
 
                 entity.HasIndex(e => e.IdAcademicos)
                     .HasName("fk_Recursos_Academicos_idx");
@@ -2459,7 +2825,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdRediseñoActualizacionEstudios)
                     .HasName("PRIMARY");
 
-                entity.ToTable("rediseño_plan_estudios");
+                entity.ToTable("Rediseño_Plan_Estudios");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_redisenio_academico_idx");
@@ -2505,10 +2871,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdReportesTecnicos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("reportes_tecnicos");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_reporte_aca_idx");
+                entity.ToTable("Reportes_Tecnicos");
 
                 entity.Property(e => e.IdReportesTecnicos)
                     .HasColumnName("id_Reportes_Tecnicos")
@@ -2516,31 +2879,17 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.LugarEmpresaSector)
                     .HasColumnName("Lugar_Empresa/Sector")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.Nombre).HasColumnType("varchar(90)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.ReportesTecnicos)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_reporte_aca");
             });
 
             modelBuilder.Entity<Revistas>(entity =>
             {
                 entity.HasKey(e => e.IdRevistas)
                     .HasName("PRIMARY");
-
-                entity.ToTable("revistas");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_revistas_aca_idx");
 
                 entity.HasIndex(e => e.IdNI)
                     .HasName("fk_revistas_N_I_idx");
@@ -2553,10 +2902,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.IdNI)
                     .HasColumnName("id_N_I")
                     .HasColumnType("int(11)");
@@ -2564,11 +2909,6 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.Nombre).HasColumnType("varchar(90)");
 
                 entity.Property(e => e.Registro).HasColumnType("int(11)");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.Revistas)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_revistas_aca");
 
                 entity.HasOne(d => d.IdNINavigation)
                     .WithMany(p => p.Revistas)
@@ -2638,7 +2978,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbBuzonDeQuejas)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_buzon_de_quejas");
+                entity.ToTable("Tb_Buzon_de_Quejas");
 
                 entity.HasIndex(e => e.RAlumno)
                     .HasName("fk_alumno_buzonQuejas_idx");
@@ -2693,7 +3033,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbCalificacion)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_calificacion");
+                entity.ToTable("Tb_calificacion");
 
                 entity.HasIndex(e => e.RTipoCalificacion)
                     .HasName("fk_calif_tipcalif_idx");
@@ -2721,7 +3061,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbCalificacionTutor)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_calificacion_tutor");
+                entity.ToTable("Tb_calificacion_tutor");
 
                 entity.HasIndex(e => e.RAcademicos)
                     .HasName("fk_califtutor_academicos_idx");
@@ -2759,7 +3099,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdEventos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_eventos");
+                entity.ToTable("Tb_Eventos");
 
                 entity.HasIndex(e => e.RTioEvento)
                     .HasName("fk_eventos_tipo_eventos_idx");
@@ -2787,7 +3127,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbExamenAlumno)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_examenalumno");
+                entity.ToTable("Tb_ExamenAlumno");
 
                 entity.HasIndex(e => e.IdAlumno)
                     .HasName("fk_interno_alumno_idx");
@@ -2831,7 +3171,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdPeriodoActual)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_horario");
+                entity.ToTable("Tb_Horario");
 
                 entity.HasIndex(e => e.RAlumno)
                     .HasName("fk_periodo_alumno_idx");
@@ -2895,7 +3235,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbInstanciaFinalAlumno)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_instanciafinal_alumno");
+                entity.ToTable("TB_InstanciaFinal_Alumno");
 
                 entity.HasIndex(e => e.RAlumno)
                     .HasName("fk_InstanciaF_Alumno_idx");
@@ -2943,7 +3283,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbMovilidad)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_movilidad");
+                entity.ToTable("Tb_Movilidad");
 
                 entity.HasIndex(e => e.RAlumno)
                     .HasName("fk_movilidad_alumno_idx");
@@ -2991,7 +3331,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbPafisAlumno)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_pafis_alumno");
+                entity.ToTable("Tb_pafis_alumno");
 
                 entity.HasIndex(e => e.RAlumno)
                     .HasName("fk_pafisalum_alumno_idx");
@@ -3027,7 +3367,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbRubrosExamenes)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_rubrosexamenes");
+                entity.ToTable("Tb_RubrosExamenes");
 
                 entity.Property(e => e.IdTbRubrosExamenes)
                     .HasColumnName("id_Tb_Rubros_Examenes")
@@ -3045,7 +3385,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbSalones)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_salones");
+                entity.ToTable("Tb_Salones");
 
                 entity.Property(e => e.IdTbSalones)
                     .HasColumnName("idTb_Salones")
@@ -3063,7 +3403,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTbServicioPracticas)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tb_serviciopracticas");
+                entity.ToTable("TB_ServicioPracticas");
 
                 entity.HasIndex(e => e.REmpresa)
                     .HasName("fk_empresaServ_idx");
@@ -3093,7 +3433,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdCertificacion)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_certificacion");
+                entity.ToTable("Tipo_certificacion");
 
                 entity.Property(e => e.IdCertificacion)
                     .HasColumnName("id_certificacion")
@@ -3107,7 +3447,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTipoContratacion)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_contratacionee");
+                entity.ToTable("Tipo_ContratacionEE");
 
                 entity.Property(e => e.IdTipoContratacion)
                     .HasColumnName("id_Tipo_Contratacion")
@@ -3121,7 +3461,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdDistincion)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_distincion_ta");
+                entity.ToTable("Tipo_Distincion_TA");
 
                 entity.HasIndex(e => e.IdDistincion)
                     .HasName("id_distincion_UNIQUE")
@@ -3139,7 +3479,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTipoEvaluador)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_evaluador");
+                entity.ToTable("Tipo_Evaluador");
 
                 entity.Property(e => e.IdTipoEvaluador)
                     .HasColumnName("idTipo_Evaluador")
@@ -3153,7 +3493,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdEventos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_eventos");
+                entity.ToTable("Tipo_Eventos");
 
                 entity.Property(e => e.IdEventos)
                     .HasColumnName("idEventos")
@@ -3167,7 +3507,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTipoLaboratorio)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_laboratorio");
+                entity.ToTable("Tipo_Laboratorio");
 
                 entity.Property(e => e.IdTipoLaboratorio)
                     .HasColumnName("id_Tipo_Laboratorio")
@@ -3181,7 +3521,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTipo)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_loc_nac_inter");
+                entity.ToTable("tipo_Loc_Nac_Inter");
 
                 entity.Property(e => e.IdTipo)
                     .HasColumnName("id_tipo")
@@ -3197,7 +3537,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdModalidad)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_modalidad");
+                entity.ToTable("Tipo_modalidad");
 
                 entity.Property(e => e.IdModalidad)
                     .HasColumnName("id_modalidad")
@@ -3233,7 +3573,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTipoPersonal)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_personal");
+                entity.ToTable("Tipo_Personal");
 
                 entity.Property(e => e.IdTipoPersonal)
                     .HasColumnName("idTipo_Personal")
@@ -3247,7 +3587,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdPuesto)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_puesto");
+                entity.ToTable("Tipo_puesto");
 
                 entity.Property(e => e.IdPuesto)
                     .HasColumnName("id_Puesto")
@@ -3261,7 +3601,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTipoTramiteAcademicos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_tramite_academicos");
+                entity.ToTable("Tipo_Tramite_Academicos");
 
                 entity.Property(e => e.IdTipoTramiteAcademicos)
                     .HasColumnName("idTipo_Tramite_Academicos")
@@ -3275,7 +3615,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTipoTramiteAlumnos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tipo_tramite_alumnos");
+                entity.ToTable("Tipo_Tramite_Alumnos");
 
                 entity.Property(e => e.IdTipoTramiteAlumnos)
                     .HasColumnName("idTipo_Tramite_Alumnos")
@@ -3289,13 +3629,10 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTrabajosRecepcionales)
                     .HasName("PRIMARY");
 
-                entity.ToTable("trabajos_recepcionales");
+                entity.ToTable("Trabajos_Recepcionales");
 
                 entity.HasIndex(e => e.IdAcademia)
                     .HasName("fk_recep_academias_idx");
-
-                entity.HasIndex(e => e.IdAcademico)
-                    .HasName("fk_recep_academico_idx");
 
                 entity.HasIndex(e => e.IdAlumno)
                     .HasName("fk_recep_alumno_idx");
@@ -3312,20 +3649,12 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.Proceso)
-                    .HasColumnName("Proceso")
-                    .HasColumnType("int(11)");
-
                 entity.Property(e => e.FechaPresentacion)
                     .HasColumnName("Fecha_Presentacion")
                     .HasColumnType("date");
 
                 entity.Property(e => e.IdAcademia)
                     .HasColumnName("id_academia")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.IdAcademico)
-                    .HasColumnName("id_academico")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.IdAlumno)
@@ -3348,15 +3677,12 @@ namespace SGCFIEE.Models
                     .HasColumnName("numero_ConsejoT")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Proceso).HasColumnType("int(11)");
+
                 entity.HasOne(d => d.IdAcademiaNavigation)
                     .WithMany(p => p.TrabajosRecepcionales)
                     .HasForeignKey(d => d.IdAcademia)
                     .HasConstraintName("fk_recep_academias");
-
-                entity.HasOne(d => d.IdAcademicoNavigation)
-                    .WithMany(p => p.TrabajosRecepcionales)
-                    .HasForeignKey(d => d.IdAcademico)
-                    .HasConstraintName("fk_recep_academico");
 
                 entity.HasOne(d => d.IdAlumnoNavigation)
                     .WithMany(p => p.TrabajosRecepcionales)
@@ -3379,7 +3705,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTramitesAcademicos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tramites_academicos");
+                entity.ToTable("Tramites_Academicos");
 
                 entity.HasIndex(e => e.RAcademicos)
                     .HasName("fk_TramitesAcademicos_Academicos_idx");
@@ -3427,7 +3753,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTramitesAlumnos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tramites_alumnos");
+                entity.ToTable("Tramites_Alumnos");
 
                 entity.HasIndex(e => e.RAlumnos)
                     .HasName("fk_Tramites_Alumnos_idx");
@@ -3475,7 +3801,7 @@ namespace SGCFIEE.Models
                 entity.HasKey(e => e.IdTutoradosExternos)
                     .HasName("PRIMARY");
 
-                entity.ToTable("tutorados_externos");
+                entity.ToTable("Tutorados_Externos");
 
                 entity.HasIndex(e => e.IdAcademico)
                     .HasName("fk_TE_academicos_idx");
@@ -3502,8 +3828,6 @@ namespace SGCFIEE.Models
             {
                 entity.HasKey(e => e.IdTutores)
                     .HasName("PRIMARY");
-
-                entity.ToTable("tutores");
 
                 entity.HasIndex(e => e.IdAcademicos)
                     .HasName("fk_tutor_academico_idx");

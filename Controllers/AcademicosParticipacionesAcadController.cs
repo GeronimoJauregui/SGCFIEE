@@ -17,7 +17,7 @@ namespace SGCFIEE.Controllers
     public class AcademicosParticipacionesAcadController : Controller
     {
         // GET: /<controller>/
-        [Authorize]
+        /*[Authorize]
         public IActionResult IndexArbitraje()
         {
             List<TablaEvaluadores> ListEvaluadores = new List<TablaEvaluadores>();
@@ -675,6 +675,6 @@ namespace SGCFIEE.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        }*/
     }
 }

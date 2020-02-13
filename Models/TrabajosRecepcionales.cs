@@ -7,6 +7,7 @@ namespace SGCFIEE.Models
     {
         public TrabajosRecepcionales()
         {
+            AcademicoTrabajosRecep = new HashSet<AcademicoTrabajosRecep>();
             JuradoExperienciaRecepcional = new HashSet<JuradoExperienciaRecepcional>();
         }
 
@@ -15,7 +16,6 @@ namespace SGCFIEE.Models
         public int? IdModalidad { get; set; }
         public int? IdGrado { get; set; }
         public string NombreTrabajo { get; set; }
-        public int? IdAcademico { get; set; }
         public int? IdAcademia { get; set; }
         public int? Proceso { get; set; }
         public DateTime? FechaPresentacion { get; set; }
@@ -23,10 +23,10 @@ namespace SGCFIEE.Models
         public string Archivo { get; set; }
 
         public virtual Academias IdAcademiaNavigation { get; set; }
-        public virtual Academicos IdAcademicoNavigation { get; set; }
         public virtual Alumnos IdAlumnoNavigation { get; set; }
         public virtual GradoTitulo IdGradoNavigation { get; set; }
         public virtual TipoModalidad IdModalidadNavigation { get; set; }
+        public virtual ICollection<AcademicoTrabajosRecep> AcademicoTrabajosRecep { get; set; }
         public virtual ICollection<JuradoExperienciaRecepcional> JuradoExperienciaRecepcional { get; set; }
     }
 }

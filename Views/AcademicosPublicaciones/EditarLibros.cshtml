@@ -19,22 +19,7 @@
                         <div class="row">
                             <div class="col-md-6 col-md-6">
                                 <input type="hidden" asp-for="IdLibrosAcademicos"/>
-                                <div class="form-group">
-                                    <label>Académico</label>
-                                    <select asp-for="IdAcademico" class="form-control">
-                                        @foreach (var item in acad)
-                                        {
-                                            @if (item.IdAcademicos != Model.IdAcademico)
-                                            {
-                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                            else
-                                            {
-                                                <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                        }
-                                    </select>
-                                </div>
+                                
                                 <div class="form-group">
                                     <label>Título de la obra</label>
                                     <input asp-for="Titulo" type="text" class="form-control" placeholder="Ingresar..." required="required" value="@Model.Titulo">

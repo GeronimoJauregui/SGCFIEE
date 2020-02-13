@@ -19,26 +19,11 @@
                         <div class="row">
                             <div class="col-md-6 col-md-6">
                                 <input type="hidden" asp-for="IdEvaluadoresAcademicos"/>
-                                <div class="form-group">
-                                    <label>Académico</label>
-                                    <select asp-for="IdAcademicos" class="form-control">
-                                        @foreach (var item in acad)
-                                        {
-                                            @if (item.IdAcademicos != Model.IdAcademicos)
-                                            {
-                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                            else
-                                            {
-                                                <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                        }
-                                    </select>
-                                </div>
+                                
                                 <div class="form-group">
                                     Seleccione:<br>
-                                    <input asp-for="RevisorEvaluador" type="radio" value="1" if (Model.RevisorEvaluador == 1) {checked } /> Revisor<br>
-                                    <input asp-for="RevisorEvaluador" type="radio" value="0" if (Model.RevisorEvaluador == 0) {checked } /> Evaluador
+                                    <input asp-for="RevisorEvaluador" type="radio" value="1"/> Revisor<br>
+                                    <input asp-for="RevisorEvaluador" type="radio" value="0"/> Evaluador
                                 </div>
                             </div>
                             <div class="col-md-6 col-md-6">

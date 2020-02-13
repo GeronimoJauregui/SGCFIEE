@@ -16,7 +16,7 @@ namespace SGCFIEE.Controllers
     public class AcademicosComisionesController : Controller
     {
         // GET: /<controller>/
-        [Authorize]
+        /*[Authorize]
         public IActionResult IndexJurExperiencia()
         {
             List<TablaJurExperiencia> ListJurExperiencia = new List<TablaJurExperiencia>();
@@ -138,7 +138,7 @@ namespace SGCFIEE.Controllers
                 var dato = idDatoAlumno.RDatosPerson;
                 ViewData["datoComparar"] = dato;**/
 
-                var acad = context.Academicos.ToList();
+                /*var acad = context.Academicos.ToList();
                 ViewData["academicos"] = acad;
 
 
@@ -979,6 +979,6 @@ namespace SGCFIEE.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        }*/
     }
 }

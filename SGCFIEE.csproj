@@ -16,6 +16,9 @@
     <None Remove="Views\NewFolder1\**" />
     <Content Remove="Views\ConsejoTecnico\Crear.cshtml" />
     <Content Remove="wwwroot\assets\img\default1.jpg" />
+    <None Remove="SGCFIEE.mwb.bak" />
+    <None Remove="SGCFIEE.mwb.bak" />
+    <None Remove="SGCFIEE.mwb" />
   </ItemGroup>
 
 

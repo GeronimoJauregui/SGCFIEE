@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "CrearArticulos";
     Layout = "~/Views/Home/Principal.cshtml";
-    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
     var lugar = (IEnumerable<TipoLocNacInter>)ViewData["lugar"];
 }
 <!DOCTYPE html>
@@ -19,22 +18,7 @@
                         <div class="row">
                             <div class="col-md-6 col-md-6">
                                 <input type="hidden" asp-for="IdArticulos"/>
-                                <div class="form-group">
-                                    <label>Académico</label>
-                                    <select asp-for="IdAcademico" class="form-control">
-                                        @foreach (var item in acad)
-                                        {
-                                            @if (item.IdAcademicos != Model.IdAcademico)
-                                            {
-                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                            else
-                                            {
-                                                <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                        }
-                                    </select>
-                                </div>
+                                
                                 <div class="form-group">
                                     <label>Tipo</label>
                                     <select asp-for="IdTipoNI" class="form-control">
@@ -60,13 +44,13 @@
                             <div class="col-md-6 col-md-6">
                                 <div class="form-group">
                                     Registrada:<br>
-                                    <input asp-for="Registro" type="radio" value="1" if (Model.Registro == 1) {checked } /> Si<br>
-                                    <input asp-for="Registro" type="radio" value="0" if (Model.Registro == 0) {checked } /> No
+                                    <input asp-for="Registro" type="radio" value="1"/> Si<br>
+                                    <input asp-for="Registro" type="radio" value="0"/> No
                                 </div>
                                 <div class="form-group">
                                     Arbitrada:<br>
-                                    <input asp-for="Arbitrada" type="radio" value="1" if (Model.Arbitrada == 1) {checked } /> Si<br>
-                                    <input asp-for="Arbitrada" type="radio" value="0" if (Model.Arbitrada == 0) {checked }/> No
+                                    <input asp-for="Arbitrada" type="radio" value="1"/> Si<br>
+                                    <input asp-for="Arbitrada" type="radio" value="0"/> No
                                 </div>
                                 <div class="form-group">
                                     <label>Actualizar evidencia:  @Model.Archivo</label><br>

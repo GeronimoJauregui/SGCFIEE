@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "CrearReportes";
     Layout = "~/Views/Home/Principal.cshtml";
-    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
 }
 <!DOCTYPE html>
 
@@ -18,22 +17,7 @@
                         <div class="row">
                             <div class="col-md-6 col-md-6">
                                 <input type="hidden" asp-for="IdReportesTecnicos"/>
-                                <div class="form-group">
-                                    <label>Académico</label>
-                                    <select asp-for="IdAcademico" class="form-control">
-                                        @foreach (var item in acad)
-                                        {
-                                            @if (item.IdAcademicos != Model.IdAcademico)
-                                            {
-                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                            else
-                                            {
-                                                <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                        }
-                                    </select>
-                                </div>
+                                
                                 <div class="form-group">
                                     <label>Nombre del reporte tecnico</label>
                                     <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar..." required="required" value="@Model.Nombre">
@@ -43,8 +27,8 @@
                             <div class="col-md-6 col-md-6">
                                 <div class="form-group">
                                     <br>
-                                    <input asp-for="LugarEmpresaSector" type="radio" value="1" if (Model.Registro == 1) {checked } /> Empresa<br>
-                                    <input asp-for="LugarEmpresaSector" type="radio" value="0" if (Model.Registro == 0) {checked } /> Sector beneficiado
+                                    <input asp-for="LugarEmpresaSector" type="radio" value="1"/> Empresa<br>
+                                    <input asp-for="LugarEmpresaSector" type="radio" value="0"/> Sector beneficiado
                                 </div>
                                 <div class="form-group">
                                     <label>Actualizar evidencia:  @Model.Archivo</label><br>

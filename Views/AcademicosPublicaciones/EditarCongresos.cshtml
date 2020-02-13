@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "CrearCongresos";
     Layout = "~/Views/Home/Principal.cshtml";
-    var acad = (IEnumerable<Academicos>)ViewData["academicos"];
     var lugar = (IEnumerable<TipoLocNacInter>)ViewData["lugar"];
 }
 <!DOCTYPE html>
@@ -19,22 +18,7 @@
                         <div class="row">
                             <div class="col-md-6 col-md-6">
                                 <input type="hidden" asp-for="IdCongresos"/>
-                                <div class="form-group">
-                                    <label>Académico</label>
-                                    <select asp-for="IdAcademico" class="form-control">
-                                        @foreach (var item in acad)
-                                        {
-                                            @if (item.IdAcademicos != Model.IdAcademico)
-                                            {
-                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                            else
-                                            {
-                                                <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                            }
-                                        }
-                                    </select>
-                                </div>
+                                
                                 <div class="form-group">
                                     <select asp-for="IdNacInt" class="form-control">
                                         @foreach (var item in lugar)
@@ -50,13 +34,14 @@
                                         }
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-md-6">
                                 <div class="form-group">
                                     <label>Nombre del congreso</label>
                                     <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar..." required="required" value="@Model.Nombre">
                                     <span asp-validation-for="Nombre" class="text-danger"></span>
                                 </div>
+                            </div>
+                            <div class="col-md-6 col-md-6">
+                                
                                 <div class="form-group">
                                     <label>Actualizar evidencia:  @Model.Archivo</label><br>
                                     <input type="file" class="default" id="archivo" name="file">

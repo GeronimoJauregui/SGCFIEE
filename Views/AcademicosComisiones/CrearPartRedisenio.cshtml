@@ -21,7 +21,7 @@
 
                                 <div class="form-group">
                                     <label>Académico</label>
-                                    <select asp-for="IdAcademico" class="form-control">
+                                    <select class="form-control">
                                         @foreach (var item in acad)
                                         {
                                             <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>

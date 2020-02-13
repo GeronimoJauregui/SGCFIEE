@@ -38,7 +38,7 @@
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
                                                         <a asp-controller="AcademicosPublicaciones" asp-action="CrearArticulos" class="btn btn-success btn-sm m-b-10">
-                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                            Agregar artículo<i class="fa fa-plus" style="color:white"></i>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -47,8 +47,6 @@
                                                 <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaArticulos" >
                                                     <thead>
                                                         <tr>
-                                                            <th class="center"> Número de personal</th>
-                                                            <th class="center"> Nombre<br>del<br>académico</th>
                                                             <th class="center"> Nombre de artículo</th>
                                                             <th class="center"> Nacional<br>o<br>Internacional</th>
                                                             <th class="center"> Registro</th>
@@ -61,8 +59,6 @@
                                                         @foreach (var item in Model)
                                                         {
                                                             <tr class="odd gradeX">
-                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
                                                                 <td class="center">@Html.DisplayFor(modelItem => item.NombreArticulo)</td>
                                                                 <td class="center">@Html.DisplayFor(modelItem => item.Tipo)</td>
                                                                 <td class="center">
@@ -83,6 +79,9 @@
                                                                     </a>
                                                                 </td>
                                                                 <td class="center">
+                                                                    <a asp-route-id="@item.IdArticulos" asp-controller="AcademicosPublicaciones" asp-action="AcademicosArticulos" class="btn btn-success btn-xs" title="Académicos responsables del artículo">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </a>
                                                                     <a asp-route-id="@item.IdArticulos" asp-controller="AcademicosPublicaciones" asp-action="EditarArticulos" class="btn btn-primary btn-xs" title="Editar">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>

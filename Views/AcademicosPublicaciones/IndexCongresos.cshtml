@@ -40,7 +40,7 @@
                                                 <div class="col-md-6 col-sm-6 col-6">
                                                     <div class="btn-group">
                                                         <a asp-controller="AcademicosPublicaciones" asp-action="CrearCongresos" class="btn btn-success btn-sm m-b-10">
-                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                            Agregar congreso <i class="fa fa-plus" style="color:white"></i>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -49,8 +49,6 @@
                                                 <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaCongresos" >
                                                     <thead>
                                                         <tr>
-                                                            <th class="center"> Número de personal</th>
-                                                            <th class="center"> Nombre<br>del<br>académico</th>
                                                             <th class="center"> Nombre del congreso</th>
                                                             <th class="center"> Nacional<br>o<br>Internacional</th>
                                                             <th class="center"> Evidencia</th>
@@ -61,8 +59,6 @@
                                                          @foreach (var item in Model)
                                                          {
                                                             <tr class="odd gradeX">
-                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
                                                                 <td class="center">@Html.DisplayFor(modelItem => item.NombreCongreso)</td>
                                                                 <td class="center">@Html.DisplayFor(modelItem => item.Tipo)</td>
                                                                 <td class="center">
@@ -71,6 +67,9 @@
                                                                     </a>
                                                                 </td>
                                                                 <td class="center">
+                                                                    <a asp-route-id="@item.IdCongresos" asp-controller="AcademicosPublicaciones" asp-action="AcademicosCongresos" class="btn btn-success btn-xs" title="Académicos responsables del congreso">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </a>
                                                                     <a asp-route-id="@item.IdCongresos" asp-controller="AcademicosPublicaciones" asp-action="EditarCongresos" class="btn btn-primary btn-xs" title="Editar">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>

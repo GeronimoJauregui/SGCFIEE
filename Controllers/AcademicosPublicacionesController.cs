@@ -25,21 +25,15 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListArticulos = (from datos in context.Articulos
-                          join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                           join tipo in context.TipoLocNacInter on datos.IdTipoNI equals tipo.IdTipo
                           select new TablaArticulos
                           {
                               IdArticulos = datos.IdArticulos,
-                              NumPersonal = acad.NumeroPersonal,
-                              Nombre = acad.Nombre,
-                              ApellidoPaterno = acad.ApellidoPaterno,
-                              ApellidoMaterno = acad.ApellidoMaterno,
                               Archivo = datos.Archivo,
                               Tipo = tipo.Nombre,
                               Registro = datos.Registro,
                               Arbitrada = datos.Arbitrada,
                               NombreArticulo = datos.Nombre,
-                              Status = acad.Status
                           }
                                ).ToList();
             }
@@ -61,20 +55,25 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarArticulos(IFormFile file, Articulos datos)
+        public async Task<IActionResult> GuardarArticulos(IFormFile file, Articulos datos, int idAcademico)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name = file.GetFilename();
+                datos.Archivo = name;
                 context.Articulos.Add(datos);
+                context.SaveChanges();
+                Articulos DatosArticulo = context.Articulos.Last();
+                var new_name_table = DatosArticulo.IdArticulos + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.Articulos.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdArticulos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Articulos", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -82,7 +81,67 @@ namespace SGCFIEE.Controllers
                 await file.CopyToAsync(stream);
             }
 
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                Articulos DatosArticulo = context.Articulos.Last();
+                AcademicoArticulos info = new AcademicoArticulos();
+                info.IdAcademico = idAcademico;
+                info.IdArticulo = DatosArticulo.IdArticulos;
+                context.AcademicoArticulos.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexArticulos");
+        }
+        [Authorize]
+        public IActionResult AcademicosArticulos(int id)
+        {
+            List<TablaAcadArticulos> ListAcadArticulos = new List<TablaAcadArticulos>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadArticulos = (from datos in context.AcademicoArticulos
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     where datos.IdArticulo == id
+                                     select new TablaAcadArticulos
+                                     {
+                                         IdAcadArticulos = datos.IdAcademicoArticulos,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         idArticulo = datos.IdArticulo
+                                     }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idArticulo"] = id;
+            }
+            return View(ListAcadArticulos);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadArticulos(int idAcademico,int articulo)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicoArticulos AcadArticulos = new AcademicoArticulos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadArticulos.IdAcademico = idAcademico;
+                AcadArticulos.IdArticulo = articulo;
+                context.AcademicoArticulos.Add(AcadArticulos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosArticulos", new { id = AcadArticulos.IdArticulo });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadArticulos(int id,int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicoArticulos eliminar = context.AcademicoArticulos.Where(w => w.IdAcademicoArticulos == id).Single();
+                context.AcademicoArticulos.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosArticulos", new { id = id_acad });
+            }
         }
         [Authorize]
         public IActionResult EditarArticulos(int id)
@@ -92,10 +151,8 @@ namespace SGCFIEE.Controllers
             {
                 Articulos DatosArticulo = context.Articulos.Where(s => s.IdArticulos == id).Single();
                 var lugar = context.TipoLocNacInter.Where(s => s.Nombre != "Local").ToList();
-                var acad = context.Academicos.ToList();
                 
                 ViewData["lugar"] = lugar;
-                ViewData["academicos"] = acad;
                 return View(DatosArticulo);
             }
         }
@@ -114,7 +171,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdArticulos + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -129,7 +186,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexArticulos");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdArticulos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Articulos", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -141,8 +198,17 @@ namespace SGCFIEE.Controllers
         }
         public IActionResult EliminarArticulos(int id)
         {
-            using (sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())   
             {
+                List<AcademicoArticulos> eliminarAcad = context.AcademicoArticulos.Where(f => f.IdArticulo == id).ToList();
+                int i=0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicoArticulos.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
+                
                 Articulos eliminar = context.Articulos.Where(w => w.IdArticulos == id).Single();
                 context.Articulos.Remove(eliminar);
                 context.SaveChanges();
@@ -182,19 +248,13 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListCongreso = (from datos in context.Congresos
-                                 join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                  join tipo in context.TipoLocNacInter on datos.IdNacInt equals tipo.IdTipo
                                  select new TablaCongresos
                                  {
                                      IdCongresos = datos.IdCongresos,
-                                     NumPersonal = acad.NumeroPersonal,
-                                     Nombre = acad.Nombre,
-                                     ApellidoPaterno = acad.ApellidoPaterno,
-                                     ApellidoMaterno = acad.ApellidoMaterno,
                                      Archivo = datos.Archivo,
                                      Tipo = tipo.Nombre,
-                                     NombreCongreso = datos.Nombre,
-                                     Status = acad.Status
+                                     NombreCongreso = datos.Nombre
                                  }
                                ).ToList();
             }
@@ -216,27 +276,40 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarCongresos(IFormFile file, Congresos datos)
+        public async Task<IActionResult> GuardarCongresos(IFormFile file, Congresos datos, int idAcademico)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name=file.GetFilename();
+                datos.Archivo = name;
                 context.Congresos.Add(datos);
+                context.SaveChanges();
+                Congresos DatosCongreso = context.Congresos.Last();
+                var new_name_table = DatosCongreso.IdCongresos + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.Congresos.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdCongresos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Congresos", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                Congresos DatosCongresos = context.Congresos.Last();
+                AcademicoCongresos info = new AcademicoCongresos();
+                info.IdAcademico = idAcademico;
+                info.IdCongreso = DatosCongresos.IdCongresos;
+                context.AcademicoCongresos.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexCongresos");
         }
         [Authorize]
@@ -247,9 +320,7 @@ namespace SGCFIEE.Controllers
             {
                 Congresos DatosCongresos = context.Congresos.Where(s => s.IdCongresos == id).Single();
                 var lugar = context.TipoLocNacInter.Where(s => s.Nombre != "Local").ToList();
-                var acad = context.Academicos.ToList();
                 ViewData["lugar"] = lugar;
-                ViewData["academicos"] = acad;
                 return View(DatosCongresos);
             }
         }
@@ -268,7 +339,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdCongresos + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -283,7 +354,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexCongresos");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdCongresos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Congresos", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -297,6 +368,15 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicoCongresos> eliminarAcad = context.AcademicoCongresos.Where(f => f.IdCongreso == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicoCongresos.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
+
                 Congresos eliminar = context.Congresos.Where(w => w.IdCongresos == id).Single();
                 context.Congresos.Remove(eliminar);
                 context.SaveChanges();
@@ -321,8 +401,57 @@ namespace SGCFIEE.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
-
-
+        [Authorize]
+        public IActionResult AcademicosCongresos(int id)
+        {
+            List<TablaAcadCongresos> ListAcadCongresos = new List<TablaAcadCongresos>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadCongresos = (from datos in context.AcademicoCongresos
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     where datos.IdCongreso == id
+                                     select new TablaAcadCongresos
+                                     {
+                                         IdAcadCongreso = datos.IdAcademicoCongresos,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         idCongreso = datos.IdCongreso
+                                     }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idCongreso"] = id;
+            }
+            return View(ListAcadCongresos);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadCongresos(int idAcademico, int congreso)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicoCongresos AcadCongresos = new AcademicoCongresos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadCongresos.IdAcademico = idAcademico;
+                AcadCongresos.IdCongreso = congreso;
+                context.AcademicoCongresos.Add(AcadCongresos);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosCongresos", new { id = AcadCongresos.IdCongreso });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadCongresos(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicoCongresos eliminar = context.AcademicoCongresos.Where(w => w.IdAcademicoCongresos == id).Single();
+                context.AcademicoCongresos.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosCongresos", new { id = id_acad });
+            }
+        }
 
 
 
@@ -335,21 +464,15 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListRevistas = (from datos in context.Revistas
-                                join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                 join tipo in context.TipoLocNacInter on datos.IdNI equals tipo.IdTipo
                                 select new TablaRevistas
                                 {
                                     IdRevistas = datos.IdRevistas,
-                                    NumPersonal = acad.NumeroPersonal,
-                                    Nombre = acad.Nombre,
-                                    ApellidoPaterno = acad.ApellidoPaterno,
-                                    ApellidoMaterno = acad.ApellidoMaterno,
                                     Archivo = datos.Archivo,
                                     Tipo = tipo.Nombre,
                                     NombreRevista = datos.Nombre,
                                     Registro = datos.Registro,
-                                    Arbitrada = datos.Arbitrada,
-                                    Status = acad.Status
+                                    Arbitrada = datos.Arbitrada
                                 }
                                ).ToList();
             }
@@ -371,27 +494,40 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarRevistas(IFormFile file, Revistas datos)
+        public async Task<IActionResult> GuardarRevistas(IFormFile file, Revistas datos, int idAcademico)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name =file.GetFilename();
+                datos.Archivo = name;
                 context.Revistas.Add(datos);
+                context.SaveChanges();
+                Revistas DatosRevistas = context.Revistas.Last();
+                var new_name_table = DatosRevistas.IdRevistas + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.Revistas.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdRevistas + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Revistas", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                Revistas DatosRevistas = context.Revistas.Last();
+                AcademicoRevistas info = new AcademicoRevistas();
+                info.IdAcademico = idAcademico;
+                info.IdRevista = DatosRevistas.IdRevistas;
+                context.AcademicoRevistas.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexRevistas");
         }
         [Authorize]
@@ -402,9 +538,7 @@ namespace SGCFIEE.Controllers
             {
                 Revistas DatosRevistas = context.Revistas.Where(s => s.IdRevistas == id).Single();
                 var lugar = context.TipoLocNacInter.Where(s => s.Nombre != "Local").ToList();
-                var acad = context.Academicos.ToList();
                 ViewData["lugar"] = lugar;
-                ViewData["academicos"] = acad;
                 return View(DatosRevistas);
             }
         }
@@ -423,7 +557,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdRevistas + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -438,7 +572,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexRevistas");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdRevistas + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Revistas", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -452,6 +586,15 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicoRevistas> eliminarAcad = context.AcademicoRevistas.Where(f => f.IdRevista == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicoRevistas.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
+
                 Revistas eliminar = context.Revistas.Where(w => w.IdRevistas == id).Single();
                 context.Revistas.Remove(eliminar);
                 context.SaveChanges();
@@ -476,7 +619,57 @@ namespace SGCFIEE.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
-
+        [Authorize]
+        public IActionResult AcademicosRevistas(int id)
+        {
+            List<TablaAcadRevistas> ListAcadRevistas = new List<TablaAcadRevistas>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadRevistas = (from datos in context.AcademicoRevistas
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     where datos.IdRevista == id
+                                     select new TablaAcadRevistas
+                                     {
+                                         IdAcadRevistas = datos.IdAcademicorevistas,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         IdRevistas = datos.IdRevista
+                                     }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idRevistas"] = id;
+            }
+            return View(ListAcadRevistas);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadRevistas(int idAcademico, int revistas)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicoRevistas AcadRevistas = new AcademicoRevistas();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadRevistas.IdAcademico = idAcademico;
+                AcadRevistas.IdRevista = revistas;
+                context.AcademicoRevistas.Add(AcadRevistas);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosRevistas", new { id = AcadRevistas.IdRevista });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadRevistas(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicoRevistas eliminar = context.AcademicoRevistas.Where(w => w.IdAcademicorevistas == id).Single();
+                context.AcademicoRevistas.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosRevistas", new { id = id_acad });
+            }
+        }
 
 
 
@@ -488,18 +681,12 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListReportes = (from datos in context.ReportesTecnicos
-                                join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                 select new TablaReportesTecnicos
                                 {
                                     IdReporteTecnico = datos.IdReportesTecnicos,
-                                    NumPersonal = acad.NumeroPersonal,
-                                    Nombre = acad.Nombre,
-                                    ApellidoPaterno = acad.ApellidoPaterno,
-                                    ApellidoMaterno = acad.ApellidoMaterno,
                                     Archivo = datos.Archivo,
                                     NombreReporte = datos.Nombre,
-                                    Empresa_Sector = datos.LugarEmpresaSector,
-                                    Status = acad.Status
+                                    Empresa_Sector = datos.LugarEmpresaSector
                                 }
                                ).ToList();
             }
@@ -519,27 +706,39 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarReportes(IFormFile file, ReportesTecnicos datos)
+        public async Task<IActionResult> GuardarReportes(IFormFile file, ReportesTecnicos datos, int idAcademico)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name = file.GetFilename();
+                datos.Archivo = name;
                 context.ReportesTecnicos.Add(datos);
+                context.SaveChanges();
+                var new_name_table = datos.IdReportesTecnicos + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.ReportesTecnicos.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdReportesTecnicos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/ReportesTecnicos", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ReportesTecnicos DatosReportesTecnicos = context.ReportesTecnicos.Last();
+                AcademicoReportesT info = new AcademicoReportesT();
+                info.IdAcademico = idAcademico;
+                info.IdReportesTec = DatosReportesTecnicos.IdReportesTecnicos;
+                context.AcademicoReportesT.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexReportesTecnicos");
         }
         [Authorize]
@@ -549,8 +748,7 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ReportesTecnicos DatosReporte = context.ReportesTecnicos.Where(s => s.IdReportesTecnicos == id).Single();
-                var acad = context.Academicos.ToList();
-                ViewData["academicos"] = acad;
+               
                 return View(DatosReporte);
             }
         }
@@ -569,7 +767,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdReportesTecnicos + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -584,7 +782,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexReportesTecnicos");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdReportesTecnicos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/ReportesTecnicos", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -598,6 +796,15 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicoReportesT> eliminarAcad = context.AcademicoReportesT.Where(f => f.IdReportesTec == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicoReportesT.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
+
                 ReportesTecnicos eliminar = context.ReportesTecnicos.Where(w => w.IdReportesTecnicos == id).Single();
                 context.ReportesTecnicos.Remove(eliminar);
                 context.SaveChanges();
@@ -622,7 +829,57 @@ namespace SGCFIEE.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
-
+        [Authorize]
+        public IActionResult AcademicosReportes(int id)
+        {
+            List<TablaAcadReportes> ListAcadReportes = new List<TablaAcadReportes>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadReportes = (from datos in context.AcademicoReportesT
+                                    join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                    where datos.IdReportesTec == id
+                                    select new TablaAcadReportes
+                                    {
+                                        IdAcadReportes = datos.IdAcademicoReportesT,
+                                        NumPersonal = acad.NumeroPersonal,
+                                        Nombre = acad.Nombre,
+                                        ApellidoPaterno = acad.ApellidoPaterno,
+                                        ApellidoMaterno = acad.ApellidoMaterno,
+                                        IdReporte = datos.IdReportesTec
+                                    }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idReportes"] = id;
+            }
+            return View(ListAcadReportes);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadReportes(int idAcademico, int reportes)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicoReportesT AcadReportes = new AcademicoReportesT();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadReportes.IdAcademico = idAcademico;
+                AcadReportes.IdReportesTec = reportes;
+                context.AcademicoReportesT.Add(AcadReportes);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosReportes", new { id = AcadReportes.IdReportesTec });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadReportes(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicoReportesT eliminar = context.AcademicoReportesT.Where(w => w.IdAcademicoReportesT == id).Single();
+                context.AcademicoReportesT.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosReportes", new { id = id_acad });
+            }
+        }
 
 
 
@@ -634,22 +891,16 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListLibros = (from datos in context.LibrosAcademicos
-                                join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                 join edi in context.Editorial on datos.IdEditorial equals edi.IdEditorial
                                 select new TablaLibros
                                 {
                                     IdLibro = datos.IdLibrosAcademicos,
-                                    NumPersonal = acad.NumeroPersonal,
-                                    Nombre = acad.Nombre,
-                                    ApellidoPaterno = acad.ApellidoPaterno,
-                                    ApellidoMaterno = acad.ApellidoMaterno,
                                     Archivo = datos.Archivo,
                                     Titulo = datos.Titulo,
                                     ISBN = datos.Isbn,
                                     Anio = datos.Anio,
                                     Tiraje = datos.Tiraje,
-                                    Editorial = edi.Nombre,
-                                    Status = acad.Status
+                                    Editorial = edi.Nombre
                                 }
                                ).ToList();
             }
@@ -671,27 +922,40 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarLibros(IFormFile file, LibrosAcademicos datos)
+        public async Task<IActionResult> GuardarLibros(IFormFile file, LibrosAcademicos datos, int idAcademico)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name =file.GetFilename();
+                datos.Archivo = name;
                 context.LibrosAcademicos.Add(datos);
                 context.SaveChanges();
+                var new_name_table = datos.IdLibrosAcademicos + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.LibrosAcademicos.Update(datos);
+                context.SaveChanges();
+
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdLibrosAcademicos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Libros", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                LibrosAcademicos DatosLibro = context.LibrosAcademicos.Last();
+                AcademicoLibro info = new AcademicoLibro();
+                info.IdAcademico = idAcademico;
+                info.IdLibroAcad = DatosLibro.IdLibrosAcademicos;
+                context.AcademicoLibro.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexLibros");
         }
         [Authorize]
@@ -701,9 +965,7 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 LibrosAcademicos DatosLibros = context.LibrosAcademicos.Where(s => s.IdLibrosAcademicos == id).Single();
-                var acad = context.Academicos.ToList();
                 var edit = context.Editorial.ToList();
-                ViewData["academicos"] = acad;
                 ViewData["editorial"] = edit;
                 return View(DatosLibros);
             }
@@ -723,7 +985,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdLibrosAcademicos + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -738,7 +1000,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexLibros");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdLibrosAcademicos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Libros", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -752,6 +1014,15 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicoLibro> eliminarAcad = context.AcademicoLibro.Where(f => f.IdLibroAcad == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicoLibro.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
+
                 LibrosAcademicos eliminar = context.LibrosAcademicos.Where(w => w.IdLibrosAcademicos == id).Single();
                 context.LibrosAcademicos.Remove(eliminar);
                 context.SaveChanges();
@@ -779,7 +1050,7 @@ namespace SGCFIEE.Controllers
 
 
 
-        [Authorize]
+       [Authorize]
         public IActionResult IndexCapitulos()
         {
             List<TablaCapitulos> ListCapitulos = new List<TablaCapitulos>();
@@ -787,21 +1058,15 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListCapitulos = (from datos in context.CapLibro
-                              join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                               join edi in context.Editorial on datos.IdEditorial equals edi.IdEditorial
                               select new TablaCapitulos
                               {
                                   IdCapitulo = datos.IdCapLibro,
-                                  NumPersonal = acad.NumeroPersonal,
-                                  Nombre = acad.Nombre,
-                                  ApellidoPaterno = acad.ApellidoPaterno,
-                                  ApellidoMaterno = acad.ApellidoMaterno,
                                   Archivo = datos.Archivo,
                                   Titulo = datos.Titulo,
                                   ISBN = datos.Isbn,
                                   Anio = datos.Anio,
-                                  Editorial = edi.Nombre,
-                                  Status = acad.Status
+                                  Editorial = edi.Nombre
                               }
                                ).ToList();
             }
@@ -823,27 +1088,39 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarCapitulos(IFormFile file, CapLibro datos)
+        public async Task<IActionResult> GuardarCapitulos(IFormFile file, CapLibro datos, int idAcademico)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name =file.GetFilename();
+                datos.Archivo = name;
                 context.CapLibro.Add(datos);
+                context.SaveChanges();
+                var new_name_table = datos.IdCapLibro + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.CapLibro.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdCapLibro + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/CapitulosLibros", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                CapLibro DatosLibro = context.CapLibro.Last();
+                AcademicoCapLibro info = new AcademicoCapLibro();
+                info.IdAcademico = idAcademico;
+                info.IdCapLibro = DatosLibro.IdCapLibro;
+                context.AcademicoCapLibro.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexCapitulos");
         }
         [Authorize]
@@ -853,9 +1130,7 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 CapLibro DatosCap = context.CapLibro.Where(s => s.IdCapLibro == id).Single();
-                var acad = context.Academicos.ToList();
                 var edit = context.Editorial.ToList();
-                ViewData["academicos"] = acad;
                 ViewData["editorial"] = edit;
                 return View(DatosCap);
             }
@@ -875,7 +1150,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdCapLibro + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -890,7 +1165,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexCapitulos");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdCapLibro + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/CapitulosLibros", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -904,6 +1179,14 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicoCapLibro> eliminarAcad = context.AcademicoCapLibro.Where(f => f.IdCapLibro == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicoCapLibro.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
                 CapLibro eliminar = context.CapLibro.Where(w => w.IdCapLibro == id).Single();
                 context.CapLibro.Remove(eliminar);
                 context.SaveChanges();
@@ -941,19 +1224,13 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListPatentes = (from datos in context.PatentesAcademicos
-                                 join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                  join tipo in context.TipoLocNacInter on datos.IdNacI equals tipo.IdTipo
                                  select new TablaPatentes
                                  {
                                      IdPatentes = datos.IdPatentesAcademicos,
-                                     NumPersonal = acad.NumeroPersonal,
-                                     Nombre = acad.Nombre,
-                                     ApellidoPaterno = acad.ApellidoPaterno,
-                                     ApellidoMaterno = acad.ApellidoMaterno,
                                      Archivo = datos.Archivo,
                                      NombrePatente = datos.Nombre,
-                                     Tipo = tipo.Nombre,
-                                     Status = acad.Status
+                                     Tipo = tipo.Nombre
                                  }
                                ).ToList();
             }
@@ -975,27 +1252,39 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarPatentes(IFormFile file, PatentesAcademicos datos)
+        public async Task<IActionResult> GuardarPatentes(IFormFile file, PatentesAcademicos datos, int idAcademico)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name =file.GetFilename();
+                datos.Archivo = name;
                 context.PatentesAcademicos.Add(datos);
+                context.SaveChanges();
+                var new_name_table = datos.IdPatentesAcademicos + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.PatentesAcademicos.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdPatentesAcademicos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Patentes", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                PatentesAcademicos DatosPatentes = context.PatentesAcademicos.Last();
+                AcademicosPatentes info = new AcademicosPatentes();
+                info.IdAcademicos = idAcademico;
+                info.IdPatentes = DatosPatentes.IdPatentesAcademicos;
+                context.AcademicosPatentes.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexPatentes");
         }
         [Authorize]
@@ -1006,9 +1295,7 @@ namespace SGCFIEE.Controllers
             {
                 PatentesAcademicos DatosPatentes = context.PatentesAcademicos.Where(s => s.IdPatentesAcademicos == id).Single();
                 var lugar = context.TipoLocNacInter.Where(s => s.Nombre != "Local").ToList();
-                var acad = context.Academicos.ToList();
                 ViewData["lugar"] = lugar;
-                ViewData["academicos"] = acad;
                 return View(DatosPatentes);
             }
         }
@@ -1027,7 +1314,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdPatentesAcademicos + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -1042,7 +1329,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexPatentes");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdPatentesAcademicos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Patentes", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -1056,6 +1343,14 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicosPatentes> eliminarAcad = context.AcademicosPatentes.Where(f => f.IdPatentes == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicosPatentes.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
                 PatentesAcademicos eliminar = context.PatentesAcademicos.Where(w => w.IdPatentesAcademicos == id).Single();
                 context.PatentesAcademicos.Remove(eliminar);
                 context.SaveChanges();
@@ -1092,7 +1387,6 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListTrabajosRecep = (from datos in context.TrabajosRecepcionales
-                                join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                 join academia in context.Academias on datos.IdAcademia equals academia.IdAcademias
                                 join alum in context.Alumnos on datos.IdAlumno equals alum.IdAlumnos
                                 join datosalum in context.DatosPersonales on alum.RDatosPerson equals datosalum.IdDatosPersonales
@@ -1101,10 +1395,6 @@ namespace SGCFIEE.Controllers
                                 select new TablaTrabajosRecep
                                 {
                                     IdTrabajos = datos.IdTrabajosRecepcionales,
-                                    NumPersonal = acad.NumeroPersonal,
-                                    Nombre = acad.Nombre,
-                                    ApellidoPaterno = acad.ApellidoPaterno,
-                                    ApellidoMaterno = acad.ApellidoMaterno,
                                     NombreAlum = datosalum.Nombre,
                                     ApellidoPaternoAlum = datosalum.ApellidoPaterno,
                                     ApellidoMaternoAlum = datosalum.ApellidoMaterno,
@@ -1116,7 +1406,6 @@ namespace SGCFIEE.Controllers
                                     NumCT = datos.NumeroConsejoT,
                                     Archivo = datos.Archivo,
                                     NombreTrabajo = datos.NombreTrabajo,
-                                    Status = acad.Status
                                 }
                                ).ToList();
                 
@@ -1147,27 +1436,39 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarTrabajosRecep(IFormFile file, TrabajosRecepcionales datos)
+        public async Task<IActionResult> GuardarTrabajosRecep(IFormFile file, TrabajosRecepcionales datos, int idAcademico)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name = file.GetFilename();
+                datos.Archivo = name;
                 context.TrabajosRecepcionales.Add(datos);
+                context.SaveChanges();
+                var new_name_table = datos.IdTrabajosRecepcionales + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.TrabajosRecepcionales.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdTrabajosRecepcionales + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/TrabajosRecepcionales", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                TrabajosRecepcionales DatosTrabajosR = context.TrabajosRecepcionales.Last();
+                AcademicoTrabajosRecep info = new AcademicoTrabajosRecep();
+                info.IdAcademico = idAcademico;
+                info.IdTrabajosRecep = DatosTrabajosR.IdTrabajosRecepcionales;
+                context.AcademicoTrabajosRecep.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexTrabajoRecep");
         }
         [Authorize]
@@ -1177,13 +1478,13 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 TrabajosRecepcionales DatosTrabajos = context.TrabajosRecepcionales.Where(s => s.IdTrabajosRecepcionales == id).Single();
-                var acad = context.Academicos.ToList();
+                
                 var academia = context.Academias.Where(s => s.Status == 1).ToList();
                 var alum = context.DatosPersonales.ToList();
                 var grados = context.GradoTitulo.ToList();
                 var modalidad = context.TipoModalidad.ToList();
                 
-                ViewData["academicos"] = acad;
+                
                 ViewData["academia"] = academia;
                 ViewData["alumnos"] = alum;
                 ViewData["grados"] = grados;
@@ -1210,7 +1511,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdTrabajosRecepcionales + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -1227,7 +1528,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexTrabajoRecep");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdTrabajosRecepcionales + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/TrabajosRecepcionales", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -1241,6 +1542,14 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicoTrabajosRecep> eliminarAcad = context.AcademicoTrabajosRecep.Where(f => f.IdTrabajosRecep == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicoTrabajosRecep.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
                 TrabajosRecepcionales eliminar = context.TrabajosRecepcionales.Where(w => w.IdTrabajosRecepcionales == id).Single();
                 context.TrabajosRecepcionales.Remove(eliminar);
                 context.SaveChanges();
@@ -1280,19 +1589,13 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListConcursos = (from datos in context.Concursos
-                                 join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                  join tipo in context.TipoLocNacInter on datos.IdNacInter equals tipo.IdTipo
                                  select new TablaConcursos
                                  {
                                      IdConcursos = datos.IdConcursos,
-                                     NumPersonal = acad.NumeroPersonal,
-                                     Nombre = acad.Nombre,
-                                     ApellidoPaterno = acad.ApellidoPaterno,
-                                     ApellidoMaterno = acad.ApellidoMaterno,
                                      Archivo = datos.Archivo,
                                      Tipo = tipo.Nombre,
                                      NombreConcurso = datos.Nombre,
-                                     Status = acad.Status
                                  }
                                ).ToList();
             }
@@ -1314,27 +1617,39 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarConcursos(IFormFile file, Concursos datos)
+        public async Task<IActionResult> GuardarConcursos(IFormFile file, Concursos datos, int idAcademico)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name =file.GetFilename();
+                datos.Archivo = name;
                 context.Concursos.Add(datos);
+                context.SaveChanges();
+                var new_name_table = datos.IdConcursos + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.Concursos.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdConcursos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Concursos", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                Concursos DatosTrabajosR = context.Concursos.Last();
+                AcademicoConcursos info = new AcademicoConcursos();
+                info.IdAcademico = idAcademico;
+                info.IdConcursos = DatosTrabajosR.IdConcursos;
+                context.AcademicoConcursos.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexConcursos");
         }
         [Authorize]
@@ -1345,9 +1660,9 @@ namespace SGCFIEE.Controllers
             {
                 Concursos DatosConcursos = context.Concursos.Where(s => s.IdConcursos == id).Single();
                 var lugar = context.TipoLocNacInter.Where(s => s.Nombre != "Local").ToList();
-                var acad = context.Academicos.ToList();
+                
                 ViewData["lugar"] = lugar;
-                ViewData["academicos"] = acad;
+                
                 return View(DatosConcursos);
             }
         }
@@ -1366,7 +1681,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdConcursos + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -1381,7 +1696,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexConcursos");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdConcursos + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Publicaciones/Concursos", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -1395,6 +1710,14 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicoConcursos> eliminarAcad = context.AcademicoConcursos.Where(f => f.IdConcursos == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicoConcursos.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
                 Concursos eliminar = context.Concursos.Where(w => w.IdConcursos == id).Single();
                 context.Concursos.Remove(eliminar);
                 context.SaveChanges();
@@ -1418,7 +1741,7 @@ namespace SGCFIEE.Controllers
             }
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
-        }
+        }*/
 
 
 
