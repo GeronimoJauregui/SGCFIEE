@@ -16,7 +16,7 @@ namespace SGCFIEE.Controllers
     public class AcademicosComisionesController : Controller
     {
         // GET: /<controller>/
-        /*[Authorize]
+        [Authorize]
         public IActionResult IndexJurExperiencia()
         {
             List<TablaJurExperiencia> ListJurExperiencia = new List<TablaJurExperiencia>();
@@ -24,7 +24,6 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListJurExperiencia = (from datos in context.JuradoExperienciaRecepcional
-                                   join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                    join trabajo in context.TrabajosRecepcionales on datos.IdTr equals trabajo.IdTrabajosRecepcionales
                                    join alum in context.Alumnos on trabajo.IdAlumno equals alum.IdAlumnos
                                    join datosG in context.DatosPersonales on alum.RDatosPerson equals datosG.IdDatosPersonales
@@ -32,10 +31,6 @@ namespace SGCFIEE.Controllers
                                    select new TablaJurExperiencia
                                    {
                                        IdJurado = datos.IdJer,
-                                       NumPersonal = acad.NumeroPersonal,
-                                       Nombre = acad.Nombre,
-                                       ApellidoPaterno = acad.ApellidoPaterno,
-                                       ApellidoMaterno = acad.ApellidoMaterno,
                                        NombreAlum = datosG.Nombre,
                                        ApellidoPaternoAlum = datosG.ApellidoPaterno,
                                        ApellidoMaternoAlum = datosG.ApellidoMaterno,
@@ -43,8 +38,7 @@ namespace SGCFIEE.Controllers
                                        NombreTrabajo = trabajo.NombreTrabajo,
                                        Fecha = trabajo.FechaPresentacion.ToString(),
                                        Archivo = datos.Archivo,
-                                       JuradoPrejurado = datos.JuradoPrejurado,
-                                       Status = acad.Status
+                                       JuradoPrejurado = datos.JuradoPrejurado
                                    }
                                ).Where(s => s.JuradoPrejurado == 1).ToList();
             }
@@ -97,7 +91,7 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarJurExperiencia(IFormFile file, JuradoExperienciaRecepcional datos)
+        public async Task<IActionResult> GuardarJurExperiencia(IFormFile file, JuradoExperienciaRecepcional datos, int idAcademico)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
@@ -105,23 +99,36 @@ namespace SGCFIEE.Controllers
                 var datosAlum = context.Alumnos.Where(s => s.RDatosPerson == datos.IdTr).Single();
                 var datosTR = context.TrabajosRecepcionales.Where(a => a.IdAlumno == datosAlum.IdAlumnos).Single();
                 datos.IdTr = datosTR.IdTrabajosRecepcionales;
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name = file.GetFilename();
+                datos.Archivo = name;
                 context.JuradoExperienciaRecepcional.Add(datos);
+                context.SaveChanges();
+                JuradoExperienciaRecepcional DatosJur = context.JuradoExperienciaRecepcional.Last();
+                var new_name_table = DatosJur.IdJer + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.JuradoExperienciaRecepcional.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdJer + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Comisiones/JuradoExperienciaRecepcional", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                JuradoExperienciaRecepcional DatosJur = context.JuradoExperienciaRecepcional.Last();
+                AcademicosJuradoRecep info = new AcademicosJuradoRecep();
+                info.IdAcademico = idAcademico;
+                info.IdJurado = DatosJur.IdJer;
+                context.AcademicosJuradoRecep.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexJurExperiencia");
         }
         [Authorize]
@@ -138,8 +145,7 @@ namespace SGCFIEE.Controllers
                 var dato = idDatoAlumno.RDatosPerson;
                 ViewData["datoComparar"] = dato;**/
 
-                /*var acad = context.Academicos.ToList();
-                ViewData["academicos"] = acad;
+                
 
 
                 List<TrabajosRecepcionales> datTR = new List<TrabajosRecepcionales>();
@@ -193,7 +199,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdJer + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -211,7 +217,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexJurExperiencia");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdJer + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Comisiones/JuradoExperienciaRecepcional", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -225,6 +231,14 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicosJuradoRecep> eliminarAcad = context.AcademicosJuradoRecep.Where(f => f.IdJurado == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicosJuradoRecep.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
                 JuradoExperienciaRecepcional eliminar = context.JuradoExperienciaRecepcional.Where(w => w.IdJer == id).Single();
                 context.JuradoExperienciaRecepcional.Remove(eliminar);
                 context.SaveChanges();
@@ -249,8 +263,58 @@ namespace SGCFIEE.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
-
-
+        [Authorize]
+        public IActionResult AcademicosJurExperiencia(int id)
+        {
+            List<TablaAcadJurExperiencia> ListAcadJurExp = new List<TablaAcadJurExperiencia>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadJurExp = (from datos in context.AcademicosJuradoRecep
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     where datos.IdJurado == id
+                                     select new TablaAcadJurExperiencia
+                                     {
+                                         IdAcadJurExp = datos.IdAcademicosJuradoRecep,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         idJurado = datos.IdJurado
+                                     }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idJur"] = id;
+            }
+            return View(ListAcadJurExp);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadJurExperiencia(int idAcademico, int jurado)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicosJuradoRecep AcadJurado = new AcademicosJuradoRecep();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadJurado.IdAcademico = idAcademico;
+                AcadJurado.IdJurado = jurado;
+                context.AcademicosJuradoRecep.Add(AcadJurado);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosJurExperiencia", new { id = AcadJurado.IdJurado });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadJurExperiencia(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicosJuradoRecep eliminar = context.AcademicosJuradoRecep.Where(w => w.IdAcademicosJuradoRecep == id).Single();
+                context.AcademicosJuradoRecep.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosJurExperiencia", new { id = id_acad });
+            }
+        }
+        
 
 
 
@@ -262,20 +326,14 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListJurOposicion = (from datos in context.JuradoExamenOposicion
-                                      join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                       join ee in context.ExperienciaEducativa on datos.IdEe equals ee.IdExperienciaEducativa
                                       select new TablaJurOposicion
                                       {
                                           IdJurado = datos.IdJexposicion,
-                                          NumPersonal = acad.NumeroPersonal,
-                                          Nombre = acad.Nombre,
-                                          ApellidoPaterno = acad.ApellidoPaterno,
-                                          ApellidoMaterno = acad.ApellidoMaterno,
                                           Ee = ee.Nombre,
                                           TipoExamen = datos.TipoExamen,
                                           Fecha = datos.Fecha.ToString(),
                                           Archivo = datos.Archivo,
-                                          Status = acad.Status
                                       }
                                ).ToList();
             }
@@ -297,28 +355,41 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarJurOposicion(IFormFile file, JuradoExamenOposicion datos)
+        public async Task<IActionResult> GuardarJurOposicion(IFormFile file, JuradoExamenOposicion datos, int idAcademico)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name = file.GetFilename();
+                datos.Archivo = name;
                 context.JuradoExamenOposicion.Add(datos);
+                context.SaveChanges();
+                JuradoExamenOposicion DatosJur = context.JuradoExamenOposicion.Last();
+                var new_name_table = DatosJur.IdJexposicion + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.JuradoExamenOposicion.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdJexposicion + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Comisiones/JuradoOposicion", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                JuradoExamenOposicion DatosJur = context.JuradoExamenOposicion.Last();
+                AcademicosJurOposicion info = new AcademicosJurOposicion();
+                info.IdAcademico = idAcademico;
+                info.IdJurado = DatosJur.IdJexposicion;
+                context.AcademicosJurOposicion.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexJurOposicion");
         }
         [Authorize]
@@ -329,9 +400,9 @@ namespace SGCFIEE.Controllers
             {
                 JuradoExamenOposicion DatosJur = context.JuradoExamenOposicion.Where(s => s.IdJexposicion == id).Single();
 
-                var acad = context.Academicos.ToList();
+                
                 var Ee = context.ExperienciaEducativa.ToList();
-                ViewData["academicos"] = acad;
+                
                 ViewData["ExperienciasE"] = Ee;
                 string fecha = DatosJur.Fecha.ToString();
                 string[] resultado = fecha.Split(' ');
@@ -354,7 +425,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdJexposicion + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -369,7 +440,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexJurOposicion");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdJexposicion + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Comisiones/JuradoOposicion", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -383,6 +454,14 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicosJurOposicion> eliminarAcad = context.AcademicosJurOposicion.Where(f => f.IdJurado == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicosJurOposicion.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
                 JuradoExamenOposicion eliminar = context.JuradoExamenOposicion.Where(w => w.IdJexposicion == id).Single();
                 context.JuradoExamenOposicion.Remove(eliminar);
                 context.SaveChanges();
@@ -407,7 +486,57 @@ namespace SGCFIEE.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
-
+        [Authorize]
+        public IActionResult AcademicosJurOposicion(int id)
+        {
+            List<TablaAcadJurOposicion> ListAcadJurOpo = new List<TablaAcadJurOposicion>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadJurOpo = (from datos in context.AcademicosJurOposicion
+                                  join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                  where datos.IdJurado == id
+                                  select new TablaAcadJurOposicion
+                                  {
+                                      IdAcadJurOpo = datos.IdAcademicosJurOposicion,
+                                      NumPersonal = acad.NumeroPersonal,
+                                      Nombre = acad.Nombre,
+                                      ApellidoPaterno = acad.ApellidoPaterno,
+                                      ApellidoMaterno = acad.ApellidoMaterno,
+                                      IdJurado = datos.IdJurado
+                                  }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idJur"] = id;
+            }
+            return View(ListAcadJurOpo);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadJurOposicion(int idAcademico, int jurado)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicosJurOposicion AcadJurado = new AcademicosJurOposicion();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadJurado.IdAcademico = idAcademico;
+                AcadJurado.IdJurado = jurado;
+                context.AcademicosJurOposicion.Add(AcadJurado);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosJurOposicion", new { id = AcadJurado.IdJurado });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadJurOposicion(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicosJurOposicion eliminar = context.AcademicosJurOposicion.Where(w => w.IdAcademicosJurOposicion == id).Single();
+                context.AcademicosJurOposicion.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosJurOposicion", new { id = id_acad });
+            }
+        }
 
 
 
@@ -727,7 +856,6 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListPreJurExperiencia = (from datos in context.JuradoExperienciaRecepcional
-                                      join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
                                       join trabajo in context.TrabajosRecepcionales on datos.IdTr equals trabajo.IdTrabajosRecepcionales
                                       join alum in context.Alumnos on trabajo.IdAlumno equals alum.IdAlumnos
                                       join datosG in context.DatosPersonales on alum.RDatosPerson equals datosG.IdDatosPersonales
@@ -735,18 +863,13 @@ namespace SGCFIEE.Controllers
                                       select new TablaPreJurExperiencia
                                       {
                                           IdJurado = datos.IdJer,
-                                          NumPersonal = acad.NumeroPersonal,
-                                          Nombre = acad.Nombre,
-                                          ApellidoPaterno = acad.ApellidoPaterno,
-                                          ApellidoMaterno = acad.ApellidoMaterno,
                                           NombreAlum = datosG.Nombre,
                                           ApellidoPaternoAlum = datosG.ApellidoPaterno,
                                           ApellidoMaternoAlum = datosG.ApellidoMaterno,
                                           Modalidad = modalidad.Nombre,
                                           NombreTrabajo = trabajo.NombreTrabajo,
                                           Archivo = datos.Archivo,
-                                          JuradoPrejurado = datos.JuradoPrejurado,
-                                          Status = acad.Status
+                                          JuradoPrejurado = datos.JuradoPrejurado
                                       }
                                ).Where(s => s.JuradoPrejurado == 0).ToList();
             }
@@ -798,7 +921,7 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarPreJurExperiencia(IFormFile file, JuradoExperienciaRecepcional datos)
+        public async Task<IActionResult> GuardarPreJurExperiencia(IFormFile file, JuradoExperienciaRecepcional datos, int idAcademico)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
@@ -806,23 +929,36 @@ namespace SGCFIEE.Controllers
                 var datosAlum = context.Alumnos.Where(s => s.RDatosPerson == datos.IdTr).Single();
                 var datosTR = context.TrabajosRecepcionales.Where(a => a.IdAlumno == datosAlum.IdAlumnos).Single();
                 datos.IdTr = datosTR.IdTrabajosRecepcionales;
-                var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
-                datos.Archivo = new_name_table;
+                var name = file.GetFilename();
+                datos.Archivo = name;
                 context.JuradoExperienciaRecepcional.Add(datos);
+                context.SaveChanges();
+                JuradoExperienciaRecepcional DatosJur = context.JuradoExperienciaRecepcional.Last();
+                var new_name_table = DatosJur.IdJer + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.JuradoExperienciaRecepcional.Update(datos);
                 context.SaveChanges();
             }
 
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdJer + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Comisiones/PreJuradoExperienciaRecepcional", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                JuradoExperienciaRecepcional DatosJur = context.JuradoExperienciaRecepcional.Last();
+                AcademicosJuradoRecep info = new AcademicosJuradoRecep();
+                info.IdAcademico = idAcademico;
+                info.IdJurado = DatosJur.IdJer;
+                context.AcademicosJuradoRecep.Add(info);
+                context.SaveChanges();
+            }
             return RedirectToAction("IndexPreJurExperiencia");
         }
         [Authorize]
@@ -833,8 +969,6 @@ namespace SGCFIEE.Controllers
             {
                 JuradoExperienciaRecepcional DatosJur = context.JuradoExperienciaRecepcional.Where(s => s.IdJer == id).Single();
 
-                var acad = context.Academicos.ToList();
-                ViewData["academicos"] = acad;
 
                 List<TrabajosRecepcionales> datTR = new List<TrabajosRecepcionales>();
                 List<Alumnos> datAlum = new List<Alumnos>();
@@ -887,7 +1021,7 @@ namespace SGCFIEE.Controllers
                 }
                 else
                 {
-                    var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
+                    var new_name_table = datos.IdJer + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
 
@@ -905,7 +1039,7 @@ namespace SGCFIEE.Controllers
             {
                 return RedirectToAction("IndexPreJurExperiencia");
             }
-            var new_name_file = datos.IdAcademico + "_" + file.GetFilename();
+            var new_name_file = datos.IdJer + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/Comisiones/PreJuradoExperienciaRecepcional", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -919,6 +1053,14 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                List<AcademicosJuradoRecep> eliminarAcad = context.AcademicosJuradoRecep.Where(f => f.IdJurado == id).ToList();
+                int i = 0;
+                foreach (var item in eliminarAcad)
+                {
+                    context.AcademicosJuradoRecep.Remove(eliminarAcad[i]);
+                    context.SaveChanges();
+                    i++;
+                }
                 JuradoExperienciaRecepcional eliminar = context.JuradoExperienciaRecepcional.Where(w => w.IdJer == id).Single();
                 context.JuradoExperienciaRecepcional.Remove(eliminar);
                 context.SaveChanges();
@@ -943,8 +1085,58 @@ namespace SGCFIEE.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
-
-
+        [Authorize]
+        public IActionResult AcademicosPreJurExperiencia(int id)
+        {
+            List<TablaAcadJurExperiencia> ListAcadJurExp = new List<TablaAcadJurExperiencia>();
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ListAcadJurExp = (from datos in context.AcademicosJuradoRecep
+                                  join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                  where datos.IdJurado == id
+                                  select new TablaAcadJurExperiencia
+                                  {
+                                      IdAcadJurExp = datos.IdAcademicosJuradoRecep,
+                                      NumPersonal = acad.NumeroPersonal,
+                                      Nombre = acad.Nombre,
+                                      ApellidoPaterno = acad.ApellidoPaterno,
+                                      ApellidoMaterno = acad.ApellidoMaterno,
+                                      idJurado = datos.IdJurado
+                                  }
+                                     ).ToList();
+                var acade = context.Academicos.ToList();
+                ViewData["academicos"] = acade;
+                ViewData["idJur"] = id;
+            }
+            return View(ListAcadJurExp);
+        }
+        [Authorize]
+        public IActionResult GuardarAcadPreJurExperiencia(int idAcademico, int jurado)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            AcademicosJuradoRecep AcadJurado = new AcademicosJuradoRecep();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcadJurado.IdAcademico = idAcademico;
+                AcadJurado.IdJurado = jurado;
+                context.AcademicosJuradoRecep.Add(AcadJurado);
+                context.SaveChanges();
+            }
+            return RedirectToAction("AcademicosPreJurExperiencia", new { id = AcadJurado.IdJurado });
+        }
+        [Authorize]
+        public IActionResult EliminarAcadPreJurExperiencia(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                AcademicosJuradoRecep eliminar = context.AcademicosJuradoRecep.Where(w => w.IdAcademicosJuradoRecep == id).Single();
+                context.AcademicosJuradoRecep.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("AcademicosPreJurExperiencia", new { id = id_acad });
+            }
+        }
+        
 
 
 
@@ -979,6 +1171,6 @@ namespace SGCFIEE.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }*/
+        }
     }
 }

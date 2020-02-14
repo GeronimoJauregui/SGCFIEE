@@ -42,8 +42,6 @@
                                                 <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaProductos" >
                                                     <thead>
                                                         <tr>
-                                                            <th class="center"> Número de personal</th>
-                                                            <th class="center"> Nombre<br>del<br>académico</th>
                                                             <th class="center"> Tipo</th>
                                                             <th class="center"> Productos académicos</th>
                                                             <th class="center"> Evidencia</th>
@@ -54,8 +52,6 @@
                                                         @foreach (var item in Model)
                                                         {
                                                             <tr class="odd gradeX">
-                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
                                                                 <td class="center"> 
                                                                     @if (item.RevisorEvaluador == 1)
                                                                     { <div>Revisor</div>  }
@@ -69,6 +65,9 @@
                                                                     </a>
                                                                 </td>
                                                                 <td class="center">
+                                                                    <a asp-route-id="@item.IdEvaluadores" asp-controller="AcademicosParticipacionesAcad" asp-action="AcademicosArbitraje" class="btn btn-success btn-xs" title="Académicos responsables">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </a>
                                                                     <a asp-route-id="@item.IdEvaluadores" asp-controller="AcademicosParticipacionesAcad" asp-action="EditarArbitraje" class="btn btn-primary btn-xs" title="Editar">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>

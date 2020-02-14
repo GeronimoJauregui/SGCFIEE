@@ -21,7 +21,7 @@
                                 <input type="hidden" asp-for="JuradoPrejurado" value="0"/>
                                 <div class="form-group">
                                     <label>Académico</label>
-                                    <select class="form-control">
+                                    <select name="idAcademico" class="form-control">
                                         @foreach (var item in acad)
                                         {
                                             <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>

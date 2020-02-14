@@ -44,8 +44,6 @@
                                                 <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaJurExperiencia" >
                                                     <thead>
                                                         <tr>
-                                                            <th class="center"> Número de personal</th>
-                                                            <th class="center"> Nombre<br>del<br>académico</th>
                                                             <th class="center"> Nombre<br>del<br>alumno</th>
                                                             <th class="center"> Modalidad</th>
                                                             <th class="center"> Nombre del trabajo</th>
@@ -58,8 +56,7 @@
                                                         @foreach (var item in Model)
                                                         {
                                                             <tr class="odd gradeX">
-                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                                
                                                                 <td>@Html.DisplayFor(modelItem => item.NombreAlum) @Html.DisplayFor(modelItem => item.ApellidoPaternoAlum) @Html.DisplayFor(modelItem => item.ApellidoMaternoAlum)</td>
                                                                 <td>@Html.DisplayFor(modelItem => item.Modalidad)</td>
                                                                 <td>@Html.DisplayFor(modelItem => item.NombreTrabajo)</td>
@@ -70,6 +67,9 @@
                                                                     </a>
                                                                 </td>
                                                                 <td class="center">
+                                                                    <a asp-route-id="@item.IdJurado" asp-controller="AcademicosComisiones" asp-action="AcademicosJurExperiencia" class="btn btn-success btn-xs" title="Académicos jurado">
+                                                                        <i class="fa fa-check"></i>
+                                                                    </a>
                                                                     <a asp-route-id="@item.IdJurado" asp-controller="AcademicosComisiones" asp-action="EditarJurExperiencia" class="btn btn-primary btn-xs" title="Editar">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>

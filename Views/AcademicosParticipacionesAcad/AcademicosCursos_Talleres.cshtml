@@ -1,0 +1,88 @@
+﻿@model  IEnumerable<SGCFIEE.Models.TablaAcadCursoTalleres> 
+@{
+    ViewData["Title"] = "AcadArticulos";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var acade = (IEnumerable<Academicos>)ViewData["academicos"];
+}
+
+<!DOCTYPE html>
+<html>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-box">
+                <div class="card-topline-green card-head">
+                    <header>COLABORADORES</header>
+                </div>
+                <div class="white-box">
+                    <div class="tab-content">
+                        <div class="tab-pane active fontawesome-demo" id="tab1">
+                            <div id="Artículos">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card-body ">
+                                            <form asp-controller="AcademicosParticipacionesAcad" asp-action="GuardarAcadCursos_Talleres" method="post" enctype="multipart/form-data">
+                                                <input name="cursotaller" value="@ViewData["idCursoTaller"]" type="hidden"/>
+                                                <div class="row p-b-20">
+                                                    <div class="col-md-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label>Académico</label>
+                                                            <select name="idAcademico" class="form-control">
+                                                                @foreach (var item in acade)
+                                                                {
+                                                                    <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row p-b-20">
+                                                    <div class="col-md-2 col-sm-6 col-2">
+                                                        <div class="btn-group">
+                                                            <button type="submit" class="btn btn-success btn-sm m-b-10" name="Guardar" style="float:right">
+                                                                Académico<i class="fa fa-plus" style="color:white"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaArticulos" >
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="center"> Numero de personal</th>
+                                                            <th class="center"> Nombre del académico</th>
+                                                            <th class="center"> Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model)
+                                                        {
+                                                            <tr class="odd gradeX">
+                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                                <td class="center">
+                                                                    <a data-value="@item.IdAcadCursoTalleres" data-id="@item.idCursosTalleres" data-controlador="AcademicosParticipacionesAcad" data-accion="EliminarAcadCursos_Talleres" data-regreso="AcademicosCursos_Talleres" name="eliminaracademico" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                        <i class="fa fa-trash-o "></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <a asp-controller="AcademicosParticipacionesAcad" asp-action="IndexCursos_Talleres" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                Regresar
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</html>
+
+<script src="~/assets/js/pages/table/table_data.js"></script>

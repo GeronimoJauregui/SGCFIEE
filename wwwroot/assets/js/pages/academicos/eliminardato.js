@@ -41,6 +41,7 @@ $('a[name="eliminaracademico"]').on('click', function () {
         closeOnConfirm: false
     }, function () {
             $.get("https://localhost:5001/" + controlador + "/" + accion, { id: value, id_acad: id_acad }).then(function () {
+                
                 $.get("https://localhost:5001/" + controlador + "/" + regreso, { id: id_acad }).then(function () {
                 var newDoc = document.open("text/html", "replace");
                 newDoc.write(arguments[0]);
