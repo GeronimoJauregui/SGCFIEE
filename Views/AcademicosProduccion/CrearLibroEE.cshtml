@@ -4,6 +4,7 @@
     Layout = "~/Views/Home/Principal.cshtml";
     var acad = (IEnumerable<Academicos>)ViewData["academicos"];
     var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+    var tipo = (int)ViewData["tipo"];
 }
 <!DOCTYPE html>
 
@@ -18,6 +19,8 @@
                     <form asp-controller="AcademicosProduccion" asp-action="GuardarLibroEE" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-md-6 col-md-6">
+                                @if (tipo == 1)
+                                {
                                 <div class="form-group">
                                     <label>Académico</label>
                                     <select asp-for="IdAcademico" class="form-control">
@@ -27,6 +30,7 @@
                                         }
                                     </select>
                                 </div>
+                                }
                                 <div class="form-group">
                                     <label>Periodo</label>
                                     <select asp-for="IdPeriodo" class="form-control">

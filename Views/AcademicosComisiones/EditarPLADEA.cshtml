@@ -3,6 +3,7 @@
     ViewData["Title"] = "EditarPLADEA";
     Layout = "~/Views/Home/Principal.cshtml";
     var acad = (IEnumerable<Academicos>)ViewData["academicos"];
+    var tipo = (int)ViewData["tipo"];
 }
 <!DOCTYPE html>
 
@@ -18,6 +19,8 @@
                         <div class="row">
                             <div class="col-md-6 col-md-6">
                                 <input type="hidden" asp-for="IdPladea"/>
+                                @if (tipo == 1)
+                                {
                                 <div class="form-group">
                                     <label>Académico</label>
                                     <select asp-for="IdAcademico" class="form-control">
@@ -33,7 +36,8 @@
                                             }
                                         }
                                     </select>
-                                </div> 
+                                </div>
+                                }
                                 <div class="form-group">
                                     <label>Nombre de la comisión</label>
                                    <input asp-for="Comision" type="text" class="form-control" placeholder="Ingresar..." required="required" value="@Model.Comision">

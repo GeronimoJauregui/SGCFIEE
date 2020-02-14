@@ -20,88 +20,166 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexEvalEstudiantes()
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaCalifEstudiantes> ListCalifEstudiantes = new List<TablaCalifEstudiantes>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListCalifEstudiantes = (from calif in context.EvaluacionEstudiantes
-                                        join acad in context.Academicos on calif.IdAcademico equals acad.IdAcademicos
-                                        join perio in context.TipoPeriodo on calif.IdPeriodo equals perio.IdPeriodo
-                                        select new TablaCalifEstudiantes
-                                        {
-                                            IdCalifEstudiantes = calif.IdEvaluacionEstudiantes,
-                                            NumPersonal = acad.NumeroPersonal,
-                                            Nombre = acad.Nombre,
-                                            ApellidoPaterno = acad.ApellidoPaterno,
-                                            ApellidoMaterno = acad.ApellidoMaterno,
-                                            Calificacion = calif.Calificacion,
-                                            Periodo = perio.Nombre,
-                                            Status = acad.Status
-                                        }
-                               ).ToList();
+                if (tipo == 1)
+                {
+                    ListCalifEstudiantes = (from calif in context.EvaluacionEstudiantes
+                                            join acad in context.Academicos on calif.IdAcademico equals acad.IdAcademicos
+                                            join perio in context.TipoPeriodo on calif.IdPeriodo equals perio.IdPeriodo
+                                            select new TablaCalifEstudiantes
+                                            {
+                                                IdCalifEstudiantes = calif.IdEvaluacionEstudiantes,
+                                                NumPersonal = acad.NumeroPersonal,
+                                                Nombre = acad.Nombre,
+                                                ApellidoPaterno = acad.ApellidoPaterno,
+                                                ApellidoMaterno = acad.ApellidoMaterno,
+                                                Calificacion = calif.Calificacion,
+                                                Periodo = perio.Nombre,
+                                                Status = acad.Status
+                                            }
+                                   ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListCalifEstudiantes = (from calif in context.EvaluacionEstudiantes
+                                            join acad in context.Academicos on calif.IdAcademico equals acad.IdAcademicos
+                                            join perio in context.TipoPeriodo on calif.IdPeriodo equals perio.IdPeriodo
+                                            where calif.IdAcademico == idUsu
+                                            select new TablaCalifEstudiantes
+                                            {
+                                                IdCalifEstudiantes = calif.IdEvaluacionEstudiantes,
+                                                NumPersonal = acad.NumeroPersonal,
+                                                Nombre = acad.Nombre,
+                                                ApellidoPaterno = acad.ApellidoPaterno,
+                                                ApellidoMaterno = acad.ApellidoMaterno,
+                                                Calificacion = calif.Calificacion,
+                                                Periodo = perio.Nombre,
+                                                Status = acad.Status
+                                            }
+                                   ).ToList();
+                }
             }
             return View(ListCalifEstudiantes);
         }
         [Authorize]
         public IActionResult IndexEvalCT()
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             List<TablaCalifCT> ListCalifCT = new List<TablaCalifCT>();
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListCalifCT = (from calif in context.EvaluacionConsejoTecnico
-                               join acad in context.Academicos on calif.IdAcademico equals acad.IdAcademicos
-                               join perio in context.TipoPeriodo on calif.IdPeriodo equals perio.IdPeriodo
-                               select new TablaCalifCT
-                               {
-                                   IdCalifCT = calif.IdConsejoTecnico,
-                                   NumPersonal = acad.NumeroPersonal,
-                                   Nombre = acad.Nombre,
-                                   ApellidoPaterno = acad.ApellidoPaterno,
-                                   ApellidoMaterno = acad.ApellidoMaterno,
-                                   CalifDesempenio = calif.CalificacionDesempenio,
-                                   CalifGestion = calif.CalificacionGestion,
-                                   Periodo = perio.Nombre,
-                                   Status = acad.Status
-                               }
+                if (tipo == 1)
+                {
+                    ListCalifCT = (from calif in context.EvaluacionConsejoTecnico
+                                   join acad in context.Academicos on calif.IdAcademico equals acad.IdAcademicos
+                                   join perio in context.TipoPeriodo on calif.IdPeriodo equals perio.IdPeriodo
+                                   select new TablaCalifCT
+                                   {
+                                       IdCalifCT = calif.IdConsejoTecnico,
+                                       NumPersonal = acad.NumeroPersonal,
+                                       Nombre = acad.Nombre,
+                                       ApellidoPaterno = acad.ApellidoPaterno,
+                                       ApellidoMaterno = acad.ApellidoMaterno,
+                                       CalifDesempenio = calif.CalificacionDesempenio,
+                                       CalifGestion = calif.CalificacionGestion,
+                                       Periodo = perio.Nombre,
+                                       Status = acad.Status
+                                   }
                                ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListCalifCT = (from calif in context.EvaluacionConsejoTecnico
+                                   join acad in context.Academicos on calif.IdAcademico equals acad.IdAcademicos
+                                   join perio in context.TipoPeriodo on calif.IdPeriodo equals perio.IdPeriodo
+                                   where calif.IdAcademico == idUsu
+                                   select new TablaCalifCT
+                                   {
+                                       IdCalifCT = calif.IdConsejoTecnico,
+                                       NumPersonal = acad.NumeroPersonal,
+                                       Nombre = acad.Nombre,
+                                       ApellidoPaterno = acad.ApellidoPaterno,
+                                       ApellidoMaterno = acad.ApellidoMaterno,
+                                       CalifDesempenio = calif.CalificacionDesempenio,
+                                       CalifGestion = calif.CalificacionGestion,
+                                       Periodo = perio.Nombre,
+                                       Status = acad.Status
+                                   }
+                               ).ToList();
+                }
             }
             return View(ListCalifCT);
         }
         [Authorize]
         public IActionResult IndexEvalTutor()
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             List<TablaCalifTutor> ListCalifTutor = new List<TablaCalifTutor>();
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListCalifTutor = (from calif in context.TbCalificacionTutor
-                                  join
-                                  acad in context.Academicos on calif.RAcademicos equals acad.IdAcademicos
-                                  join
-                                  perio in context.TipoPeriodo on calif.RPeriodo equals perio.IdPeriodo
-                                  select
-                                  new TablaCalifTutor
-                                  {
-                                      IdCalifTutor = calif.IdTbCalificacionTutor,
-                                      NumPersonal = acad.NumeroPersonal,
-                                      Nombre = acad.Nombre,
-                                      ApellidoPaterno = acad.ApellidoPaterno,
-                                      ApellidoMaterno = acad.ApellidoMaterno,
-                                      Calificacion = calif.Calificacion,
-                                      Periodo = perio.Nombre,
-                                      Status = acad.Status
-                                  }
+                if (tipo == 1)
+                {
+                    ListCalifTutor = (from calif in context.TbCalificacionTutor
+                                      join
+                                      acad in context.Academicos on calif.RAcademicos equals acad.IdAcademicos
+                                      join
+                                      perio in context.TipoPeriodo on calif.RPeriodo equals perio.IdPeriodo
+                                      select
+                                      new TablaCalifTutor
+                                      {
+                                          IdCalifTutor = calif.IdTbCalificacionTutor,
+                                          NumPersonal = acad.NumeroPersonal,
+                                          Nombre = acad.Nombre,
+                                          ApellidoPaterno = acad.ApellidoPaterno,
+                                          ApellidoMaterno = acad.ApellidoMaterno,
+                                          Calificacion = calif.Calificacion,
+                                          Periodo = perio.Nombre,
+                                          Status = acad.Status
+                                      }
                                 ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListCalifTutor = (from calif in context.TbCalificacionTutor
+                                      join
+                                      acad in context.Academicos on calif.RAcademicos equals acad.IdAcademicos
+                                      join
+                                      perio in context.TipoPeriodo on calif.RPeriodo equals perio.IdPeriodo
+                                      where calif.RAcademicos == idUsu
+                                      select
+                                      new TablaCalifTutor
+                                      {
+                                          IdCalifTutor = calif.IdTbCalificacionTutor,
+                                          NumPersonal = acad.NumeroPersonal,
+                                          Nombre = acad.Nombre,
+                                          ApellidoPaterno = acad.ApellidoPaterno,
+                                          ApellidoMaterno = acad.ApellidoMaterno,
+                                          Calificacion = calif.Calificacion,
+                                          Periodo = perio.Nombre,
+                                          Status = acad.Status
+                                      }
+                                ).ToList();
+                }
             }
             return View(ListCalifTutor);
         }
+
         [Authorize]
         public IActionResult CrearEvalCT()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                
                 var acad = context.Academicos.ToList();
                 var perio = context.TipoPeriodo.ToList();
                 ViewData["academicos"] = acad;
@@ -114,8 +192,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult GuardarEvalCT(EvaluacionConsejoTecnico datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var ListCalifCT = context.EvaluacionConsejoTecnico.ToList();
                 foreach (EvaluacionConsejoTecnico item in ListCalifCT)
                 {
@@ -133,9 +216,11 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult CrearEvalEstudiantes()
         {
+            
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                
                 var acad = context.Academicos.ToList();
                 var perio = context.TipoPeriodo.ToList();
                 ViewData["academicos"] = acad;
@@ -148,8 +233,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult GuardarEvalEstudiantes(EvaluacionEstudiantes datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var ListCalifEstudiantes = context.EvaluacionEstudiantes.ToList();
                 foreach (EvaluacionEstudiantes item in ListCalifEstudiantes)
                 {
@@ -182,8 +272,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult GuardarEvalTutor(TbCalificacionTutor datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.RAcademicos = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var ListCalifTutor = context.TbCalificacionTutor.ToList();
                 foreach (TbCalificacionTutor item in ListCalifTutor)
                 {
@@ -232,6 +327,8 @@ namespace SGCFIEE.Controllers
 
                 return View(ListCalifEE);
         }
+
+
         [Authorize]
         public IActionResult EditarEvalCT(int id)
         {
@@ -265,6 +362,12 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult ActualizarEvalEstudiantes(EvaluacionEstudiantes datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            if(tipo == 2)
+            {
+                datos.IdAcademico = idUsu;
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var ListCalifEstudiantes = context.EvaluacionEstudiantes.ToList();
@@ -304,6 +407,12 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult ActualizarEvalTutor(TbCalificacionTutor datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            if (tipo == 2)
+            {
+                datos.RAcademicos = idUsu;
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var ListCalifTutor = context.TbCalificacionTutor.ToList();
@@ -331,6 +440,12 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult ActualizarEvalCT(EvaluacionConsejoTecnico datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            if (tipo == 2)
+            {
+                datos.IdAcademico = idUsu;
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var ListCalifCT = context.EvaluacionConsejoTecnico.ToList();

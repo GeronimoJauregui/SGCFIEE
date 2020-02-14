@@ -544,27 +544,53 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexPartRedisenio()
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaRedisenio> ListRedisenio = new List<TablaRedisenio>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListRedisenio = (from datos in context.RediseñoPlanEstudios
-                                    join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
-                                    join programa in context.ProgramaEducativo on datos.IdPrograma equals programa.IdProgramaEducativo
-                                    select new TablaRedisenio
-                                    {
-                                        IdPlan = datos.IdRediseñoActualizacionEstudios,
-                                        NumPersonal = acad.NumeroPersonal,
-                                        Nombre = acad.Nombre,
-                                        ApellidoPaterno = acad.ApellidoPaterno,
-                                        ApellidoMaterno = acad.ApellidoMaterno,
-                                        Area = datos.Area,
-                                        NombrePrograma = programa.Nombre,
-                                        Tipo = datos.CoordinadorColaborador,
-                                        Archivo = datos.Archivo,
-                                        Status = acad.Status
-                                    }
+                if (tipo == 1)
+                {
+                    ListRedisenio = (from datos in context.RediseñoPlanEstudios
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     join programa in context.ProgramaEducativo on datos.IdPrograma equals programa.IdProgramaEducativo
+                                     select new TablaRedisenio
+                                     {
+                                         IdPlan = datos.IdRediseñoActualizacionEstudios,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         Area = datos.Area,
+                                         NombrePrograma = programa.Nombre,
+                                         Tipo = datos.CoordinadorColaborador,
+                                         Archivo = datos.Archivo,
+                                         Status = acad.Status
+                                     }
                                ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListRedisenio = (from datos in context.RediseñoPlanEstudios
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     join programa in context.ProgramaEducativo on datos.IdPrograma equals programa.IdProgramaEducativo
+                                     where datos.IdAcademico == idUsu
+                                     select new TablaRedisenio
+                                     {
+                                         IdPlan = datos.IdRediseñoActualizacionEstudios,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         Area = datos.Area,
+                                         NombrePrograma = programa.Nombre,
+                                         Tipo = datos.CoordinadorColaborador,
+                                         Archivo = datos.Archivo,
+                                         Status = acad.Status
+                                     }
+                               ).ToList();
+                }
             }
             return View(ListRedisenio);
         }
@@ -586,9 +612,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarPartRedisenio(IFormFile file, RediseñoPlanEstudios datos)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
                 datos.Archivo = new_name_table;
                 context.RediseñoPlanEstudios.Add(datos);
@@ -628,7 +658,12 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarPartRedisenio(IFormFile file, RediseñoPlanEstudios datos)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            if (tipo == 2)
+            {
+                datos.IdAcademico = idUsu;
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 if (file == null || file.Length == 0)
@@ -698,27 +733,53 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexPLADEA()
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaPladea> ListPladea = new List<TablaPladea>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListPladea = (from datos in context.ParticipacionPladea
-                                    join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
-                                    select new TablaPladea
-                                    {
-                                        IdJurado = datos.IdPladea,
-                                        NumPersonal = acad.NumeroPersonal,
-                                        Nombre = acad.Nombre,
-                                        ApellidoPaterno = acad.ApellidoPaterno,
-                                        ApellidoMaterno = acad.ApellidoMaterno,
-                                        Comision = datos.Comision,
-                                        Meta = datos.Meta,
-                                        Accion = datos.Accion,
-                                        Fecha = datos.Fecha.ToString(),
-                                        Archivo = datos.Archivo,
-                                        Status = acad.Status
-                                    }
+                if (tipo == 1)
+                {
+                    ListPladea = (from datos in context.ParticipacionPladea
+                                  join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                  select new TablaPladea
+                                  {
+                                      IdJurado = datos.IdPladea,
+                                      NumPersonal = acad.NumeroPersonal,
+                                      Nombre = acad.Nombre,
+                                      ApellidoPaterno = acad.ApellidoPaterno,
+                                      ApellidoMaterno = acad.ApellidoMaterno,
+                                      Comision = datos.Comision,
+                                      Meta = datos.Meta,
+                                      Accion = datos.Accion,
+                                      Fecha = datos.Fecha.ToString(),
+                                      Archivo = datos.Archivo,
+                                      Status = acad.Status
+                                  }
                                ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListPladea = (from datos in context.ParticipacionPladea
+                                  join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                  where datos.IdAcademico == idUsu
+                                  select new TablaPladea
+                                  {
+                                      IdJurado = datos.IdPladea,
+                                      NumPersonal = acad.NumeroPersonal,
+                                      Nombre = acad.Nombre,
+                                      ApellidoPaterno = acad.ApellidoPaterno,
+                                      ApellidoMaterno = acad.ApellidoMaterno,
+                                      Comision = datos.Comision,
+                                      Meta = datos.Meta,
+                                      Accion = datos.Accion,
+                                      Fecha = datos.Fecha.ToString(),
+                                      Archivo = datos.Archivo,
+                                      Status = acad.Status
+                                  }
+                               ).ToList();
+                }
             }
             return View(ListPladea);
         }
@@ -738,9 +799,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarPLADEA(IFormFile file, ParticipacionPladea datos)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var new_name_table = datos.IdAcademico + "_" + file.GetFilename();
                 datos.Archivo = new_name_table;
                 context.ParticipacionPladea.Add(datos);
@@ -781,7 +846,12 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarPLADEA(IFormFile file, ParticipacionPladea datos)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            if (tipo == 2)
+            {
+                datos.IdAcademico = idUsu;
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 if (file == null || file.Length == 0)

@@ -4,6 +4,7 @@
     Layout = "~/Views/Home/Principal.cshtml";
     var acad = (IEnumerable<Academicos>)ViewData["academicos"];
     var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+    var tipo = (int)ViewData["tipo"];
 }
 <!DOCTYPE html>
 
@@ -18,14 +19,18 @@
                     <form asp-action="GuardarEvalCT" asp-antiforgery="true">
                         <div class="row">
                             <div class="col-md-6 col-md-6">
+                                @if (tipo == 1)
+                                {
                                 <div class="form-group">
                                     <label>Académico</label>
                                     <select asp-for="IdAcademico" class="form-control">
-                                        @foreach (var item in acad){
+                                        @foreach (var item in acad)
+                                        {
                                             <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
                                         }
                                     </select>
                                 </div>
+                                }
                                 <div class="form-group">
                                     <label>Periodo</label>
                                     <select asp-for="IdPeriodo" class="form-control">

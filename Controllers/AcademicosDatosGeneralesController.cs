@@ -9,6 +9,8 @@ using Fiver.Mvc.FileUpload.Models.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SGCFIEE.Controllers
 {
@@ -100,12 +102,27 @@ namespace SGCFIEE.Controllers
                 datos.RTipoPersonal = 2;
                 context.Academicos.Add(datos);
                 context.SaveChanges();
+                Academicos last = context.Academicos.Last();
+
+                Usuarios usunuevo = new Usuarios();
+                usunuevo.IdAcademico = last.IdAcademicos;
+                usunuevo.Nombre = last.NumeroPersonal.ToString();
+                usunuevo.Tipo = 2;
+
+                String p = string.Concat(last.NumeroPersonal.ToString(), last.Curp.ToString());
+                SHA1 sha = new SHA1CryptoServiceProvider();
+                byte[] input2 = (new UnicodeEncoding()).GetBytes(p);
+                byte[] h = sha.ComputeHash(input2);
+                string pa = Convert.ToBase64String(h);
+                usunuevo.Contrasenia = pa;
+                context.Usuarios.Add(usunuevo);
+                context.SaveChanges();
             }
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 Academicos aca = context.Academicos.Last();
-                return RedirectToAction("TablaGA", new { id = aca.IdAcademicos});
+                return RedirectToAction("TablaGA", new { id = aca.IdAcademicos });
             }
 
         }

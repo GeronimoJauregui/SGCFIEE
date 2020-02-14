@@ -4,6 +4,7 @@
         Layout = "~/Views/Home/Principal.cshtml";
         var acad = (IEnumerable<Academicos>)ViewData["academicos"];
         var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
+        var tipo = (int)ViewData["tipo"];
     }
 
     <!DOCTYPE html>
@@ -20,6 +21,8 @@
                             <div class="row">
                                 <input type="hidden" asp-for="IdTbCalificacionTutor"/>
                                 <div class="col-md-6 col-md-6">
+                                    @if (tipo == 1)
+                                    {
                                     <div class="form-group">
                                         <label>Académico</label>
                                         <select asp-for="RAcademicos" class="form-control">
@@ -36,6 +39,7 @@
                                             }
                                         </select>
                                     </div>
+                                    }
                                     <div class="form-group">
                                         <label>Periodo</label>
                                         <select asp-for="RPeriodo" class="form-control">

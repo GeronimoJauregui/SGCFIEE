@@ -161,6 +161,8 @@
                                                 <span class="title">Producción</span>
                                             </a>
                                         </li>
+                                        @if (x == 1)
+                                        {
                                         <li class="nav-item ">
                                             <a asp-controller="AcademicosInstructorEduContinua" asp-action="Index" class="nav-link ">
                                                 <span class="title">Instructor de educación continua</span>
@@ -176,6 +178,7 @@
                                                 <span class="title">Consejo tecnico</span>
                                             </a>
                                         </li>
+                                        }
                                         <li class="nav-item ">
                                             <a asp-controller="AcademicosPublicaciones" asp-action="IndexArticulos" class="nav-link ">
                                                 <span class="title">Publicaciones</span>
@@ -191,11 +194,13 @@
                                                 <span class="title">Comisiones</span>
                                             </a>
                                         </li>
+                                        <!--
                                         <li class="nav-item ">
                                             <a asp-controller="AcademicosReportes" asp-action="Index" class="nav-link ">
                                                 <span class="title">Reportes</span>
                                             </a>
                                         </li>
+                                        -->
                                     </ul>
                                 </li>
                             }

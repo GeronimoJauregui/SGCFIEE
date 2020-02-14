@@ -4,6 +4,7 @@
     Layout = "~/Views/Home/Principal.cshtml";
     var acad = (IEnumerable<Academicos>)ViewData["academicos"];
     var programa = (IEnumerable<ProgramaEducativo>)ViewData["programa"];
+    var tipo = (int)ViewData["tipo"];
 }
 <!DOCTYPE html>
 
@@ -19,6 +20,8 @@
                         <div class="row">
                             <div class="col-md-6 col-md-6">
                                 <input type="hidden" asp-for="IdRediseñoActualizacionEstudios"/>
+                                @if (tipo == 1)
+                                {
                                 <div class="form-group">
                                     <label>Académico</label>
                                     <select asp-for="IdAcademico" class="form-control">
@@ -34,7 +37,8 @@
                                             }
                                         }
                                     </select>
-                                </div> 
+                                </div>
+                                }
                                 <div class="form-group">
                                     <label>Área académica</label>
                                     <input asp-for="Area" type="text" class="form-control" placeholder="Ingresar..." required="required" value="@Model.Area">

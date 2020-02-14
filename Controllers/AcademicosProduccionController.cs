@@ -21,108 +21,212 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexLibroEE()
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaLibroEE> ListLibroEE = new List<TablaLibroEE>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListLibroEE = (from datos in context.Libroee
-                                    join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
-                                    join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
-                                    select new TablaLibroEE
-                                    {
-                                        IdLibroEE = datos.IdLibroEe,
-                                        NumPersonal = acad.NumeroPersonal,
-                                        Nombre = acad.Nombre,
-                                        ApellidoPaterno = acad.ApellidoPaterno,
-                                        ApellidoMaterno = acad.ApellidoMaterno,
-                                        NombreLibro = datos.Nombre,
-                                        Archivo = datos.Archivo,
-                                        Periodo = perio.Nombre,
-                                        Status = acad.Status
-                                    }
+                if (tipo == 1)
+                {
+                    ListLibroEE = (from datos in context.Libroee
+                                   join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                   join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
+                                   select new TablaLibroEE
+                                   {
+                                       IdLibroEE = datos.IdLibroEe,
+                                       NumPersonal = acad.NumeroPersonal,
+                                       Nombre = acad.Nombre,
+                                       ApellidoPaterno = acad.ApellidoPaterno,
+                                       ApellidoMaterno = acad.ApellidoMaterno,
+                                       NombreLibro = datos.Nombre,
+                                       Archivo = datos.Archivo,
+                                       Periodo = perio.Nombre,
+                                       Status = acad.Status
+                                   }
                                ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListLibroEE = (from datos in context.Libroee
+                                   join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                   join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
+                                   where datos.IdAcademico == idUsu
+                                   select new TablaLibroEE
+                                   {
+                                       IdLibroEE = datos.IdLibroEe,
+                                       NumPersonal = acad.NumeroPersonal,
+                                       Nombre = acad.Nombre,
+                                       ApellidoPaterno = acad.ApellidoPaterno,
+                                       ApellidoMaterno = acad.ApellidoMaterno,
+                                       NombreLibro = datos.Nombre,
+                                       Archivo = datos.Archivo,
+                                       Periodo = perio.Nombre,
+                                       Status = acad.Status
+                                   }
+                               ).ToList();
+                }
             }
             return View(ListLibroEE);
         }
         [Authorize]
         public IActionResult IndexMaterialDidactico()
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaMaterialD> ListMaterialD = new List<TablaMaterialD>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListMaterialD = (from datos in context.MateriaDidactico
-                               join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
-                               join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
-                               select new TablaMaterialD
-                               {
-                                   IdMDidactico = datos.IdMateriaDidactico,
-                                   NumPersonal = acad.NumeroPersonal,
-                                   Nombre = acad.Nombre,
-                                   ApellidoPaterno = acad.ApellidoPaterno,
-                                   ApellidoMaterno = acad.ApellidoMaterno,
-                                   NotasClase = datos.NotasClase,
-                                   Acetatos = datos.Acetatos,
-                                   Videos = datos.Videos,
-                                   Programas = datos.Programas,
-                                   Prototipos = datos.Prototipos,
-                                   Archivo = datos.Acta,
-                                   Periodo = perio.Nombre,
-                                   Status = acad.Status
-                               }
+                if (tipo == 1)
+                {
+                    ListMaterialD = (from datos in context.MateriaDidactico
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
+                                     select new TablaMaterialD
+                                     {
+                                         IdMDidactico = datos.IdMateriaDidactico,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         NotasClase = datos.NotasClase,
+                                         Acetatos = datos.Acetatos,
+                                         Videos = datos.Videos,
+                                         Programas = datos.Programas,
+                                         Prototipos = datos.Prototipos,
+                                         Archivo = datos.Acta,
+                                         Periodo = perio.Nombre,
+                                         Status = acad.Status
+                                     }
                                ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListMaterialD = (from datos in context.MateriaDidactico
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
+                                     where datos.IdAcademico == idUsu
+                                     select new TablaMaterialD
+                                     {
+                                         IdMDidactico = datos.IdMateriaDidactico,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         NotasClase = datos.NotasClase,
+                                         Acetatos = datos.Acetatos,
+                                         Videos = datos.Videos,
+                                         Programas = datos.Programas,
+                                         Prototipos = datos.Prototipos,
+                                         Archivo = datos.Acta,
+                                         Periodo = perio.Nombre,
+                                         Status = acad.Status
+                                     }
+                               ).ToList();
+                }
             }
             return View(ListMaterialD);
         }
         [Authorize]
         public IActionResult IndexMPractica()
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaMPractica> ListMPractica = new List<TablaMPractica>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListMPractica = (from datos in context.ManualesPractica
-                               join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
-                               join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
-                               select new TablaMPractica
-                               {
-                                   IdMPractica = datos.IdMaterialesPractica,
-                                   NumPersonal = acad.NumeroPersonal,
-                                   Nombre = acad.Nombre,
-                                   ApellidoPaterno = acad.ApellidoPaterno,
-                                   ApellidoMaterno = acad.ApellidoMaterno,
-                                   NombreManual = datos.Nombre,
-                                   Archivo = datos.Archivo,
-                                   Periodo = perio.Nombre,
-                                   Status = acad.Status
-                               }
+                if (tipo == 1)
+                {
+                    ListMPractica = (from datos in context.ManualesPractica
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
+                                     select new TablaMPractica
+                                     {
+                                         IdMPractica = datos.IdMaterialesPractica,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         NombreManual = datos.Nombre,
+                                         Archivo = datos.Archivo,
+                                         Periodo = perio.Nombre,
+                                         Status = acad.Status
+                                     }
                                ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListMPractica = (from datos in context.ManualesPractica
+                                     join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                     join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
+                                     where datos.IdAcademico == idUsu
+                                     select new TablaMPractica
+                                     {
+                                         IdMPractica = datos.IdMaterialesPractica,
+                                         NumPersonal = acad.NumeroPersonal,
+                                         Nombre = acad.Nombre,
+                                         ApellidoPaterno = acad.ApellidoPaterno,
+                                         ApellidoMaterno = acad.ApellidoMaterno,
+                                         NombreManual = datos.Nombre,
+                                         Archivo = datos.Archivo,
+                                         Periodo = perio.Nombre,
+                                         Status = acad.Status
+                                     }
+                               ).ToList();
+                }
             }
             return View(ListMPractica);
         }
         [Authorize]
         public IActionResult IndexProyectosE()
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaProyectosEdu> ListProyectosEdu = new List<TablaProyectosEdu>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListProyectosEdu = (from datos in context.ProyectoEducativos
-                               join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
-                               join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
-                               select new TablaProyectosEdu
-                               {
-                                   IdProyectoEdu = datos.IdProyectoEducativos,
-                                   NumPersonal = acad.NumeroPersonal,
-                                   Nombre = acad.Nombre,
-                                   ApellidoPaterno = acad.ApellidoPaterno,
-                                   ApellidoMaterno = acad.ApellidoMaterno,
-                                   Descripcion = datos.Descripcion,
-                                   Archivo = datos.Archivo,
-                                   Periodo = perio.Nombre,
-                                   Status = acad.Status
-                               }
+                if (tipo == 1)
+                {
+                    ListProyectosEdu = (from datos in context.ProyectoEducativos
+                                        join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                        join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
+                                        select new TablaProyectosEdu
+                                        {
+                                            IdProyectoEdu = datos.IdProyectoEducativos,
+                                            NumPersonal = acad.NumeroPersonal,
+                                            Nombre = acad.Nombre,
+                                            ApellidoPaterno = acad.ApellidoPaterno,
+                                            ApellidoMaterno = acad.ApellidoMaterno,
+                                            Descripcion = datos.Descripcion,
+                                            Archivo = datos.Archivo,
+                                            Periodo = perio.Nombre,
+                                            Status = acad.Status
+                                        }
                                ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListProyectosEdu = (from datos in context.ProyectoEducativos
+                                        join acad in context.Academicos on datos.IdAcademico equals acad.IdAcademicos
+                                        join perio in context.TipoPeriodo on datos.IdPeriodo equals perio.IdPeriodo
+                                        where datos.IdAcademico == idUsu
+                                        select new TablaProyectosEdu
+                                        {
+                                            IdProyectoEdu = datos.IdProyectoEducativos,
+                                            NumPersonal = acad.NumeroPersonal,
+                                            Nombre = acad.Nombre,
+                                            ApellidoPaterno = acad.ApellidoPaterno,
+                                            ApellidoMaterno = acad.ApellidoMaterno,
+                                            Descripcion = datos.Descripcion,
+                                            Archivo = datos.Archivo,
+                                            Periodo = perio.Nombre,
+                                            Status = acad.Status
+                                        }
+                               ).ToList();
+                }
             }
             return View(ListProyectosEdu);
         }
@@ -146,9 +250,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarMaterialDidactico(IFormFile file, MateriaDidactico datos)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var ListMDidactico = context.MateriaDidactico.ToList();
                 foreach (MateriaDidactico item in ListMDidactico)
                 {
@@ -195,6 +303,12 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarMaterialDidactico(IFormFile file, MateriaDidactico datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            if (tipo == 2)
+            {
+                datos.IdAcademico = idUsu;
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var ListMaterialDidactico = context.MateriaDidactico.ToList();
@@ -289,9 +403,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarMPractica(IFormFile file, ManualesPractica datos)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var ListMPractica = context.ManualesPractica.ToList();
                 foreach (ManualesPractica item in ListMPractica)
                 {
@@ -338,6 +456,12 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarMPractica(IFormFile file, ManualesPractica datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            if (tipo == 2)
+            {
+                datos.IdAcademico = idUsu;
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var ListMPractica = context.ManualesPractica.ToList();
@@ -433,9 +557,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarLibroEE(IFormFile file, Libroee datos)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var ListLibroEE = context.Libroee.ToList();
                 foreach (Libroee item in ListLibroEE)
                 {
@@ -482,6 +610,12 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarLibroEE(IFormFile file, Libroee datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            if (tipo == 2)
+            {
+                datos.IdAcademico = idUsu;
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var ListLibroEE = context.Libroee.ToList();
@@ -576,9 +710,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarProyectosE(IFormFile file, ProyectoEducativos datos)
         {
-            
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var ListProyectoEducativo = context.ProyectoEducativos.ToList();
                 foreach (ProyectoEducativos item in ListProyectoEducativo)
                 {
@@ -625,6 +763,12 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarProyectosE(IFormFile file,ProyectoEducativos datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            if (tipo == 2)
+            {
+                datos.IdAcademico = idUsu;
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var ListProyectosE = context.ProyectoEducativos.ToList();
