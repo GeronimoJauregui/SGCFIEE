@@ -1,0 +1,2515 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema SGCFIEE
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `SGCFIEE` ;
+
+-- -----------------------------------------------------
+-- Schema SGCFIEE
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `SGCFIEE` DEFAULT CHARACTER SET utf8 ;
+USE `SGCFIEE` ;
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Programa_Educativo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Programa_Educativo` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Programa_Educativo` (
+  `idPrograma_Educativo` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `Creditos` INT NULL,
+  `Clv_Programa` VARCHAR(45) NULL,
+  `Facultad` VARCHAR(45) NULL,
+  `Campus` VARCHAR(45) NULL,
+  `Nivel` VARCHAR(45) NULL,
+  `Creditos_MinXP` INT NULL,
+  `Creditos_MaxXP` INT NULL,
+  `Area` VARCHAR(45) NULL,
+  `Status` INT NULL COMMENT '1= activo\n0= inactivo',
+  PRIMARY KEY (`idPrograma_Educativo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_Personal`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Personal` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Personal` (
+  `idTipo_Personal` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTipo_Personal`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Academicos` (
+  `idAcademicos` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `Apellido_Paterno` VARCHAR(45) NULL,
+  `Apellido_Materno` VARCHAR(45) NULL,
+  `Fecha_Nacimiento` DATE NULL,
+  `CURP` VARCHAR(45) NULL,
+  `Correo_Institucional` VARCHAR(45) NULL,
+  `Correo_Alternativo` VARCHAR(45) NULL,
+  `Celular` VARCHAR(45) NULL,
+  `sexo` INT NULL,
+  `NumeroPersonal` INT NULL,
+  `Id_ProgramaEducativo` INT NULL,
+  `Fecha_ingreso_uv` DATE NULL,
+  `Status` INT NULL COMMENT '1.- Activo\n2.- Baja\n3.- Incapacitado\n\n',
+  `R_Tipo_Personal` INT NULL,
+  PRIMARY KEY (`idAcademicos`),
+  INDEX `fk_academicos_programaE_idx` (`Id_ProgramaEducativo` ASC) ,
+  INDEX `fk_academicos_Tipo_Personal_idx` (`R_Tipo_Personal` ASC) ,
+  CONSTRAINT `fk_academicos_programaE`
+    FOREIGN KEY (`Id_ProgramaEducativo`)
+    REFERENCES `SGCFIEE`.`Programa_Educativo` (`idPrograma_Educativo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_academicos_Tipo_Personal`
+    FOREIGN KEY (`R_Tipo_Personal`)
+    REFERENCES `SGCFIEE`.`Tipo_Personal` (`idTipo_Personal`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Editorial`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Editorial` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Editorial` (
+  `idEditorial` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(100) NULL,
+  PRIMARY KEY (`idEditorial`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Libros_Academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Libros_Academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Libros_Academicos` (
+  `idLibros_Academicos` INT NOT NULL AUTO_INCREMENT,
+  `Titulo` VARCHAR(50) NOT NULL,
+  `id_Editorial` INT NULL,
+  `ISBN` VARCHAR(45) NULL,
+  `anio` INT NULL,
+  `Tiraje` INT NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`idLibros_Academicos`),
+  INDEX `fk_libros_editorial_idx` (`id_Editorial` ASC) ,
+  CONSTRAINT `fk_libros_editorial`
+    FOREIGN KEY (`id_Editorial`)
+    REFERENCES `SGCFIEE`.`Editorial` (`idEditorial`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`tipo_Loc_Nac_Inter`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`tipo_Loc_Nac_Inter` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`tipo_Loc_Nac_Inter` (
+  `id_tipo` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_tipo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Patentes_Academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Patentes_Academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Patentes_Academicos` (
+  `idPatentes_Academicos` INT NOT NULL AUTO_INCREMENT,
+  `id_Nac_I` INT NOT NULL,
+  `Nombre` VARCHAR(90) NOT NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`idPatentes_Academicos`),
+  INDEX `fk_patentes_N_I_idx` (`id_Nac_I` ASC) ,
+  CONSTRAINT `fk_patentes_N_I`
+    FOREIGN KEY (`id_Nac_I`)
+    REFERENCES `SGCFIEE`.`tipo_Loc_Nac_Inter` (`id_tipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Nombre_Titulo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Nombre_Titulo` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Nombre_Titulo` (
+  `idNombre_Titulo` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(50) NULL,
+  PRIMARY KEY (`idNombre_Titulo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Instituciones/Empresas`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Instituciones/Empresas` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Instituciones/Empresas` (
+  `id_I/E` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `ies/empresa` INT NULL COMMENT '1= IES(Institución Nivel Superior)\n0= Empresas\n',
+  PRIMARY KEY (`id_I/E`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Grado_Titulo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Grado_Titulo` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Grado_Titulo` (
+  `idGrado_Titulo` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idGrado_Titulo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Estudios`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Estudios` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Estudios` (
+  `idEstudios` INT NOT NULL AUTO_INCREMENT,
+  `idNombreTitulo` INT NOT NULL,
+  `idInstitucion` INT NOT NULL,
+  `id_Academico` INT NOT NULL,
+  `id_grado_titulo` INT NULL,
+  `fecha_de_egreso` DATE NULL,
+  `fecha_de_titulacion` DATE NULL,
+  `ACRE/PNPC` INT NULL COMMENT '1= acreditado\n0= PNPC\n',
+  `ArchivoTitulo` VARCHAR(500) NULL,
+  `ArchivoCedula` VARCHAR(500) NULL,
+  PRIMARY KEY (`idEstudios`),
+  INDEX `fk_estudios_titulo_idx` (`idNombreTitulo` ASC) ,
+  INDEX `fk_estudios_institucion_idx` (`idInstitucion` ASC) ,
+  INDEX `fk_estudios_academico_idx` (`id_Academico` ASC) ,
+  INDEX `fk_estudios_grado_titulo_idx` (`id_grado_titulo` ASC) ,
+  CONSTRAINT `fk_estudios_titulo`
+    FOREIGN KEY (`idNombreTitulo`)
+    REFERENCES `SGCFIEE`.`Nombre_Titulo` (`idNombre_Titulo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_estudios_institucion`
+    FOREIGN KEY (`idInstitucion`)
+    REFERENCES `SGCFIEE`.`Instituciones/Empresas` (`id_I/E`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_estudios_academico`
+    FOREIGN KEY (`id_Academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_estudios_grado_titulo`
+    FOREIGN KEY (`id_grado_titulo`)
+    REFERENCES `SGCFIEE`.`Grado_Titulo` (`idGrado_Titulo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_Evaluador`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Evaluador` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Evaluador` (
+  `idTipo_Evaluador` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTipo_Evaluador`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Evaluadores_Academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Evaluadores_Academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Evaluadores_Academicos` (
+  `idEvaluadores_Academicos` INT NOT NULL AUTO_INCREMENT,
+  `idTipo_Evaluador` INT NULL,
+  `Revisor/Evaluador` INT NULL COMMENT '1= Revisor (Publicaciones, Libros)\n2= Evaluador (CACEI, CIEES)\n3= Evaluador (Concursos, Proyectos, Convocatorias)\n',
+  `Status` INT NULL COMMENT '1= activo\n0= inactivo',
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`idEvaluadores_Academicos`),
+  INDEX `fk_evaluadores_tipo_idx` (`idTipo_Evaluador` ASC) ,
+  CONSTRAINT `fk_evaluadores_tipo`
+    FOREIGN KEY (`idTipo_Evaluador`)
+    REFERENCES `SGCFIEE`.`Tipo_Evaluador` (`idTipo_Evaluador`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Datos_Personales`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Datos_Personales` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Datos_Personales` (
+  `id_Datos_Personales` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `Apellido_Paterno` VARCHAR(45) NULL,
+  `Apellido_Materno` VARCHAR(45) NULL,
+  `Correo` VARCHAR(45) NULL,
+  `Fecha_Nacimiento` DATE NULL,
+  `Nacionalidad` VARCHAR(45) NULL,
+  `Estado_Civil` VARCHAR(45) NULL,
+  `Genero` INT NULL,
+  `CURP` VARCHAR(45) NULL,
+  `Calle` VARCHAR(45) NULL,
+  `Colonia` VARCHAR(45) NULL,
+  `Ciudad` VARCHAR(45) NULL,
+  `Municipio` VARCHAR(45) NULL,
+  `Estado` VARCHAR(45) NULL,
+  `Pais` VARCHAR(45) NULL,
+  `Codigo_Postal` INT NULL,
+  `Telefono` VARCHAR(45) NULL,
+  `Status` INT NULL,
+  `Recidencia_Actual` VARCHAR(45) NULL,
+  `Trabaja` INT NULL,
+  `Ingreso_Mensual` INT NULL,
+  PRIMARY KEY (`id_Datos_Personales`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Alumnos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Alumnos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Alumnos` (
+  `idAlumnos` INT NOT NULL AUTO_INCREMENT,
+  `Matricula` VARCHAR(45) NULL,
+  `Correo_Institucional` VARCHAR(45) NULL,
+  `Anio_Ingreso` INT NULL,
+  `Modalidad` VARCHAR(45) NULL,
+  `R_ProgramaEducativo` INT NULL,
+  `R_Datos_Person` INT NULL,
+  `R_Status` INT NULL,
+  `Bachillerato` VARCHAR(45) NULL,
+  PRIMARY KEY (`idAlumnos`),
+  INDEX `fk_alumnos_datos_idx` (`R_Datos_Person` ASC) ,
+  INDEX `fk_alumno_programaedu_idx` (`R_ProgramaEducativo` ASC) ,
+  CONSTRAINT `fk_alumnos_datos`
+    FOREIGN KEY (`R_Datos_Person`)
+    REFERENCES `SGCFIEE`.`Datos_Personales` (`id_Datos_Personales`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_alumno_programaedu`
+    FOREIGN KEY (`R_ProgramaEducativo`)
+    REFERENCES `SGCFIEE`.`Programa_Educativo` (`idPrograma_Educativo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tutores`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tutores` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tutores` (
+  `idTutores` INT NOT NULL AUTO_INCREMENT,
+  `idAcademicos` INT NULL,
+  `idAlumno` INT NULL,
+  `Status` INT NULL COMMENT '1= activo\n0= inactivo',
+  PRIMARY KEY (`idTutores`),
+  INDEX `fk_tutor_academico_idx` (`idAcademicos` ASC) ,
+  INDEX `fk_tutor_alumno_idx` (`idAlumno` ASC) ,
+  CONSTRAINT `fk_tutor_academico`
+    FOREIGN KEY (`idAcademicos`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tutor_alumno`
+    FOREIGN KEY (`idAlumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_ContratacionEE`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_ContratacionEE` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_ContratacionEE` (
+  `id_Tipo_Contratacion` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_Tipo_Contratacion`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`tipo_periodo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`tipo_periodo` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`tipo_periodo` (
+  `id_periodo` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `Fecha_inicio` DATE NULL,
+  `Fecha_fin` DATE NULL,
+  PRIMARY KEY (`id_periodo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_Salones`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_Salones` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_Salones` (
+  `idTb_Salones` INT NOT NULL AUTO_INCREMENT,
+  `Clave_salon` VARCHAR(45) NULL,
+  `Edificio` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTb_Salones`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Area_Experiencia_Educativa`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Area_Experiencia_Educativa` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Area_Experiencia_Educativa` (
+  `idArea_Experiencia_Educativa` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `Status` INT NULL COMMENT '1= activa\n0= inactiva',
+  PRIMARY KEY (`idArea_Experiencia_Educativa`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Experiencia_Educativa`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Experiencia_Educativa` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Experiencia_Educativa` (
+  `idExperiencia_Educativa` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `Creditos` INT NULL,
+  `idArea` INT NULL,
+  `Horas` INT NULL,
+  `Status` INT NULL COMMENT '1= activo\n0= inactivo',
+  PRIMARY KEY (`idExperiencia_Educativa`),
+  INDEX `fk_ee_area_idx` (`idArea` ASC) ,
+  CONSTRAINT `fk_ee_area`
+    FOREIGN KEY (`idArea`)
+    REFERENCES `SGCFIEE`.`Area_Experiencia_Educativa` (`idArea_Experiencia_Educativa`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Mapa_Curricular`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Mapa_Curricular` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Mapa_Curricular` (
+  `idMapa_Curricular` INT NOT NULL AUTO_INCREMENT,
+  `idExperienciaEducativa` INT NULL,
+  `idPrograma_Educativo` INT NULL,
+  `Estado` INT NULL,
+  PRIMARY KEY (`idMapa_Curricular`),
+  INDEX `fk_mapa_ee_idx` (`idExperienciaEducativa` ASC) ,
+  INDEX `fk_mapa_programaeducativo_idx` (`idPrograma_Educativo` ASC) ,
+  CONSTRAINT `fk_mapa_ee`
+    FOREIGN KEY (`idExperienciaEducativa`)
+    REFERENCES `SGCFIEE`.`Experiencia_Educativa` (`idExperiencia_Educativa`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_mapa_programaeducativo`
+    FOREIGN KEY (`idPrograma_Educativo`)
+    REFERENCES `SGCFIEE`.`Programa_Educativo` (`idPrograma_Educativo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Experiencia_Educativa_Periodo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Experiencia_Educativa_Periodo` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Experiencia_Educativa_Periodo` (
+  `idExperiencia_Educativa_Periodo` INT NOT NULL AUTO_INCREMENT,
+  `NRC` INT NULL,
+  `id_Periodo` INT NULL,
+  `idAcademico` INT NULL,
+  `id_InstitucionSuperior` INT NULL,
+  `id_ContratacionEE` INT NULL,
+  `id_Salon` INT NULL,
+  `CalificacionAcademico` FLOAT NULL,
+  `Status` INT NULL COMMENT '1= activo\n0= inactivo',
+  `id_mapa_curricular` INT NULL,
+  PRIMARY KEY (`idExperiencia_Educativa_Periodo`),
+  INDEX `fk_eep_academicos_idx` (`idAcademico` ASC) ,
+  INDEX `fk_eep_InstEmpr_idx` (`id_InstitucionSuperior` ASC) ,
+  INDEX `fk_eep_TCEE_idx` (`id_ContratacionEE` ASC) ,
+  INDEX `fk_eep_periodo_idx` (`id_Periodo` ASC) ,
+  INDEX `fk_eep_salones_idx` (`id_Salon` ASC) ,
+  INDEX `fk_eep_mapaC_idx` (`id_mapa_curricular` ASC) ,
+  CONSTRAINT `fk_eep_academicos`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eep_InstEmpr`
+    FOREIGN KEY (`id_InstitucionSuperior`)
+    REFERENCES `SGCFIEE`.`Instituciones/Empresas` (`id_I/E`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eep_TCEE`
+    FOREIGN KEY (`id_ContratacionEE`)
+    REFERENCES `SGCFIEE`.`Tipo_ContratacionEE` (`id_Tipo_Contratacion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eep_periodo`
+    FOREIGN KEY (`id_Periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eep_salones`
+    FOREIGN KEY (`id_Salon`)
+    REFERENCES `SGCFIEE`.`Tb_Salones` (`idTb_Salones`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eep_mapaC`
+    FOREIGN KEY (`id_mapa_curricular`)
+    REFERENCES `SGCFIEE`.`Mapa_Curricular` (`idMapa_Curricular`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_Eventos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Eventos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Eventos` (
+  `idEventos` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idEventos`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_Eventos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_Eventos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_Eventos` (
+  `id_Eventos` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `R_Tio_Evento` INT NULL,
+  `Status` INT NULL,
+  PRIMARY KEY (`id_Eventos`),
+  INDEX `fk_eventos_tipo_eventos_idx` (`R_Tio_Evento` ASC) ,
+  CONSTRAINT `fk_eventos_tipo_eventos`
+    FOREIGN KEY (`R_Tio_Evento`)
+    REFERENCES `SGCFIEE`.`Tipo_Eventos` (`idEventos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Eventos_Alumnos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Eventos_Alumnos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Eventos_Alumnos` (
+  `idEventos_Alumnos` INT NOT NULL AUTO_INCREMENT,
+  `R_Alumno` INT NULL,
+  `R_Evento` INT NULL,
+  `Fecha` DATE NULL,
+  `Status` INT NULL,
+  PRIMARY KEY (`idEventos_Alumnos`),
+  INDEX `fk_eventos_alumnos_idx` (`R_Alumno` ASC) ,
+  INDEX `fk_eventos_eventos_fecha_idx` (`R_Evento` ASC) ,
+  CONSTRAINT `fk_eventos_alumnos`
+    FOREIGN KEY (`R_Alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_eventos_eventos`
+    FOREIGN KEY (`R_Evento`)
+    REFERENCES `SGCFIEE`.`Tb_Eventos` (`id_Eventos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_certificacion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_certificacion` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_certificacion` (
+  `id_certificacion` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_certificacion`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Certificaciones`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Certificaciones` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Certificaciones` (
+  `id_certificaciones` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `id_tipo_certificacion` INT NOT NULL,
+  `id_Academico` INT NOT NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_certificaciones`),
+  INDEX `fk_certificacion_academicos_idx` (`id_Academico` ASC) ,
+  INDEX `fk_certificacion_certificacion_idx` (`id_tipo_certificacion` ASC) ,
+  CONSTRAINT `fk_certificacion_certificacion`
+    FOREIGN KEY (`id_tipo_certificacion`)
+    REFERENCES `SGCFIEE`.`Tipo_certificacion` (`id_certificacion`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_certificacion_academicos`
+    FOREIGN KEY (`id_Academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Recursos_Externos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Recursos_Externos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Recursos_Externos` (
+  `id_Recursos_Externos` INT NOT NULL AUTO_INCREMENT,
+  `id_academicos` INT NOT NULL,
+  `Nombre` VARCHAR(45) NULL,
+  `ingreso` FLOAT NULL,
+  `id_Periodo` INT NULL,
+  PRIMARY KEY (`id_Recursos_Externos`),
+  INDEX `fk_Recursos_Academicos_idx` (`id_academicos` ASC) ,
+  INDEX `fk_Recursos_TipoPeriodo_idx` (`id_Periodo` ASC) ,
+  CONSTRAINT `fk_Recursos_Academicos`
+    FOREIGN KEY (`id_academicos`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Recursos_TipoPeriodo`
+    FOREIGN KEY (`id_Periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`pafis_academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`pafis_academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`pafis_academicos` (
+  `id_pafis` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `tipopafi` INT NULL COMMENT '1= nivelatorio\n0= remedial',
+  `estado` INT NULL COMMENT '1= solicitud\n0= constancia',
+  `solicitud` TINYINT NULL COMMENT '1= alumno solicita por escrito\n0= académico solicita por escrito',
+  `Nombre` VARCHAR(50) NULL,
+  `Num_Horas` INT NULL,
+  `id_periodo` INT NULL,
+  `id_salon` INT NULL,
+  `id_programa_impacta` INT NULL,
+  `Numero_CT` INT NULL,
+  `Archivo_pafi` VARCHAR(500) NULL,
+  `Archivo_actaA` VARCHAR(500) NULL,
+  `Horario` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_pafis`),
+  INDEX `fk_pafis_academicos_idx` (`id_academico` ASC) ,
+  INDEX `fk_pafis_programa_idx` (`id_programa_impacta` ASC) ,
+  INDEX `fk_pafis_periodo_idx` (`id_periodo` ASC) ,
+  INDEX `fk_pafis_Tb_salones_idx` (`id_salon` ASC) ,
+  CONSTRAINT `fk_pafis_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pafis_programa`
+    FOREIGN KEY (`id_programa_impacta`)
+    REFERENCES `SGCFIEE`.`Programa_Educativo` (`idPrograma_Educativo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pafis_periodo`
+    FOREIGN KEY (`id_periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pafis_Tb_salones`
+    FOREIGN KEY (`id_salon`)
+    REFERENCES `SGCFIEE`.`Tb_Salones` (`idTb_Salones`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Cuerpo_Estados`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Cuerpo_Estados` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cuerpo_Estados` (
+  `id_Estado` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_Estado`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Cuerpos_Academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Cuerpos_Academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cuerpos_Academicos` (
+  `id_Cuerpo_Academico` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `id_estado` INT NULL,
+  PRIMARY KEY (`id_Cuerpo_Academico`),
+  INDEX `tk_cuerpo_estado_idx` (`id_estado` ASC) ,
+  CONSTRAINT `tk_cuerpo_estado`
+    FOREIGN KEY (`id_estado`)
+    REFERENCES `SGCFIEE`.`Cuerpo_Estados` (`id_Estado`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`CANivel_jerarquico`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`CANivel_jerarquico` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`CANivel_jerarquico` (
+  `id_CANivel_jerarquico` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_CANivel_jerarquico`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`CA_academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`CA_academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`CA_academicos` (
+  `id_CA` INT NOT NULL AUTO_INCREMENT,
+  `id_CANivel_jerarquico` INT NULL,
+  `id_cuerpo_academico` INT NULL,
+  `Fecha_Registro` DATE NULL,
+  `Status` INT NULL COMMENT '1=activo\n0= inactivo\n',
+  `archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_CA`),
+  INDEX `fk_cuerpoacademico_tipo_idx` (`id_cuerpo_academico` ASC) ,
+  INDEX `fk_cuerpoacademico_nivel_idx` (`id_CANivel_jerarquico` ASC) ,
+  CONSTRAINT `fk_cuerpoacademico_tipo`
+    FOREIGN KEY (`id_cuerpo_academico`)
+    REFERENCES `SGCFIEE`.`Cuerpos_Academicos` (`id_Cuerpo_Academico`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cuerpoacademico_nivel`
+    FOREIGN KEY (`id_CANivel_jerarquico`)
+    REFERENCES `SGCFIEE`.`CANivel_jerarquico` (`id_CANivel_jerarquico`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`ponencias/conferencias`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`ponencias/conferencias` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`ponencias/conferencias` (
+  `id_ponencias` INT NOT NULL AUTO_INCREMENT,
+  `Ponencia/Conferencia` INT NULL COMMENT '1= Ponencias\n0= Conferencias',
+  `id_tipo` INT NULL,
+  `Nombre` VARCHAR(100) NULL,
+  `Fecha` DATE NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_ponencias`),
+  INDEX `fk_ponencia_tipo_idx` (`id_tipo` ASC) ,
+  CONSTRAINT `fk_ponencia_tipo`
+    FOREIGN KEY (`id_tipo`)
+    REFERENCES `SGCFIEE`.`tipo_Loc_Nac_Inter` (`id_tipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Cursos/Talleres_Aplicacion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Cursos/Talleres_Aplicacion` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cursos/Talleres_Aplicacion` (
+  `id_Cursos_Talleres` INT NOT NULL AUTO_INCREMENT,
+  `C/T` INT NULL COMMENT '1= Cursos\n0= Talleres ',
+  `Titulo` VARCHAR(100) NULL,
+  `Fecha` DATE NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_Cursos_Talleres`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_Distincion_TA`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Distincion_TA` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Distincion_TA` (
+  `id_distincion` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_distincion`),
+  UNIQUE INDEX `id_distincion_UNIQUE` (`id_distincion` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Distinciones_TA`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Distinciones_TA` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Distinciones_TA` (
+  `id_distinciones` INT NOT NULL AUTO_INCREMENT,
+  `id_Academico` INT NULL,
+  `id_distincion` INT NULL,
+  `vigencia` DATE NULL,
+  `Archivo` VARCHAR(500) NULL,
+  `Status` INT NULL COMMENT '0.PRODEP\n1.SNI\n2.PEDPA',
+  PRIMARY KEY (`id_distinciones`),
+  UNIQUE INDEX `id_distinciones_UNIQUE` (`id_distinciones` ASC) ,
+  INDEX `id_academico_idx` (`id_Academico` ASC) ,
+  INDEX `id_distincion_idx` (`id_distincion` ASC) ,
+  CONSTRAINT `id_academico`
+    FOREIGN KEY (`id_Academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `id_distincion`
+    FOREIGN KEY (`id_distincion`)
+    REFERENCES `SGCFIEE`.`Tipo_Distincion_TA` (`id_distincion`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`CA_alumnos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`CA_alumnos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`CA_alumnos` (
+  `id_CA` INT NOT NULL AUTO_INCREMENT,
+  `id_alumno` INT NULL,
+  `id_CANivel_jerarquico` INT NULL,
+  `id_cuerpo_academico` INT NULL,
+  PRIMARY KEY (`id_CA`),
+  INDEX `id_alumnos_idx` (`id_alumno` ASC) ,
+  INDEX `id_jerarquia_idx` (`id_CANivel_jerarquico` ASC) ,
+  INDEX `id_cuerpo_academico_idx` (`id_cuerpo_academico` ASC) ,
+  CONSTRAINT `id_alumnos`
+    FOREIGN KEY (`id_alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `id_jerarquia`
+    FOREIGN KEY (`id_CANivel_jerarquico`)
+    REFERENCES `SGCFIEE`.`CANivel_jerarquico` (`id_CANivel_jerarquico`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `id_cuerpo_academico`
+    FOREIGN KEY (`id_cuerpo_academico`)
+    REFERENCES `SGCFIEE`.`Cuerpos_Academicos` (`id_Cuerpo_Academico`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`contratacion_ptc`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`contratacion_ptc` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`contratacion_ptc` (
+  `id_contrato` INT NOT NULL AUTO_INCREMENT COMMENT '1= activo\n0= inactivo',
+  `id_academico` INT NULL,
+  `fecha_nombramiento` DATE NULL,
+  `Archivo` VARCHAR(500) NULL,
+  `Status` INT NULL,
+  PRIMARY KEY (`id_contrato`),
+  UNIQUE INDEX `id_contrato_UNIQUE` (`id_contrato` ASC) ,
+  INDEX `fk_contratacion_ptc_academicos_idx` (`id_academico` ASC) ,
+  CONSTRAINT `fk_contratacion_ptc_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Cursos/Diplomado_Formacion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Cursos/Diplomado_Formacion` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cursos/Diplomado_Formacion` (
+  `id_C/D` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `Nombre` VARCHAR(45) NULL,
+  `Curso/Diplomado` INT NULL COMMENT '1= cursos\n0= diplomados',
+  `P/D` INT NULL COMMENT '1= Disciplinar\n0= Pedagogico',
+  `Horas` INT NULL,
+  `id_IES/Empresa` INT NULL,
+  `Lugar` VARCHAR(150) NULL,
+  `Fecha` DATE NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_C/D`),
+  INDEX `fk_C/D_academicos_idx` (`id_academico` ASC) ,
+  INDEX `fk_C/D_Iinstituciones/Empresa_idx` (`id_IES/Empresa` ASC) ,
+  CONSTRAINT `fk_C_D_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_C_D_Iinstituciones/Empresa`
+    FOREIGN KEY (`id_IES/Empresa`)
+    REFERENCES `SGCFIEE`.`Instituciones/Empresas` (`id_I/E`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_puesto`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_puesto` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_puesto` (
+  `id_Puesto` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_Puesto`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Experiencia_profesional`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Experiencia_profesional` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Experiencia_profesional` (
+  `id_EP` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `id_empresa` INT NULL,
+  `id_tipo_puesto` INT NULL,
+  `fecha_inicio` DATE NULL,
+  `fecha_fin` DATE NULL,
+  `Archivo` VARCHAR(500) NULL,
+  `Area_Desarrollo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_EP`),
+  INDEX `fk_Esperiencia_Intituciones/Empresas_idx` (`id_empresa` ASC) ,
+  INDEX `fk_Experiencia_Tipopuesto_idx` (`id_tipo_puesto` ASC) ,
+  INDEX `fk_Experiencia_academico_idx` (`id_academico` ASC) ,
+  CONSTRAINT `fk_Esperiencia_Intituciones/Empresas`
+    FOREIGN KEY (`id_empresa`)
+    REFERENCES `SGCFIEE`.`Instituciones/Empresas` (`id_I/E`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Experiencia_Tipopuesto`
+    FOREIGN KEY (`id_tipo_puesto`)
+    REFERENCES `SGCFIEE`.`Tipo_puesto` (`id_Puesto`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Experiencia_academico`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Participacion_PLADEA`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Participacion_PLADEA` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Participacion_PLADEA` (
+  `id_Pladea` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `Comision` VARCHAR(200) NULL,
+  `Meta` VARCHAR(200) NULL,
+  `Accion` VARCHAR(200) NULL,
+  `Fecha` DATE NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_Pladea`),
+  INDEX `fk_PLADEA_academicos_idx` (`id_academico` ASC) ,
+  CONSTRAINT `fk_PLADEA_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+COMMENT = '								';
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Jurado_Examen_Oposicion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Jurado_Examen_Oposicion` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Jurado_Examen_Oposicion` (
+  `id_JExposicion` INT NOT NULL AUTO_INCREMENT,
+  `tipo_examen` INT NULL COMMENT '1= EE\n0= TC',
+  `id_EE` INT NULL,
+  `Fecha` DATE NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_JExposicion`),
+  INDEX `fk_Jexposicion_EE_idx` (`id_EE` ASC) ,
+  CONSTRAINT `fk_exposicion_EE`
+    FOREIGN KEY (`id_EE`)
+    REFERENCES `SGCFIEE`.`Experiencia_Educativa` (`idExperiencia_Educativa`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_modalidad`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_modalidad` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_modalidad` (
+  `id_modalidad` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_modalidad`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Academias`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Academias` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Academias` (
+  `idAcademias` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(80) NULL,
+  `Status` INT NULL COMMENT '1= activo\n0= inactivo',
+  PRIMARY KEY (`idAcademias`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Trabajos_Recepcionales`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Trabajos_Recepcionales` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Trabajos_Recepcionales` (
+  `id_Trabajos_Recepcionales` INT NOT NULL AUTO_INCREMENT,
+  `id_alumno` INT NULL,
+  `id_modalidad` INT NULL,
+  `id_grado` INT NULL,
+  `Nombre_Trabajo` VARCHAR(90) NULL,
+  `id_academia` INT NULL,
+  `Proceso` INT NULL,
+  `Fecha_Presentacion` DATE NULL,
+  `numero_ConsejoT` INT NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_Trabajos_Recepcionales`),
+  INDEX `fk_recep_alumno_idx` (`id_alumno` ASC) ,
+  INDEX `fk_recep_grado_idx` (`id_grado` ASC) ,
+  INDEX `fk_recep_modalidad_idx` (`id_modalidad` ASC) ,
+  INDEX `fk_recep_academias_idx` (`id_academia` ASC) ,
+  CONSTRAINT `fk_recep_alumno`
+    FOREIGN KEY (`id_alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recep_grado`
+    FOREIGN KEY (`id_grado`)
+    REFERENCES `SGCFIEE`.`Grado_Titulo` (`idGrado_Titulo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recep_modalidad`
+    FOREIGN KEY (`id_modalidad`)
+    REFERENCES `SGCFIEE`.`Tipo_modalidad` (`id_modalidad`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_recep_academias`
+    FOREIGN KEY (`id_academia`)
+    REFERENCES `SGCFIEE`.`Academias` (`idAcademias`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Jurado_Experiencia_Recepcional`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Jurado_Experiencia_Recepcional` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Jurado_Experiencia_Recepcional` (
+  `id_JER` INT NOT NULL AUTO_INCREMENT,
+  `id_TR` INT NULL,
+  `Jurado/Prejurado` INT NULL COMMENT '1= Jurado\n0= Prejurado',
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_JER`),
+  INDEX `fk_JER_TR_idx` (`id_TR` ASC) ,
+  CONSTRAINT `fk_JER_TR`
+    FOREIGN KEY (`id_TR`)
+    REFERENCES `SGCFIEE`.`Trabajos_Recepcionales` (`id_Trabajos_Recepcionales`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Articulos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Articulos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Articulos` (
+  `id_articulos` INT NOT NULL AUTO_INCREMENT,
+  `Registro` INT NULL COMMENT '1= con registro\n0= sin registro',
+  `Arbitrada` INT NULL COMMENT '1= arbitrada\n0= sin arbitraje',
+  `id_tipoN_I` INT NULL,
+  `Nombre` VARCHAR(90) NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_articulos`),
+  INDEX `fk_Arti_N_I_idx` (`id_tipoN_I` ASC) ,
+  CONSTRAINT `fk_Arti_N_I`
+    FOREIGN KEY (`id_tipoN_I`)
+    REFERENCES `SGCFIEE`.`tipo_Loc_Nac_Inter` (`id_tipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Congresos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Congresos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Congresos` (
+  `id_congresos` INT NOT NULL AUTO_INCREMENT,
+  `id_Nac_Int` INT NULL,
+  `Nombre` VARCHAR(90) NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_congresos`),
+  INDEX `fk_congresos_N_I_idx` (`id_Nac_Int` ASC) ,
+  CONSTRAINT `fk_congresos_N_I`
+    FOREIGN KEY (`id_Nac_Int`)
+    REFERENCES `SGCFIEE`.`tipo_Loc_Nac_Inter` (`id_tipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Revistas`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Revistas` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Revistas` (
+  `id_revistas` INT NOT NULL AUTO_INCREMENT,
+  `id_N_I` INT NULL,
+  `Registro` INT NULL COMMENT '1= con registro\n0= sin registro\n',
+  `Arbitrada` INT NULL COMMENT '1= albitrada\n0= sin arbitraje',
+  `Nombre` VARCHAR(90) NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_revistas`),
+  INDEX `fk_revistas_N_I_idx` (`id_N_I` ASC) ,
+  CONSTRAINT `fk_revistas_N_I`
+    FOREIGN KEY (`id_N_I`)
+    REFERENCES `SGCFIEE`.`tipo_Loc_Nac_Inter` (`id_tipo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Reportes_Tecnicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Reportes_Tecnicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Reportes_Tecnicos` (
+  `id_Reportes_Tecnicos` INT NOT NULL AUTO_INCREMENT,
+  `Lugar_Empresa/Sector` INT NULL COMMENT '1= Empresa\n0= Sector beneficiado',
+  `Nombre` VARCHAR(90) NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_Reportes_Tecnicos`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Cap_Libro`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Cap_Libro` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cap_Libro` (
+  `id_cap_Libro` INT NOT NULL AUTO_INCREMENT,
+  `Titulo` VARCHAR(90) NULL,
+  `id_Editorial` INT NULL,
+  `ISBN` VARCHAR(45) NULL,
+  `anio` INT NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_cap_Libro`),
+  INDEX `fk_CapL_Editorial_idx` (`id_Editorial` ASC) ,
+  CONSTRAINT `fk_CapL_Editorial`
+    FOREIGN KEY (`id_Editorial`)
+    REFERENCES `SGCFIEE`.`Editorial` (`idEditorial`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Concursos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Concursos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Concursos` (
+  `id_concursos` INT NOT NULL AUTO_INCREMENT,
+  `id_Nac_Inter` INT NULL,
+  `Nombre` VARCHAR(75) NULL,
+  `Archivo` VARCHAR(500) NULL,
+  PRIMARY KEY (`id_concursos`),
+  INDEX `fk_concursos_NacInt_idx` (`id_Nac_Inter` ASC) ,
+  CONSTRAINT `fk_concursos_NacInt`
+    FOREIGN KEY (`id_Nac_Inter`)
+    REFERENCES `SGCFIEE`.`tipo_Loc_Nac_Inter` (`id_tipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Rediseño_Plan_Estudios`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Rediseño_Plan_Estudios` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Rediseño_Plan_Estudios` (
+  `id_Rediseño_Actualizacion_Estudios` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `Area` VARCHAR(50) NULL,
+  `id_programa` INT NULL,
+  `Coordinador/Colaborador` TINYINT NULL COMMENT '1= coordinador\n0= colaborador',
+  `Archivo` VARCHAR(500) NULL,
+  `Status` INT NULL COMMENT '1= activo\n0= inactivo',
+  PRIMARY KEY (`id_Rediseño_Actualizacion_Estudios`),
+  INDEX `fk_redisenio_academico_idx` (`id_academico` ASC) ,
+  INDEX `fk_redesenio_programa_idx` (`id_programa` ASC) ,
+  CONSTRAINT `fk_redisenio_acad`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_redesenio_prog`
+    FOREIGN KEY (`id_programa`)
+    REFERENCES `SGCFIEE`.`Programa_Educativo` (`idPrograma_Educativo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Materia_Didactico`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Materia_Didactico` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Materia_Didactico` (
+  `id_Materia_Didactico` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `Notas_Clase` INT NULL COMMENT '1= si\n0= no\n',
+  `Acetatos` INT NULL,
+  `Videos` INT NULL,
+  `Programas` INT NULL,
+  `Prototipos` INT NULL,
+  `Acta` VARCHAR(500) NULL,
+  `id_Periodo` INT NULL,
+  PRIMARY KEY (`id_Materia_Didactico`),
+  INDEX `fk_material_academico_idx` (`id_academico` ASC) ,
+  INDEX `fk_material_tipoperido_idx` (`id_Periodo` ASC) ,
+  CONSTRAINT `fk_material_academico`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_material_tipoperido`
+    FOREIGN KEY (`id_Periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Manuales_Practica`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Manuales_Practica` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Manuales_Practica` (
+  `id_Materiales_Practica` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(100) NULL,
+  `id_academico` INT NULL,
+  `Archivo` VARCHAR(500) NULL,
+  `id_Periodo` INT NULL,
+  PRIMARY KEY (`id_Materiales_Practica`),
+  INDEX `fk_manuales_academicos_idx` (`id_academico` ASC) ,
+  INDEX `fk_manuales_idx` (`id_Periodo` ASC) ,
+  CONSTRAINT `fk_manuales_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_manuales_TipoPeriodo`
+    FOREIGN KEY (`id_Periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Proyecto_Educativos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Proyecto_Educativos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Proyecto_Educativos` (
+  `id_Proyecto_Educativos` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `Descripcion` VARCHAR(200) NULL,
+  `Archivo` VARCHAR(500) NULL,
+  `id_Periodo` INT NULL,
+  PRIMARY KEY (`id_Proyecto_Educativos`),
+  INDEX `fk_proyecto_academicos_idx` (`id_academico` ASC) ,
+  INDEX `fk_proyecto_TipoPeriodo_idx` (`id_Periodo` ASC) ,
+  CONSTRAINT `fk_proyecto_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_proyecto_TipoPeriodo`
+    FOREIGN KEY (`id_Periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_Laboratorio`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Laboratorio` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Laboratorio` (
+  `id_Tipo_Laboratorio` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_Tipo_Laboratorio`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Laboratorio`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Laboratorio` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Laboratorio` (
+  `id_Laboratorio` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `id_tipo_laboratorio` INT NULL,
+  `Status` INT NULL COMMENT '1= activo\n0= inactivo',
+  PRIMARY KEY (`id_Laboratorio`),
+  INDEX `fk_labo_academico_idx` (`id_academico` ASC) ,
+  INDEX `fk_labo_tipo_idx` (`id_tipo_laboratorio` ASC) ,
+  CONSTRAINT `fk_labo_academico`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_labo_tipo`
+    FOREIGN KEY (`id_tipo_laboratorio`)
+    REFERENCES `SGCFIEE`.`Tipo_Laboratorio` (`id_Tipo_Laboratorio`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`libroEE`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`libroEE` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`libroEE` (
+  `id_libroEE` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `Nombre` VARCHAR(45) NULL,
+  `Archivo` VARCHAR(500) NULL,
+  `id_Periodo` INT NULL,
+  PRIMARY KEY (`id_libroEE`),
+  INDEX `fk_libroEE_academico_idx` (`id_academico` ASC) ,
+  INDEX `fk_libroEE_TipoPeriodo_idx` (`id_Periodo` ASC) ,
+  CONSTRAINT `fk_libroEE_academico`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_libroEE_TipoPeriodo`
+    FOREIGN KEY (`id_Periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Ct_Tipo_Calificacion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Ct_Tipo_Calificacion` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_Tipo_Calificacion` (
+  `id_Ct_Tipo_Calificacion` INT NOT NULL AUTO_INCREMENT,
+  `Tipo` VARCHAR(45) NULL,
+  PRIMARY KEY (`id_Ct_Tipo_Calificacion`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_calificacion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_calificacion` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_calificacion` (
+  `id_Tb_calificacion` INT NOT NULL AUTO_INCREMENT,
+  `Calificacion` INT NULL,
+  `R_tipo_calificacion` INT NULL,
+  `Status` INT NULL,
+  PRIMARY KEY (`id_Tb_calificacion`),
+  INDEX `fk_calif_tipcalif_idx` (`R_tipo_calificacion` ASC) ,
+  CONSTRAINT `fk_calif_tipcalif`
+    FOREIGN KEY (`R_tipo_calificacion`)
+    REFERENCES `SGCFIEE`.`Ct_Tipo_Calificacion` (`id_Ct_Tipo_Calificacion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_Horario`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_Horario` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_Horario` (
+  `id_periodo_Actual` INT NOT NULL AUTO_INCREMENT,
+  `R_Experiencia_Periodo` INT NULL,
+  `R_alumno` INT NULL,
+  `Status` INT NULL,
+  `Calificacion` INT NULL,
+  `R_Salon` INT NULL,
+  `R_Tipo_Calif` INT NULL,
+  PRIMARY KEY (`id_periodo_Actual`),
+  INDEX `fk_periodo_alumno_idx` (`R_alumno` ASC) ,
+  INDEX `fk_horario_calificacion_idx` (`R_Tipo_Calif` ASC) ,
+  INDEX `fk_horario_salon_idx` (`R_Salon` ASC) ,
+  INDEX `fk_horario_exp_educ_periodo_idx` (`R_Experiencia_Periodo` ASC) ,
+  CONSTRAINT `fk_horario_alum`
+    FOREIGN KEY (`R_alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_horario_calif`
+    FOREIGN KEY (`R_Tipo_Calif`)
+    REFERENCES `SGCFIEE`.`Tb_calificacion` (`id_Tb_calificacion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_horario_salon`
+    FOREIGN KEY (`R_Salon`)
+    REFERENCES `SGCFIEE`.`Tb_Salones` (`idTb_Salones`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_horario_exp_educ_periodo`
+    FOREIGN KEY (`R_Experiencia_Periodo`)
+    REFERENCES `SGCFIEE`.`Experiencia_Educativa_Periodo` (`idExperiencia_Educativa_Periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_pafis_alumno`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_pafis_alumno` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_pafis_alumno` (
+  `id_Tb_pafis_alumno` INT NOT NULL AUTO_INCREMENT,
+  `R_alumno` INT NULL,
+  `R_infopafi` INT NULL,
+  PRIMARY KEY (`id_Tb_pafis_alumno`),
+  INDEX `fk_pafisalum_pafiasacad_idx` (`R_infopafi` ASC) ,
+  INDEX `fk_pafisalum_alumno_idx` (`R_alumno` ASC) ,
+  CONSTRAINT `fk_pafisalum_pafiasacad`
+    FOREIGN KEY (`R_infopafi`)
+    REFERENCES `SGCFIEE`.`pafis_academicos` (`id_pafis`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pafisalum_alumno`
+    FOREIGN KEY (`R_alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_RubrosExamenes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_RubrosExamenes` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_RubrosExamenes` (
+  `id_Tb_Rubros_Examenes` INT NOT NULL AUTO_INCREMENT,
+  `Rubro_Examen` VARCHAR(60) NULL,
+  `Status` INT NULL,
+  PRIMARY KEY (`id_Tb_Rubros_Examenes`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_ExamenAlumno`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_ExamenAlumno` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_ExamenAlumno` (
+  `id_Tb_ExamenAlumno` INT NOT NULL AUTO_INCREMENT,
+  `id_alumno` INT NULL,
+  `id_Rubro_Examen` INT NULL,
+  `tipo_examen` INT NULL,
+  `calificacion_examen` FLOAT NULL,
+  PRIMARY KEY (`id_Tb_ExamenAlumno`),
+  INDEX `fk_interno_alumno_idx` (`id_alumno` ASC) ,
+  INDEX `fk_rubroexamenes_calificaciones_idx` (`id_Rubro_Examen` ASC) ,
+  CONSTRAINT `fk_interno_alumno`
+    FOREIGN KEY (`id_alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_rubroexamenes_calificaciones`
+    FOREIGN KEY (`id_Rubro_Examen`)
+    REFERENCES `SGCFIEE`.`Tb_RubrosExamenes` (`id_Tb_Rubros_Examenes`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Ct_Movilidades`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Ct_Movilidades` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_Movilidades` (
+  `idCt_Movilidades` INT NOT NULL AUTO_INCREMENT,
+  `tipo_movilidades` INT NULL,
+  `Pais_destino_movilidad` VARCHAR(45) NULL,
+  `Entidad_destino_movilidad` VARCHAR(45) NULL,
+  `Escuela_destino_movilidad` VARCHAR(45) NULL,
+  `Tiempo_permanencia_movilidad` VARCHAR(45) NULL,
+  `status` INT NULL,
+  PRIMARY KEY (`idCt_Movilidades`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_Movilidad`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_Movilidad` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_Movilidad` (
+  `id_Tb_Movilidad` INT NOT NULL AUTO_INCREMENT,
+  `R_Periodo` INT NULL,
+  `R_alumno` INT NULL,
+  `R_Movilidad` INT NULL,
+  PRIMARY KEY (`id_Tb_Movilidad`),
+  INDEX `fk_movilidad_alumno_idx` (`R_alumno` ASC) ,
+  INDEX `fk_movilidad_tipoperi_idx` (`R_Periodo` ASC) ,
+  INDEX `fk_alumovilidad_dt_movilidad_idx` (`R_Movilidad` ASC) ,
+  CONSTRAINT `fk_movilidad_alumno`
+    FOREIGN KEY (`R_alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_movilidad_tipoperi`
+    FOREIGN KEY (`R_Periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_alumovilidad_dt_movilidad`
+    FOREIGN KEY (`R_Movilidad`)
+    REFERENCES `SGCFIEE`.`Ct_Movilidades` (`idCt_Movilidades`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Evaluacion_Estudiantes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Evaluacion_Estudiantes` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Evaluacion_Estudiantes` (
+  `idEvaluacion_Estudiantes` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `id_periodo` INT NULL,
+  `Calificacion` FLOAT NULL,
+  PRIMARY KEY (`idEvaluacion_Estudiantes`),
+  INDEX `fk_evaluacionE_academico_idx` (`id_academico` ASC) ,
+  INDEX `fk_evaluacionE_tipo_periodo_idx` (`id_periodo` ASC) ,
+  CONSTRAINT `fk_evaluacionE_academico`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_evaluacionE_tipo_periodo`
+    FOREIGN KEY (`id_periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Evaluacion_Consejo_Tecnico`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Evaluacion_Consejo_Tecnico` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Evaluacion_Consejo_Tecnico` (
+  `idConsejoTecnico` INT NOT NULL AUTO_INCREMENT,
+  `Id_academico` INT NULL,
+  `Calificacion_Desempenio` FLOAT NULL,
+  `Calificacion_Gestion` FLOAT NULL,
+  `id_Periodo` INT NULL,
+  PRIMARY KEY (`idConsejoTecnico`),
+  INDEX `fk_CT_academicos_idx` (`Id_academico` ASC) ,
+  INDEX `fk_ECT_tipo_periodo_idx` (`id_Periodo` ASC) ,
+  CONSTRAINT `fk_CT_academicos`
+    FOREIGN KEY (`Id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ECT_tipo_periodo`
+    FOREIGN KEY (`id_Periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Consejo_tecnico`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Consejo_tecnico` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Consejo_tecnico` (
+  `idConsejo_tecnico` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `Archivo_ActaA` VARCHAR(500) NULL,
+  `id_Fecha_Inicial` INT NULL,
+  `id_Fecha_Cierre` INT NULL,
+  PRIMARY KEY (`idConsejo_tecnico`),
+  INDEX `fk_CT_academicos_idx` (`id_academico` ASC) ,
+  INDEX `fk_CT_periodo_idx` (`id_Fecha_Inicial` ASC) ,
+  INDEX `fk_CT_periodo2_idx` (`id_Fecha_Cierre` ASC) ,
+  CONSTRAINT `fk_CT_acade`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CT_periodo1`
+    FOREIGN KEY (`id_Fecha_Inicial`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CT_periodo2`
+    FOREIGN KEY (`id_Fecha_Cierre`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Coordinador_Academia`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Coordinador_Academia` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Coordinador_Academia` (
+  `idCoordinador_Academia` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `id_acadademia` INT NULL,
+  `Archivo_ActaA` VARCHAR(500) NULL,
+  `id_Fecha_Inicial` INT NULL,
+  `id_Fecha_cierre` INT NULL,
+  PRIMARY KEY (`idCoordinador_Academia`),
+  INDEX `fk_CA_academicos_idx` (`id_academico` ASC) ,
+  INDEX `fk_CA_academias_idx` (`id_acadademia` ASC) ,
+  INDEX `fk_CA_periodo1_idx` (`id_Fecha_Inicial` ASC) ,
+  INDEX `fk_CA_periodo2_idx` (`id_Fecha_cierre` ASC) ,
+  CONSTRAINT `fk_CA_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CA_academias`
+    FOREIGN KEY (`id_acadademia`)
+    REFERENCES `SGCFIEE`.`Academias` (`idAcademias`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CA_periodo1`
+    FOREIGN KEY (`id_Fecha_Inicial`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CA_periodo2`
+    FOREIGN KEY (`id_Fecha_cierre`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Programas_Trasversales`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Programas_Trasversales` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Programas_Trasversales` (
+  `idProgramas_Trasversales` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(90) NULL,
+  `Status` INT NULL COMMENT '1= activo\n0= inactivo',
+  PRIMARY KEY (`idProgramas_Trasversales`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Coordinador_Programa_Transversal`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Coordinador_Programa_Transversal` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Coordinador_Programa_Transversal` (
+  `idCoordinador_Programa_Transversal` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `id_PT` INT NULL,
+  `id_Fecha_Inicial` INT NULL,
+  `id_Fecha_cierre` INT NULL,
+  `evidencia` VARCHAR(500) NULL,
+  PRIMARY KEY (`idCoordinador_Programa_Transversal`),
+  INDEX `fk_CPT_academicos_idx` (`id_academico` ASC) ,
+  INDEX `fk_CPT_ProgramasT_idx` (`id_PT` ASC) ,
+  INDEX `fk_CPT_periodo1_idx` (`id_Fecha_Inicial` ASC) ,
+  INDEX `fk_CPT_periodo2_idx` (`id_Fecha_cierre` ASC) ,
+  CONSTRAINT `fk_CPT_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CPT_ProgramasT`
+    FOREIGN KEY (`id_PT`)
+    REFERENCES `SGCFIEE`.`Programas_Trasversales` (`idProgramas_Trasversales`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CPT_periodo1`
+    FOREIGN KEY (`id_Fecha_Inicial`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_CPT_periodo2`
+    FOREIGN KEY (`id_Fecha_cierre`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tutorados_Externos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tutorados_Externos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tutorados_Externos` (
+  `idTutorados_Externos` INT NOT NULL AUTO_INCREMENT,
+  `id_academico` INT NULL,
+  `Nombre` VARCHAR(60) NULL,
+  `Matricula` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTutorados_Externos`),
+  INDEX `fk_TE_academicos_idx` (`id_academico` ASC) ,
+  CONSTRAINT `fk_TE_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_calificacion_tutor`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_calificacion_tutor` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_calificacion_tutor` (
+  `id_Tb_calificacion_tutor` INT NOT NULL AUTO_INCREMENT,
+  `R_periodo` INT NULL,
+  `Calificacion` FLOAT NULL,
+  `R_academicos` INT NULL,
+  PRIMARY KEY (`id_Tb_calificacion_tutor`),
+  INDEX `fk_califtutor_periodo_idx` (`R_periodo` ASC) ,
+  INDEX `fk_califtutor_academicos_idx` (`R_academicos` ASC) ,
+  CONSTRAINT `fk_califtutor_periodo`
+    FOREIGN KEY (`R_periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_califtutor_academicos`
+    FOREIGN KEY (`R_academicos`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`usuarios`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`usuarios` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`usuarios` (
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `contrasenia` VARCHAR(45) NOT NULL,
+  `idAcademico` INT NULL,
+  `idAlumno` INT NULL,
+  `tipo` INT NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  INDEX `fk_usuarios_academicos_idx` (`idAcademico` ASC) ,
+  INDEX `fk_usuarios_alumnos_idx` (`idAlumno` ASC) ,
+  CONSTRAINT `fk_usuarios_academicos`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_usuarios_alumnos`
+    FOREIGN KEY (`idAlumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Asistencias`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Asistencias` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Asistencias` (
+  `idAsistencias` INT NOT NULL AUTO_INCREMENT,
+  `Entrada` TIME NULL,
+  `Salida` TIME NULL,
+  `Fecha` DATE NULL,
+  `Horas_descontadas` INT NULL,
+  `Observaciones` VARCHAR(255) NULL,
+  `R_academicos` INT NULL,
+  PRIMARY KEY (`idAsistencias`),
+  INDEX `fk_asistencias_academicos_idx` (`R_academicos` ASC) ,
+  CONSTRAINT `fk_asistencias_academicos`
+    FOREIGN KEY (`R_academicos`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Pagos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Pagos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Pagos` (
+  `idPagos` INT NOT NULL AUTO_INCREMENT,
+  `Monto` FLOAT NULL,
+  `R_academicos` INT NULL,
+  `Inicio_quincena` DATE NULL,
+  `Fin_quincena` DATE NULL,
+  PRIMARY KEY (`idPagos`),
+  INDEX `fk_Pagos_academicos_idx` (`R_academicos` ASC) ,
+  CONSTRAINT `fk_Pagos_academicos`
+    FOREIGN KEY (`R_academicos`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_Tramite_Alumnos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Tramite_Alumnos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Tramite_Alumnos` (
+  `idTipo_Tramite_Alumnos` INT NOT NULL,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTipo_Tramite_Alumnos`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tramites_Alumnos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tramites_Alumnos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tramites_Alumnos` (
+  `idTramites_Alumnos` INT NOT NULL AUTO_INCREMENT,
+  `Fecha_envio` DATETIME NULL,
+  `Fecha_regreso` DATETIME NULL,
+  `Folio` VARCHAR(45) NULL,
+  `Observacioes` VARCHAR(255) NULL,
+  `Tipo_tramite` INT NULL,
+  `R_alumnos` INT NULL,
+  PRIMARY KEY (`idTramites_Alumnos`),
+  INDEX `fk_Tramites_Alumnos_idx` (`R_alumnos` ASC) ,
+  INDEX `fk_Tramites_TipoTramiteAlumnos_idx` (`Tipo_tramite` ASC) ,
+  CONSTRAINT `fk_Tramites_Alumnos`
+    FOREIGN KEY (`R_alumnos`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Tramites_TipoTramiteAlumnos`
+    FOREIGN KEY (`Tipo_tramite`)
+    REFERENCES `SGCFIEE`.`Tipo_Tramite_Alumnos` (`idTipo_Tramite_Alumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tipo_Tramite_Academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Tramite_Academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Tramite_Academicos` (
+  `idTipo_Tramite_Academicos` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTipo_Tramite_Academicos`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tramites_Academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tramites_Academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tramites_Academicos` (
+  `idTramites_Academicos` INT NOT NULL AUTO_INCREMENT,
+  `Fecha_envio` DATETIME NULL,
+  `Fecha_regreso` DATETIME NULL,
+  `Folio` VARCHAR(45) NULL,
+  `Observaciones` VARCHAR(255) NULL,
+  `Tipo_tramite` INT NULL,
+  `R_academicos` INT NULL,
+  PRIMARY KEY (`idTramites_Academicos`),
+  INDEX `fk_TramitesAcademicos_Academicos_idx` (`R_academicos` ASC) ,
+  INDEX `fk_TramitesAcademicos_TipoTramiteAcademicos_idx` (`Tipo_tramite` ASC) ,
+  CONSTRAINT `fk_TramitesAcademicos_TipoTramiteAcademicos`
+    FOREIGN KEY (`Tipo_tramite`)
+    REFERENCES `SGCFIEE`.`Tipo_Tramite_Academicos` (`idTipo_Tramite_Academicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_TramitesAcademicos_Academicos`
+    FOREIGN KEY (`R_academicos`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Ct_Problemas`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Ct_Problemas` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_Problemas` (
+  `idCt_Problemas` INT NOT NULL AUTO_INCREMENT,
+  `Nombre_Problemas` VARCHAR(45) NULL,
+  PRIMARY KEY (`idCt_Problemas`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Tb_Buzon_de_Quejas`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Tb_Buzon_de_Quejas` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_Buzon_de_Quejas` (
+  `idTb_Buzon_de_Quejas` INT NOT NULL AUTO_INCREMENT,
+  `R_Problema` INT NULL,
+  `R_Alumno` INT NULL,
+  `R_Periodo` INT NULL,
+  `Propuesta` VARCHAR(500) NULL,
+  `Sugerencia` VARCHAR(500) NULL,
+  PRIMARY KEY (`idTb_Buzon_de_Quejas`),
+  INDEX `fk_problema_buzonQuejas_idx` (`R_Problema` ASC) ,
+  INDEX `fk_alumno_buzonQuejas_idx` (`R_Alumno` ASC) ,
+  INDEX `fk_periodo_buzonQuejas_idx` (`R_Periodo` ASC) ,
+  CONSTRAINT `fk_problema_buzonQuejas`
+    FOREIGN KEY (`R_Problema`)
+    REFERENCES `SGCFIEE`.`Ct_Problemas` (`idCt_Problemas`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_alumno_buzonQuejas`
+    FOREIGN KEY (`R_Alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_periodo_buzonQuejas`
+    FOREIGN KEY (`R_Periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`tb_buzon_academicos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`tb_buzon_academicos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`tb_buzon_academicos` (
+  `idBuzonAcademicos` INT NOT NULL AUTO_INCREMENT,
+  `r_alumno` INT NOT NULL,
+  `r_academicos` INT NOT NULL,
+  `r_periodo` INT NOT NULL,
+  `propuesta` VARCHAR(500) NULL,
+  `sugerencia` VARCHAR(500) NULL,
+  PRIMARY KEY (`idBuzonAcademicos`),
+  INDEX `fk_buzon_academico_alumno_idx` (`r_alumno` ASC) ,
+  INDEX `fk_buzon_academico_academico_idx` (`r_academicos` ASC) ,
+  INDEX `fk_buzon_academico_periodo_idx` (`r_periodo` ASC) ,
+  CONSTRAINT `fk_buzon_academico_alumno`
+    FOREIGN KEY (`r_alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_buzon_academico_academico`
+    FOREIGN KEY (`r_academicos`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_buzon_academico_periodo`
+    FOREIGN KEY (`r_periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Ct_ExperienciaRecepcional`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Ct_ExperienciaRecepcional` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_ExperienciaRecepcional` (
+  `idCt_ExperienciaRecepcional` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `FechaFin` DATE NULL,
+  `Tipo` INT NULL,
+  `R_Asesor` INT NOT NULL,
+  PRIMARY KEY (`idCt_ExperienciaRecepcional`),
+  INDEX `fk_asesorAcademico_er_idx` (`R_Asesor` ASC) ,
+  CONSTRAINT `fk_asesorAcademico_er`
+    FOREIGN KEY (`R_Asesor`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`Ct_Empresa_Serv_Prac`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`Ct_Empresa_Serv_Prac` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_Empresa_Serv_Prac` (
+  `idCt_Empresas` INT NOT NULL AUTO_INCREMENT,
+  `Nombre` VARCHAR(45) NULL,
+  `Direccion` VARCHAR(100) NULL,
+  `Telefono` VARCHAR(20) NULL,
+  PRIMARY KEY (`idCt_Empresas`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`TB_ServicioPracticas`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`TB_ServicioPracticas` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`TB_ServicioPracticas` (
+  `idTB_ServicioPracticas` INT NOT NULL AUTO_INCREMENT,
+  `R_Empresa` INT NULL,
+  `FechaInicio` DATE NULL,
+  `FechaFin` DATE NULL,
+  `Tipo` INT NULL,
+  PRIMARY KEY (`idTB_ServicioPracticas`),
+  INDEX `fk_empresaServ_idx` (`R_Empresa` ASC) ,
+  CONSTRAINT `fk_empresaServ`
+    FOREIGN KEY (`R_Empresa`)
+    REFERENCES `SGCFIEE`.`Ct_Empresa_Serv_Prac` (`idCt_Empresas`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`TB_InstanciaFinal_Alumno`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`TB_InstanciaFinal_Alumno` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`TB_InstanciaFinal_Alumno` (
+  `idTB_InstanciaFinal_Alumno` INT NOT NULL AUTO_INCREMENT,
+  `R_Alumno` INT NULL,
+  `R_ExpRep` INT NULL,
+  `R_ServPrac` INT NULL,
+  PRIMARY KEY (`idTB_InstanciaFinal_Alumno`),
+  INDEX `fk_InstanciaF_Alumno_idx` (`R_Alumno` ASC) ,
+  INDEX `fk_InstanciaF_ER_idx` (`R_ExpRep` ASC) ,
+  INDEX `fk_InstanciaF_SP_idx` (`R_ServPrac` ASC) ,
+  CONSTRAINT `fk_InstanciaF_Alumno`
+    FOREIGN KEY (`R_Alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_InstanciaF_ER`
+    FOREIGN KEY (`R_ExpRep`)
+    REFERENCES `SGCFIEE`.`Ct_ExperienciaRecepcional` (`idCt_ExperienciaRecepcional`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_InstanciaF_SP`
+    FOREIGN KEY (`R_ServPrac`)
+    REFERENCES `SGCFIEE`.`TB_ServicioPracticas` (`idTB_ServicioPracticas`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicoArticulos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoArticulos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoArticulos` (
+  `idAcademicoArticulos` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idArticulo` INT NULL,
+  PRIMARY KEY (`idAcademicoArticulos`),
+  INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_articulos_idx` (`idArticulo` ASC) ,
+  CONSTRAINT `fk_acadArticulo_academico`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_articulos`
+    FOREIGN KEY (`idArticulo`)
+    REFERENCES `SGCFIEE`.`Articulos` (`id_articulos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicoCongresos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoCongresos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoCongresos` (
+  `idAcademicoCongresos` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idCongreso` INT NULL,
+  PRIMARY KEY (`idAcademicoCongresos`),
+  INDEX `fk_tabla_Academico_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_Congreso_idx` (`idCongreso` ASC) ,
+  CONSTRAINT `fk_acadcongreso_Academico`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_Congreso`
+    FOREIGN KEY (`idCongreso`)
+    REFERENCES `SGCFIEE`.`Congresos` (`id_congresos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicoRevistas`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoRevistas` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoRevistas` (
+  `idAcademicorevistas` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idRevista` INT NULL,
+  PRIMARY KEY (`idAcademicorevistas`),
+  INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_revistas_idx` (`idRevista` ASC) ,
+  CONSTRAINT `fk_tabla_academico`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_revistas`
+    FOREIGN KEY (`idRevista`)
+    REFERENCES `SGCFIEE`.`Revistas` (`id_revistas`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicoReportesT`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoReportesT` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoReportesT` (
+  `idAcademicoReportesT` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idReportesTec` INT NULL,
+  PRIMARY KEY (`idAcademicoReportesT`),
+  INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_reportes_idx` (`idReportesTec` ASC) ,
+  CONSTRAINT `fk_tabla_academicos`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_reportes`
+    FOREIGN KEY (`idReportesTec`)
+    REFERENCES `SGCFIEE`.`Reportes_Tecnicos` (`id_Reportes_Tecnicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicoLibro`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoLibro` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoLibro` (
+  `idAcademicoLibro` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idLibroAcad` INT NULL,
+  PRIMARY KEY (`idAcademicoLibro`),
+  INDEX `fk_tabla_Academico_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_Libro_idx` (`idLibroAcad` ASC) ,
+  CONSTRAINT `fk_acadLibro_Academico`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_Libro`
+    FOREIGN KEY (`idLibroAcad`)
+    REFERENCES `SGCFIEE`.`Libros_Academicos` (`idLibros_Academicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicoCapLibro`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoCapLibro` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoCapLibro` (
+  `idAcademicoCapLibro` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idCapLibro` INT NULL,
+  PRIMARY KEY (`idAcademicoCapLibro`),
+  INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_capLibro_idx` (`idCapLibro` ASC) ,
+  CONSTRAINT `fk_tablaCapLibro_academico`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_capLibro`
+    FOREIGN KEY (`idCapLibro`)
+    REFERENCES `SGCFIEE`.`Cap_Libro` (`id_cap_Libro`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicosPatentes`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicosPatentes` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosPatentes` (
+  `idAcademicosPatentes` INT NOT NULL AUTO_INCREMENT,
+  `idAcademicos` INT NULL,
+  `idPatentes` INT NULL,
+  PRIMARY KEY (`idAcademicosPatentes`),
+  INDEX `fk_tabla_academicos_idx` (`idAcademicos` ASC) ,
+  INDEX `fk_tabla_patentes_idx` (`idPatentes` ASC) ,
+  CONSTRAINT `fk_tablaPatente_academicos`
+    FOREIGN KEY (`idAcademicos`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_patentes`
+    FOREIGN KEY (`idPatentes`)
+    REFERENCES `SGCFIEE`.`Patentes_Academicos` (`idPatentes_Academicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicoTrabajosRecep`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoTrabajosRecep` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoTrabajosRecep` (
+  `idAcademicoTrabajosRecep` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idTrabajosRecep` INT NULL,
+  PRIMARY KEY (`idAcademicoTrabajosRecep`),
+  INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_trabajosrecep_idx` (`idTrabajosRecep` ASC) ,
+  CONSTRAINT `fk_tablaTrabajos_academico`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_trabajosrecep`
+    FOREIGN KEY (`idTrabajosRecep`)
+    REFERENCES `SGCFIEE`.`Trabajos_Recepcionales` (`id_Trabajos_Recepcionales`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicoConcursos`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoConcursos` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoConcursos` (
+  `idAcademicoConcursos` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idConcursos` INT NULL,
+  PRIMARY KEY (`idAcademicoConcursos`),
+  INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_concursos_idx` (`idConcursos` ASC) ,
+  CONSTRAINT `fk_AcadConcurso_academicos`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_concursos`
+    FOREIGN KEY (`idConcursos`)
+    REFERENCES `SGCFIEE`.`Concursos` (`id_concursos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicosCuerposAcad`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicosCuerposAcad` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosCuerposAcad` (
+  `idAcademicosCuerposAcad` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idCuerpoAcad` INT NULL,
+  PRIMARY KEY (`idAcademicosCuerposAcad`),
+  INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_cuerpo_idx` (`idCuerpoAcad` ASC) ,
+  CONSTRAINT `fk_AcadCuerpo_academicos`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_cuerpo`
+    FOREIGN KEY (`idCuerpoAcad`)
+    REFERENCES `SGCFIEE`.`CA_academicos` (`id_CA`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicoPonenciasConf`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoPonenciasConf` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoPonenciasConf` (
+  `idAcademicoPonenciasConf` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idPonenciasConf` INT NULL,
+  PRIMARY KEY (`idAcademicoPonenciasConf`),
+  INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_ponenciaconf_idx` (`idPonenciasConf` ASC) ,
+  CONSTRAINT `fk_AcadPonencia_academicos`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_ponenciaconf`
+    FOREIGN KEY (`idPonenciasConf`)
+    REFERENCES `SGCFIEE`.`ponencias/conferencias` (`id_ponencias`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicosCursosTaller`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicosCursosTaller` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosCursosTaller` (
+  `idAcademicosCursosTaller` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idCursosDiplo` INT NULL,
+  PRIMARY KEY (`idAcademicosCursosTaller`),
+  INDEX `fk_tabla_CursoTaller_idx` (`idCursosDiplo` ASC) ,
+  INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
+  CONSTRAINT `fk_AcadCursos_CursoTaller`
+    FOREIGN KEY (`idCursosDiplo`)
+    REFERENCES `SGCFIEE`.`Cursos/Talleres_Aplicacion` (`id_Cursos_Talleres`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_AcadCurso_academico`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicosEvaluadores`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicosEvaluadores` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosEvaluadores` (
+  `idAcademicosEvaluadores` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idEvaluadores` INT NULL,
+  PRIMARY KEY (`idAcademicosEvaluadores`),
+  INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_evaluadores_idx` (`idEvaluadores` ASC) ,
+  CONSTRAINT `fk_AcadEval_academicos`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_evaluadores`
+    FOREIGN KEY (`idEvaluadores`)
+    REFERENCES `SGCFIEE`.`Evaluadores_Academicos` (`idEvaluadores_Academicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicosJurOposicion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicosJurOposicion` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosJurOposicion` (
+  `idAcademicosJurOposicion` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idJurado` INT NULL,
+  PRIMARY KEY (`idAcademicosJurOposicion`),
+  INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_jurado_idx` (`idJurado` ASC) ,
+  CONSTRAINT `fk_AcadJurOpo_academico`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tablaJurOpo_jurado`
+    FOREIGN KEY (`idJurado`)
+    REFERENCES `SGCFIEE`.`Jurado_Examen_Oposicion` (`id_JExposicion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`AcademicosJuradoRecep`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`AcademicosJuradoRecep` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosJuradoRecep` (
+  `idAcademicosJuradoRecep` INT NOT NULL AUTO_INCREMENT,
+  `idAcademico` INT NULL,
+  `idJurado` INT NULL,
+  PRIMARY KEY (`idAcademicosJuradoRecep`),
+  INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
+  INDEX `fk_tabla_jurado_idx` (`idJurado` ASC) ,
+  CONSTRAINT `fk_AcadJurRecep_academico`
+    FOREIGN KEY (`idAcademico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tabla_jurado`
+    FOREIGN KEY (`idJurado`)
+    REFERENCES `SGCFIEE`.`Jurado_Experiencia_Recepcional` (`id_JER`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
