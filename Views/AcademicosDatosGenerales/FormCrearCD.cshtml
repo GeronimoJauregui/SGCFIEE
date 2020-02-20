@@ -1,0 +1,93 @@
+﻿@model SGCFIEE.Models.CursosDiplomadoFormacion;
+@{
+    ViewData["Title"] = "FormCertificaciones";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var ies = (IEnumerable<InstitucionesEmpresas>)ViewData["ies"];
+    var academico = (int)ViewData["academico"];
+    var tipo = (int)ViewData["tipo"];
+}
+
+<!DOCTYPE html>
+<html>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>DATOS DEL ACADÉMICO</header>
+            </div>
+            <div class="white-box">
+                <!-- Nav tabs -->
+                <div class="p-rl-20">
+                    <ul class="nav customtab nav-tabs" role="tablist">
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarDG" class="nav-link">Datos generales</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarGA" class="nav-link">Grados académicos</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarCertificaciones" class="nav-link">Certificaciones</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarCD" class="nav-link active">Cursos/Diplomados</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarEP" class="nav-link">Experiencia profesional</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarTC" class="nav-link">Tipo de contratación</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarDistinciones" class="nav-link">Reconocimientos académicos</a></li>
+                    </ul>
+                </div>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active fontawesome-demo" id="tab1">
+                        <form asp-controller="AcademicosDatosGenerales" asp-action="GuardarFormCD" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6">
+                                    <input asp-for="IdAcademico" type="hidden" value="@academico">
+                                    <div class="form-group">
+                                        <input asp-for="CursoDiplomado" type="radio" value="0" checked=""> Curso
+                                        <input asp-for="CursoDiplomado" type="radio" value="1"> Diplomado
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Número de horas</label>
+                                        <input asp-for="Horas" type="number" class="form-control" placeholder="Ingresar...">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tipo</label> <br>
+                                        <input asp-for="PD" type="radio" id="optionsRadios3" value="1" checked=""> Disciplinar
+                                        <input asp-for="PD" type="radio" id="optionsRadios4" value="0"> Pedagógico
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Empresa o IES</label>
+                                        <select class="form-control" asp-for="IdIesEmpresa" id="empresa_ies">
+                                            @foreach (var item in ies)
+                                            {
+                                                <option value="@item.IdIE">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Lugar</label>
+                                        <input asp-for="Lugar" type="text" class="form-control" placeholder="Ingresar...">
+                                    </div>
+                                    <div class="form-group">
+                                        Fecha
+                                        <input asp-for="Fecha" type="date" name="Fecha" class="form-control">
+                                    </div>
+                                    Archivo de evidencia<br>
+                                    <input asp-for="Archivo" type="file" class="default" name="file">
+                                    <br> <br>
+                                    <input id="guardarcurso" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                    <br>
+                                    <br>
+                                    <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarCD" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                        Cancelar
+                                    </a>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

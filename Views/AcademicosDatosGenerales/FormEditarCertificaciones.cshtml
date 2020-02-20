@@ -1,0 +1,64 @@
+﻿@model SGCFIEE.Models.Certificaciones;
+@{
+    ViewData["Title"] = "TablaGA";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var tc = (IEnumerable<TipoCertificacion>)ViewData["tc"];
+    var academico = (int)ViewData["academico"];
+    var tipo = (int)ViewData["tipo"];
+}
+
+<html>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>Certificaciones</header>
+            </div>
+            <div class="card-body " id="bar-parent2">
+                <form asp-controller="AcademicosDatosGenerales" asp-action="ActualizarFormCertificaciones" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <input asp-for="IdAcademico" type="hidden">
+                            <input asp-for="IdCertificaciones" type="hidden">
+                            <div class="form-group">
+                                <label>Nombre de la certificación</label>
+                                <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar...">
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Tipo de certificación</label>
+                                <select id="tipo_certificacion" asp-for="IdTipoCertificacion" class="form-control">
+                                    @foreach (var item in tc)
+                                    {
+                                        @if (item.IdCertificacion != Model.IdCertificaciones)
+                                        {
+                                            <option value="@item.IdCertificacion">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.IdCertificacion">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        }
+
+
+                                    }
+
+                                </select>
+                            </div>
+                            <label>Actualizar evidencia:  @Model.Archivo </label><br>
+                            <input asp-for="Archivo" type="file" class="default" name="file">
+                            <br>
+                            <input type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <br>
+                            <br>
+                            <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarCertificaciones" type="button" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                Volver
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

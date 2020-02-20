@@ -15,47 +15,92 @@ namespace SGCFIEE.Controllers
         public IActionResult Index()
         {
             List<pExperienciaEduPeriodo> ListEEP = new List<pExperienciaEduPeriodo>();
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            ViewData["tipo"] = tipo;
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
-                            join per in context.TipoPeriodo on EEP.IdPeriodo equals per.IdPeriodo
-                            join aca in context.Academicos on EEP.IdAcademico equals aca.IdAcademicos
-                            join ies in context.InstitucionesEmpresas on EEP.IdInstitucionSuperior equals ies.IdIE
-                            join contra in context.TipoContratacionee on EEP.IdContratacionEe equals contra.IdTipoContratacion
-                            join salon in context.TbSalones on EEP.IdSalon equals salon.IdTbSalones
-                            join MC in context.MapaCurricular on EEP.IdMapaCurricular equals MC.IdMapaCurricular
-                            join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
-                            join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
-                            join are in context.AreaExperienciaEducativa on EE.IdArea equals are.IdAreaExperienciaEducativa
-                            where ies.Nombre == "Universidad Veracruzana"
+                if (tipo == 1) {
+                    ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
+                               join per in context.TipoPeriodo on EEP.IdPeriodo equals per.IdPeriodo
+                               join aca in context.Academicos on EEP.IdAcademico equals aca.IdAcademicos
+                               join ies in context.InstitucionesEmpresas on EEP.IdInstitucionSuperior equals ies.IdIE
+                               join contra in context.TipoContratacionee on EEP.IdContratacionEe equals contra.IdTipoContratacion
+                               join salon in context.TbSalones on EEP.IdSalon equals salon.IdTbSalones
+                               join MC in context.MapaCurricular on EEP.IdMapaCurricular equals MC.IdMapaCurricular
+                               join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
+                               join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                               join are in context.AreaExperienciaEducativa on EE.IdArea equals are.IdAreaExperienciaEducativa
+                               where ies.Nombre == "Universidad Veracruzana"
 
-                           select new pExperienciaEduPeriodo
-                            {
-                               IdExperienciaEducativaPeriodo =EEP.IdExperienciaEducativaPeriodo,
-                               Nrc = EEP.Nrc,
-                               IdPeriodo = EEP.IdPeriodo,
-                               periodo = per.Nombre,
-                               IdAcademico =  EEP.IdAcademico,
-                               Npersonal = aca.NumeroPersonal,
-                               academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
-                               IdInstitucionSuperior = EEP.IdInstitucionSuperior,
-                               institucion = ies.Nombre,
-                               IdContratacionEe = EEP.IdContratacionEe,
-                               tipo_contratacion = contra.Nombre,
-                               IdSalon = EEP.IdSalon,
-                               salon = salon.ClaveSalon,
-                               CalificacionAcademico = EEP.CalificacionAcademico,
-                               Status = EEP.Status,
-                               IdMapaCurricular = EEP.IdMapaCurricular,
-                               EE = EE.Nombre,
-                               PE = PE.Nombre,
-                               creditos = EE.Creditos,
-                               area = are.Nombre,
-                               horas = EE.Horas
-                            }
-                            ).ToList();
-            ViewData["EEP"] = ListEEP;
+                               select new pExperienciaEduPeriodo
+                               {
+                                   IdExperienciaEducativaPeriodo = EEP.IdExperienciaEducativaPeriodo,
+                                   Nrc = EEP.Nrc,
+                                   IdPeriodo = EEP.IdPeriodo,
+                                   periodo = per.Nombre,
+                                   IdAcademico = EEP.IdAcademico,
+                                   Npersonal = aca.NumeroPersonal,
+                                   academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
+                                   IdInstitucionSuperior = EEP.IdInstitucionSuperior,
+                                   institucion = ies.Nombre,
+                                   IdContratacionEe = EEP.IdContratacionEe,
+                                   tipo_contratacion = contra.Nombre,
+                                   IdSalon = EEP.IdSalon,
+                                   salon = salon.ClaveSalon,
+                                   CalificacionAcademico = EEP.CalificacionAcademico,
+                                   Status = EEP.Status,
+                                   IdMapaCurricular = EEP.IdMapaCurricular,
+                                   EE = EE.Nombre,
+                                   PE = PE.Nombre,
+                                   creditos = EE.Creditos,
+                                   area = are.Nombre,
+                                   horas = EE.Horas
+                               }
+                        ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
+                               join per in context.TipoPeriodo on EEP.IdPeriodo equals per.IdPeriodo
+                               join aca in context.Academicos on EEP.IdAcademico equals aca.IdAcademicos
+                               join ies in context.InstitucionesEmpresas on EEP.IdInstitucionSuperior equals ies.IdIE
+                               join contra in context.TipoContratacionee on EEP.IdContratacionEe equals contra.IdTipoContratacion
+                               join salon in context.TbSalones on EEP.IdSalon equals salon.IdTbSalones
+                               join MC in context.MapaCurricular on EEP.IdMapaCurricular equals MC.IdMapaCurricular
+                               join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
+                               join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                               join are in context.AreaExperienciaEducativa on EE.IdArea equals are.IdAreaExperienciaEducativa
+                               where ies.Nombre == "Universidad Veracruzana" && aca.IdAcademicos == idUsu
+
+                               select new pExperienciaEduPeriodo
+                               {
+                                   IdExperienciaEducativaPeriodo = EEP.IdExperienciaEducativaPeriodo,
+                                   Nrc = EEP.Nrc,
+                                   IdPeriodo = EEP.IdPeriodo,
+                                   periodo = per.Nombre,
+                                   IdAcademico = EEP.IdAcademico,
+                                   Npersonal = aca.NumeroPersonal,
+                                   academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
+                                   IdInstitucionSuperior = EEP.IdInstitucionSuperior,
+                                   institucion = ies.Nombre,
+                                   IdContratacionEe = EEP.IdContratacionEe,
+                                   tipo_contratacion = contra.Nombre,
+                                   IdSalon = EEP.IdSalon,
+                                   salon = salon.ClaveSalon,
+                                   CalificacionAcademico = EEP.CalificacionAcademico,
+                                   Status = EEP.Status,
+                                   IdMapaCurricular = EEP.IdMapaCurricular,
+                                   EE = EE.Nombre,
+                                   PE = PE.Nombre,
+                                   creditos = EE.Creditos,
+                                   area = are.Nombre,
+                                   horas = EE.Horas
+                               }
+                        ).ToList();
+                }
+
+                    ViewData["EEP"] = ListEEP;
             }
             return View();
         }
@@ -104,16 +149,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult GuardarEEUV(ExperienciaEducativaPeriodo datos)
         {
+            
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                /*var ListEEP = context.ExperienciaEducativaPeriodo.ToList();
-                foreach (ExperienciaEducativaPeriodo item in ListEEP)
-                {
-                    if ((datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo) && datos.IdPeriodo == item.IdPeriodo)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                }*/
+                if (tipo == 2) {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 InstitucionesEmpresas uv = context.InstitucionesEmpresas.Where(w => w.Nombre == "Universidad Veracruzana").Single();
                 
                 datos.IdInstitucionSuperior = uv.IdIE;
@@ -222,8 +264,13 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ActualizarEEUV(ExperienciaEducativaPeriodo datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
 
 
                 context.ExperienciaEducativaPeriodo.Update(datos);
@@ -248,32 +295,63 @@ namespace SGCFIEE.Controllers
         public IActionResult IndexEEEUV()
         {
             List<pExperienciaEduPeriodo> ListEEP = new List<pExperienciaEduPeriodo>();
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            ViewData["tipo"] = tipo;
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
-                           join per in context.TipoPeriodo on EEP.IdPeriodo equals per.IdPeriodo
-                           join aca in context.Academicos on EEP.IdAcademico equals aca.IdAcademicos
-                           join ies in context.InstitucionesEmpresas on EEP.IdInstitucionSuperior equals ies.IdIE
-                           join MC in context.MapaCurricular on EEP.IdMapaCurricular equals MC.IdMapaCurricular
-                           join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
-                           where ies.Nombre != "Universidad Veracruzana"
+                if (tipo == 1) {
+                    ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
+                               join per in context.TipoPeriodo on EEP.IdPeriodo equals per.IdPeriodo
+                               join aca in context.Academicos on EEP.IdAcademico equals aca.IdAcademicos
+                               join ies in context.InstitucionesEmpresas on EEP.IdInstitucionSuperior equals ies.IdIE
+                               join MC in context.MapaCurricular on EEP.IdMapaCurricular equals MC.IdMapaCurricular
+                               join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
+                               where ies.Nombre != "Universidad Veracruzana"
 
-                           select new pExperienciaEduPeriodo
-                           {
-                               IdExperienciaEducativaPeriodo = EEP.IdExperienciaEducativaPeriodo,
-                               IdPeriodo = EEP.IdPeriodo,
-                               periodo = per.Nombre,
-                               IdAcademico = EEP.IdAcademico,
-                               Npersonal = aca.NumeroPersonal,
-                               academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
-                               IdInstitucionSuperior = EEP.IdInstitucionSuperior,
-                               institucion = ies.Nombre,
-                               Status = EEP.Status,
-                               IdMapaCurricular = EEP.IdMapaCurricular,
-                               EE = EE.Nombre,
-                           }
+                               select new pExperienciaEduPeriodo
+                               {
+                                   IdExperienciaEducativaPeriodo = EEP.IdExperienciaEducativaPeriodo,
+                                   IdPeriodo = EEP.IdPeriodo,
+                                   periodo = per.Nombre,
+                                   IdAcademico = EEP.IdAcademico,
+                                   Npersonal = aca.NumeroPersonal,
+                                   academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
+                                   IdInstitucionSuperior = EEP.IdInstitucionSuperior,
+                                   institucion = ies.Nombre,
+                                   Status = EEP.Status,
+                                   IdMapaCurricular = EEP.IdMapaCurricular,
+                                   EE = EE.Nombre,
+                               }
                             ).ToList();
+                }
+                if (tipo == 2)
+                {
+                    ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
+                               join per in context.TipoPeriodo on EEP.IdPeriodo equals per.IdPeriodo
+                               join aca in context.Academicos on EEP.IdAcademico equals aca.IdAcademicos
+                               join ies in context.InstitucionesEmpresas on EEP.IdInstitucionSuperior equals ies.IdIE
+                               join MC in context.MapaCurricular on EEP.IdMapaCurricular equals MC.IdMapaCurricular
+                               join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
+                               where ies.Nombre != "Universidad Veracruzana" && EEP.IdAcademico == idUsu
+
+                               select new pExperienciaEduPeriodo
+                               {
+                                   IdExperienciaEducativaPeriodo = EEP.IdExperienciaEducativaPeriodo,
+                                   IdPeriodo = EEP.IdPeriodo,
+                                   periodo = per.Nombre,
+                                   IdAcademico = EEP.IdAcademico,
+                                   Npersonal = aca.NumeroPersonal,
+                                   academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
+                                   IdInstitucionSuperior = EEP.IdInstitucionSuperior,
+                                   institucion = ies.Nombre,
+                                   Status = EEP.Status,
+                                   IdMapaCurricular = EEP.IdMapaCurricular,
+                                   EE = EE.Nombre,
+                               }
+                            ).ToList();
+                }
+                
                 ViewData["EEP"] = ListEEP;
             }
             return View();
@@ -318,8 +396,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult GuardarEEEUV(ExperienciaEducativaPeriodo datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 datos.Status = 1;
                 context.ExperienciaEducativaPeriodo.Add(datos);
                 context.SaveChanges();
@@ -367,10 +450,13 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ActualizarEEEUV(ExperienciaEducativaPeriodo datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-
-
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 context.ExperienciaEducativaPeriodo.Update(datos);
                 context.SaveChanges();
                 TempData["Mensaje"] = "La informacion se ha guardado correctamente";

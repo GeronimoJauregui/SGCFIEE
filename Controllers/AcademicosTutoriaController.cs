@@ -14,7 +14,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            ViewData["tipo"] = tipo;
+            if (tipo == 2) {
+                Academicos aca = new Academicos();
+                aca.IdAcademicos = (int)HttpContext.Session.GetInt32("IdUsu");
+                return RedirectToAction("IdIndex", aca );            
+            }
             List<pAcademicosAlumnos> tutoI = new List<pAcademicosAlumnos>();
             using (sgcfieeContext context = new sgcfieeContext())
             {
@@ -103,7 +109,10 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult Guardar(ptutorados datos)
         {
-            Console.WriteLine(datos.Tipotutorado);
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 2) {
+                datos.IdAcademicos = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {   
                 if (datos.Tipotutorado == 0)
@@ -178,8 +187,13 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ActualizarI(Tutores datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademicos = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 datos.Status = 1;
                 context.Tutores.Update(datos);
                 context.SaveChanges();
@@ -193,8 +207,13 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ActualizarE(TutoradosExternos datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 context.TutoradosExternos.Update(datos);
                 context.SaveChanges();
                 TempData["Mensaje"] = "La informacion se ha guardado correctamente";

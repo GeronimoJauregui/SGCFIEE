@@ -14,7 +14,7 @@ namespace SGCFIEE.Models
         public string Nombre { get; set; }
         public DateTime? FechaFin { get; set; }
         public int? Tipo { get; set; }
-        public int? RAsesor { get; set; }
+        public int RAsesor { get; set; }
 
         public virtual Academicos RAsesorNavigation { get; set; }
         public virtual ICollection<TbInstanciafinalAlumno> TbInstanciafinalAlumno { get; set; }

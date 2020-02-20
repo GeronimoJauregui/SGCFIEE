@@ -26,5 +26,6 @@ namespace SGCFIEE.Models
         public string NombreStatus { get; set; }
         public int? RTipoPersonal { get; set; }
         public string tipoPersonal { get; set; }
+        public string Rfc { get; set; }
     }
 }

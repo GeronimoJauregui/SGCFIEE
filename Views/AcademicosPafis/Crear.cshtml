@@ -6,6 +6,7 @@
     var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
     var pe = (IEnumerable<ProgramaEducativo>)ViewData["pe"];
     var salones = (IEnumerable<TbSalones>)ViewData["salones"];
+    int tipo = (int)ViewData["tipo"];
 }
 
 <html>
@@ -20,6 +21,7 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <!-- select -->
+                                @if(tipo == 1){
                                 <div class="form-group">
                                     <label>Académico</label>
                                     <select id="academico" asp-for="IdAcademico" class="form-control">
@@ -29,6 +31,8 @@
                                         }
                                     </select>
                                 </div>
+                                }
+                                
                                 <div class="form-group">
                                     <label>Nombre del PAFI</label>
                                     <input type="text" asp-for="Nombre" class="form-control"  placeholder="Ingresar...">

@@ -4,6 +4,7 @@
     Layout = "~/Views/Home/Principal.cshtml";
     var acad = (IEnumerable<Academicos>)ViewData["academicos"];
     var alum = (IEnumerable<pAcademicosAlumnos>)ViewData["alumnos"];
+    int tipo = (int)ViewData["tipo"];
 }
 
 <!DOCTYPE html>
@@ -19,6 +20,7 @@
                     <div class="row">
                         <input type="hidden" asp-for="IdTutores" />
                         <div class="col-md-6 col-md-6">
+                            @if (tipo == 1) { 
                             <div class="form-group">
                                 <label>Académico</label>
                                 <select class="form-control" asp-for="IdAcademicos" id="academico">
@@ -35,6 +37,8 @@
                                     }
                                 </select>
                             </div>
+                            }
+                            
                             <div class="form-group" hidden="">
                                 Miembro
                                 <div class="radio p-0">

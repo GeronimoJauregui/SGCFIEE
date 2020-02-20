@@ -7,6 +7,7 @@
     var perio = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
     var ee = (IEnumerable<MCEE>)ViewData["ee"];
     var ies = (IEnumerable<InstitucionesEmpresas>)ViewData["ies"];
+    var tipo = (int)ViewData["tipo"];
     
 }
 
@@ -23,7 +24,7 @@
                     <form asp-action="GuardarEEEUV" asp-antiforgery="true">
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
-
+                                @if(tipo == 1){
                                 <div class="form-group">
                                     <label>Académico</label>
                                     <select id="academico" asp-for="IdAcademico" class="form-control">
@@ -33,6 +34,8 @@
                                         }
                                     </select>
                                 </div>
+                                }
+                                
                                 <div class="form-group">
                                     <label>Institución nivel superior</label>
                                     <select id="instituciones" asp-for="IdInstitucionSuperior" class="form-control">

@@ -40,47 +40,51 @@
                                     <input type="hidden" asp-for="RTipoPersonal" value="@aca.RTipoPersonal">
                                     <div class="form-group">
                                         <label>Nombre</label>
-                                        <input asp-for="Nombre" type="text" class="form-control" value="@aca.Nombre">
+                                        <input asp-for="Nombre" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Apellido paterno</label>
-                                        <input asp-for="ApellidoPaterno" type="text" class="form-control" value="@aca.ApellidoPaterno">
+                                        <input asp-for="ApellidoPaterno" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Apellido materno</label>
-                                        <input asp-for="ApellidoMaterno" type="text" class="form-control" value="@aca.ApellidoMaterno">
+                                        <input asp-for="ApellidoMaterno" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>CURP</label>
-                                        <input asp-for="Curp" type="text" class="form-control" value="@aca.Curp">
+                                        <input asp-for="Curp" type="text" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>RFC</label>
+                                        <input asp-for="Rfc" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Correo institucional</label>
-                                        <input asp-for="CorreoInstitucional" type="text" class="form-control" value="@aca.CorreoInstitucional">
+                                        <input asp-for="CorreoInstitucional" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Correo alternativo</label>
-                                        <input asp-for="CorreoAlternativo" type="text" class="form-control" value="@aca.CorreoAlternativo">
+                                        <input asp-for="CorreoAlternativo" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         Fecha de nacimiento
-                                        <input asp-for="FechaNacimiento" type="date" class="form-control" value="@aca.FechaNacimiento">
+                                        <input asp-for="FechaNacimiento" type="date" class="form-control">
 
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label>Sexo</label>
-                                        <input asp-for="Sexo" type="radio" value="1" if (aca.Sexo= =1) {checked}> Masculino <br>
-                                        <input asp-for="Sexo" type="radio" value="0" if (aca.Sexo= =0) {checked}> Femenino
+                                        <label>Sexo</label> <br>
+                                        <input asp-for="Sexo" type="radio" value="1"> Masculino <br>
+                                        <input asp-for="Sexo" type="radio" value="0"> Femenino
                                     </div>
                                     <div class="form-group">
                                         <label>Número de teléfono</label>
-                                        <input asp-for="Celular" type="text" class="form-control" value="@aca.Celular">
+                                        <input asp-for="Celular" type="text" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Número de personal</label>
-                                        <input asp-for="NumeroPersonal" type="number" class="form-control" min="0" value="@aca.NumeroPersonal">
+                                        <input asp-for="NumeroPersonal" type="number" class="form-control" min="0">
                                     </div>
                                     <div class="form-group">
                                         <label>Programa educativo</label>
@@ -108,7 +112,7 @@
                                     </div>
                                     <div class="form-group">
                                         Fecha de ingreso a la UV
-                                        <input asp-for="FechaIngresoUv" id="fechaingreso" name="FechaIngresoUv" type="date" value="@aca.FechaIngresoUv" class="form-control">
+                                        <input asp-for="FechaIngresoUv" id="fechaingreso" name="FechaIngresoUv" type="date" class="form-control">
                                     </div>
                                     <br>
                                     <input id="guardargenerales" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">

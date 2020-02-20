@@ -6,6 +6,7 @@
     var aca_esp = (Academicos)ViewData["esp_aca"];
     var tutoI = (IEnumerable<pAcademicosAlumnos>)ViewData["tutoI"];
     var tutoE = (IEnumerable<TutoradosExternos>)ViewData["tutoE"];
+    int tipo = (int)ViewData["tipo"];
 }
 
 <!DOCTYPE html>
@@ -32,28 +33,31 @@
                     </div>
                 </div>
                 <div class="form-group col-md-4">
+                    @if (tipo == 1) { 
                     <form asp-action="IdIndex" asp-antiforgery="true">
                         <div class="form-group">
-                                <label>Académico</label>
-                                <select class="form-control" asp-for="IdAcademicos" id="academicos">
-                                    @foreach (var item in aca)
+                            <label>Académico</label>
+                            <select class="form-control" asp-for="IdAcademicos" id="academicos">
+                                @foreach (var item in aca)
+                                {
+                                    @if (item.IdAcademicos != aca_esp.IdAcademicos)
                                     {
-                                        @if (item.IdAcademicos != aca_esp.IdAcademicos)
-                                        {
-                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                        }
-                                        else
-                                        {
-                                            <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                        }
+                                        <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
                                     }
-                                </select>
+                                    else
+                                    {
+                                        <option selected value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                    }
+                                }
+                            </select>
                             <br />
                             <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
                                 Buscar
                             </button>
                         </div>
                     </form>
+                    }
+                    
                 </div>
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="tabla_tutoria">
                     <thead>

@@ -36,14 +36,14 @@
                                 <div class="row p-b-20">
                                     <div class="col-md-6 col-sm-6 col-6">
                                         <div class="btn-group">
-                                            <button id="agregarCD" type="button" class="btn btn-success btn-sm m-b-10">
-                                                Agregar <i class="fa fa-plus"></i>
-                                            </button>
+                                            <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="FormCrearCD" id="agregargrado" type="button" class="btn btn-success btn-sm m-b-10">
+                                                Agregar <i class="fa fa-plus" style="color: white"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="table-scrollable">
-                                    <table class="table table-striped table-bordered table-hover table-checkable order-column " style="width: 100%" id="tabla_CD">
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column " style="width: 100%" id="tablaCD">
                                         <thead>
                                             <tr>
                                                 <th class="center">Curso/Diplomado</th>
@@ -82,12 +82,12 @@
                                                     </a>
                                                 </td>
                                                 <td class="center">
-                                                    <button class="btn btn-primary btn-xs modificarCD">
+                                                    <a asp-route-id="@item.IdCD" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarCD" title="Editar" class="btn btn-primary btn-xs verdatos">
                                                         <i class="fa fa-pencil"></i>
-                                                    </button>
-                                                    <button class="btn btn-danger btn-xs eliminarCD">
+                                                    </a>
+                                                    <a data-value="@item.IdCD" data-controlador="AcademicosDatosGenerales" data-accion="EliminarCD" data-id="@academico" data-regreso="EditarCD" name="eliminaracademico" class="btn btn-danger btn-xs" title="Eliminar">
                                                         <i class="fa fa-trash-o "></i>
-                                                    </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             }

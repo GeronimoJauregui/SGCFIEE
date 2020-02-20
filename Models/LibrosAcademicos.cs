@@ -5,12 +5,8 @@ namespace SGCFIEE.Models
 {
     public partial class LibrosAcademicos
     {
-        public LibrosAcademicos()
-        {
-            AcademicoLibro = new HashSet<AcademicoLibro>();
-        }
-
         public int IdLibrosAcademicos { get; set; }
+        public int IdAcademico { get; set; }
         public string Titulo { get; set; }
         public int? IdEditorial { get; set; }
         public string Isbn { get; set; }
@@ -18,7 +14,7 @@ namespace SGCFIEE.Models
         public int? Tiraje { get; set; }
         public string Archivo { get; set; }
 
+        public virtual Academicos IdAcademicoNavigation { get; set; }
         public virtual Editorial IdEditorialNavigation { get; set; }
-        public virtual ICollection<AcademicoLibro> AcademicoLibro { get; set; }
     }
 }

@@ -19,37 +19,72 @@ namespace SGCFIEE.Controllers
         public IActionResult Index()
         {
             List<pPafisAcademicos> ListPafis = new List<pPafisAcademicos>();
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            ViewData["tipo"] = tipo;
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                ListPafis = (from pafis in context.PafisAcademicos
-                           join per in context.TipoPeriodo on pafis.IdPeriodo equals per.IdPeriodo
-                           join aca in context.Academicos on pafis.IdAcademico equals aca.IdAcademicos
-                           join salon in context.TbSalones on pafis.IdSalon equals salon.IdTbSalones
-                           join PE in context.ProgramaEducativo on pafis.IdProgramaImpacta equals PE.IdProgramaEducativo
+                if (tipo == 1) {
+                    ListPafis = (from pafis in context.PafisAcademicos
+                                 join per in context.TipoPeriodo on pafis.IdPeriodo equals per.IdPeriodo
+                                 join aca in context.Academicos on pafis.IdAcademico equals aca.IdAcademicos
+                                 join salon in context.TbSalones on pafis.IdSalon equals salon.IdTbSalones
+                                 join PE in context.ProgramaEducativo on pafis.IdProgramaImpacta equals PE.IdProgramaEducativo
 
-                           select new pPafisAcademicos
-                           {
-                               IdPafis = pafis.IdPafis,
-                               IdPeriodo = pafis.IdPeriodo,
-                               Periodo = per.Nombre,
-                               IdAcademico = pafis.IdAcademico,
-                               Npersonal = aca.NumeroPersonal,
-                               Nombre_academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
-                               Tipopafi = pafis.Tipopafi,
-                               Solicitud = pafis.Solicitud,
-                               Nombre_pafi = pafis.Nombre,
-                               IdSalon = salon.IdTbSalones,
-                               Salon = salon.ClaveSalon,
-                               Estado = pafis.Estado,
-                               NumeroCt = pafis.NumeroCt,
-                               Horario = pafis.Horario,
-                               PE = PE.Nombre,
-                               IdProgramaImpacta = pafis.IdProgramaImpacta,
-                               NumHoras = pafis.NumHoras
-                           }
+                                 select new pPafisAcademicos
+                                 {
+                                     IdPafis = pafis.IdPafis,
+                                     IdPeriodo = pafis.IdPeriodo,
+                                     Periodo = per.Nombre,
+                                     IdAcademico = pafis.IdAcademico,
+                                     Npersonal = aca.NumeroPersonal,
+                                     Nombre_academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
+                                     Tipopafi = pafis.Tipopafi,
+                                     Solicitud = pafis.Solicitud,
+                                     Nombre_pafi = pafis.Nombre,
+                                     IdSalon = salon.IdTbSalones,
+                                     Salon = salon.ClaveSalon,
+                                     Estado = pafis.Estado,
+                                     NumeroCt = pafis.NumeroCt,
+                                     Horario = pafis.Horario,
+                                     PE = PE.Nombre,
+                                     IdProgramaImpacta = pafis.IdProgramaImpacta,
+                                     NumHoras = pafis.NumHoras
+                                 }
                             ).ToList();
-                ViewData["pafis"] = ListPafis;
+                    ViewData["pafis"] = ListPafis;
+                }
+                if (tipo == 2)
+                {
+                    ListPafis = (from pafis in context.PafisAcademicos
+                                 join per in context.TipoPeriodo on pafis.IdPeriodo equals per.IdPeriodo
+                                 join aca in context.Academicos on pafis.IdAcademico equals aca.IdAcademicos
+                                 join salon in context.TbSalones on pafis.IdSalon equals salon.IdTbSalones
+                                 join PE in context.ProgramaEducativo on pafis.IdProgramaImpacta equals PE.IdProgramaEducativo
+                                 where pafis.IdAcademico == (int)HttpContext.Session.GetInt32("IdUsu")
+                    select new pPafisAcademicos
+                                 {
+                                     IdPafis = pafis.IdPafis,
+                                     IdPeriodo = pafis.IdPeriodo,
+                                     Periodo = per.Nombre,
+                                     IdAcademico = pafis.IdAcademico,
+                                     Npersonal = aca.NumeroPersonal,
+                                     Nombre_academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
+                                     Tipopafi = pafis.Tipopafi,
+                                     Solicitud = pafis.Solicitud,
+                                     Nombre_pafi = pafis.Nombre,
+                                     IdSalon = salon.IdTbSalones,
+                                     Salon = salon.ClaveSalon,
+                                     Estado = pafis.Estado,
+                                     NumeroCt = pafis.NumeroCt,
+                                     Horario = pafis.Horario,
+                                     PE = PE.Nombre,
+                                     IdProgramaImpacta = pafis.IdProgramaImpacta,
+                                     NumHoras = pafis.NumHoras
+                                 }
+                            ).ToList();
+                    ViewData["pafis"] = ListPafis;
+                }
+                
             }
             return View();
         }
@@ -80,8 +115,13 @@ namespace SGCFIEE.Controllers
         public async Task<IActionResult> Guardar(List<IFormFile> file, PafisAcademicos datos)
         {
 
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var pa = context.PafisAcademicos.ToList();
                 foreach (PafisAcademicos item in pa)
                 {
@@ -195,8 +235,13 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> Actualizar(List<IFormFile> file, PafisAcademicos datos)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (tipo == 2)
+                {
+                    datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+                }
                 var pa = context.PafisAcademicos.ToList();
                 foreach (PafisAcademicos item in pa)
                 {

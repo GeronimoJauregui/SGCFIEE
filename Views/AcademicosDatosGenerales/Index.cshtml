@@ -3,6 +3,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Home/Principal.cshtml";
     var aca = (IEnumerable<pAcademicos>)ViewData["academicos"];
+    int tipo = (int)ViewData["tipo"];
 }
 
 <!DOCTYPE html>
@@ -21,6 +22,7 @@
             </div>
             <div class="card-body ">
                 <div class="row p-b-20">
+                    @if (tipo == 1) { 
                     <div class="col-md-6 col-sm-6 col-6">
                         <div class="btn-group">
                             <a asp-controller="AcademicosDatosGenerales" asp-action="CrearDG" id="agregar" class="btn btn-success btn-sm m-b-10">
@@ -28,6 +30,8 @@
                             </a>
                         </div>
                     </div>
+                    }
+                    
                 </div>
 
                 <table class="table table-striped table-bordered table-hover table-checkable order-column " style="width: 100%" id="tabla_academicos">
@@ -60,10 +64,11 @@
                                     <a asp-route-id="@item.IdAcademicos" asp-controller="AcademicosDatosGenerales" asp-action="EditarDG" title="Editar" class="btn btn-primary btn-xs verdatos">
                                         <i class="fa fa-pencil"></i>
                                     </a>
-                                    <a data-value="@item.IdAcademicos" data-controlador="AcademicosDatosGenerales" data-accion="EliminarAcademico" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                        <i class="fa fa-trash-o "></i>
-                                    </a>
-                                </td>
+                                    @if (tipo == 1)
+                                    {<a data-value="@item.IdAcademicos" data-controlador="AcademicosDatosGenerales" data-accion="EliminarAcademico" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                            <i class="fa fa-trash-o "></i>
+                                     </a>}
+                                    </td>
                             </tr>
                         }
                         </tbody>

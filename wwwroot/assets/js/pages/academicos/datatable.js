@@ -6,6 +6,7 @@ $(document).ready(function () {
     $("#tablaCertifi").DataTable();
     $("#tablaep").DataTable();
     $("#tablaga").DataTable();
+    $("#EditarGA").DataTable();
     /*Módulo PAFIS*/
     $("#tabla_pafis").DataTable();
     /*Módulo Tutoria*/

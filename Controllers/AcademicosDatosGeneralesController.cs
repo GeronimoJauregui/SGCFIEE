@@ -19,49 +19,98 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult Index()
         {
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
+            ViewData["tipo"] = tipo;
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var dg = (from aca in context.Academicos
-                          join pe in context.ProgramaEducativo on aca.IdProgramaEducativo equals pe.IdProgramaEducativo
-                          join tp in context.TipoPersonal on aca.RTipoPersonal equals tp.IdTipoPersonal
-                          select new pAcademicos
-                          {
-                              IdAcademicos = aca.IdAcademicos,
-                              Nombre = aca.Nombre,
-                              ApellidoPaterno = aca.ApellidoPaterno,
-                              ApellidoMaterno = aca.ApellidoMaterno,
-                              FechaNacimiento = aca.FechaNacimiento,
-                              Curp = aca.Curp,
-                              CorreoInstitucional = aca.CorreoInstitucional,
-                              CorreoAlternativo = aca.CorreoAlternativo,
-                              Celular = aca.Celular,
-                              Sexo = aca.Sexo,
-                              ProgramaEducativo = pe.Nombre,
-                              NumeroPersonal = aca.NumeroPersonal,
-                              FechaIngresoUv = aca.FechaIngresoUv,
-                              Status = aca.Status,
-                              RTipoPersonal = aca.RTipoPersonal,
-                              tipoPersonal = tp.Nombre
+                if (tipo == 1)
+                {
+                    var dg = (from aca in context.Academicos
+                              join pe in context.ProgramaEducativo on aca.IdProgramaEducativo equals pe.IdProgramaEducativo
+                              join tp in context.TipoPersonal on aca.RTipoPersonal equals tp.IdTipoPersonal
+                              select new pAcademicos
+                              {
+                                  IdAcademicos = aca.IdAcademicos,
+                                  Nombre = aca.Nombre,
+                                  ApellidoPaterno = aca.ApellidoPaterno,
+                                  ApellidoMaterno = aca.ApellidoMaterno,
+                                  FechaNacimiento = aca.FechaNacimiento,
+                                  Curp = aca.Curp,
+                                  CorreoInstitucional = aca.CorreoInstitucional,
+                                  CorreoAlternativo = aca.CorreoAlternativo,
+                                  Celular = aca.Celular,
+                                  Sexo = aca.Sexo,
+                                  ProgramaEducativo = pe.Nombre,
+                                  NumeroPersonal = aca.NumeroPersonal,
+                                  FechaIngresoUv = aca.FechaIngresoUv,
+                                  Status = aca.Status,
+                                  RTipoPersonal = aca.RTipoPersonal,
+                                  tipoPersonal = tp.Nombre,
+                                  Rfc = aca.Rfc
 
-                          }
+                              }
                                ).ToList();
 
-                foreach (var item in dg)
-                {
-                    if (item.Sexo == 0)
-                        item.Nombre_Sexo = "Femenino";
-                    if (item.Sexo == 1)
-                        item.Nombre_Sexo = "Masculino";
-                    if (item.Status == 1)
-                        item.NombreStatus = "Activo";
-                    if (item.Status == 2)
-                        item.NombreStatus = "Inactivo";
-                    if (item.Status == 3)
-                        item.NombreStatus = "Incapacitado";
+                    foreach (var item in dg)
+                    {
+                        if (item.Sexo == 0)
+                            item.Nombre_Sexo = "Femenino";
+                        if (item.Sexo == 1)
+                            item.Nombre_Sexo = "Masculino";
+                        if (item.Status == 1)
+                            item.NombreStatus = "Activo";
+                        if (item.Status == 2)
+                            item.NombreStatus = "Inactivo";
+                        if (item.Status == 3)
+                            item.NombreStatus = "Incapacitado";
+                    }
+                    ViewData["academicos"] = dg;
+                }
+                if (tipo == 2) {
+                    var dg = (from aca in context.Academicos
+                              join pe in context.ProgramaEducativo on aca.IdProgramaEducativo equals pe.IdProgramaEducativo
+                              join tp in context.TipoPersonal on aca.RTipoPersonal equals tp.IdTipoPersonal
+                              where aca.IdAcademicos == idUsu
+                              select new pAcademicos
+                              {
+                                  IdAcademicos = aca.IdAcademicos,
+                                  Nombre = aca.Nombre,
+                                  ApellidoPaterno = aca.ApellidoPaterno,
+                                  ApellidoMaterno = aca.ApellidoMaterno,
+                                  FechaNacimiento = aca.FechaNacimiento,
+                                  Curp = aca.Curp,
+                                  CorreoInstitucional = aca.CorreoInstitucional,
+                                  CorreoAlternativo = aca.CorreoAlternativo,
+                                  Celular = aca.Celular,
+                                  Sexo = aca.Sexo,
+                                  ProgramaEducativo = pe.Nombre,
+                                  NumeroPersonal = aca.NumeroPersonal,
+                                  FechaIngresoUv = aca.FechaIngresoUv,
+                                  Status = aca.Status,
+                                  RTipoPersonal = aca.RTipoPersonal,
+                                  tipoPersonal = tp.Nombre,
+                                  Rfc = aca.Rfc
+
+                              }
+                                   ).ToList();
+
+                    foreach (var item in dg)
+                    {
+                        if (item.Sexo == 0)
+                            item.Nombre_Sexo = "Femenino";
+                        if (item.Sexo == 1)
+                            item.Nombre_Sexo = "Masculino";
+                        if (item.Status == 1)
+                            item.NombreStatus = "Activo";
+                        if (item.Status == 2)
+                            item.NombreStatus = "Inactivo";
+                        if (item.Status == 3)
+                            item.NombreStatus = "Incapacitado";
+                    }
+                    ViewData["academicos"] = dg;
                 }
 
-                ViewData["academicos"] = dg;
             }
             return View();
         }
@@ -81,15 +130,16 @@ namespace SGCFIEE.Controllers
         public IActionResult EditarDG(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            Academicos aca = new Academicos();
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var aca = context.Academicos.Where(w => w.IdAcademicos==id).Single();
+                aca = context.Academicos.Where(w => w.IdAcademicos == id).Single();
                 var pe = context.ProgramaEducativo.ToList();
                 ViewData["pe"] = pe;
                 ViewData["aca"] = aca;
                 ViewData["academico"] = id;
             }
-            return View();
+            return View(aca);
         }
 
         [HttpPost]
@@ -229,7 +279,7 @@ namespace SGCFIEE.Controllers
                 await file[1].CopyToAsync(stream);
             }
 
-            return RedirectToAction("TablaGA",new { id = datos.IdAcademico});
+            return RedirectToAction("TablaGA", new { id = datos.IdAcademico });
         }
 
         [Authorize]
@@ -348,7 +398,7 @@ namespace SGCFIEE.Controllers
                 ViewData["academico"] = id;
                 return View(ga);
             }
-            
+
         }
 
         [HttpPost]
@@ -401,16 +451,16 @@ namespace SGCFIEE.Controllers
                 var tc = context.TipoCertificacion.ToList();
 
                 certificaciones = (from cer in context.Certificaciones
-                                join tcer in context.TipoCertificacion on cer.IdTipoCertificacion equals tcer.IdCertificacion
-                                where cer.IdAcademico == id
-                                select new pCertificaciones
-                                {
-                                    IdCertificaciones = cer.IdCertificaciones,
-                                    Nombre = cer.Nombre,
-                                    IdTipoCertificacion = cer.IdTipoCertificacion,
-                                    TipoCertificacion = tcer.Nombre,
-                                    IdAcademico = cer.IdAcademico,
-                                }
+                                   join tcer in context.TipoCertificacion on cer.IdTipoCertificacion equals tcer.IdCertificacion
+                                   where cer.IdAcademico == id
+                                   select new pCertificaciones
+                                   {
+                                       IdCertificaciones = cer.IdCertificaciones,
+                                       Nombre = cer.Nombre,
+                                       IdTipoCertificacion = cer.IdTipoCertificacion,
+                                       TipoCertificacion = tcer.Nombre,
+                                       IdAcademico = cer.IdAcademico,
+                                   }
                                    ).ToList();
 
                 ViewData["tc"] = tc;
@@ -475,6 +525,102 @@ namespace SGCFIEE.Controllers
             return View();
         }
 
+        public IActionResult FormCrearCertificacion(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var tc = context.TipoCertificacion.ToList();
+                ViewData["tc"] = tc;
+                ViewData["academico"] = id;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> GuardarFormCertificaciones(IFormFile file, Certificaciones datos)
+        {
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var new_name_table = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.Certificaciones.Add(datos);
+                context.SaveChanges();
+            }
+
+            if (file == null || file.Length == 0)
+                return Content("file not selected");
+
+            var new_name_file = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Certificaciones", new_name_file);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return RedirectToAction("EditarCertificaciones", new { id = datos.IdAcademico });
+        }
+
+        public IActionResult FormEditarCertificaciones(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            Certificaciones certificaciones = new Certificaciones();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var tc = context.TipoCertificacion.ToList();
+
+                certificaciones = context.Certificaciones.Where(w => w.IdCertificaciones == id).Single();
+
+                ViewData["tc"] = tc;
+                ViewData["academico"] = id;
+                return View(certificaciones);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> ActualizarFormCertificaciones(IFormFile file, Certificaciones datos)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                if (file != null)
+                {
+                    var new_name_table = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+                    datos.Archivo = new_name_table;
+                }
+                else
+                {
+                    var nomArchivo = context.Certificaciones.Where(w => w.IdCertificaciones == datos.IdCertificaciones).Single();
+                    datos.Archivo = nomArchivo.Archivo;
+                }
+
+            }
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.Certificaciones.Update(datos);
+                context.SaveChanges();
+                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+            }
+
+            if (file != null) {
+                var new_name_file = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Certificaciones", new_name_file);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+            }
+
+            return RedirectToAction("EditarCertificaciones", new { id = datos.IdAcademico });
+        }
+
         public IActionResult TablaCD(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -484,23 +630,23 @@ namespace SGCFIEE.Controllers
                 var ies = context.InstitucionesEmpresas.ToList();
 
                 CD = (from cd in context.CursosDiplomadoFormacion
-                                   join ins in context.InstitucionesEmpresas on cd.IdIesEmpresa equals ins.IdIE
-                                   where cd.IdAcademico == id
-                                   select new pCursosDiplomadoFormacion
-                                   {
-                                       IdCD = cd.IdCD,
-                                       IdAcademico = cd.IdAcademico,
-                                       Nombre = cd.Nombre,
-                                       CursoDiplomado = cd.CursoDiplomado,
-                                       PD = cd.PD,
-                                       Horas = cd.Horas,
-                                       IdIesEmpresa = cd.IdIesEmpresa,
-                                       institucion = ins.Nombre,
-                                       Lugar = cd.Lugar,
-                                       Fecha = cd.Fecha,
-                                       Archivo = cd.Archivo
-                                       
-                                   }
+                      join ins in context.InstitucionesEmpresas on cd.IdIesEmpresa equals ins.IdIE
+                      where cd.IdAcademico == id
+                      select new pCursosDiplomadoFormacion
+                      {
+                          IdCD = cd.IdCD,
+                          IdAcademico = cd.IdAcademico,
+                          Nombre = cd.Nombre,
+                          CursoDiplomado = cd.CursoDiplomado,
+                          PD = cd.PD,
+                          Horas = cd.Horas,
+                          IdIesEmpresa = cd.IdIesEmpresa,
+                          institucion = ins.Nombre,
+                          Lugar = cd.Lugar,
+                          Fecha = cd.Fecha,
+                          Archivo = cd.Archivo
+
+                      }
                                    ).ToList();
 
                 ViewData["ies"] = ies;
@@ -570,6 +716,97 @@ namespace SGCFIEE.Controllers
             return RedirectToAction("TablaCD", new { id = datos.IdAcademico });
         }
 
+        public IActionResult FormCrearCD(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var ies = context.InstitucionesEmpresas.ToList();
+                ViewData["ies"] = ies;
+                ViewData["academico"] = id;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> GuardarFormCD(IFormFile file, CursosDiplomadoFormacion datos)
+        {
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var new_name_table = "CD" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.CursosDiplomadoFormacion.Add(datos);
+                context.SaveChanges();
+            }
+
+            if (file == null || file.Length == 0)
+                return Content("file not selected");
+
+            var new_name_file = "CD" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Cursos_Diplomados", new_name_file);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return RedirectToAction("EditarCD", new { id = datos.IdAcademico });
+        }
+
+        public IActionResult FormEditarCD(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            CursosDiplomadoFormacion CD = new CursosDiplomadoFormacion();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var ies = context.InstitucionesEmpresas.ToList();
+
+                CD = context.CursosDiplomadoFormacion.Where(w => w.IdCD == id).Single();
+
+                ViewData["ies"] = ies;
+                ViewData["academico"] = id;
+            }
+            return View(CD);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> ActualizarFormCD(IFormFile file, CursosDiplomadoFormacion datos)
+        {
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                if (file != null)
+                {
+                    var new_name_table = "CD" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+                    datos.Archivo = new_name_table;
+                }
+                else
+                {
+                    var nomArchivo = context.CursosDiplomadoFormacion.Where(w => w.IdCD == datos.IdCD).Single();
+                    datos.Archivo = nomArchivo.Archivo;
+                }
+
+                context.CursosDiplomadoFormacion.Update(datos);
+                context.SaveChanges();
+            }
+
+
+            if (file != null) {
+                var new_name_file = "CD" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Cursos_Diplomados", new_name_file);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+            }
+            return RedirectToAction("EditarCD", new { id = datos.IdAcademico });
+        }
 
         [Authorize]
         public IActionResult TablaEP(int id)
@@ -672,10 +909,107 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        public IActionResult FormCrearEP(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var ies = context.InstitucionesEmpresas.Where(w => w.IesEmpresa == 1).ToList();
+                var tp = context.TipoPuesto.ToList();
+                ViewData["ies"] = ies;
+                ViewData["tp"] = tp;
+                ViewData["academico"] = id;
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> GuardarFormEP(IFormFile file, ExperienciaProfesional datos)
+        {
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var new_name_table = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+                datos.Archivo = new_name_table;
+                context.ExperienciaProfesional.Add(datos);
+                context.SaveChanges();
+            }
+
+            if (file == null || file.Length == 0)
+                return Content("file not selected");
+
+            var new_name_file = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Exp_Profesional", new_name_file);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return RedirectToAction("EditarEP", new { id = datos.IdAcademico });
+        }
+
+        [Authorize]
+        public IActionResult FormEditarEP(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            ExperienciaProfesional EP = new ExperienciaProfesional();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var ies = context.InstitucionesEmpresas.Where(w => w.IesEmpresa == 1).ToList();
+                var tp = context.TipoPuesto.ToList();
+
+                EP = context.ExperienciaProfesional.Where(w => w.IdEp == id).Single();
+
+
+                ViewData["ies"] = ies;
+                ViewData["tp"] = tp;
+                ViewData["academico"] = id;
+            }
+            return View(EP);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> ActualizarFormEP(IFormFile file, ExperienciaProfesional datos)
+        {
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                if (file != null)
+                {
+                    var new_name_table = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+                    datos.Archivo = new_name_table;
+                }
+                else
+                {
+                    var nomArchivo = context.ExperienciaProfesional.Where(w => w.IdEp == datos.IdEp).Single();
+                    datos.Archivo = nomArchivo.Archivo;
+                }
+
+                context.ExperienciaProfesional.Update(datos);
+                context.SaveChanges();
+            }
+
+            if (file != null) {
+                var new_name_file = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Exp_Profesional", new_name_file);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
+            }
+            return RedirectToAction("EditarEP", new { id = datos.IdAcademico });
+        }
+
+        [Authorize]
         public IActionResult TablaTC(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            //List<pExperienciaProfesional> EP = new List<pExperienciaProfesional>();
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var tl = context.TipoLaboratorio.ToList();
@@ -703,6 +1037,9 @@ namespace SGCFIEE.Controllers
                     ptc.Archivo = datos.Archivo;
                     ptc.Status = 1;
                     context.ContratacionPtc.Add(ptc);
+                    var academico = context.Academicos.Where(w => w.IdAcademicos == datos.IdAcademico).Single();
+                    academico.RTipoPersonal = 1;
+                    context.Academicos.Update(academico);
                     context.SaveChanges();
                 }
 
@@ -725,11 +1062,189 @@ namespace SGCFIEE.Controllers
                     lab.IdAcademico = datos.IdAcademico;
                     lab.Status = 1;
                     context.Laboratorio.Add(lab);
+                    var academico = context.Academicos.Where(w => w.IdAcademicos == datos.IdAcademico).Single();
+                    academico.RTipoPersonal = 1;
+                    context.Academicos.Update(academico);
                     context.SaveChanges();
                 }
-                
+
             }
             return RedirectToAction("TablaDistinciones", new { id = datos.IdAcademico });
+        }
+
+        [Authorize]
+        public IActionResult EditarTC(int id)
+        {
+            pTipoContratacion tipoc = new pTipoContratacion();
+
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var ptc = context.ContratacionPtc.Where(w => w.IdAcademico == id).ToList();
+                var lab = context.Laboratorio.Where(w => w.IdAcademico == id).ToList();
+                if (ptc.Count > 0)
+                {
+                    tipoc.IdAcademico = ptc[0].IdAcademico;
+                    tipoc.IdContrato = ptc[0].IdContrato;
+                    tipoc.FechaNombramiento = ptc[0].FechaNombramiento;
+                    tipoc.Archivo = ptc[0].Archivo;
+                    tipoc.Status = ptc[0].Status;
+                    tipoc.tipopersonal = 1;
+                }
+                else if (lab.Count > 0)
+                {
+                    tipoc.IdLaboratorio = lab[0].IdLaboratorio;
+                    tipoc.IdAcademico = lab[0].IdLaboratorio;
+                    tipoc.IdTipoLaboratorio = lab[0].IdTipoLaboratorio;
+                    tipoc.Status = lab[0].Status;
+                    tipoc.Archivo = "NULL";
+                    tipoc.tipopersonal = 3;
+                }
+                else {
+                    tipoc.tipopersonal = 2;
+                    tipoc.Archivo = "NULL";
+                }
+                var tl = context.TipoLaboratorio.ToList();
+                var tp = context.TipoPersonal.ToList();
+                ViewData["tl"] = tl;
+                ViewData["tp"] = tp;
+                ViewData["academico"] = id;
+            }
+            return View(tipoc);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> ActualizarTC(IFormFile file, pTipoContratacion datos)
+        {
+            Academicos academico = new Academicos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                academico = context.Academicos.Where(w => w.IdAcademicos == datos.IdAcademico).Single();
+            }
+
+            if (datos.tipopersonal == 1)
+            {
+                if (academico.RTipoPersonal != 1)
+                {
+                    using (sgcfieeContext context = new sgcfieeContext())
+                    {
+                        var new_name_table = "PTC" + "_" + datos.IdAcademico + "_" + file.GetFilename();
+                        datos.Archivo = new_name_table;
+                        ContratacionPtc ptc = new ContratacionPtc();
+                        ptc.IdAcademico = datos.IdAcademico;
+                        ptc.FechaNombramiento = datos.FechaNombramiento;
+                        ptc.Archivo = datos.Archivo;
+                        ptc.Status = 1;
+                        context.ContratacionPtc.Add(ptc);
+                        context.SaveChanges();
+
+                        if (file == null || file.Length == 0)
+                            return Content("file not selected");
+
+                        var new_name_file = "PTC" + "_" + datos.IdAcademico + "_" + file.GetFilename();
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/ptc", new_name_file);
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(stream);
+                        }
+                        if (academico.RTipoPersonal == 3)
+                        {
+                            Laboratorio eliminar = context.Laboratorio.Where(w => w.IdAcademico == datos.IdAcademico).Single();
+                            context.Laboratorio.Remove(eliminar);
+                            context.SaveChanges();
+                        }
+                        academico.RTipoPersonal = 1;
+                        context.Academicos.Update(academico);
+                        context.SaveChanges();
+                    }
+
+                }
+                else {
+                    using (sgcfieeContext context = new sgcfieeContext())
+                    {
+                        var ptc = context.ContratacionPtc.Where(w => w.IdAcademico == datos.IdAcademico).Single();
+                        if (file != null)
+                        {
+                            var new_name_table = "PTC" + "_" + datos.IdAcademico + "_" + file.GetFilename();
+                            ptc.Archivo = new_name_table;
+
+                            var new_name_file = "PTC" + "_" + datos.IdAcademico + "_" + file.GetFilename();
+                            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/ptc", new_name_file);
+
+                            using (var stream = new FileStream(path, FileMode.Create))
+                            {
+                                await file.CopyToAsync(stream);
+                            }
+                        }
+                        ptc.FechaNombramiento = datos.FechaNombramiento;
+
+                        context.ContratacionPtc.Update(ptc);
+                        context.SaveChanges();
+                    }
+                }
+
+            }
+            if (datos.tipopersonal == 3)
+            {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    if (academico.RTipoPersonal != 3)
+                    {
+                        Laboratorio lab = new Laboratorio();
+                        lab.IdTipoLaboratorio = datos.IdTipoLaboratorio;
+                        lab.IdAcademico = datos.IdAcademico;
+                        lab.Status = 1;
+                        context.Laboratorio.Add(lab);
+                        context.SaveChanges();
+
+                        if (academico.RTipoPersonal == 1)
+                        {
+                            ContratacionPtc eliminar = context.ContratacionPtc.Where(w => w.IdAcademico == datos.IdAcademico).Single();
+                            context.ContratacionPtc.Remove(eliminar);
+                            context.SaveChanges();
+
+                            academico.RTipoPersonal = 3;
+                            context.Academicos.Update(academico);
+                            context.SaveChanges();
+                        }
+
+                    }
+                    else {
+                        Laboratorio lab = context.Laboratorio.Where(w => w.IdAcademico == datos.IdAcademico).Single();
+                        lab.IdTipoLaboratorio = datos.IdTipoLaboratorio;
+                        context.Laboratorio.Update(lab);
+                        context.SaveChanges();
+                    }
+                }
+
+
+            }
+            if (datos.tipopersonal == 2 && academico.RTipoPersonal != 2)
+            {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    if (academico.RTipoPersonal == 1)
+                    {
+                        ContratacionPtc eliminar = context.ContratacionPtc.Where(w => w.IdAcademico == datos.IdAcademico).Single();
+                        context.ContratacionPtc.Remove(eliminar);
+                        context.SaveChanges();
+
+                    }
+                    else {
+                        Laboratorio eliminar = context.Laboratorio.Where(w => w.IdAcademico == datos.IdAcademico).Single();
+                        context.Laboratorio.Remove(eliminar);
+                        context.SaveChanges();
+                    }
+
+                    academico.RTipoPersonal = 2;
+                    context.Academicos.Update(academico);
+                    context.SaveChanges();
+                }
+            }
+            return RedirectToAction("EditarTC", new { id = datos.IdAcademico });
         }
 
         [Authorize]
@@ -767,7 +1282,7 @@ namespace SGCFIEE.Controllers
                 return View(dis);
             }
 
-            
+
         }
 
         [HttpPost]
@@ -815,7 +1330,7 @@ namespace SGCFIEE.Controllers
                     var dis = context.DistincionesTa.Where(w => w.IdAcademico == datos.IdAcademico).Single();
                     datos.Archivo = dis.Archivo;
                 }
-                
+
                 datos.Status = 1;
                 context.DistincionesTa.Update(datos);
                 context.SaveChanges();
@@ -830,7 +1345,7 @@ namespace SGCFIEE.Controllers
                     await file.CopyToAsync(stream);
                 }
             }
-            return RedirectToAction("EditarDistinciones", new { id = datos.IdAcademico});
+            return RedirectToAction("EditarDistinciones", new { id = datos.IdAcademico });
         }
 
         [Authorize]
@@ -840,34 +1355,35 @@ namespace SGCFIEE.Controllers
 
             using (sgcfieeContext context = new sgcfieeContext()) {
                 var dg = (from aca in context.Academicos
-                      join pe in context.ProgramaEducativo on aca.IdProgramaEducativo equals pe.IdProgramaEducativo
-                      join tp in context.TipoPersonal on aca.RTipoPersonal equals tp.IdTipoPersonal
-                      where aca.IdAcademicos == id
-                      select new pAcademicos
-                      {
-                          IdAcademicos = aca.IdAcademicos,
-                          Nombre = aca.Nombre,
-                          ApellidoPaterno = aca.ApellidoPaterno,
-                          ApellidoMaterno = aca.ApellidoMaterno,
-                          FechaNacimiento = aca.FechaNacimiento,
-                          Curp = aca.Curp,
-                          CorreoInstitucional = aca.CorreoInstitucional,
-                          CorreoAlternativo = aca.CorreoAlternativo,
-                          Celular = aca.Celular,
-                          Sexo = aca.Sexo,
-                          ProgramaEducativo = pe.Nombre,
-                          NumeroPersonal = aca.NumeroPersonal,
-                          FechaIngresoUv = aca.FechaIngresoUv,
-                          Status = aca.Status,
-                          RTipoPersonal = aca.RTipoPersonal,
-                          tipoPersonal = tp.Nombre
+                          join pe in context.ProgramaEducativo on aca.IdProgramaEducativo equals pe.IdProgramaEducativo
+                          join tp in context.TipoPersonal on aca.RTipoPersonal equals tp.IdTipoPersonal
+                          where aca.IdAcademicos == id
+                          select new pAcademicos
+                          {
+                              IdAcademicos = aca.IdAcademicos,
+                              Nombre = aca.Nombre,
+                              ApellidoPaterno = aca.ApellidoPaterno,
+                              ApellidoMaterno = aca.ApellidoMaterno,
+                              FechaNacimiento = aca.FechaNacimiento,
+                              Curp = aca.Curp,
+                              CorreoInstitucional = aca.CorreoInstitucional,
+                              CorreoAlternativo = aca.CorreoAlternativo,
+                              Celular = aca.Celular,
+                              Sexo = aca.Sexo,
+                              ProgramaEducativo = pe.Nombre,
+                              NumeroPersonal = aca.NumeroPersonal,
+                              FechaIngresoUv = aca.FechaIngresoUv,
+                              Status = aca.Status,
+                              RTipoPersonal = aca.RTipoPersonal,
+                              tipoPersonal = tp.Nombre,
+                              Rfc = aca.Rfc
 
-                      }
+                          }
                                ).Single();
-                    if (dg.Sexo == 0)
-                        dg.Nombre_Sexo = "Femenino";
-                    if (dg.Sexo == 1)
-                        dg.Nombre_Sexo = "Masculino";
+                if (dg.Sexo == 0)
+                    dg.Nombre_Sexo = "Femenino";
+                if (dg.Sexo == 1)
+                    dg.Nombre_Sexo = "Masculino";
                 if (dg.Status == 1)
                     dg.NombreStatus = "Activo";
                 if (dg.Status == 2)
@@ -906,7 +1422,7 @@ namespace SGCFIEE.Controllers
                                 FechaDeTitulacion = es.FechaDeTitulacion,
                                 ArchivoCedula = es.ArchivoCedula,
                                 ArchivoTitulo = es.ArchivoTitulo
-                                
+
                             }
                                ).ToList();
 
@@ -1078,18 +1594,6 @@ namespace SGCFIEE.Controllers
             return View();
 
         }
-    
-            
-
-
-
-
-
-
-
-
-
-
 
 
         public IActionResult EliminarAcademico(int id)
@@ -1103,17 +1607,49 @@ namespace SGCFIEE.Controllers
             }
         }
 
-        public IActionResult EliminarGA(int id)
+        public IActionResult EliminarGA(int id, int id_acad)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 Estudios eliminar = context.Estudios.Where(w => w.IdEstudios == id).Single();
                 context.Estudios.Remove(eliminar);
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("EditarGA", new { id = id_acad });
             }
         }
 
+        public IActionResult EliminarCertificaciones(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                Certificaciones eliminar = context.Certificaciones.Where(w => w.IdCertificaciones == id).Single();
+                context.Certificaciones.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("EditarCertificaciones", new { id = id_acad });
+            }
+        }
+
+        public IActionResult EliminarCD(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                CursosDiplomadoFormacion eliminar = context.CursosDiplomadoFormacion.Where(w => w.IdCD == id).Single();
+                context.CursosDiplomadoFormacion.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("EditarCD", new { id = id_acad });
+            }
+        }
+
+        public IActionResult EliminarEP(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                ExperienciaProfesional eliminar = context.ExperienciaProfesional.Where(w => w.IdEp == id).Single();
+                context.ExperienciaProfesional.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("EditarEP", new { id = id_acad });
+            }
+        }
 
 
 

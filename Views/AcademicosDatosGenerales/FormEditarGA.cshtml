@@ -72,7 +72,7 @@
                             </div>
                             <div class="form-group">
                                 Fecha de egreso
-                                <input name="FechaDeEgreso" asp-for="FechaDeEgreso" value="@Model.FechaDeEgreso" id="fechaegreso" type="date" class="form-control">
+                                <input name="FechaDeEgreso" asp-for="FechaDeEgreso"  id="fechaegreso" type="date" class="form-control">
                                 <br>
                             </div>
                         </div>
@@ -90,9 +90,11 @@
                                 <input asp-for="AcrePnpc" type="radio" value="2"> PNPC
                             </div>
                             <label>Subir titulo</label><br>
+                            <label>Actualizar evidencia:  @Model.ArchivoTitulo </label><br>
                             <input asp-for="ArchivoTitulo" type="file" class="default" value="@Model.ArchivoTitulo" name="file">
                             <br>
                             <label>Subir cedula</label><br>
+                            <label>Actualizar evidencia:  @Model.ArchivoCedula </label><br>
                             <input asp-for="ArchivoCedula" type="file" class="default" value="@Model.ArchivoCedula" name="file2">
                             <br>
                             <br>

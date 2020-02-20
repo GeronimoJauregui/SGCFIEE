@@ -1,0 +1,95 @@
+﻿@model SGCFIEE.Models.pTipoContratacion;
+@{
+    ViewData["Title"] = "TablaTC";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var tl = (IEnumerable<TipoLaboratorio>)ViewData["tl"];
+    var tp = (IEnumerable<TipoPersonal>)ViewData["tp"];
+    var academico = (int)ViewData["academico"];
+    var tipo = (int)ViewData["tipo"];
+}
+
+<!DOCTYPE html>
+<html>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>DATOS DEL ACADÉMICO</header>
+            </div>
+            <div class="white-box">
+                <!-- Nav tabs -->
+                <div class="p-rl-20">
+                    <ul class="nav customtab nav-tabs" role="tablist">
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarDG" class="nav-link">Datos generales</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarGA" class="nav-link">Grados académicos</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarCertificaciones" class="nav-link">Certificaciones</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarCD" class="nav-link">Cursos/Diplomados</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarEP" class="nav-link">Experiencia profesional</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarTC" class="nav-link active">Tipo de contratación</a></li>
+                        <li class="nav-item"><a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarDistinciones" class="nav-link">Reconocimientos académicos</a></li>
+                    </ul>
+                </div>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active fontawesome-demo" id="tab1">
+                        <div class="card-body " id="bar-parent2">
+                            <form asp-controller="AcademicosDatosGenerales" asp-action="ActualizarTC" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <input asp-for="IdAcademico" type="hidden" value="@academico">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <label>Tipo de contratación</label>
+                                            <select asp-for="tipopersonal" class="form-control" id="tipocontratacion">
+                                                @foreach (var item in tp)
+                                                {
+                                                    @if (item.IdTipoPersonal != Model.tipopersonal)
+                                                    {
+                                                        <option value="@item.IdTipoPersonal">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option selected value="@item.IdTipoPersonal">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                    }
+                                                    
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group" id="div_laboratorio">
+                                            <label>Laboratorio</label>
+                                            <select asp-for="IdTipoLaboratorio" class="form-control" id="laboratorio">
+                                                @foreach (var item in tl)
+                                                {
+                                                    @if (item.IdTipoLaboratorio != Model.IdTipoLaboratorio)
+                                                    {
+                                                        <option value="@item.IdTipoLaboratorio">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option selected value="@item.IdTipoLaboratorio">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                    }
+
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="form-group" id="div_fecha_nombramiento">
+                                            Fecha de nombramiento
+                                            <input asp-for="FechaNombramiento" id="fecha_nombramiento" type="date" class="form-control">
+
+                                            <label>Archivo:  @Model.Archivo </label><br>
+                                            <input asp-for="Archivo" type="file" name="file" class="default" id="archivo">
+                                        </div>
+                                        <br> <br>
+                                        <input id="guardarcurso" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -43,7 +43,7 @@
                                     </div>
                                 </div>
                                 <div class="table-scrollable">
-                                    <table class="table table-striped table-bordered table-hover table-checkable order-column " style="width: 100%" id="tabla_grados">
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column " style="width: 100%" id="EditarGA">
                                         <thead>
                                             <tr>
                                                 <th class="mdl-data-table__cell--non-numeric center">Nombre</th>
@@ -81,7 +81,7 @@
                                                     <a asp-route-id="@item.IdEstudios" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarGA" title="Editar" class="btn btn-primary btn-xs verdatos">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
-                                                    <a data-value="@item.IdEstudios" data-controlador="AcademicosDatosGenerales" data-accion="EliminarGA" data-id="@academico" data-regreso="EditarGA" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                    <a data-value="@item.IdEstudios" data-controlador="AcademicosDatosGenerales" data-accion="EliminarGA" data-id="@academico" data-regreso="EditarGA" name="eliminaracademico" class="btn btn-danger btn-xs" title="Eliminar">
                                                         <i class="fa fa-trash-o "></i>
                                                     </a>
                                                 </td>
