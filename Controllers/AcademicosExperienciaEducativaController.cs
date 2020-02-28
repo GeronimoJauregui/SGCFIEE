@@ -121,6 +121,7 @@ namespace SGCFIEE.Controllers
                 ListMCEE = (from MC in context.MapaCurricular
                                         join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
                                         join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                                        where  PE.Nombre != "Externo"
                                         select new MCEE
                                         {
                                             IdMapaCurricular = MC.IdMapaCurricular,
@@ -235,6 +236,7 @@ namespace SGCFIEE.Controllers
                 ListMCEE = (from MC in context.MapaCurricular
                             join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
                             join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                            where PE.Nombre != "Externo"
                             select new MCEE
                             {
                                 IdMapaCurricular = MC.IdMapaCurricular,
@@ -372,7 +374,8 @@ namespace SGCFIEE.Controllers
 
                 var mc = (from MC in context.MapaCurricular
                             join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
-                            where MC.IdProgramaEducativo == null
+                            join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                            where PE.Nombre == "Externo"
                             select new MCEE
                             {
                                 IdMapaCurricular = MC.IdMapaCurricular,
@@ -426,7 +429,8 @@ namespace SGCFIEE.Controllers
 
                 var mc = (from MC in context.MapaCurricular
                           join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
-                          where MC.IdProgramaEducativo == null
+                          join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                          where PE.Nombre == "Externo"
                           select new MCEE
                           {
                               IdMapaCurricular = MC.IdMapaCurricular,

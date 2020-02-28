@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SGCFIEE.Models
 {
-    public partial class AcademicosJurOposicion
+    public partial class Academicosjuroposicion
     {
         public int IdAcademicosJurOposicion { get; set; }
         public int? IdAcademico { get; set; }
