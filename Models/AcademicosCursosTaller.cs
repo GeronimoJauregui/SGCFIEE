@@ -8,6 +8,7 @@ namespace SGCFIEE.Models
         public int IdAcademicosCursosTaller { get; set; }
         public int? IdAcademico { get; set; }
         public int? IdCursosDiplo { get; set; }
+        public int? Lider { get; set; }
 
         public virtual Academicos IdAcademicoNavigation { get; set; }
         public virtual CursosTalleresAplicacion IdCursosDiploNavigation { get; set; }

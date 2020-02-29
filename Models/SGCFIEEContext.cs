@@ -128,7 +128,7 @@ namespace SGCFIEE.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=admin;");
+                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=1234567890;");
             }
         }
 
@@ -165,6 +165,8 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdArticulo).HasColumnName("idArticulo");
 
+                entity.Property(e => e.Lider).HasColumnName("lider");
+
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicoarticulos)
                     .HasForeignKey(d => d.IdAcademico)
@@ -194,6 +196,8 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.IdAcademico).HasColumnName("idAcademico");
 
                 entity.Property(e => e.IdCapLibro).HasColumnName("idCapLibro");
+
+                entity.Property(e => e.Lider).HasColumnName("lider");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicocaplibro)
@@ -225,6 +229,8 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdConcursos).HasColumnName("idConcursos");
 
+                entity.Property(e => e.Lider).HasColumnName("lider");
+
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicoconcursos)
                     .HasForeignKey(d => d.IdAcademico)
@@ -254,6 +260,8 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.IdAcademico).HasColumnName("idAcademico");
 
                 entity.Property(e => e.IdCongreso).HasColumnName("idCongreso");
+
+                entity.Property(e => e.Lider).HasColumnName("lider");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicocongresos)
@@ -285,6 +293,8 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdLibroAcad).HasColumnName("idLibroAcad");
 
+                entity.Property(e => e.Lider).HasColumnName("lider");
+
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicolibro)
                     .HasForeignKey(d => d.IdAcademico)
@@ -314,6 +324,8 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.IdAcademico).HasColumnName("idAcademico");
 
                 entity.Property(e => e.IdPonenciasConf).HasColumnName("idPonenciasConf");
+
+                entity.Property(e => e.Lider).HasColumnName("lider");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicoponenciasconf)
@@ -345,6 +357,8 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdReportesTec).HasColumnName("idReportesTec");
 
+                entity.Property(e => e.Lider).HasColumnName("lider");
+
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicoreportest)
                     .HasForeignKey(d => d.IdAcademico)
@@ -374,6 +388,8 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.IdAcademico).HasColumnName("idAcademico");
 
                 entity.Property(e => e.IdRevista).HasColumnName("idRevista");
+
+                entity.Property(e => e.Lider).HasColumnName("lider");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicorevistas)
@@ -473,6 +489,8 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdCuerpoAcad).HasColumnName("idCuerpoAcad");
 
+                entity.Property(e => e.Lider).HasColumnName("lider");
+
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicoscuerposacad)
                     .HasForeignKey(d => d.IdAcademico)
@@ -502,6 +520,8 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.IdAcademico).HasColumnName("idAcademico");
 
                 entity.Property(e => e.IdCursosDiplo).HasColumnName("idCursosDiplo");
+
+                entity.Property(e => e.Lider).HasColumnName("lider");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicoscursostaller)
@@ -533,6 +553,8 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdEvaluadores).HasColumnName("idEvaluadores");
 
+                entity.Property(e => e.Lider).HasColumnName("lider");
+
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicosevaluadores)
                     .HasForeignKey(d => d.IdAcademico)
@@ -562,6 +584,8 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.IdAcademico).HasColumnName("idAcademico");
 
                 entity.Property(e => e.IdJurado).HasColumnName("idJurado");
+
+                entity.Property(e => e.Lider).HasColumnName("lider");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicosjuradorecep)
@@ -593,6 +617,8 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdJurado).HasColumnName("idJurado");
 
+                entity.Property(e => e.Lider).HasColumnName("lider");
+
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicosjuroposicion)
                     .HasForeignKey(d => d.IdAcademico)
@@ -623,6 +649,8 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdPatentes).HasColumnName("idPatentes");
 
+                entity.Property(e => e.Lider).HasColumnName("lider");
+
                 entity.HasOne(d => d.IdAcademicosNavigation)
                     .WithMany(p => p.Academicospatentes)
                     .HasForeignKey(d => d.IdAcademicos)
@@ -652,6 +680,8 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.IdAcademico).HasColumnName("idAcademico");
 
                 entity.Property(e => e.IdTrabajosRecep).HasColumnName("idTrabajosRecep");
+
+                entity.Property(e => e.Lider).HasColumnName("lider");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicotrabajosrecep)
