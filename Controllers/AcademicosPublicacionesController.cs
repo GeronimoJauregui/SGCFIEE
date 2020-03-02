@@ -20,6 +20,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexArticulos()
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaArticulos> ListArticulos = new List<TablaArticulos>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -36,7 +38,14 @@ namespace SGCFIEE.Controllers
                                      NombreArticulo = datos.Nombre,
                                  }
                                ).ToList();
+                if(tipoUsu == 2)
+                {
+                    List<Academicoarticulos> ListAcad = new List<Academicoarticulos>();
+                    ListAcad = context.Academicoarticulos.Where(w => w.IdAcademico == idUsu && w.Lider == 1).ToList();
+                    ViewData["ListAcad"] = ListAcad;
+                }
             }
+
             return View(ListArticulos);
         }
         [Authorize]
@@ -57,6 +66,11 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarArticulos(IFormFile file, Articulos datos, int idAcademico, int Lider)
         {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 2)
+            {
+                idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var name = file.GetFilename();
@@ -96,6 +110,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult AcademicosArticulos(int id)
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaAcadArticulos> ListAcadArticulos = new List<TablaAcadArticulos>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -116,6 +132,21 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idArticulo"] = id;
+                if (tipoUsu == 2)
+                {
+                    Academicoarticulos Acad = new Academicoarticulos();
+                    int cant = context.Academicoarticulos.Where(w => w.IdArticulo == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                    if (cant > 0)
+                    {
+                        Acad = context.Academicoarticulos.Where(w => w.IdArticulo == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
+                    }
+                    else
+                    {
+                        Acad = null;
+                    }
+                    ViewData["Acad"] = Acad;
+                }
+
             }
             return View(ListAcadArticulos);
         }
