@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Home/Principal.cshtml";
+    var ListAcad = (IEnumerable<Academicoponenciasconf>)ViewData["ListAcad"];
+    var tipo = (int)ViewData["tipo"];
 }
 
 <!DOCTYPE html>
@@ -73,12 +75,30 @@
                                                                     <a asp-route-id="@item.IdPonenConfer" asp-controller="AcademicosParticipacionesAcad" asp-action="AcademicosPonencias_Conferencias" class="btn btn-success btn-xs" title="Académicos responsables">
                                                                         <i class="fa fa-check"></i>
                                                                     </a>
-                                                                    <a asp-route-id="@item.IdPonenConfer" asp-controller="AcademicosParticipacionesAcad" asp-action="EditarPonencias_Conferencias" class="btn btn-primary btn-xs" title="Editar">
-                                                                        <i class="fa fa-pencil"></i>
-                                                                    </a>
-                                                                    <a data-value="@item.IdPonenConfer" data-controlador="AcademicosParticipacionesAcad" data-accion="EliminarPonencias_Conferencias" data-regreso="IndexPonencias_Conferencias" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                                                        <i class="fa fa-trash-o "></i>
-                                                                    </a>
+                                                                    @if (tipo == 2)
+                                                                    {
+                                                                        @foreach (var item2 in ListAcad)
+                                                                        {
+                                                                            @if (item2.IdPonenciasConf == item.IdPonenConfer)
+                                                                            {
+                                                                                <a asp-route-id="@item.IdPonenConfer" asp-controller="AcademicosParticipacionesAcad" asp-action="EditarPonencias_Conferencias" class="btn btn-primary btn-xs" title="Editar">
+                                                                                    <i class="fa fa-pencil"></i>
+                                                                                </a>
+                                                                                <a data-value="@item.IdPonenConfer" data-controlador="AcademicosParticipacionesAcad" data-accion="EliminarPonencias_Conferencias" data-regreso="IndexPonencias_Conferencias" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                                    <i class="fa fa-trash-o "></i>
+                                                                                </a>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    @if (tipo == 1)
+                                                                    {
+                                                                        <a asp-route-id="@item.IdPonenConfer" asp-controller="AcademicosParticipacionesAcad" asp-action="EditarPonencias_Conferencias" class="btn btn-primary btn-xs" title="Editar">
+                                                                            <i class="fa fa-pencil"></i>
+                                                                        </a>
+                                                                        <a data-value="@item.IdPonenConfer" data-controlador="AcademicosParticipacionesAcad" data-accion="EliminarPonencias_Conferencias" data-regreso="IndexPonencias_Conferencias" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                            <i class="fa fa-trash-o "></i>
+                                                                        </a>
+                                                                    }
                                                                 </td>
                                                             </tr>
                                                         }

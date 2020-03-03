@@ -19,6 +19,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexJurExperiencia()
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaJurExperiencia> ListJurExperiencia = new List<TablaJurExperiencia>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -41,6 +43,12 @@ namespace SGCFIEE.Controllers
                                           JuradoPrejurado = datos.JuradoPrejurado
                                       }
                                ).Where(s => s.JuradoPrejurado == 1).ToList();
+                if (tipoUsu == 2)
+                {
+                    List<Academicosjuradorecep> ListAcad = new List<Academicosjuradorecep>();
+                    ListAcad = context.Academicosjuradorecep.Where(w => w.IdAcademico == idUsu && w.Lider == 1).ToList();
+                    ViewData["ListAcad"] = ListAcad;
+                }
             }
             return View(ListJurExperiencia);
         }
@@ -65,7 +73,7 @@ namespace SGCFIEE.Controllers
                 {
                     foreach (Alumnos item2 in datAlum)
                     {
-                        if (item.IdAlumno == item2.IdAlumnos)
+                        if (item.IdAlumno == item2.IdAlumnos && item.Proceso == 1)
                         {
                             datosfin.Add(item2);
                         }
@@ -93,7 +101,11 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarJurExperiencia(IFormFile file, JuradoExperienciaRecepcional datos, int idAcademico, int Lider)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 2)
+            {
+                idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var datosAlum = context.Alumnos.Where(s => s.RDatosPerson == datos.IdTr).Single();
@@ -267,6 +279,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult AcademicosJurExperiencia(int id)
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaAcadJurExperiencia> ListAcadJurExp = new List<TablaAcadJurExperiencia>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -287,6 +301,20 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idJur"] = id;
+                if (tipoUsu == 2)
+                {
+                    Academicosjuradorecep Acad = new Academicosjuradorecep();
+                    int cant = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                    if (cant > 0)
+                    {
+                        Acad = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
+                    }
+                    else
+                    {
+                        Acad = null;
+                    }
+                    ViewData["Acad"] = Acad;
+                }
             }
             return View(ListAcadJurExp);
         }
@@ -331,6 +359,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexJurOposicion()
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaJurOposicion> ListJurOposicion = new List<TablaJurOposicion>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -346,6 +376,12 @@ namespace SGCFIEE.Controllers
                                         Archivo = datos.Archivo,
                                     }
                                ).ToList();
+                if (tipoUsu == 2)
+                {
+                    List<Academicosjuroposicion> ListAcad = new List<Academicosjuroposicion>();
+                    ListAcad = context.Academicosjuroposicion.Where(w => w.IdAcademico == idUsu && w.Lider == 1).ToList();
+                    ViewData["ListAcad"] = ListAcad;
+                }
             }
             return View(ListJurOposicion);
         }
@@ -367,7 +403,11 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarJurOposicion(IFormFile file, JuradoExamenOposicion datos, int idAcademico, int Lider)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 2)
+            {
+                idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var name = file.GetFilename();
@@ -500,6 +540,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult AcademicosJurOposicion(int id)
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaAcadJurOposicion> ListAcadJurOpo = new List<TablaAcadJurOposicion>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -520,6 +562,20 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idJur"] = id;
+                if (tipoUsu == 2)
+                {
+                    Academicosjuroposicion Acad = new Academicosjuroposicion();
+                    int cant = context.Academicosjuroposicion.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                    if (cant > 0)
+                    {
+                        Acad = context.Academicosjuroposicion.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
+                    }
+                    else
+                    {
+                        Acad = null;
+                    }
+                    ViewData["Acad"] = Acad;
+                }
             }
             return View(ListAcadJurOpo);
         }
@@ -941,6 +997,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexPreJurExperiencia()
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaPreJurExperiencia> ListPreJurExperiencia = new List<TablaPreJurExperiencia>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -962,6 +1020,12 @@ namespace SGCFIEE.Controllers
                                              JuradoPrejurado = datos.JuradoPrejurado
                                          }
                                ).Where(s => s.JuradoPrejurado == 0).ToList();
+                if (tipoUsu == 2)
+                {
+                    List<Academicosjuradorecep> ListAcad = new List<Academicosjuradorecep>();
+                    ListAcad = context.Academicosjuradorecep.Where(w => w.IdAcademico == idUsu && w.Lider == 1).ToList();
+                    ViewData["ListAcad"] = ListAcad;
+                }
             }
             return View(ListPreJurExperiencia);
         }
@@ -986,7 +1050,7 @@ namespace SGCFIEE.Controllers
                 {
                     foreach (Alumnos item2 in datAlum)
                     {
-                        if (item.IdAlumno == item2.IdAlumnos)
+                        if (item.IdAlumno == item2.IdAlumnos && item.Proceso == 0)
                         {
                             datosfin.Add(item2);
                         }
@@ -1013,7 +1077,11 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarPreJurExperiencia(IFormFile file, JuradoExperienciaRecepcional datos, int idAcademico, int Lider)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 2)
+            {
+                idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var datosAlum = context.Alumnos.Where(s => s.RDatosPerson == datos.IdTr).Single();
@@ -1179,6 +1247,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult AcademicosPreJurExperiencia(int id)
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaAcadJurExperiencia> ListAcadJurExp = new List<TablaAcadJurExperiencia>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -1199,6 +1269,20 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idJur"] = id;
+                if (tipoUsu == 2)
+                {
+                    Academicosjuradorecep Acad = new Academicosjuradorecep();
+                    int cant = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                    if (cant > 0)
+                    {
+                        Acad = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
+                    }
+                    else
+                    {
+                        Acad = null;
+                    }
+                    ViewData["Acad"] = Acad;
+                }
             }
             return View(ListAcadJurExp);
         }

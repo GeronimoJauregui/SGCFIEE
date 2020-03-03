@@ -4,6 +4,7 @@
     Layout = "~/Views/Home/Principal.cshtml";
     var acad = (IEnumerable<Academicos>)ViewData["academicos"];
     var lugar = (IEnumerable<TipoLocNacInter>)ViewData["lugar"];
+    var tipo = (int)ViewData["tipo"];
 }
 <!DOCTYPE html>
 
@@ -20,16 +21,18 @@
                         <input name="Lider" value="1" type="hidden"/>
                         <div class="row">
                         <div class="col-md-6 col-md-6">
-
-                            <div class="form-group">
-                                <label>Académico</label>
-                                <select name="idAcademico" class="form-control">
-                                    @foreach (var item in acad)
-                                    {
-                                        <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                    }
-                                </select>
-                            </div>
+                            @if (tipo == 1)
+                            {
+                                <div class="form-group">
+                                    <label>Académico</label>
+                                    <select name="idAcademico" class="form-control">
+                                        @foreach (var item in acad)
+                                        {
+                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                        }
+                                    </select>
+                                </div>
+                            }
                             <div class="form-group">
                                 <label>Tipo</label>
                                 <select asp-for="IdNacInter" class="form-control">

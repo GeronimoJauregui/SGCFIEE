@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "IndexConcursos";
     Layout = "~/Views/Home/Principal.cshtml";
+    var ListAcad = (IEnumerable<Academicoconcursos>)ViewData["ListAcad"];
+    var tipo = (int)ViewData["tipo"];
 }
 
 <!DOCTYPE html>
@@ -69,12 +71,30 @@
                                                                     <a asp-route-id="@item.IdConcursos" asp-controller="AcademicosPublicaciones" asp-action="AcademicosConcursos" class="btn btn-success btn-xs" title="Académicos responsables del concurso">
                                                                         <i class="fa fa-check"></i>
                                                                     </a>
-                                                                    <a asp-route-id="@item.IdConcursos" asp-controller="AcademicosPublicaciones" asp-action="EditarConcursos" class="btn btn-primary btn-xs" title="Editar">
-                                                                        <i class="fa fa-pencil"></i>
-                                                                    </a>
-                                                                    <a data-value="@item.IdConcursos" data-controlador="AcademicosPublicaciones" data-accion="EliminarConcursos" data-regreso="IndexConcursos" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                                                        <i class="fa fa-trash-o "></i>
-                                                                    </a>
+                                                                    @if (tipo == 2)
+                                                                    {
+                                                                        @foreach (var item2 in ListAcad)
+                                                                        {
+                                                                            @if (item2.IdConcursos == item.IdConcursos)
+                                                                            {
+                                                                                <a asp-route-id="@item.IdConcursos" asp-controller="AcademicosPublicaciones" asp-action="EditarConcursos" class="btn btn-primary btn-xs" title="Editar">
+                                                                                    <i class="fa fa-pencil"></i>
+                                                                                </a>
+                                                                                <a data-value="@item.IdConcursos" data-controlador="AcademicosPublicaciones" data-accion="EliminarConcursos" data-regreso="IndexConcursos" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                                    <i class="fa fa-trash-o "></i>
+                                                                                </a>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    @if (tipo == 1)
+                                                                    {
+                                                                        <a asp-route-id="@item.IdConcursos" asp-controller="AcademicosPublicaciones" asp-action="EditarConcursos" class="btn btn-primary btn-xs" title="Editar">
+                                                                            <i class="fa fa-pencil"></i>
+                                                                        </a>
+                                                                        <a data-value="@item.IdConcursos" data-controlador="AcademicosPublicaciones" data-accion="EliminarConcursos" data-regreso="IndexConcursos" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                            <i class="fa fa-trash-o "></i>
+                                                                        </a>
+                                                                    }
                                                                 </td>
                                                             </tr>
                                                         }

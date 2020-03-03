@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "IndexPatentes";
     Layout = "~/Views/Home/Principal.cshtml";
+    var ListAcad = (IEnumerable<Academicospatentes>)ViewData["ListAcad"];
+    var tipo = (int)ViewData["tipo"];
 }
 
 <!DOCTYPE html>
@@ -69,12 +71,30 @@
                                                                     <a asp-route-id="@item.IdPatentes" asp-controller="AcademicosPublicaciones" asp-action="AcademicosPatentes" class="btn btn-success btn-xs" title="Académicos responsables de la patente">
                                                                         <i class="fa fa-check"></i>
                                                                     </a>
-                                                                    <a asp-route-id="@item.IdPatentes" asp-controller="AcademicosPublicaciones" asp-action="EditarPatentes" class="btn btn-primary btn-xs" title="Editar">
-                                                                        <i class="fa fa-pencil"></i>
-                                                                    </a>
-                                                                    <a data-value="@item.IdPatentes" data-controlador="AcademicosPublicaciones" data-accion="EliminarPatentes" data-regreso="IndexPatentes" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                                                        <i class="fa fa-trash-o "></i>
-                                                                    </a>
+                                                                    @if (tipo == 2)
+                                                                    {
+                                                                        @foreach (var item2 in ListAcad)
+                                                                        {
+                                                                            @if (item2.IdPatentes == item.IdPatentes)
+                                                                            {
+                                                                                <a asp-route-id="@item.IdPatentes" asp-controller="AcademicosPublicaciones" asp-action="EditarPatentes" class="btn btn-primary btn-xs" title="Editar">
+                                                                                    <i class="fa fa-pencil"></i>
+                                                                                </a>
+                                                                                <a data-value="@item.IdPatentes" data-controlador="AcademicosPublicaciones" data-accion="EliminarPatentes" data-regreso="IndexPatentes" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                                    <i class="fa fa-trash-o "></i>
+                                                                                </a>
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    @if (tipo == 1)
+                                                                    {
+                                                                        <a asp-route-id="@item.IdPatentes" asp-controller="AcademicosPublicaciones" asp-action="EditarPatentes" class="btn btn-primary btn-xs" title="Editar">
+                                                                            <i class="fa fa-pencil"></i>
+                                                                        </a>
+                                                                        <a data-value="@item.IdPatentes" data-controlador="AcademicosPublicaciones" data-accion="EliminarPatentes" data-regreso="IndexPatentes" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                            <i class="fa fa-trash-o "></i>
+                                                                        </a>
+                                                                    }
                                                                 </td>
                                                             </tr>
                                                         }

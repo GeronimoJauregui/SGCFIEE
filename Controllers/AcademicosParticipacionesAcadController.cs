@@ -20,6 +20,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexArbitraje()
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaEvaluadores> ListEvaluadores = new List<TablaEvaluadores>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -35,6 +37,12 @@ namespace SGCFIEE.Controllers
                                        StatusEvaluador = datos.Status
                                    }
                                ).ToList();
+                if (tipoUsu == 2)
+                {
+                    List<Academicosevaluadores> ListAcad = new List<Academicosevaluadores>();
+                    ListAcad = context.Academicosevaluadores.Where(w => w.IdAcademico == idUsu && w.Lider == 1).ToList();
+                    ViewData["ListAcad"] = ListAcad;
+                }
             }
             return View(ListEvaluadores);
         }
@@ -56,7 +64,11 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarArbitraje(IFormFile file, EvaluadoresAcademicos datos, int idAcademico, int Lider)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 2)
+            {
+                idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var name = file.GetFilename();
@@ -186,6 +198,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult AcademicosArbitraje(int id)
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaAcadArbitraje> ListAcadArbitraje = new List<TablaAcadArbitraje>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -206,6 +220,20 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idArbitraje"] = id;
+                if (tipoUsu == 2)
+                {
+                    Academicosevaluadores Acad = new Academicosevaluadores();
+                    int cant = context.Academicosevaluadores.Where(w => w.IdEvaluadores == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                    if (cant > 0)
+                    {
+                        Acad = context.Academicosevaluadores.Where(w => w.IdEvaluadores == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
+                    }
+                    else
+                    {
+                        Acad = null;
+                    }
+                    ViewData["Acad"] = Acad;
+                }
             }
             return View(ListAcadArbitraje);
         }
@@ -251,6 +279,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexCursos_Talleres()
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaCursoTaller> ListCursoTaller = new List<TablaCursoTaller>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -265,6 +295,12 @@ namespace SGCFIEE.Controllers
                                        Fecha = datos.Fecha.ToString()
                                    }
                                ).ToList();
+                if (tipoUsu == 2)
+                {
+                    List<Academicoscursostaller> ListAcad = new List<Academicoscursostaller>();
+                    ListAcad = context.Academicoscursostaller.Where(w => w.IdAcademico == idUsu && w.Lider == 1).ToList();
+                    ViewData["ListAcad"] = ListAcad;
+                }
             }
             return View(ListCursoTaller);
         }
@@ -284,7 +320,11 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarCursos_Talleres(IFormFile file, CursosTalleresAplicacion datos, int idAcademico, int Lider)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 2)
+            {
+                idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var name = file.GetFilename();
@@ -414,6 +454,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult AcademicosCursos_Talleres(int id)
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaAcadCursoTalleres> ListAcadCursoTaller = new List<TablaAcadCursoTalleres>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -434,6 +476,20 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idCursoTaller"] = id;
+                if (tipoUsu == 2)
+                {
+                    Academicoscursostaller Acad = new Academicoscursostaller();
+                    int cant = context.Academicoscursostaller.Where(w => w.IdCursosDiplo == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                    if (cant > 0)
+                    {
+                        Acad = context.Academicoscursostaller.Where(w => w.IdCursosDiplo == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
+                    }
+                    else
+                    {
+                        Acad = null;
+                    }
+                    ViewData["Acad"] = Acad;
+                }
             }
             return View(ListAcadCursoTaller);
         }
@@ -477,6 +533,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexPartCuerpos()
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaCA> ListCA = new List<TablaCA>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -494,6 +552,12 @@ namespace SGCFIEE.Controllers
                               NombreCuerpo = cuerpo.Nombre
                           }
                                ).ToList();
+                if (tipoUsu == 2)
+                {
+                    List<Academicoscuerposacad> ListAcad = new List<Academicoscuerposacad>();
+                    ListAcad = context.Academicoscuerposacad.Where(w => w.IdAcademico == idUsu && w.Lider == 1).ToList();
+                    ViewData["ListAcad"] = ListAcad;
+                }
             }
             return View(ListCA);
         }
@@ -517,7 +581,11 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarPartCuerpos(IFormFile file, CaAcademicos datos, int idAcademico, int Lider)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 2)
+            {
+                idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var name = file.GetFilename();
@@ -651,6 +719,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult AcademicosPartCuerpos(int id)
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaAcadPartCuerpos> ListAcadPartCuerpos = new List<TablaAcadPartCuerpos>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -671,6 +741,20 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idCuerpoAcad"] = id;
+                if (tipoUsu == 2)
+                {
+                    Academicoscuerposacad Acad = new Academicoscuerposacad();
+                    int cant = context.Academicoscuerposacad.Where(w => w.IdCuerpoAcad == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                    if (cant > 0)
+                    {
+                        Acad = context.Academicoscuerposacad.Where(w => w.IdCuerpoAcad == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
+                    }
+                    else
+                    {
+                        Acad = null;
+                    }
+                    ViewData["Acad"] = Acad;
+                }
             }
             return View(ListAcadPartCuerpos);
         }
@@ -714,6 +798,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult IndexPonencias_Conferencias()
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaPonenciasConferencias> ListPonenciasConferencias = new List<TablaPonenciasConferencias>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -730,6 +816,12 @@ namespace SGCFIEE.Controllers
                                                  tipo = tipo.Nombre
                                              }
                             ).ToList();
+                if (tipoUsu == 2)
+                {
+                    List<Academicoponenciasconf> ListAcad = new List<Academicoponenciasconf>();
+                    ListAcad = context.Academicoponenciasconf.Where(w => w.IdAcademico == idUsu && w.Lider == 1).ToList();
+                    ViewData["ListAcad"] = ListAcad;
+                }
             }
             return View(ListPonenciasConferencias);
         }
@@ -751,7 +843,11 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> GuardarPonencias_Conferencias(IFormFile file, PonenciasConferencias datos, int idAcademico, int Lider)
         {
-
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 2)
+            {
+                idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var name = file.GetFilename();
@@ -883,6 +979,8 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult AcademicosPonencias_Conferencias(int id)
         {
+            int tipoUsu = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             List<TablaAcadPonenciaConf> ListAcadPonenciasConfe = new List<TablaAcadPonenciaConf>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -903,6 +1001,20 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idPonencia"] = id;
+                if (tipoUsu == 2)
+                {
+                    Academicoponenciasconf Acad = new Academicoponenciasconf();
+                    int cant = context.Academicoponenciasconf.Where(w => w.IdPonenciasConf == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                    if (cant > 0)
+                    {
+                        Acad = context.Academicoponenciasconf.Where(w => w.IdPonenciasConf == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
+                    }
+                    else
+                    {
+                        Acad = null;
+                    }
+                    ViewData["Acad"] = Acad;
+                }
             }
             return View(ListAcadPonenciasConfe);
         }
