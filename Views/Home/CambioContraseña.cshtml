@@ -1,0 +1,73 @@
+﻿@model SGCFIEE.Models.Usuarios;
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+ 
+    <title>SGCFIEE | Universidad Veracruzana</title>
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
+    <!-- icons -->
+    <link href="~/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/fonts/material-design-icons/material-icon.css" rel="stylesheet" type="text/css" />
+    <!-- bootstrap -->
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- style -->
+    <link rel="stylesheet" href="~/assets/css/pages/extra_pages.css">
+    <link rel="stylesheet" href="~/assets/css/login.css">
+    <!-- favicon -->
+    <link rel="icon" href="@Url.Content("~/assets/img/logicon.jpg")" />
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="row">
+                        <h3 style="color:#666666; text-align: center; width: 100%; margin-top: 14%;">Actualize su Contrase&ntilde;a</h3>
+                </div>
+                <!-- Login Form-->
+                <div class="row">
+                    <div class="login-form text-center">
+                        <div>
+                        </div>
+                        <div class="form formLogin">
+                            <form asp-action="actualizarcontrasenia" asp-controller="Home">
+                                @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    <input asp-for="IdUsuario" type="hidden" />
+                                    <input asp-for="Nombre" type="hidden" />
+                                    <input asp-for="IdAcademico" type="hidden" />
+                                    <input asp-for="IdAlumno" type="hidden" />
+                                    <input asp-for="Tipo" type="hidden" />
+                                    <input asp-for="Contrasenia" type="password" placeholder="Nueva Contrase&ntilde;a" />
+                                    <span asp-validation-for="Contrasenia" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success btn-sm m-b-10">Guardar</button>
+                                    <a asp-controller="Home" asp-action="Default" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                        Omitir
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- start js include path -->
+    <script src="~/assets/plugins/jquery/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/assets/js/pages/extra_pages/pages.js" asp-append-version="true"></script>
+    <!-- end js include path -->
+</body>
+</html>

@@ -15,8 +15,8 @@ namespace SGCFIEE.Models
         public int IdAcademico { get; set; }
         public int? IdGradoTitulo { get; set; }
         public string GradoTitulo { get; set; }
-        public DateTime? FechaDeEgreso { get; set; }
-        public DateTime? FechaDeTitulacion { get; set; }
+        public string FechaDeEgreso { get; set; }
+        public string FechaDeTitulacion { get; set; }
         public int? AcrePnpc { get; set; }
         public string Reconocimiento { get; set; }
         public string ArchivoTitulo { get; set; }

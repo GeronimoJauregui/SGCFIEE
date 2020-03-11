@@ -1,28 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/SGCFIEE.csproj": {}
+    "C:\\Users\\dxvm1\\Desktop\\SGCFIEE\\SGCFIEE\\SGCFIEE.csproj": {}
   },
   "projects": {
-    "/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/SGCFIEE.csproj": {
+    "C:\\Users\\dxvm1\\Desktop\\SGCFIEE\\SGCFIEE\\SGCFIEE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/SGCFIEE.csproj",
+        "projectUniqueName": "C:\\Users\\dxvm1\\Desktop\\SGCFIEE\\SGCFIEE\\SGCFIEE.csproj",
         "projectName": "SGCFIEE",
-        "projectPath": "/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/SGCFIEE.csproj",
-        "packagesPath": "/Users/mac/.nuget/packages/",
-        "outputPath": "/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/",
+        "projectPath": "C:\\Users\\dxvm1\\Desktop\\SGCFIEE\\SGCFIEE\\SGCFIEE.csproj",
+        "packagesPath": "C:\\Users\\dxvm1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dxvm1\\Desktop\\SGCFIEE\\SGCFIEE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/Users/mac/.config/NuGet/NuGet.Config"
+          "C:\\Users\\dxvm1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -89,7 +91,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

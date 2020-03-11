@@ -12,7 +12,7 @@ public int IdDatosPersonales { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
         public string Correo { get; set; }
-        public DateTime? FechaNacimiento { get; set; }
+        public string FechaNacimiento { get; set; }
         public string Nacionalidad { get; set; }
         public string EstadoCivil { get; set; }
         public int? Genero { get; set; }
@@ -53,7 +53,7 @@ public int IdDatosPersonales { get; set; }
         public float examen4 { get; set; }
         public float examen5 { get; set; }
         public string Nombreevento { get; set; }
-        public DateTime? Fechaevento { get; set; }
+        public string Fechaevento { get; set; }
         public string Tipomovi { get; set; }
         public string Paisdestino { get; set; }
         public string Entidaddestino { get; set; }

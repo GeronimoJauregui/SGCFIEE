@@ -11,7 +11,7 @@ namespace SGCFIEE.Models
         public string Nombre { get; set; }
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
-        public DateTime? FechaNacimiento { get; set; }
+        public string FechaNacimiento { get; set; }
         public string Curp { get; set; }
         public string CorreoInstitucional { get; set; }
         public string CorreoAlternativo { get; set; }
@@ -21,7 +21,7 @@ namespace SGCFIEE.Models
         public int? NumeroPersonal { get; set; }
         public int? IdProgramaEducativo { get; set; }
         public string ProgramaEducativo { get; set; }
-        public DateTime? FechaIngresoUv { get; set; }
+        public string FechaIngresoUv { get; set; }
         public int? Status { get; set; }
         public string NombreStatus { get; set; }
         public int? RTipoPersonal { get; set; }

@@ -71,6 +71,7 @@ namespace SGCFIEE.Controllers
             byte[] input = (new UnicodeEncoding()).GetBytes(pass);
             byte[] hash = sha1.ComputeHash(input);
             string passwo = Convert.ToBase64String(hash);
+            string contra = user.password;
             user.password = passwo;
             using(sgcfieeContext context = new sgcfieeContext())
             {
@@ -92,12 +93,46 @@ namespace SGCFIEE.Controllers
                 if(usu.Tipo == 3)
                 {
                     HttpContext.Session.SetInt32 ("IdUsu", usu.IdAlumno.Value);
+                    using (sgcfieeContext context = new sgcfieeContext())
+                    {
+                        Alumnos alum = context.Alumnos.Where(w => w.IdAlumnos == usu.IdAlumno).Single();
+                        DatosPersonales dp = context.DatosPersonales.Where(w => w.IdDatosPersonales == alum.RDatosPerson).Single();
+                        string subcurp;
+                        if (dp.Curp == null)
+                        {
+                            subcurp = alum.RDatosPersonNavigation.Curp;
+                        }
+                        else
+                        {
+                            subcurp = alum.RDatosPersonNavigation.Curp.Substring(0, 10);
+                        }
+                        if (subcurp == contra)
+                        {
+                            return RedirectToAction("CambioContraseña", new { id = usu.IdUsuario });
+                        }
+
+                    }
                 }
                 else
                 {
                     HttpContext.Session.SetInt32("IdUsu", usu.IdAcademico.Value);
+                    using (sgcfieeContext context = new sgcfieeContext())
+                    {
+                        Academicos aca = context.Academicos.Where(w => w.IdAcademicos == usu.IdAcademico).Single();
+                        string subcurp;
+                        if (aca.Curp == null){
+                            subcurp = aca.Curp;
+                        }
+                        else {
+                            subcurp = aca.Curp.Substring(0, 10);
+                        }
+                        if (subcurp == contra) {
+                            return RedirectToAction("CambioContraseña", new {id = usu.IdUsuario });
+                        }
+
+                    }
                 }
-                
+
                 return RedirectToAction("Default");
             }
             else
@@ -108,9 +143,38 @@ namespace SGCFIEE.Controllers
         }
 
         public IActionResult Default()
-        {
+        {   
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
+        }
+
+        public IActionResult CambioContraseña(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                Usuarios usu = context.Usuarios.Where(e => e.IdUsuario == id).Single();
+                return View(usu);
+            }
+            
+        }
+
+        public IActionResult actualizarcontrasenia(Usuarios usu)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                String p = string.Concat(usu.Nombre, usu.Contrasenia);
+                SHA1 sha = new SHA1CryptoServiceProvider();
+                byte[] input2 = (new UnicodeEncoding()).GetBytes(p);
+                byte[] h = sha.ComputeHash(input2);
+                string pa = Convert.ToBase64String(h);
+                usu.Contrasenia = pa;
+                context.Usuarios.Update(usu);
+                context.SaveChanges();
+            }
+            
+            return RedirectToAction("Default");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

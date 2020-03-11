@@ -13,8 +13,8 @@ namespace SGCFIEE.Models
         public string empresa { get; set; }
         public int? IdTipoPuesto { get; set; }
         public string TipoPuesto { get; set; }
-        public DateTime? FechaInicio { get; set; }
-        public DateTime? FechaFin { get; set; }
+        public string FechaInicio { get; set; }
+        public string FechaFin { get; set; }
         public int? antiguedad { get; set; }
         public string Archivo { get; set; }
         public string AreaDesarrollo { get; set; }

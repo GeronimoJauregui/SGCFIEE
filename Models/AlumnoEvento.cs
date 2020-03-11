@@ -9,6 +9,6 @@ namespace SGCFIEE.Models
     {
         public string tipoeve { get; set; }
         public string nombreeve { get; set; }
-        public DateTime? fecha { get; set; }
+        public string fecha { get; set; }
     }
 }

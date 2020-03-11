@@ -35,7 +35,7 @@ namespace SGCFIEE.Controllers
                                   Nombre = aca.Nombre,
                                   ApellidoPaterno = aca.ApellidoPaterno,
                                   ApellidoMaterno = aca.ApellidoMaterno,
-                                  FechaNacimiento = aca.FechaNacimiento,
+                                  FechaNacimiento = aca.FechaNacimiento.ToString(),
                                   Curp = aca.Curp,
                                   CorreoInstitucional = aca.CorreoInstitucional,
                                   CorreoAlternativo = aca.CorreoAlternativo,
@@ -43,7 +43,7 @@ namespace SGCFIEE.Controllers
                                   Sexo = aca.Sexo,
                                   ProgramaEducativo = pe.Nombre,
                                   NumeroPersonal = aca.NumeroPersonal,
-                                  FechaIngresoUv = aca.FechaIngresoUv,
+                                  FechaIngresoUv = aca.FechaIngresoUv.ToString(),
                                   Status = aca.Status,
                                   RTipoPersonal = aca.RTipoPersonal,
                                   tipoPersonal = tp.Nombre,
@@ -78,7 +78,7 @@ namespace SGCFIEE.Controllers
                                   Nombre = aca.Nombre,
                                   ApellidoPaterno = aca.ApellidoPaterno,
                                   ApellidoMaterno = aca.ApellidoMaterno,
-                                  FechaNacimiento = aca.FechaNacimiento,
+                                  FechaNacimiento = aca.FechaNacimiento.ToString(),
                                   Curp = aca.Curp,
                                   CorreoInstitucional = aca.CorreoInstitucional,
                                   CorreoAlternativo = aca.CorreoAlternativo,
@@ -86,7 +86,7 @@ namespace SGCFIEE.Controllers
                                   Sexo = aca.Sexo,
                                   ProgramaEducativo = pe.Nombre,
                                   NumeroPersonal = aca.NumeroPersonal,
-                                  FechaIngresoUv = aca.FechaIngresoUv,
+                                  FechaIngresoUv = aca.FechaIngresoUv.ToString(),
                                   Status = aca.Status,
                                   RTipoPersonal = aca.RTipoPersonal,
                                   tipoPersonal = tp.Nombre,
@@ -138,6 +138,9 @@ namespace SGCFIEE.Controllers
                 ViewData["pe"] = pe;
                 ViewData["aca"] = aca;
                 ViewData["academico"] = id;
+                //string fecha = aca.FechaNacimiento.ToString();
+                //string[] resultado = fecha.Split(' ');
+                //ViewData["fecha"] = resultado[0];
             }
             return View(aca);
         }
@@ -159,7 +162,11 @@ namespace SGCFIEE.Controllers
                 usunuevo.Nombre = last.NumeroPersonal.ToString();
                 usunuevo.Tipo = 2;
 
-                String p = string.Concat(last.NumeroPersonal.ToString(), last.Curp.ToString());
+                string curp = last.Curp.ToString();
+                string subcurp = curp.Substring(0,10);
+
+
+                String p = string.Concat(last.NumeroPersonal.ToString(), subcurp.ToString());
                 SHA1 sha = new SHA1CryptoServiceProvider();
                 byte[] input2 = (new UnicodeEncoding()).GetBytes(p);
                 byte[] h = sha.ComputeHash(input2);
@@ -219,8 +226,8 @@ namespace SGCFIEE.Controllers
                                 Institucion = ie.Nombre,
                                 GradoTitulo = gt.Nombre,
                                 AcrePnpc = es.AcrePnpc,
-                                FechaDeEgreso = es.FechaDeEgreso,
-                                FechaDeTitulacion = es.FechaDeTitulacion
+                                FechaDeEgreso = es.FechaDeEgreso.ToString(),
+                                FechaDeTitulacion = es.FechaDeTitulacion.ToString()
                             }
                                ).ToList();
 
@@ -302,8 +309,8 @@ namespace SGCFIEE.Controllers
                                 Institucion = ie.Nombre,
                                 GradoTitulo = gt.Nombre,
                                 AcrePnpc = es.AcrePnpc,
-                                FechaDeEgreso = es.FechaDeEgreso,
-                                FechaDeTitulacion = es.FechaDeTitulacion
+                                FechaDeEgreso = es.FechaDeEgreso.ToString(),
+                                FechaDeTitulacion = es.FechaDeTitulacion.ToString()
                             }
                                ).ToList();
 
@@ -643,7 +650,7 @@ namespace SGCFIEE.Controllers
                           IdIesEmpresa = cd.IdIesEmpresa,
                           institucion = ins.Nombre,
                           Lugar = cd.Lugar,
-                          Fecha = cd.Fecha,
+                          Fecha = cd.Fecha.ToString(),
                           Archivo = cd.Archivo
 
                       }
@@ -677,7 +684,7 @@ namespace SGCFIEE.Controllers
                           IdIesEmpresa = cd.IdIesEmpresa,
                           institucion = ins.Nombre,
                           Lugar = cd.Lugar,
-                          Fecha = cd.Fecha,
+                          Fecha = cd.Fecha.ToString(),
                           Archivo = cd.Archivo
 
                       }
@@ -830,8 +837,8 @@ namespace SGCFIEE.Controllers
                           empresa = ins.Nombre,
                           IdTipoPuesto = tip.IdPuesto,
                           TipoPuesto = tip.Nombre,
-                          FechaInicio = ep.FechaInicio,
-                          FechaFin = ep.FechaFin,
+                          FechaInicio = ep.FechaInicio.ToString(),
+                          FechaFin = ep.FechaFin.ToString(),
                           AreaDesarrollo = ep.AreaDesarrollo
 
                       }
@@ -866,8 +873,8 @@ namespace SGCFIEE.Controllers
                           empresa = ins.Nombre,
                           IdTipoPuesto = tip.IdPuesto,
                           TipoPuesto = tip.Nombre,
-                          FechaInicio = ep.FechaInicio,
-                          FechaFin = ep.FechaFin,
+                          FechaInicio = ep.FechaInicio.ToString(),
+                          FechaFin = ep.FechaFin.ToString(),
                           AreaDesarrollo = ep.AreaDesarrollo,
                           Archivo = ep.Archivo
 
@@ -1364,7 +1371,7 @@ namespace SGCFIEE.Controllers
                               Nombre = aca.Nombre,
                               ApellidoPaterno = aca.ApellidoPaterno,
                               ApellidoMaterno = aca.ApellidoMaterno,
-                              FechaNacimiento = aca.FechaNacimiento,
+                              FechaNacimiento = aca.FechaNacimiento.ToString(),
                               Curp = aca.Curp,
                               CorreoInstitucional = aca.CorreoInstitucional,
                               CorreoAlternativo = aca.CorreoAlternativo,
@@ -1372,7 +1379,7 @@ namespace SGCFIEE.Controllers
                               Sexo = aca.Sexo,
                               ProgramaEducativo = pe.Nombre,
                               NumeroPersonal = aca.NumeroPersonal,
-                              FechaIngresoUv = aca.FechaIngresoUv,
+                              FechaIngresoUv = aca.FechaIngresoUv.ToString(),
                               Status = aca.Status,
                               RTipoPersonal = aca.RTipoPersonal,
                               tipoPersonal = tp.Nombre,
@@ -1418,8 +1425,8 @@ namespace SGCFIEE.Controllers
                                 Institucion = ie.Nombre,
                                 GradoTitulo = gt.Nombre,
                                 AcrePnpc = es.AcrePnpc,
-                                FechaDeEgreso = es.FechaDeEgreso,
-                                FechaDeTitulacion = es.FechaDeTitulacion,
+                                FechaDeEgreso = es.FechaDeEgreso.ToString(),
+                                FechaDeTitulacion = es.FechaDeTitulacion.ToString(),
                                 ArchivoCedula = es.ArchivoCedula,
                                 ArchivoTitulo = es.ArchivoTitulo
 
@@ -1488,7 +1495,7 @@ namespace SGCFIEE.Controllers
                           IdIesEmpresa = cd.IdIesEmpresa,
                           institucion = ins.Nombre,
                           Lugar = cd.Lugar,
-                          Fecha = cd.Fecha,
+                          Fecha = cd.Fecha.ToString(),
                           Archivo = cd.Archivo
 
                       }
@@ -1519,8 +1526,8 @@ namespace SGCFIEE.Controllers
                           empresa = ins.Nombre,
                           IdTipoPuesto = tip.IdPuesto,
                           TipoPuesto = tip.Nombre,
-                          FechaInicio = ep.FechaInicio,
-                          FechaFin = ep.FechaFin,
+                          FechaInicio = ep.FechaInicio.ToString(),
+                          FechaFin = ep.FechaFin.ToString(),
                           AreaDesarrollo = ep.AreaDesarrollo,
                           Archivo = ep.Archivo
 

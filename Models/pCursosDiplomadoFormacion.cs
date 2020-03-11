@@ -16,7 +16,7 @@ namespace SGCFIEE.Models
         public int? IdIesEmpresa { get; set; }
         public string institucion { get; set; }
         public string Lugar { get; set; }
-        public DateTime? Fecha { get; set; }
+        public string Fecha { get; set; }
         public string Archivo { get; set; }
     }
 }

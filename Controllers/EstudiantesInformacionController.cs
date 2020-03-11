@@ -91,7 +91,9 @@ namespace SGCFIEE.Controllers
                     usunuevo.Nombre = alu.Matricula;
                     usunuevo.Tipo = 3;
                     usunuevo.IdAlumno = alu.IdAlumnos;
-                    String contrasena = string.Concat(alu.Matricula, alu.RDatosPersonNavigation.ApellidoPaterno);
+                    string curp = alu.RDatosPersonNavigation.Curp;
+                    curp = curp.Substring(0, 10);
+                    String contrasena = string.Concat(alu.Matricula, curp);
                     SHA1 sha1 = new SHA1CryptoServiceProvider();
                     byte[] input = (new UnicodeEncoding()).GetBytes(contrasena);
                     byte[] hash = sha1.ComputeHash(input);
@@ -296,7 +298,7 @@ namespace SGCFIEE.Controllers
                         var a = context.TbEventos.Where(s => s.IdEventos == item.REvento).FirstOrDefault();
                         var b = context.TipoEventos.Where(s => s.IdEventos == a.RTioEvento).FirstOrDefault();
                         datoseve.nombreeve = a.Nombre;
-                        datoseve.fecha = item.Fecha;
+                        datoseve.fecha = item.Fecha.ToString();
                         datoseve.tipoeve = b.Nombre;
                         listevento.Add(datoseve);
                         datoseve = new AlumnoEvento();
@@ -385,7 +387,7 @@ namespace SGCFIEE.Controllers
                 datosalumno.ApellidoPaterno = datos.ApellidoPaterno;
                 datosalumno.ApellidoMaterno = datos.ApellidoMaterno;
                 datosalumno.Correo = datos.Correo;
-                datosalumno.FechaNacimiento = datos.FechaNacimiento;
+                datosalumno.FechaNacimiento = datos.FechaNacimiento.ToString();
                 datosalumno.Nacionalidad = datos.Nacionalidad;
                 datosalumno.EstadoCivil = datos.EstadoCivil;
                 datosalumno.Genero = datos.Genero;
