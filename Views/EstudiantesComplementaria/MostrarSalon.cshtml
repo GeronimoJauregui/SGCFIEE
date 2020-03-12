@@ -20,11 +20,23 @@
                 </div>
             </div>
             <div class="card-body ">
+                <div class="row p-b-20">
+                    <div class="col-md-6 col-sm-6 col-6">
+                        <div class="btn-group">
+                            <a  asp-action="CrearSalon" asp-controller="EstudiantesComplementaria" class="btn btn-success btn-sm m-b-10">
+                                INSERTAR
+                            </a>
+                        </div>
+                        <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                            VOLVER
+                        </a>
+                    </div>
+                </div>
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="tbcomp">
                     <thead>
                         <tr>
                             <th class="center" style="width: 200px"> Estatus </th>
-                            <th class="center" style="width: 700px;"> Clave Salon/Laboratorio</th>
+                            <th class="center" style="width: 700px;"> Número del salon</th>
                             <th class="center">Edificio</th>
                             <th style="display: none"></th>
                             <th class="center">Acción</th>

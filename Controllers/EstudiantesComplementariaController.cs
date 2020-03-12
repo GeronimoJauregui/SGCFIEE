@@ -34,7 +34,7 @@ namespace SGCFIEE.Controllers
                 context.ProgramaEducativo.Add(programa);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Programa agregado correctamente";
-                return RedirectToAction("Index");
+                return RedirectToAction("MostrarProgramas");
             }
         }
         [Authorize]
@@ -110,7 +110,7 @@ namespace SGCFIEE.Controllers
                 context.TbRubrosexamenes.Add(rubro);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Rubro guardado correctamente";
-                return RedirectToAction("Index");
+                return RedirectToAction("MostrarRubro");
             }
         }
         [Authorize]
@@ -177,7 +177,7 @@ namespace SGCFIEE.Controllers
                 context.TbSalones.Add(salon);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Salon agregado correctamente";
-                return RedirectToAction("Index");
+                return RedirectToAction("MostrarSalon");
             }
         }
         [Authorize]
@@ -242,7 +242,7 @@ namespace SGCFIEE.Controllers
                 context.AreaExperienciaEducativa.Add(area);
                 context.SaveChanges();
                 TempData["mensaje"] = "El area se guardo correctamente";
-                return RedirectToAction("Index");
+                return RedirectToAction("MostrarArea");
             }
         }
         [Authorize]
@@ -312,7 +312,7 @@ namespace SGCFIEE.Controllers
                 context.ExperienciaEducativa.Add(expe);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Experiencia agregada correctamente";
-                return RedirectToAction("Index");
+                return RedirectToAction("MostrarExperiencia");
             }
         }
         [Authorize]
@@ -378,8 +378,8 @@ namespace SGCFIEE.Controllers
             {
                 context.CtMovilidades.Add(movi);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Movildiad guardada correctamente"
-; return RedirectToAction("Index");
+                TempData["Mensaje"] = "Movildiad guardada correctamente";
+                return RedirectToAction("MostrarMovilidad");
             }
         }
         [Authorize]
@@ -454,7 +454,7 @@ namespace SGCFIEE.Controllers
                 context.CtTipoCalificacion.Add(tip);
                 context.SaveChanges();
                 TempData["Mensaje"] = "El tipo se ha guardado correctamente";
-                return RedirectToAction("Index");
+                return RedirectToAction("MostrarTipo");
             }
         }
         [Authorize]
@@ -500,7 +500,7 @@ namespace SGCFIEE.Controllers
                 context.CtTipoCalificacion.Remove(tipo);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Dato eliminado";
-                return RedirectToAction("MostrarSalon");
+                return RedirectToAction("MostrarTipo");
             }
         }
         [Authorize]
@@ -519,7 +519,7 @@ namespace SGCFIEE.Controllers
                 context.TipoEventos.Add(tipoe);
                 context.SaveChanges();
                 TempData["Mensaje"] = "El tipo de evento ha sido guardado";
-                return RedirectToAction("Index");
+                return RedirectToAction("MostrarTipoe");
             }
         }
         [Authorize]
@@ -565,7 +565,7 @@ namespace SGCFIEE.Controllers
                 context.TipoEventos.Remove(tipoe);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Dato eliminado";
-                return RedirectToAction("MostrarSalon");
+                return RedirectToAction("MostrarTipoe");
             }
         }
         [HttpGet]
@@ -589,7 +589,7 @@ namespace SGCFIEE.Controllers
                 context.TbEventos.Add(evento);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Evento guardado correctamente";
-                return RedirectToAction("Index");
+                return RedirectToAction("MostrarEvento");
             }
         }
         [Authorize]
@@ -599,13 +599,12 @@ namespace SGCFIEE.Controllers
             List<TablaEvento> list = new List<TablaEvento>();
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                list = (from t in context.TipoEventos
-                        join
-                        e in context.TbEventos on t.IdEventos equals e.IdEventos
+                list = (from t in context.TbEventos
+                        join e in context.TipoEventos on t.RTioEvento equals e.IdEventos
                         select
                         new TablaEvento
                         {
-                            IdEventos = e.IdEventos,
+                            IdEventos = t.IdEventos,
                             Nombre = e.Nombre,
                             NombreEvento = t.Nombre
                         }).ToList();
@@ -647,7 +646,7 @@ namespace SGCFIEE.Controllers
                 context.TbEventos.Remove(evento);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Dato eliminado";
-                return RedirectToAction("MostrarSalon");
+                return RedirectToAction("MostrarEvento");
             }
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

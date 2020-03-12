@@ -12,24 +12,23 @@
         <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-topline-green"></div>
-
-                <div class="p-rl-20">
-                    <ul class="nav customtab nav-tabs" role="tablist">
-                        <li id="tb1" class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Información de movilidad</a></li>
-                    </ul>
-                </div>
-                <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane fontawesome-demo active show" id="tab1">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
-
+                                <div class="card-head" id="idDatosPersonales">
+                                    <header>Información de movilidad</header>
+                                </div>
                                 <div class="card-body " id="bar-parent2">
                                     <div class="row">
                                         <div class="col-md-6 col-6 b-r">
                                             <strong>Tipo de movilidad</strong>
                                             <br>
-                                            <p id="" class="text-muted">@Html.DisplayFor(model => model.TipoMovilidades)</p>
+                                            @if (Model.TipoMovilidades == 1)
+                                            {  <div><p id="" class="text-muted"> Nacional </p> </div> }
+                                            @if (Model.TipoMovilidades == 2)
+                                            { <div><p id="" class="text-muted"> Internacional</p> </div>}
+                                            
                                             <br>
                                         </div>
                                         <div class="col-md-6 col-6 b-r">
@@ -60,9 +59,7 @@
                                     <a asp-controller="EstudiantesComplementaria" asp-action="MostrarMovilidad" class="btn btn-success btn-sm m-b-10">
                                         Regresar a tabla
                                     </a>
-                                    <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-success btn-sm m-b-10">
-                                        Regresar a principal
-                                    </a>
+                                    
                                 </div>
 
                             </div>

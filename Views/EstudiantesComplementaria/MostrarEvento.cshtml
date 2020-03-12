@@ -19,6 +19,18 @@
                 </div>
             </div>
             <div class="card-body ">
+                <div class="row p-b-20">
+                    <div class="col-md-6 col-sm-6 col-6">
+                        <div class="btn-group">
+                            <a  asp-action="CrearEvento" asp-controller="EstudiantesComplementaria" class="btn btn-success btn-sm m-b-10">
+                                INSERTAR
+                            </a>
+                        </div>
+                        <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                            VOLVER
+                        </a>
+                    </div>
+                </div>
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="tbcomp">
                     <thead>
                         <tr>
@@ -34,14 +46,14 @@
                         {
                             <tr class="odd gradeX">
                                 <td class="center">Activo</td>
-                                <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.NombreEvento)</td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
                                 <td>
                                     <div class="center">
                                         <a asp-route-id="@item.IdEventos" asp-controller="EstudiantesComplementaria" asp-action="EditarEvento" class="btn btn-primary btn-xs editar" title="Editar">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a asp-route-id="@item.IdEventos" asp-action="Eliminar" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                        <a asp-route-id="@item.IdEventos" asp-controller="EstudiantesComplementaria" asp-action="EliminarEventoe" class="btn btn-danger btn-xs eliminar" title="Eliminar">
                                             <i class="fa fa-trash-o "></i>
                                         </a>
                                     </div>

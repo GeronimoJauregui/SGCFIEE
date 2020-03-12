@@ -16,30 +16,21 @@
             <div class="card">
                 <div class="card-topline-green"></div>
                 <div class="white-box">
-                    <!-- Nav tabs -->
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Información de eventos</a></li>
-                        </ul>
-                    </div>
-                    <!-- Tab panes -->
+                    
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
                             <form asp-action="CrearEvento" asp-antiforgery="true">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
                                         <div class="card-head">
-                                            <header>Eventos</header>
+                                            <header>Información del eventos</header>
                                         </div>
                                         <div class="card-body " id="bar-parent2">
                                             <div class="row">
 
                                                 <div class="col-md-6 col-sm-6">
                                                     <!-- text input -->
-                                                    <div class="form-group">
-                                                        <label asp-for="Nombre">Nombre del evento</label>
-                                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre del evento" required="required">
-                                                    </div>
+                                                    
                                                     <div class="form-group">
                                                         <label>Tipo de evento</label>
                                                         <select asp-for="RTioEvento" class="form-control" id="areaexp">
@@ -50,14 +41,37 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="Nombre">Nombre del evento</label>
+                                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-default btn-sm m-b-10">
-                                    Cancelar
-                                </a>
-                                <input type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <a asp-controller="EstudiantesComplementaria" asp-action="MostrarEvento" class="btn btn-success btn-sm m-b-10">
+                                                        Mostrar tabla
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <input type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                    <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                        Cancelar
+                                                    </a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                             </form>
                         </div>
                     </div>

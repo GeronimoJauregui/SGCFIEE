@@ -1,11 +1,8 @@
 ﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
   <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/AcademicosComisiones/CrearJurOposicion.cshtml">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/EstudiantesComplementaria/Index.cshtml">
     <Files>
-      <File FileName="Controllers/AcademicosComisionesController.cs" Line="64" Column="37" />
-      <File FileName="Views/AcademicosComisiones/CrearJurExperiencia.cshtml" Line="1" Column="1" />
-      <File FileName="Views/AcademicosComisiones/CrearPreJurExperiencia.cshtml" Line="1" Column="1" />
-      <File FileName="Views/AcademicosComisiones/CrearJurOposicion.cshtml" Line="1" Column="1" />
+      <File FileName="Views/EstudiantesComplementaria/Index.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,8 +11,8 @@
             <Node name="SGCFIEE" expanded="True">
               <Node name="Controllers" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="AcademicosComisiones" expanded="True">
-                  <Node name="CrearJurOposicion.cshtml" selected="True" />
+                <Node name="EstudiantesComplementaria" expanded="True">
+                  <Node name="Index.cshtml" selected="True" />
                 </Node>
               </Node>
             </Node>
