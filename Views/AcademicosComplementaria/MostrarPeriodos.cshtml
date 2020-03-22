@@ -21,7 +21,7 @@
                         <div class="col-md-6 col-sm-6 col-6">
                             <div class="btn-group">
                                 <a id="cancelarEdicion" asp-action="InsertarPeriodos" asp-controller="AcademicosComplementaria" class="btn btn-success btn-sm m-b-10">
-                                    Insertar
+                                    INSERTAR
                                 </a>
                             </div>
 
@@ -34,8 +34,6 @@
                         <thead>
                             <tr>
                                 <th class="center">Periodo</th>
-                                <th class="center">Fecha inicial</th>
-                                <th class="center">Fecha final</th>
                                 <th class="center">Acciones</th>
                             </tr>
                         </thead>
@@ -44,8 +42,6 @@
                             {
                                 <tr class="odd gradeX">
                                     <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                    <td class="center">@Html.DisplayFor(modelItem => item.FechaInicio)</td>
-                                    <td class="center">@Html.DisplayFor(modelItem => item.FechaFin)</td>
                                     <td class="center">
                                         <a asp-route-id="@item.IdPeriodo" asp-controller="AcademicosComplementaria" asp-action="EliminarPeriodo" class="btn btn-danger btn-xs  deletepersonal" title="Eliminar">
                                             <i class="fa fa-trash-o"></i>

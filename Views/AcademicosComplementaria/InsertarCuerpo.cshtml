@@ -11,13 +11,12 @@
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-topline-green"></div>
-                <div class="white-box">
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Crear cuerpo académico</a></li>
-                        </ul>
+                <div class="card-topline-green">
+                    <div class="card-head">
+                        <header>Cuerpo académico</header>
                     </div>
+                </div>
+                <div class="white-box">
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
                             <div class="row">
@@ -39,8 +38,8 @@
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label asp-for="Nombre">Nombre de la cuerpo academico</label>
-                                                            <input asp-for="Nombre" id="nom" type="text" class="form-control" placeholder="Nombre ...">
+                                                            <label asp-for="Nombre">Nombre del cuerpo académico</label>
+                                                            <input asp-for="Nombre" id="nom" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                             <span asp-validation-for="Nombre" class="text-danger"></span>
                                                         </div>
                                                     </div>
@@ -57,15 +56,28 @@
                                                 </div>
                                                 
                                             </div>
-                                            <button type="submit" class="btn btn-success btn-sm m-b-10" id="enviarSolicitud">
-                                                Guardar
-                                            </button>
-                                            <a id="cancelarEdicion" asp-action="VistaOpcionesCatalogos" asp-controller="AcademicosComplementaria" class="btn btn-default btn-sm m-b-10">
-                                            Cancelar
-                                            </a>
-                                            <a id="cancelarEdicion" asp-action="MostrarCuerpos" asp-controller="AcademicosComplementaria" class="btn btn-success btn-sm m-b-10">
-                                                Mostrar tabla
-                                            </a>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="card-body " id="bar-parent2">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <a asp-controller="AcademicosComplementaria" asp-action="MostrarCuerpos" class="btn btn-success btn-sm m-b-10">
+                                                                    Mostrar tabla
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <button type="submit" class="btn btn-success btn-sm m-b-10" id="enviarSolicitud" style="float:right">
+                                                                    Guardar
+                                                                </button>
+                                                                <a asp-action="VistaOpcionesCatalogos" asp-controller="AcademicosComplementaria" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                                    Cancelar
+                                                                </a>
+                                                    
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>
                                         
                                     </div>

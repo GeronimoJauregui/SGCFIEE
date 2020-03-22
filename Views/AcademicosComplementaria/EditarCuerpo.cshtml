@@ -11,13 +11,12 @@
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-topline-green"></div>
-                <div class="white-box">
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Editar cuerpo académico</a></li>
-                        </ul>
+                <div class="card-topline-green">
+                    <div class="card-head">
+                        <header>Cuerpo académico</header>
                     </div>
+                </div>
+                <div class="white-box">
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
                             <div class="row">
@@ -26,14 +25,26 @@
                                         <!-- text input -->
                                         <form asp-action="ActualizarCuerpo" asp-antiforgery="true">
                                             <div class="card-body " id="bar-parent2">
+                                                 <div class="btn-group" style="float:right">
+                                                    <a  asp-action="MostrarEstado" asp-controller="AcademicosComplementaria" class="btn btn-default btn-sm m-b-10" >
+                                                        Mostrar tabla de estado
+                                                    </a>
+                                                </div>
+                                                <div class="btn-group" style="float:right">
+                                                    <a  asp-action="InsertarEstado" asp-controller="AcademicosComplementaria" class="btn btn-success btn-sm m-b-10" >
+                                                        Insertar estado
+                                                    </a>
+                                                </div>
                                                 <div class="row">
                                                     <input type="hidden" asp-for="IdCuerpoAcademico" />
                                                     <div class="col-md-6 col-sm-6">
                                                         <div class="form-group">
                                                             <label >Nombre del cuerpo académico: </label>
-                                                            <input asp-for="Nombre" type="text" class="form-control">
+                                                            <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                             <span asp-validation-for="Nombre" class="text-danger"></span>
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3">
                                                         <div class="form-group">
                                                             <label>Estado del cuerpo académico</label>
                                                             <select asp-for="IdEstado" class="form-control">
@@ -53,12 +64,25 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-success btn-sm m-b-10">
-                                                Guardar cambios
-                                            </button>
-                                            <a asp-controller="AcademicosComplementaria" asp-action="MostrarCuerpos" class="btn btn-default btn-sm m-b-10">
-                                                Cancelar
-                                            </a>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="card-body " id="bar-parent2">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6">
+                                                    
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <button type="submit" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                                    Guardar
+                                                                </button>
+                                                                <a asp-controller="AcademicosComplementaria" asp-action="MostrarCuerpos" id="cancelarEdicion" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                                    Cancelar
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
 

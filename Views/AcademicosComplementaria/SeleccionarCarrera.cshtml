@@ -27,6 +27,19 @@
                                 <div class="col-md-12 col-sm-12">
 
                                     <div class="card-body " id="bar-parent2">
+                                        <div class="row p-b-20">
+                                            <div class="col-md-6 col-sm-6 col-6">
+                                                <div class="btn-group">
+                                                    <a id="cancelarEdicion" asp-action="VCarreras" asp-controller="AcademicosComplementaria" class="btn btn-success btn-sm m-b-10">
+                                                        Mostrar mapas curriculares
+                                                    </a>
+                                                </div>
+
+                                                <a id="cancelarEdicion" asp-action="VistaOpcionesCatalogos" asp-controller="AcademicosComplementaria" class="btn btn-default btn-sm m-b-10">
+                                                    Volver
+                                                </a>
+                                            </div>
+                                        </div>
                                         <!-- text input -->
                                         <form asp-action="MostrarMaterias" asp-antiforgery="true">
                                             <div class="form-group">
@@ -39,11 +52,12 @@
                                                             <option value="@item.IdProgramaEducativo">@Html.DisplayFor(itemView => item.Nombre)</option>
                                                         }
                                                     </select>
+                                                    <br />
+                                                    <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
+                                                        Buscar
+                                                    </button>
                                                 </div>
-                                                <br />
-                                                <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
-                                                    Buscar
-                                                </button>
+                                                
                                             </div>
                                         </form>
                                     </div>
