@@ -128,7 +128,7 @@ namespace SGCFIEE.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=1234567890;");
+                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=admin;");
             }
         }
 
@@ -202,6 +202,7 @@ namespace SGCFIEE.Models
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Academicocaplibro)
                     .HasForeignKey(d => d.IdAcademico)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_tablaCapLibro_academico");
 
                 entity.HasOne(d => d.IdCapLibroNavigation)
@@ -2681,8 +2682,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdRubroExamen).HasColumnName("id_Rubro_Examen");
 
-                entity.Property(e => e.TipoExamen).HasColumnName("tipo_examen");
-
                 entity.HasOne(d => d.IdAlumnoNavigation)
                     .WithMany(p => p.TbExamenalumno)
                     .HasForeignKey(d => d.IdAlumno)
@@ -2868,6 +2867,8 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.RubroExamen)
                     .HasColumnName("Rubro_Examen")
                     .HasColumnType("varchar(60)");
+
+                entity.Property(e => e.TipoExamen).HasColumnName("tipo_examen");
             });
 
             modelBuilder.Entity<TbSalones>(entity =>
@@ -3020,14 +3021,6 @@ namespace SGCFIEE.Models
                 entity.ToTable("tipo_periodo");
 
                 entity.Property(e => e.IdPeriodo).HasColumnName("id_periodo");
-
-                entity.Property(e => e.FechaFin)
-                    .HasColumnName("Fecha_fin")
-                    .HasColumnType("date");
-
-                entity.Property(e => e.FechaInicio)
-                    .HasColumnName("Fecha_inicio")
-                    .HasColumnType("date");
 
                 entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
             });

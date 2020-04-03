@@ -30,8 +30,6 @@ namespace SGCFIEE.Models
 
         public int IdPeriodo { get; set; }
         public string Nombre { get; set; }
-        public DateTime? FechaInicio { get; set; }
-        public DateTime? FechaFin { get; set; }
 
         public virtual ICollection<ConsejoTecnico> ConsejoTecnicoIdFechaCierreNavigation { get; set; }
         public virtual ICollection<ConsejoTecnico> ConsejoTecnicoIdFechaInicialNavigation { get; set; }

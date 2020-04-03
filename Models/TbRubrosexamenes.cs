@@ -12,6 +12,7 @@ namespace SGCFIEE.Models
 
         public int IdTbRubrosExamenes { get; set; }
         public string RubroExamen { get; set; }
+        public int? TipoExamen { get; set; }
         public int? Status { get; set; }
 
         public virtual ICollection<TbExamenalumno> TbExamenalumno { get; set; }
