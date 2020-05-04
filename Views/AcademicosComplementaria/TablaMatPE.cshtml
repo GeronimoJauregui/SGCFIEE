@@ -77,7 +77,7 @@
                                                     <td class="center">@Html.DisplayFor(modelItem => item.area)</td>
                                                     <td class="center">@Html.DisplayFor(modelItem => item.creditos)</td>
                                                     <td class="center">
-                                                        <a asp-route-id="@item.idMapa" asp-action="EliminarMC" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                                        <a data-value="@item.idMapa" data-accion="EliminarMC" data-controlador="AcademicosComplementaria" data-regreso="TablaMatPE" name="eliminardato" class="btn btn-danger btn-xs eliminar" title="Eliminar">
                                                             <i class="fa fa-trash-o "></i>
                                                         </a>
 

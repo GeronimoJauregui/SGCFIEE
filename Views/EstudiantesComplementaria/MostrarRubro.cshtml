@@ -36,6 +36,7 @@
                         <tr>
                             <th style="display: none"></th>
                             <th class="center" style="width: 100px"> Estado del rubro </th>
+                            <th class="center" style="width: 100px"> Tipo de examen </th>
                             <th class="center" style="width: 700px;"> Nombre </th>
                             <th class="center">Accion</th>
                         </tr>
@@ -45,14 +46,25 @@
                         {
                             <tr class="odd gradeX">
                                 <td style="display: none">@Html.DisplayFor(modelItem => item.IdTbRubrosExamenes)</td>
-                                <td class="center">Activo</td>
+                                <td class="center">
+                                    @if (item.Status == 1)
+                                    { <div>Activo</div>  }
+                                    @if (item.Status == 0)
+                                    {<div>Inactivo</div>}
+                                </td>
+                                <td class="center">
+                                    @if (item.TipoExamen == 1)
+                                    { <div>Examen ingreso</div>  }
+                                    @if (item.TipoExamen == 0)
+                                    {<div>Examen interno</div>}
+                                </td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.RubroExamen)</td>
                                 <td>
                                     <div class="center">
                                         <a asp-route-id="@item.IdTbRubrosExamenes" asp-controller="EstudiantesComplementaria" asp-action="EditarRubro" class="btn btn-primary btn-xs editar" title="Editar">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a data-id="@item.RubroExamen" asp-route-id="@item.IdTbRubrosExamenes" asp-controller="EstudiantesComplementaria" asp-action="EliminarRubro" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                        <a data-value="@item.IdTbRubrosExamenes" data-controlador="EstudiantesComplementaria" data-accion="EliminarRubro" data-regreso="MostrarRubro" name="eliminardato" class="btn btn-danger btn-xs eliminar" title="Eliminar">
                                             <i class="fa fa-trash-o "></i>
                                         </a>
                                     </div>

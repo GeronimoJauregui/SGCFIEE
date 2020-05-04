@@ -288,7 +288,7 @@ namespace SGCFIEE.Controllers
                 context.AreaExperienciaEducativa.Remove(area);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Dato eliminado";
-                return RedirectToAction("MostrarSalon");
+                return RedirectToAction("MostrarArea");
             }
         }
         [Authorize]
@@ -363,6 +363,19 @@ namespace SGCFIEE.Controllers
                 return RedirectToAction("MostrarExperiencia");
             }
         }
+        [HttpGet]
+        public IActionResult EliminarExperiencia(int id)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var area = context.ExperienciaEducativa.Where<ExperienciaEducativa>(p => p.IdExperienciaEducativa == id).Single<ExperienciaEducativa>();
+                if (area == null) return NotFound();
+                context.ExperienciaEducativa.Remove(area);
+                context.SaveChanges();
+                TempData["Mensaje"] = "Dato eliminado";
+                return RedirectToAction("MostrarExperiencia");
+            }
+        }
         [Authorize]
         [HttpGet]
         public IActionResult CrearMovilidad()
@@ -410,6 +423,7 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var objeto = context.CtMovilidades.Where(o => o.IdCtMovilidades == id).Single();
+        
                 return View(objeto);
             }
         }
@@ -435,7 +449,7 @@ namespace SGCFIEE.Controllers
                 context.CtMovilidades.Remove(movi);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Dato eliminado";
-                return RedirectToAction("MostrarSalon");
+                return RedirectToAction("MostrarMovilidad");
             }
         }
         [Authorize]
@@ -606,7 +620,8 @@ namespace SGCFIEE.Controllers
                         {
                             IdEventos = t.IdEventos,
                             Nombre = e.Nombre,
-                            NombreEvento = t.Nombre
+                            NombreEvento = t.Nombre,
+                            Status = t.Status
                         }).ToList();
                 return View(list);
             }

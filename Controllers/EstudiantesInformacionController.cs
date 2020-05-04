@@ -33,7 +33,7 @@ namespace SGCFIEE.Controllers
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            if(tipo == 3)
+            if (tipo == 3)
             {
                 return RedirectToAction("Detalles");
             }
@@ -81,7 +81,7 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 usu = context.Usuarios.Where(s => s.Nombre.Equals(mat)).SingleOrDefault();
-                if(usu == null)
+                if (usu == null)
                 {
                     datos.RStatus = 0;
                     context.Alumnos.Add(datos);
@@ -101,7 +101,7 @@ namespace SGCFIEE.Controllers
                     usunuevo.Contrasenia = passwo;
                     context.Usuarios.Add(usunuevo);
                     context.SaveChanges();
-                    EnviarCorreo("Crear cuenta",alu.RDatosPersonNavigation.Correo,alu.Matricula,alu.RDatosPersonNavigation.ApellidoPaterno);
+                    EnviarCorreo("Crear cuenta", alu.RDatosPersonNavigation.Correo, alu.Matricula, alu.RDatosPersonNavigation.ApellidoPaterno);
                 }
                 else
                 {
@@ -109,7 +109,7 @@ namespace SGCFIEE.Controllers
                     Alumnos alu2 = context.Alumnos.Where(s => s.IdAlumnos == idalu).Single();
                     int alum = alu2.RDatosPerson.Value;
                     DatosPersonales dp = context.DatosPersonales.Where(s => s.IdDatosPersonales == alum).Single();
-                    EnviarCorreo("Recordatorio de datos", dp.Correo,alu2.Matricula,dp.ApellidoPaterno);
+                    EnviarCorreo("Recordatorio de datos", dp.Correo, alu2.Matricula, dp.ApellidoPaterno);
                 }
                 TempData["Mensaje"] = "Datos registrados";
                 return RedirectToAction("Index");
@@ -215,7 +215,7 @@ namespace SGCFIEE.Controllers
         public IActionResult Detalles(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            if(id == 0)
+            if (id == 0)
             {
                 id = (int)HttpContext.Session.GetInt32("IdUsu");
             }
@@ -312,7 +312,7 @@ namespace SGCFIEE.Controllers
                     foreach (var item in examen)
                     {
                         var a = context.TbRubrosexamenes.Where(s => s.IdTbRubrosExamenes == item.IdRubroExamen).FirstOrDefault();
-                        datosexamen.tipoexa = item.TipoExamen;
+                        //datosexamen.tipoexa = item.TipoExamen;
                         datosexamen.calificacion = item.CalificacionExamen;
                         datosexamen.rubroexamen = a.RubroExamen;
                         listexamen.Add(datosexamen);
@@ -418,7 +418,7 @@ namespace SGCFIEE.Controllers
         [HttpGet]
         public IActionResult CrearCali([FromQuery] int idalum)
         {
-            int id= (int)HttpContext.Session.GetInt32("IdUsu");
+            int id = (int)HttpContext.Session.GetInt32("IdUsu");
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
@@ -577,7 +577,7 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CrearEmpresa(CtEmpresaServPrac empresa)
         {
-            
+
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CtEmpresaServPrac.Add(empresa);
@@ -599,7 +599,7 @@ namespace SGCFIEE.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public void EnviarCorreo(String asunto,String correo, String cuenta, String contrasena)
+        public void EnviarCorreo(String asunto, String correo, String cuenta, String contrasena)
         {
             try
             {

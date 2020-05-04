@@ -35,7 +35,6 @@
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="tbcomp">
                     <thead>
                         <tr>
-                            <th class="center" style="width: 200px"> Estatus </th>
                             <th class="center" style="width: 700px;"> Número del salon</th>
                             <th class="center">Edificio</th>
                             <th style="display: none"></th>
@@ -45,7 +44,6 @@
                     <tbody>
                         @foreach (var item in Model) { 
                             <tr class="odd gradeX">
-                                <td> Activo</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.ClaveSalon)</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.Edificio)</td>
                                 <td style="display: none"></td>
@@ -55,7 +53,7 @@
                                         <a asp-route-id="@item.IdTbSalones" asp-controller="EstudiantesComplementaria" asp-action="EditarSalon" class="btn btn-primary btn-xs editar" title="Editar">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a asp-route-id="@item.IdTbSalones" asp-controller="EstudiantesComplementaria" asp-action="EliminarSalon" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                        <a data-value="@item.IdTbSalones" data-controlador="EstudiantesComplementaria" data-accion="EliminarSalon" data-regreso="MostrarSalon" name="eliminardato" class="btn btn-danger btn-xs eliminar" title="Eliminar">
                                             <i class="fa fa-trash-o "></i>
                                         </a>
                                     </div>

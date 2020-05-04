@@ -45,7 +45,12 @@
                         @foreach (var item in Model)
                         {
                             <tr class="odd gradeX">
-                                <td class="center">Activo</td>
+                                <td class="center">
+                                    @if (item.Status == 1)
+                                    { <div>Activo</div>  }
+                                    @if (item.Status == 0)
+                                    {<div>Inactivo</div>}
+                                </td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.NombreEvento)</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
                                 <td>
@@ -53,7 +58,7 @@
                                         <a asp-route-id="@item.IdEventos" asp-controller="EstudiantesComplementaria" asp-action="EditarEvento" class="btn btn-primary btn-xs editar" title="Editar">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a asp-route-id="@item.IdEventos" asp-controller="EstudiantesComplementaria" asp-action="EliminarEventoe" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                        <a data-value="@item.IdEventos" data-controlador="EstudiantesComplementaria" data-accion="EliminarEventoe" data-regreso="MostrarEvento" name="eliminardato" class="btn btn-danger btn-xs eliminar" title="Eliminar">
                                             <i class="fa fa-trash-o "></i>
                                         </a>
                                     </div>

@@ -66,7 +66,7 @@
                                         <a asp-route-id="@item.IdProgramaEducativo" asp-controller="EstudiantesComplementaria" asp-action="EditarPrograma" class="btn btn-primary btn-xs editar" title="Editar">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a asp-route-id="@item.IdProgramaEducativo" asp-controller="EstudiantesComplementaria" asp-action="EliminarPrograma" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                        <a data-value="@item.IdProgramaEducativo" data-controlador="EstudiantesComplementaria" data-accion="EliminarPrograma" data-regreso="MostrarProgramas" name="eliminardato" class="btn btn-danger btn-xs eliminar" title="Eliminar">
                                             <i class="fa fa-trash-o "></i>
                                         </a>
                                     </div>

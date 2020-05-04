@@ -31,18 +31,21 @@
                                             <div class="row">
 
                                                 <div class="col-md-6 col-sm-6">
-                                                    <label>Tipo de movilidad</label><br />
-                                                    <div class="radio p-0">
-                                                        <input checked="true" type="radio" name="optionsRadios2" id="nacional" value="true">
-                                                        <label for="nacional">
-                                                            Nacional
-                                                        </label>
-                                                    </div>
-                                                    <div class="radio p-0">
-                                                        <input type="radio" name="optionsRadios2" id="internacional" value="false">
-                                                        <label for="internacional">
-                                                            Internacional
-                                                        </label>
+                                                    <div class="form-group">
+                                                        <label asp-for="TipoMovilidades">Tipo: </label>
+                                                        <select asp-for="TipoMovilidades" class="form-control" required="required">
+                                                            
+                                                            @if (1 != Model.TipoMovilidades)
+                                                            {
+                                                                <option value="2">Internacional</option>
+                                                                <option value="1">Nacional</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option value="1">Nacional</option>
+                                                                <option value="2">Internacional</option>
+                                                            }
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="PaisDestinoMovilidad">Pais destino</label>
@@ -84,8 +87,6 @@
                                                     <a asp-controller="EstudiantesComplementaria" asp-action="MostrarMovilidad" class="btn btn-default btn-sm m-b-10" style="float:right">
                                                         Cancelar
                                                     </a>
-                                                    
-                                                    
                                                 </div>
                                             </div>
                                         </div>

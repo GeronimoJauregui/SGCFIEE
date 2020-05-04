@@ -52,7 +52,7 @@
                                     <td class="center">Inactivo</td>
                                 }
                             <td class="center">
-                                <a asp-route-id="@item.IdProgramasTrasversales" asp-controller="AcademicosComplementaria" asp-action="EliminarPTransversal" class="btn btn-danger btn-xs  deletepersonal" title="Eliminar">
+                                <a data-value="@item.IdProgramasTrasversales" data-controlador="AcademicosComplementaria" data-accion="EliminarPTransversal" data-regreso="MostrarProTransversales" name="eliminardato" class="btn btn-danger btn-xs  deletepersonal" title="Eliminar">
                                     <i class="fa fa-trash-o"></i>
                                 </a>
                                 <a asp-route-id="@item.IdProgramasTrasversales" asp-controller="AcademicosComplementaria" asp-action="FormEditarProTra" class="btn btn-primary btn-xs editar" title="Editar">

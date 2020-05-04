@@ -52,3 +52,4 @@ $('a[name="eliminaracademico"]').on('click', function () {
     });
 
 });
+

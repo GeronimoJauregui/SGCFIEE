@@ -29,17 +29,6 @@
                                         
                                         <div class="card-body " id="bar-parent2">
                                             <div class="row">
-
-                                                <div class="col-md-6 col-sm-6">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
-                                                        <label >Tipo de examen</label>
-                                                        <select class="form-control" id="programa">
-                                                            <option> Examen ingreso </option>
-                                                            <option> Examen interno </option>
-                                                        </select>
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-6 col-sm-6">
                                                     <div class="form-group">
                                                         <label asp-for="RubroExamen">Nombre del rubro</label>
@@ -47,6 +36,20 @@
                                                         <span asp-validation-for="RubroExamen" class="text-danger"></span>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                    Tipo de examen:<br>
+                                                    <input asp-for="TipoExamen" type="radio" value="1" checked /> Examen ingreso<br>
+                                                    <input asp-for="TipoExamen" type="radio" value="0" /> Examen interno
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                    Estado:<br>
+                                                    <input asp-for="Status" type="radio" value="1" checked /> Activo<br>
+                                                    <input asp-for="Status" type="radio" value="0" /> Inactivo
+                                                    </div>
+                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -60,7 +63,7 @@
                                                 </div>
                                                 <div class="col-md-6 col-sm-6">
                                                     <input id="enviaru" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                                                    <a asp-controller="EstudiantesComplementaria" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                    <a asp-controller="EstudiantesComplementaria" asp-action="MostrarRubro" class="btn btn-default btn-sm m-b-10" style="float:right">
                                                         Cancelar
                                                     </a>
                                                     

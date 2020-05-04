@@ -15,7 +15,7 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public ActionResult Index(CtMovilidades movi)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 var movilidades = context.CtMovilidades.Where(s => s.TipoMovilidades.Equals(movi.TipoMovilidades)).ToList();
                 ViewData["Movilidades"] = movilidades;
@@ -31,7 +31,7 @@ namespace SGCFIEE.Controllers
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
         }
-        
+
 
         // GET: EstudiantesMovilidad/Edit/5
         [Authorize]
@@ -39,7 +39,7 @@ namespace SGCFIEE.Controllers
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             CtMovilidades datosMovi;
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 datosMovi = context.CtMovilidades.Where(d => d.IdCtMovilidades == id).Single();
             }
@@ -50,7 +50,7 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult GuardarEdicion(CtMovilidades movilidades)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CtMovilidades.Update(movilidades);
                 context.SaveChanges();
@@ -106,15 +106,15 @@ namespace SGCFIEE.Controllers
                 ViewData["Programas"] = y;
             }
             String nombrePe = "";
-            foreach(ProgramaEducativo pe in y)
+            foreach (ProgramaEducativo pe in y)
             {
-                if(progra == pe.IdProgramaEducativo)
+                if (progra == pe.IdProgramaEducativo)
                 {
                     nombrePe = pe.Nombre;
                 }
             }
             List<TablaAlumno> correcto = new List<TablaAlumno>();
-            foreach(TablaAlumno t in tb)
+            foreach (TablaAlumno t in tb)
             {
                 if (t.NombrePro.Equals(nombrePe))
                 {
@@ -135,12 +135,12 @@ namespace SGCFIEE.Controllers
             CtMovilidades mov;
             Alumnos alu;
             FormInscribirMovilidad formulario = new FormInscribirMovilidad();
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 dp = context.DatosPersonales.Where(s => s.IdDatosPersonales == alumno).SingleOrDefault();
                 mov = context.CtMovilidades.Where(m => m.IdCtMovilidades == movilidad).SingleOrDefault();
                 alu = context.Alumnos.Where(a => a.IdAlumnos == alumno).SingleOrDefault();
-                
+
             }
             formulario.NombreAlumno = dp.Nombre + " " + dp.ApellidoPaterno + " " + dp.ApellidoMaterno;
             formulario.idAlumno = alumno;
@@ -153,61 +153,61 @@ namespace SGCFIEE.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult GuardarInscripcion(FormInscribirMovilidad formovi)
-        {
-            TbMovilidad tb = new TbMovilidad();
-            tb.RAlumno = formovi.idAlumno;
-            tb.RMovilidad = formovi.idMovilidad;
-            DateTime fech = DateTime.Today.Date;
-            int mes, ano;
-            mes = fech.Month;
-            ano = fech.Year;
-            List<TipoPeriodo> tp = new List<TipoPeriodo>();
-            int idPa = 0;
-            using (sgcfieeContext context = new sgcfieeContext())
-            {
-                tp = context.TipoPeriodo.ToList();
-                foreach (TipoPeriodo periodo in tp)
-                {
-                    int mes2, ano2;
-                    DateTime dt = periodo.FechaInicio.Value;
-                    mes2 = dt.Month;
-                    ano2 = dt.Year;
-                    if (mes2 <= mes && ano2 <= ano)
-                    {
-                        DateTime dt2 = periodo.FechaFin.Value;
-                        mes2 = dt2.Month;
-                        ano2 = dt2.Year;
-                        if (ano2 == ano)
-                        {
-                            if (mes2 >= mes)
-                            {
-                                idPa = periodo.IdPeriodo;
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            if (ano2 > ano)
-                            {
-                                idPa = periodo.IdPeriodo;
-                                break;
-                            }
-                        }
-                    }
-                }
-                if (idPa == 0)
-                {
-                    return RedirectToAction("Index");
-                }
-                tb.RPeriodo = idPa;
-                context.TbMovilidad.Add(tb);
-                context.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult GuardarInscripcion(FormInscribirMovilidad formovi)
+        //{
+        //    TbMovilidad tb = new TbMovilidad();
+        //    tb.RAlumno = formovi.idAlumno;
+        //    tb.RMovilidad = formovi.idMovilidad;
+        //    DateTime fech = DateTime.Today.Date;
+        //    int mes, ano;
+        //    mes = fech.Month;
+        //    ano = fech.Year;
+        //    List<TipoPeriodo> tp = new List<TipoPeriodo>();
+        //    int idPa = 0;
+        //    using (sgcfieeContext context = new sgcfieeContext())
+        //    {
+        //        tp = context.TipoPeriodo.ToList();
+        //        foreach (TipoPeriodo periodo in tp)
+        //        {
+        //            int mes2, ano2;
+        //            DateTime dt = periodo.FechaInicio.Value;
+        //            mes2 = dt.Month;
+        //            ano2 = dt.Year;
+        //            if (mes2 <= mes && ano2 <= ano)
+        //            {
+        //                DateTime dt2 = periodo.FechaFin.Value;
+        //                mes2 = dt2.Month;
+        //                ano2 = dt2.Year;
+        //                if (ano2 == ano)
+        //                {
+        //                    if (mes2 >= mes)
+        //                    {
+        //                        idPa = periodo.IdPeriodo;
+        //                        break;
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    if (ano2 > ano)
+        //                    {
+        //                        idPa = periodo.IdPeriodo;
+        //                        break;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        if (idPa == 0)
+        //        {
+        //            return RedirectToAction("Index");
+        //        }
+        //        tb.RPeriodo = idPa;
+        //        context.TbMovilidad.Add(tb);
+        //        context.SaveChanges();
+        //    }
+        //    return RedirectToAction("Index");
+        //}
 
         [Authorize]
         public IActionResult ConsultarEstatus()
@@ -248,11 +248,11 @@ namespace SGCFIEE.Controllers
             int total = pe.Creditos.Value / 2;
             if (suma >= total)
             {
-                ViewData["consejo"] = "El total de tus creditos: "+suma+" supera a la mitad de los creditos de tu carrera, ve con tu tutor a checar tus opciones\nTotal de creditos necesarios: " + total;
+                ViewData["consejo"] = "El total de tus creditos: " + suma + " supera a la mitad de los creditos de tu carrera, ve con tu tutor a checar tus opciones\nTotal de creditos necesarios: " + total;
             }
             else
             {
-                ViewData["consejo"] = "El total de tus creditos: "+suma+" no supera a la mitad de los creditos de tu carrera, te recomendamos checar en futuros periodos\nTotal de creditos necesarios: " + total;
+                ViewData["consejo"] = "El total de tus creditos: " + suma + " no supera a la mitad de los creditos de tu carrera, te recomendamos checar en futuros periodos\nTotal de creditos necesarios: " + total;
             }
             return View(cam);
         }

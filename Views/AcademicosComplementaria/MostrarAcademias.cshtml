@@ -52,7 +52,7 @@
                                     <td class="center">Inactivo</td>
                                 }
                             <td class="center">
-                                <a asp-route-id="@item.IdAcademias" asp-controller="AcademicosComplementaria" asp-action="EliminarAcademia" class="btn btn-danger btn-xs  deletepersonal" title="Eliminar">
+                                <a data-value="@item.IdAcademias" data-controlador="AcademicosComplementaria" data-accion="EliminarAcademia" data-regreso="MostrarAcademias" name="eliminardato" class="btn btn-danger btn-xs  deletepersonal" title="Eliminar">
                                     <i class="fa fa-trash-o"></i>
                                 </a>
                                 <a asp-route-id="@item.IdAcademias" asp-controller="AcademicosComplementaria" asp-action="FormEditarAcademia" class="btn btn-primary btn-xs editar" title="Editar">

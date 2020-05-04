@@ -36,7 +36,6 @@
                     <thead>
                         <tr>
                             <th style="display: none"></th>
-                            <th class="center" style="width: 100px"> Status </th>
                             <th class="center" style="width: 700px;"> Nombre </th>
                             <th class="center">Accion</th>
                         </tr>
@@ -44,14 +43,13 @@
                     <tbody>
                         @foreach (var item in Model) { 
                         <tr class="odd gradeX">
-                                <td class="center">Activo</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.Tipo)</td>
                                 <td>
                                     <div class="center">
                                         <a asp-route-id="@item.IdCtTipoCalificacion" asp-controller="EstudiantesComplementaria" asp-action="EditarTipo" class="btn btn-primary btn-xs editar" title="Editar">
                                             <i class="fa fa-pencil"></i>
                                         </a>
-                                        <a asp-route-id="@item.IdCtTipoCalificacion" asp-controller="EstudiantesComplementaria" asp-action="EliminarTipo" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                        <a data-value="@item.IdCtTipoCalificacion" data-controlador="EstudiantesComplementaria" data-accion="EliminarTipo" data-regreso="MostrarTipo" name="eliminardato" class="btn btn-danger btn-xs eliminar" title="Eliminar">
                                             <i class="fa fa-trash-o "></i>
                                         </a>
                                     </div>

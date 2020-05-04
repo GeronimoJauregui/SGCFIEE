@@ -43,7 +43,7 @@
                             <tr class="odd gradeX">
                                 <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
                                 <td class="center">
-                                    <a asp-route-id="@item.IdTipo" asp-controller="AcademicosComplementaria" asp-action="EliminarLocalizacion" class="btn btn-danger btn-xs" title="Eliminar">
+                                    <a data-value="@item.IdTipo" data-controlador="AcademicosComplementaria" data-accion="EliminarLocalizacion" data-regreso="MostrarLocalizacion" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                     <a asp-route-id="@item.IdTipo" asp-controller="AcademicosComplementaria" asp-action="EditarLocalizacion" class="btn btn-primary btn-xs editar" title="Editar">

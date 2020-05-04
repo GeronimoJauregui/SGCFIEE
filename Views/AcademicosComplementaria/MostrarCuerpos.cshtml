@@ -45,7 +45,7 @@
                                 <td class="center">@Html.DisplayFor(modelItem => item.NombreCuerpo)</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.Estado)</td>
                                 <td class="center">
-                                    <a asp-route-id="@item.IdCuerpo" asp-controller="AcademicosComplementaria" asp-action="EliminarCuerpo" class="btn btn-danger btn-xs" title="Eliminar">
+                                    <a data-value="@item.IdCuerpo" data-controlador="AcademicosComplementaria" data-accion="EliminarCuerpo" data-regreso="MostrarCuerpos" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                     <a asp-route-id="@item.IdCuerpo" asp-controller="AcademicosComplementaria" asp-action="EditarCuerpo" class="btn btn-primary btn-xs editar" title="Editar">
