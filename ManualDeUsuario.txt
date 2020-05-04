@@ -1,5 +1,0 @@
-Buenas noches, maestro para entrar al sistema en el login ser:
-usuario: root2
-contrase?a: root
-y en el modulo Acad¨¦micos podra observar 13 submodulos, pero el ultimo de reportes no esta funcional. Ya que no contamos con la informaci¨®n
-de parte del director para hacerlo.

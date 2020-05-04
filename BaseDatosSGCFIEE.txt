@@ -69,19 +69,20 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Academicos` (
   `Fecha_ingreso_uv` DATE NULL,
   `Status` INT NULL COMMENT '1.- Activo\n2.- Baja\n3.- Incapacitado\n\n',
   `R_Tipo_Personal` INT NULL,
+  `RFC` VARCHAR(50) NULL,
   PRIMARY KEY (`idAcademicos`),
   INDEX `fk_academicos_programaE_idx` (`Id_ProgramaEducativo` ASC) ,
   INDEX `fk_academicos_Tipo_Personal_idx` (`R_Tipo_Personal` ASC) ,
   CONSTRAINT `fk_academicos_programaE`
     FOREIGN KEY (`Id_ProgramaEducativo`)
     REFERENCES `SGCFIEE`.`Programa_Educativo` (`idPrograma_Educativo`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_academicos_Tipo_Personal`
     FOREIGN KEY (`R_Tipo_Personal`)
     REFERENCES `SGCFIEE`.`Tipo_Personal` (`idTipo_Personal`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -375,8 +376,6 @@ DROP TABLE IF EXISTS `SGCFIEE`.`tipo_periodo` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`tipo_periodo` (
   `id_periodo` INT NOT NULL AUTO_INCREMENT,
   `Nombre` VARCHAR(45) NULL,
-  `Fecha_inicio` DATE NULL,
-  `Fecha_fin` DATE NULL,
   PRIMARY KEY (`id_periodo`))
 ENGINE = InnoDB;
 
@@ -1507,6 +1506,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tb_RubrosExamenes` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_RubrosExamenes` (
   `id_Tb_Rubros_Examenes` INT NOT NULL AUTO_INCREMENT,
   `Rubro_Examen` VARCHAR(60) NULL,
+  `tipo_examen` INT NULL,
   `Status` INT NULL,
   PRIMARY KEY (`id_Tb_Rubros_Examenes`))
 ENGINE = InnoDB;
@@ -1521,7 +1521,6 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_ExamenAlumno` (
   `id_Tb_ExamenAlumno` INT NOT NULL AUTO_INCREMENT,
   `id_alumno` INT NULL,
   `id_Rubro_Examen` INT NULL,
-  `tipo_examen` INT NULL,
   `calificacion_examen` FLOAT NULL,
   PRIMARY KEY (`id_Tb_ExamenAlumno`),
   INDEX `fk_interno_alumno_idx` (`id_alumno` ASC) ,
@@ -2144,6 +2143,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoArticulos` (
   `idAcademicoArticulos` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idArticulo` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicoArticulos`),
   INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_articulos_idx` (`idArticulo` ASC) ,
@@ -2169,6 +2169,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoCongresos` (
   `idAcademicoCongresos` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idCongreso` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicoCongresos`),
   INDEX `fk_tabla_Academico_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_Congreso_idx` (`idCongreso` ASC) ,
@@ -2194,6 +2195,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoRevistas` (
   `idAcademicorevistas` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idRevista` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicorevistas`),
   INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_revistas_idx` (`idRevista` ASC) ,
@@ -2219,6 +2221,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoReportesT` (
   `idAcademicoReportesT` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idReportesTec` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicoReportesT`),
   INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_reportes_idx` (`idReportesTec` ASC) ,
@@ -2244,6 +2247,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoLibro` (
   `idAcademicoLibro` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idLibroAcad` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicoLibro`),
   INDEX `fk_tabla_Academico_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_Libro_idx` (`idLibroAcad` ASC) ,
@@ -2267,8 +2271,9 @@ DROP TABLE IF EXISTS `SGCFIEE`.`AcademicoCapLibro` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoCapLibro` (
   `idAcademicoCapLibro` INT NOT NULL AUTO_INCREMENT,
-  `idAcademico` INT NULL,
+  `idAcademico` INT NOT NULL,
   `idCapLibro` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicoCapLibro`),
   INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_capLibro_idx` (`idCapLibro` ASC) ,
@@ -2294,6 +2299,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosPatentes` (
   `idAcademicosPatentes` INT NOT NULL AUTO_INCREMENT,
   `idAcademicos` INT NULL,
   `idPatentes` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicosPatentes`),
   INDEX `fk_tabla_academicos_idx` (`idAcademicos` ASC) ,
   INDEX `fk_tabla_patentes_idx` (`idPatentes` ASC) ,
@@ -2319,6 +2325,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoTrabajosRecep` (
   `idAcademicoTrabajosRecep` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idTrabajosRecep` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicoTrabajosRecep`),
   INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_trabajosrecep_idx` (`idTrabajosRecep` ASC) ,
@@ -2344,6 +2351,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoConcursos` (
   `idAcademicoConcursos` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idConcursos` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicoConcursos`),
   INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_concursos_idx` (`idConcursos` ASC) ,
@@ -2369,6 +2377,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosCuerposAcad` (
   `idAcademicosCuerposAcad` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idCuerpoAcad` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicosCuerposAcad`),
   INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_cuerpo_idx` (`idCuerpoAcad` ASC) ,
@@ -2394,6 +2403,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicoPonenciasConf` (
   `idAcademicoPonenciasConf` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idPonenciasConf` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicoPonenciasConf`),
   INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_ponenciaconf_idx` (`idPonenciasConf` ASC) ,
@@ -2419,6 +2429,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosCursosTaller` (
   `idAcademicosCursosTaller` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idCursosDiplo` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicosCursosTaller`),
   INDEX `fk_tabla_CursoTaller_idx` (`idCursosDiplo` ASC) ,
   INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
@@ -2444,6 +2455,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosEvaluadores` (
   `idAcademicosEvaluadores` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idEvaluadores` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicosEvaluadores`),
   INDEX `fk_tabla_academicos_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_evaluadores_idx` (`idEvaluadores` ASC) ,
@@ -2469,6 +2481,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosJurOposicion` (
   `idAcademicosJurOposicion` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idJurado` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicosJurOposicion`),
   INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_jurado_idx` (`idJurado` ASC) ,
@@ -2494,6 +2507,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosJuradoRecep` (
   `idAcademicosJuradoRecep` INT NOT NULL AUTO_INCREMENT,
   `idAcademico` INT NULL,
   `idJurado` INT NULL,
+  `lider` INT NULL,
   PRIMARY KEY (`idAcademicosJuradoRecep`),
   INDEX `fk_tabla_academico_idx` (`idAcademico` ASC) ,
   INDEX `fk_tabla_jurado_idx` (`idJurado` ASC) ,
