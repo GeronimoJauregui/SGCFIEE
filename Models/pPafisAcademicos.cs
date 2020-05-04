@@ -20,6 +20,7 @@ namespace SGCFIEE.Models
         public string Periodo { get; set; }
         public int? IdSalon { get; set; }
         public string Salon { get; set; }
+        public string Edificio { get; set; }
         public int? IdProgramaImpacta { get; set; }
         public string PE { get; set; }
         public int? NumeroCt { get; set; }

@@ -97,11 +97,11 @@
                                     {
                                         @if (item.IdTbSalones != Model.IdSalon)
                                         {
-                                            <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
+                                            <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.Edificio)-@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
                                         }
                                         else
                                         {
-                                            <option selected value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
+                                            <option selected value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.Edificio)-@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
                                         }
                                     }
                                 </select>

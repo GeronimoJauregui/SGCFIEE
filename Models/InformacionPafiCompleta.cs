@@ -13,6 +13,7 @@ namespace SGCFIEE.Models
         public String ApePaterno { get; set; }
         public String ApeMaterno { get; set; }
         public String clave_salon { get; set; }
+        public String edificio { get; set; }
         public String edo { get; set; }
         public int estado { get; set; }
         public int? totHoras { get; set; }

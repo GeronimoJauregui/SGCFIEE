@@ -77,7 +77,7 @@
                                     <select id="salon" asp-for="IdSalon" class="form-control">
                                         @foreach (var item in salones)
                                         {
-                                            <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
+                                            <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.Edificio)-@Html.DisplayFor(modelItem => item.ClaveSalon)</option>
                                         }
                                     </select>
                                 </div>

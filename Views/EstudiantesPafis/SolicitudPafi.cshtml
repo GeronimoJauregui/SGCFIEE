@@ -54,7 +54,7 @@
                                                             <select asp-for="IdSalon" id="salones" class="form-control">
                                                                 @foreach (var i in y)
                                                                 {
-                                                                    <option value="@i.IdTbSalones">@Html.DisplayFor(modelItem => i.ClaveSalon)</option>
+                                                                    <option value="@i.IdTbSalones">@Html.DisplayFor(modelItem => i.Edificio)-@Html.DisplayFor(modelItem => i.ClaveSalon)</option>
                                                                 }
                                                             </select>
                                                         </div>

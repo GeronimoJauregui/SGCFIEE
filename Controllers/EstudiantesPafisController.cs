@@ -268,6 +268,7 @@ namespace SGCFIEE.Controllers
                                ApePaterno = a.ApellidoPaterno,
                                ApeMaterno = a.ApellidoMaterno,
                                clave_salon = s.ClaveSalon,
+                               edificio = s.Edificio,
                                estado = p.Estado.Value,
                                totHoras = p.NumHoras
                            }).ToList();
