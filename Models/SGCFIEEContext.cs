@@ -143,7 +143,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdAcademias).HasColumnName("idAcademias");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(80)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<Academicoarticulos>(entity =>
@@ -420,21 +420,21 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.ApellidoMaterno)
                     .HasColumnName("Apellido_Materno")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.ApellidoPaterno)
                     .HasColumnName("Apellido_Paterno")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Celular).HasColumnType("varchar(45)");
 
                 entity.Property(e => e.CorreoAlternativo)
                     .HasColumnName("Correo_Alternativo")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.CorreoInstitucional)
                     .HasColumnName("Correo_Institucional")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Curp)
                     .HasColumnName("CURP")
@@ -450,7 +450,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdProgramaEducativo).HasColumnName("Id_ProgramaEducativo");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.RTipoPersonal).HasColumnName("R_Tipo_Personal");
 
@@ -712,15 +712,15 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.AnioIngreso).HasColumnName("Anio_Ingreso");
 
-                entity.Property(e => e.Bachillerato).HasColumnType("varchar(45)");
+                entity.Property(e => e.Bachillerato).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.CorreoInstitucional)
                     .HasColumnName("Correo_Institucional")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Matricula).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.Modalidad).HasColumnType("varchar(45)");
+                entity.Property(e => e.Modalidad).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.RDatosPerson).HasColumnName("R_Datos_Person");
 
@@ -749,7 +749,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdAreaExperienciaEducativa).HasColumnName("idArea_Experiencia_Educativa");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<Articulos>(entity =>
@@ -768,7 +768,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdTipoNI).HasColumnName("id_tipoN_I");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(90)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdTipoNINavigation)
                     .WithMany(p => p.Articulos)
@@ -794,7 +794,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.HorasDescontadas).HasColumnName("Horas_descontadas");
 
-                entity.Property(e => e.Observaciones).HasColumnType("varchar(255)");
+                entity.Property(e => e.Observaciones).HasColumnType("varchar(500)");
 
                 entity.Property(e => e.RAcademicos).HasColumnName("R_academicos");
 
@@ -896,7 +896,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdCanivelJerarquico).HasColumnName("id_CANivel_jerarquico");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<CapLibro>(entity =>
@@ -919,9 +919,9 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Isbn)
                     .HasColumnName("ISBN")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Titulo).HasColumnType("varchar(90)");
+                entity.Property(e => e.Titulo).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdEditorialNavigation)
                     .WithMany(p => p.CapLibro)
@@ -950,7 +950,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdTipoCertificacion).HasColumnName("id_tipo_certificacion");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Certificaciones)
@@ -979,7 +979,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdNacInter).HasColumnName("id_Nac_Inter");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(75)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdNacInterNavigation)
                     .WithMany(p => p.Concursos)
@@ -1003,7 +1003,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdNacInt).HasColumnName("id_Nac_Int");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(90)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdNacIntNavigation)
                     .WithMany(p => p.Congresos)
@@ -1203,11 +1203,11 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdCtEmpresas).HasColumnName("idCt_Empresas");
 
-                entity.Property(e => e.Direccion).HasColumnType("varchar(100)");
+                entity.Property(e => e.Direccion).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Telefono).HasColumnType("varchar(20)");
+                entity.Property(e => e.Telefono).HasColumnType("varchar(50)");
             });
 
             modelBuilder.Entity<CtExperienciarecepcional>(entity =>
@@ -1224,7 +1224,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.FechaFin).HasColumnType("date");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.RAsesor).HasColumnName("R_Asesor");
 
@@ -1246,21 +1246,21 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.EntidadDestinoMovilidad)
                     .HasColumnName("Entidad_destino_movilidad")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.EscuelaDestinoMovilidad)
                     .HasColumnName("Escuela_destino_movilidad")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.PaisDestinoMovilidad)
                     .HasColumnName("Pais_destino_movilidad")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.TiempoPermanenciaMovilidad)
                     .HasColumnName("Tiempo_permanencia_movilidad")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.TipoMovilidades).HasColumnName("tipo_movilidades");
             });
@@ -1276,7 +1276,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.NombreProblemas)
                     .HasColumnName("Nombre_Problemas")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<CtTipoCalificacion>(entity =>
@@ -1288,7 +1288,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdCtTipoCalificacion).HasColumnName("id_Ct_Tipo_Calificacion");
 
-                entity.Property(e => e.Tipo).HasColumnType("varchar(45)");
+                entity.Property(e => e.Tipo).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<CuerpoEstados>(entity =>
@@ -1300,7 +1300,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdEstado).HasColumnName("id_Estado");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<CuerposAcademicos>(entity =>
@@ -1317,7 +1317,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdEstado).HasColumnName("id_estado");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdEstadoNavigation)
                     .WithMany(p => p.CuerposAcademicos)
@@ -1350,9 +1350,9 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdIesEmpresa).HasColumnName("id_IES/Empresa");
 
-                entity.Property(e => e.Lugar).HasColumnType("varchar(150)");
+                entity.Property(e => e.Lugar).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.PD).HasColumnName("P/D");
 
@@ -1384,7 +1384,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Fecha).HasColumnType("date");
 
-                entity.Property(e => e.Titulo).HasColumnType("varchar(100)");
+                entity.Property(e => e.Titulo).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<DatosPersonales>(entity =>
@@ -1398,21 +1398,21 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.ApellidoMaterno)
                     .HasColumnName("Apellido_Materno")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.ApellidoPaterno)
                     .HasColumnName("Apellido_Paterno")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Calle).HasColumnType("varchar(45)");
+                entity.Property(e => e.Calle).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Ciudad).HasColumnType("varchar(45)");
+                entity.Property(e => e.Ciudad).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.CodigoPostal).HasColumnName("Codigo_Postal");
 
-                entity.Property(e => e.Colonia).HasColumnType("varchar(45)");
+                entity.Property(e => e.Colonia).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Correo).HasColumnType("varchar(45)");
+                entity.Property(e => e.Correo).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Curp)
                     .HasColumnName("CURP")
@@ -1422,7 +1422,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.EstadoCivil)
                     .HasColumnName("Estado_Civil")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.FechaNacimiento)
                     .HasColumnName("Fecha_Nacimiento")
@@ -1430,17 +1430,17 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IngresoMensual).HasColumnName("Ingreso_Mensual");
 
-                entity.Property(e => e.Municipio).HasColumnType("varchar(45)");
+                entity.Property(e => e.Municipio).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Nacionalidad).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nacionalidad).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Pais).HasColumnType("varchar(45)");
 
                 entity.Property(e => e.RecidenciaActual)
                     .HasColumnName("Recidencia_Actual")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Telefono).HasColumnType("varchar(45)");
             });
@@ -1496,7 +1496,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdEditorial).HasColumnName("idEditorial");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(100)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<Estudios>(entity =>
@@ -1699,7 +1699,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdArea).HasColumnName("idArea");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdAreaNavigation)
                     .WithMany(p => p.ExperienciaEducativa)
@@ -1845,7 +1845,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdGradoTitulo).HasColumnName("idGrado_Titulo");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<InstitucionesEmpresas>(entity =>
@@ -1859,7 +1859,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IesEmpresa).HasColumnName("ies/empresa");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<JuradoExamenOposicion>(entity =>
@@ -1965,7 +1965,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdPeriodo).HasColumnName("id_Periodo");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Libroee)
@@ -2002,7 +2002,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Titulo)
                     .IsRequired()
-                    .HasColumnType("varchar(50)");
+                    .HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdEditorialNavigation)
                     .WithMany(p => p.LibrosAcademicos)
@@ -2031,7 +2031,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdPeriodo).HasColumnName("id_Periodo");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(100)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.ManualesPractica)
@@ -2117,7 +2117,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdNombreTitulo).HasColumnName("idNombre_Titulo");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(50)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<PafisAcademicos>(entity =>
@@ -2151,7 +2151,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Estado).HasColumnName("estado");
 
-                entity.Property(e => e.Horario).HasColumnType("varchar(45)");
+                entity.Property(e => e.Horario).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.IdAcademico).HasColumnName("id_academico");
 
@@ -2161,7 +2161,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdSalon).HasColumnName("id_salon");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(50)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.NumHoras).HasColumnName("Num_Horas");
 
@@ -2232,17 +2232,17 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdPladea).HasColumnName("id_Pladea");
 
-                entity.Property(e => e.Accion).HasColumnType("varchar(200)");
+                entity.Property(e => e.Accion).HasColumnType("varchar(500)");
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.Comision).HasColumnType("varchar(200)");
+                entity.Property(e => e.Comision).HasColumnType("varchar(500)");
 
                 entity.Property(e => e.Fecha).HasColumnType("date");
 
                 entity.Property(e => e.IdAcademico).HasColumnName("id_academico");
 
-                entity.Property(e => e.Meta).HasColumnType("varchar(200)");
+                entity.Property(e => e.Meta).HasColumnType("varchar(500)");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.ParticipacionPladea)
@@ -2269,7 +2269,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
-                    .HasColumnType("varchar(90)");
+                    .HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdNacINavigation)
                     .WithMany(p => p.PatentesAcademicos)
@@ -2296,7 +2296,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdTipo).HasColumnName("id_tipo");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(100)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.PonenciaConferencia).HasColumnName("Ponencia/Conferencia");
 
@@ -2315,9 +2315,9 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdProgramaEducativo).HasColumnName("idPrograma_Educativo");
 
-                entity.Property(e => e.Area).HasColumnType("varchar(45)");
+                entity.Property(e => e.Area).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Campus).HasColumnType("varchar(45)");
+                entity.Property(e => e.Campus).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.ClvPrograma)
                     .HasColumnName("Clv_Programa")
@@ -2327,11 +2327,11 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.CreditosMinXp).HasColumnName("Creditos_MinXP");
 
-                entity.Property(e => e.Facultad).HasColumnType("varchar(45)");
+                entity.Property(e => e.Facultad).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Nivel).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nivel).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<ProgramasTrasversales>(entity =>
@@ -2343,7 +2343,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdProgramasTrasversales).HasColumnName("idProgramas_Trasversales");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(90)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<ProyectoEducativos>(entity =>
@@ -2363,7 +2363,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.Descripcion).HasColumnType("varchar(200)");
+                entity.Property(e => e.Descripcion).HasColumnType("varchar(500)");
 
                 entity.Property(e => e.IdAcademico).HasColumnName("id_academico");
 
@@ -2401,7 +2401,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Ingreso).HasColumnName("ingreso");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdAcademicosNavigation)
                     .WithMany(p => p.RecursosExternos)
@@ -2432,7 +2432,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Archivo).HasColumnType("varchar(500)");
 
-                entity.Property(e => e.Area).HasColumnType("varchar(50)");
+                entity.Property(e => e.Area).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.CoordinadorColaborador).HasColumnName("Coordinador/Colaborador");
 
@@ -2464,7 +2464,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.LugarEmpresaSector).HasColumnName("Lugar_Empresa/Sector");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(90)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<Revistas>(entity =>
@@ -2483,7 +2483,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdNI).HasColumnName("id_N_I");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(90)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdNINavigation)
                     .WithMany(p => p.Revistas)
@@ -2651,7 +2651,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdEventos).HasColumnName("id_Eventos");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.Property(e => e.RTioEvento).HasColumnName("R_Tio_Evento");
 
@@ -2866,7 +2866,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.RubroExamen)
                     .HasColumnName("Rubro_Examen")
-                    .HasColumnType("varchar(60)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.TipoExamen).HasColumnName("tipo_examen");
             });
@@ -2920,7 +2920,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdCertificacion).HasColumnName("id_certificacion");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoContratacionee>(entity =>
@@ -2932,7 +2932,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdTipoContratacion).HasColumnName("id_Tipo_Contratacion");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoDistincionTa>(entity =>
@@ -2948,7 +2948,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdDistincion).HasColumnName("id_distincion");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoEvaluador>(entity =>
@@ -2960,7 +2960,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdTipoEvaluador).HasColumnName("idTipo_Evaluador");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoEventos>(entity =>
@@ -2972,7 +2972,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdEventos).HasColumnName("idEventos");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoLaboratorio>(entity =>
@@ -2984,7 +2984,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdTipoLaboratorio).HasColumnName("id_Tipo_Laboratorio");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoLocNacInter>(entity =>
@@ -2998,7 +2998,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Nombre)
                     .HasColumnName("nombre")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoModalidad>(entity =>
@@ -3010,7 +3010,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdModalidad).HasColumnName("id_modalidad");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoPeriodo>(entity =>
@@ -3022,7 +3022,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdPeriodo).HasColumnName("id_periodo");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoPersonal>(entity =>
@@ -3034,7 +3034,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdTipoPersonal).HasColumnName("idTipo_Personal");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoPuesto>(entity =>
@@ -3046,7 +3046,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdPuesto).HasColumnName("id_Puesto");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoTramiteAcademicos>(entity =>
@@ -3058,7 +3058,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdTipoTramiteAcademicos).HasColumnName("idTipo_Tramite_Academicos");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TipoTramiteAlumnos>(entity =>
@@ -3070,7 +3070,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdTipoTramiteAlumnos).HasColumnName("idTipo_Tramite_Alumnos");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(45)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
             });
 
             modelBuilder.Entity<TrabajosRecepcionales>(entity =>
@@ -3110,7 +3110,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.NombreTrabajo)
                     .HasColumnName("Nombre_Trabajo")
-                    .HasColumnType("varchar(90)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.NumeroConsejoT).HasColumnName("numero_ConsejoT");
 
@@ -3158,9 +3158,9 @@ namespace SGCFIEE.Models
                     .HasColumnName("Fecha_regreso")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Folio).HasColumnType("varchar(45)");
+                entity.Property(e => e.Folio).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Observaciones).HasColumnType("varchar(255)");
+                entity.Property(e => e.Observaciones).HasColumnType("varchar(500)");
 
                 entity.Property(e => e.RAcademicos).HasColumnName("R_academicos");
 
@@ -3200,9 +3200,9 @@ namespace SGCFIEE.Models
                     .HasColumnName("Fecha_regreso")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Folio).HasColumnType("varchar(45)");
+                entity.Property(e => e.Folio).HasColumnType("varchar(200)");
 
-                entity.Property(e => e.Observacioes).HasColumnType("varchar(255)");
+                entity.Property(e => e.Observacioes).HasColumnType("varchar(500)");
 
                 entity.Property(e => e.RAlumnos).HasColumnName("R_alumnos");
 
@@ -3235,7 +3235,7 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.Matricula).HasColumnType("varchar(45)");
 
-                entity.Property(e => e.Nombre).HasColumnType("varchar(60)");
+                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
 
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.TutoradosExternos)
@@ -3291,7 +3291,7 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.Contrasenia)
                     .IsRequired()
                     .HasColumnName("contrasenia")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.IdAcademico).HasColumnName("idAcademico");
 
@@ -3300,7 +3300,7 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasColumnName("nombre")
-                    .HasColumnType("varchar(45)");
+                    .HasColumnType("varchar(200)");
 
                 entity.Property(e => e.Tipo).HasColumnName("tipo");
 
