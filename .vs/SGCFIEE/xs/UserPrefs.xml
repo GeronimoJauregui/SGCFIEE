@@ -1,16 +1,19 @@
 ﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
   <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/AcademicosComplementaria/InsertarIE.cshtml">
+    <Files>
+      <File FileName="Views/AcademicosComplementaria/InsertarIE.cshtml" Line="33" Column="85" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="EstudiantesPafisController.cs" selected="True" />
-              </Node>
-              <Node name="Models" expanded="True" />
+              <Node name="Controllers" expanded="True" />
               <Node name="Views" expanded="True">
+                <Node name="AcademicosComplementaria" expanded="True">
+                  <Node name="InsertarIE.cshtml" selected="True" />
+                </Node>
                 <Node name="EstudiantesPafis" expanded="True" />
               </Node>
             </Node>

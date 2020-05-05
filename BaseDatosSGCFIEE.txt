@@ -22,15 +22,15 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Programa_Educativo` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Programa_Educativo` (
   `idPrograma_Educativo` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Creditos` INT NULL,
   `Clv_Programa` VARCHAR(45) NULL,
-  `Facultad` VARCHAR(45) NULL,
-  `Campus` VARCHAR(45) NULL,
-  `Nivel` VARCHAR(45) NULL,
+  `Facultad` VARCHAR(200) NULL,
+  `Campus` VARCHAR(200) NULL,
+  `Nivel` VARCHAR(200) NULL,
   `Creditos_MinXP` INT NULL,
   `Creditos_MaxXP` INT NULL,
-  `Area` VARCHAR(45) NULL,
+  `Area` VARCHAR(200) NULL,
   `Status` INT NULL COMMENT '1= activo\n0= inactivo',
   PRIMARY KEY (`idPrograma_Educativo`))
 ENGINE = InnoDB;
@@ -43,7 +43,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Personal` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Personal` (
   `idTipo_Personal` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`idTipo_Personal`))
 ENGINE = InnoDB;
 
@@ -55,13 +55,13 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Academicos` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Academicos` (
   `idAcademicos` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
-  `Apellido_Paterno` VARCHAR(45) NULL,
-  `Apellido_Materno` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
+  `Apellido_Paterno` VARCHAR(200) NULL,
+  `Apellido_Materno` VARCHAR(200) NULL,
   `Fecha_Nacimiento` DATE NULL,
   `CURP` VARCHAR(45) NULL,
-  `Correo_Institucional` VARCHAR(45) NULL,
-  `Correo_Alternativo` VARCHAR(45) NULL,
+  `Correo_Institucional` VARCHAR(200) NULL,
+  `Correo_Alternativo` VARCHAR(200) NULL,
   `Celular` VARCHAR(45) NULL,
   `sexo` INT NULL,
   `NumeroPersonal` INT NULL,
@@ -93,7 +93,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Editorial` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Editorial` (
   `idEditorial` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(100) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`idEditorial`))
 ENGINE = InnoDB;
 
@@ -105,7 +105,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Libros_Academicos` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Libros_Academicos` (
   `idLibros_Academicos` INT NOT NULL AUTO_INCREMENT,
-  `Titulo` VARCHAR(50) NOT NULL,
+  `Titulo` VARCHAR(200) NOT NULL,
   `id_Editorial` INT NULL,
   `ISBN` VARCHAR(45) NULL,
   `anio` INT NULL,
@@ -128,7 +128,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`tipo_Loc_Nac_Inter` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`tipo_Loc_Nac_Inter` (
   `id_tipo` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NULL,
+  `nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_tipo`))
 ENGINE = InnoDB;
 
@@ -141,7 +141,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Patentes_Academicos` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Patentes_Academicos` (
   `idPatentes_Academicos` INT NOT NULL AUTO_INCREMENT,
   `id_Nac_I` INT NOT NULL,
-  `Nombre` VARCHAR(90) NOT NULL,
+  `Nombre` VARCHAR(200) NOT NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`idPatentes_Academicos`),
   INDEX `fk_patentes_N_I_idx` (`id_Nac_I` ASC) ,
@@ -160,7 +160,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Nombre_Titulo` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Nombre_Titulo` (
   `idNombre_Titulo` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(50) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`idNombre_Titulo`))
 ENGINE = InnoDB;
 
@@ -172,7 +172,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Instituciones/Empresas` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Instituciones/Empresas` (
   `id_I/E` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `ies/empresa` INT NULL COMMENT '1= IES(Institución Nivel Superior)\n0= Empresas\n',
   PRIMARY KEY (`id_I/E`))
 ENGINE = InnoDB;
@@ -185,7 +185,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Grado_Titulo` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Grado_Titulo` (
   `idGrado_Titulo` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`idGrado_Titulo`))
 ENGINE = InnoDB;
 
@@ -241,7 +241,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Evaluador` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Evaluador` (
   `idTipo_Evaluador` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`idTipo_Evaluador`))
 ENGINE = InnoDB;
 
@@ -274,25 +274,25 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Datos_Personales` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Datos_Personales` (
   `id_Datos_Personales` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
-  `Apellido_Paterno` VARCHAR(45) NULL,
-  `Apellido_Materno` VARCHAR(45) NULL,
-  `Correo` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
+  `Apellido_Paterno` VARCHAR(200) NULL,
+  `Apellido_Materno` VARCHAR(200) NULL,
+  `Correo` VARCHAR(200) NULL,
   `Fecha_Nacimiento` DATE NULL,
-  `Nacionalidad` VARCHAR(45) NULL,
-  `Estado_Civil` VARCHAR(45) NULL,
+  `Nacionalidad` VARCHAR(200) NULL,
+  `Estado_Civil` VARCHAR(200) NULL,
   `Genero` INT NULL,
   `CURP` VARCHAR(45) NULL,
-  `Calle` VARCHAR(45) NULL,
-  `Colonia` VARCHAR(45) NULL,
-  `Ciudad` VARCHAR(45) NULL,
-  `Municipio` VARCHAR(45) NULL,
+  `Calle` VARCHAR(200) NULL,
+  `Colonia` VARCHAR(200) NULL,
+  `Ciudad` VARCHAR(200) NULL,
+  `Municipio` VARCHAR(200) NULL,
   `Estado` VARCHAR(45) NULL,
   `Pais` VARCHAR(45) NULL,
   `Codigo_Postal` INT NULL,
   `Telefono` VARCHAR(45) NULL,
   `Status` INT NULL,
-  `Recidencia_Actual` VARCHAR(45) NULL,
+  `Recidencia_Actual` VARCHAR(200) NULL,
   `Trabaja` INT NULL,
   `Ingreso_Mensual` INT NULL,
   PRIMARY KEY (`id_Datos_Personales`))
@@ -307,13 +307,13 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Alumnos` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Alumnos` (
   `idAlumnos` INT NOT NULL AUTO_INCREMENT,
   `Matricula` VARCHAR(45) NULL,
-  `Correo_Institucional` VARCHAR(45) NULL,
+  `Correo_Institucional` VARCHAR(200) NULL,
   `Anio_Ingreso` INT NULL,
-  `Modalidad` VARCHAR(45) NULL,
+  `Modalidad` VARCHAR(200) NULL,
   `R_ProgramaEducativo` INT NULL,
   `R_Datos_Person` INT NULL,
   `R_Status` INT NULL,
-  `Bachillerato` VARCHAR(45) NULL,
+  `Bachillerato` VARCHAR(200) NULL,
   PRIMARY KEY (`idAlumnos`),
   INDEX `fk_alumnos_datos_idx` (`R_Datos_Person` ASC) ,
   INDEX `fk_alumno_programaedu_idx` (`R_ProgramaEducativo` ASC) ,
@@ -363,7 +363,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_ContratacionEE` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_ContratacionEE` (
   `id_Tipo_Contratacion` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_Tipo_Contratacion`))
 ENGINE = InnoDB;
 
@@ -375,7 +375,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`tipo_periodo` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`tipo_periodo` (
   `id_periodo` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_periodo`))
 ENGINE = InnoDB;
 
@@ -400,7 +400,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Area_Experiencia_Educativa` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Area_Experiencia_Educativa` (
   `idArea_Experiencia_Educativa` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Status` INT NULL COMMENT '1= activa\n0= inactiva',
   PRIMARY KEY (`idArea_Experiencia_Educativa`))
 ENGINE = InnoDB;
@@ -413,7 +413,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Experiencia_Educativa` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Experiencia_Educativa` (
   `idExperiencia_Educativa` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Creditos` INT NULL,
   `idArea` INT NULL,
   `Horas` INT NULL,
@@ -517,7 +517,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Eventos` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Eventos` (
   `idEventos` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`idEventos`))
 ENGINE = InnoDB;
 
@@ -529,7 +529,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tb_Eventos` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_Eventos` (
   `id_Eventos` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `R_Tio_Evento` INT NULL,
   `Status` INT NULL,
   PRIMARY KEY (`id_Eventos`),
@@ -576,7 +576,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_certificacion` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_certificacion` (
   `id_certificacion` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_certificacion`))
 ENGINE = InnoDB;
 
@@ -588,7 +588,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Certificaciones` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Certificaciones` (
   `id_certificaciones` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `id_tipo_certificacion` INT NOT NULL,
   `id_Academico` INT NOT NULL,
   `Archivo` VARCHAR(500) NULL,
@@ -616,7 +616,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Recursos_Externos` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Recursos_Externos` (
   `id_Recursos_Externos` INT NOT NULL AUTO_INCREMENT,
   `id_academicos` INT NOT NULL,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `ingreso` FLOAT NULL,
   `id_Periodo` INT NULL,
   PRIMARY KEY (`id_Recursos_Externos`),
@@ -646,7 +646,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`pafis_academicos` (
   `tipopafi` INT NULL COMMENT '1= nivelatorio\n0= remedial',
   `estado` INT NULL COMMENT '1= solicitud\n0= constancia',
   `solicitud` TINYINT NULL COMMENT '1= alumno solicita por escrito\n0= académico solicita por escrito',
-  `Nombre` VARCHAR(50) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Num_Horas` INT NULL,
   `id_periodo` INT NULL,
   `id_salon` INT NULL,
@@ -654,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`pafis_academicos` (
   `Numero_CT` INT NULL,
   `Archivo_pafi` VARCHAR(500) NULL,
   `Archivo_actaA` VARCHAR(500) NULL,
-  `Horario` VARCHAR(45) NULL,
+  `Horario` VARCHAR(200) NULL,
   PRIMARY KEY (`id_pafis`),
   INDEX `fk_pafis_academicos_idx` (`id_academico` ASC) ,
   INDEX `fk_pafis_programa_idx` (`id_programa_impacta` ASC) ,
@@ -690,7 +690,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Cuerpo_Estados` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cuerpo_Estados` (
   `id_Estado` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_Estado`))
 ENGINE = InnoDB;
 
@@ -702,7 +702,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Cuerpos_Academicos` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cuerpos_Academicos` (
   `id_Cuerpo_Academico` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `id_estado` INT NULL,
   PRIMARY KEY (`id_Cuerpo_Academico`),
   INDEX `tk_cuerpo_estado_idx` (`id_estado` ASC) ,
@@ -721,7 +721,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`CANivel_jerarquico` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`CANivel_jerarquico` (
   `id_CANivel_jerarquico` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_CANivel_jerarquico`))
 ENGINE = InnoDB;
 
@@ -763,7 +763,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`ponencias/conferencias` (
   `id_ponencias` INT NOT NULL AUTO_INCREMENT,
   `Ponencia/Conferencia` INT NULL COMMENT '1= Ponencias\n0= Conferencias',
   `id_tipo` INT NULL,
-  `Nombre` VARCHAR(100) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Fecha` DATE NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_ponencias`),
@@ -784,7 +784,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Cursos/Talleres_Aplicacion` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cursos/Talleres_Aplicacion` (
   `id_Cursos_Talleres` INT NOT NULL AUTO_INCREMENT,
   `C/T` INT NULL COMMENT '1= Cursos\n0= Talleres ',
-  `Titulo` VARCHAR(100) NULL,
+  `Titulo` VARCHAR(200) NULL,
   `Fecha` DATE NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_Cursos_Talleres`))
@@ -798,7 +798,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Distincion_TA` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Distincion_TA` (
   `id_distincion` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_distincion`),
   UNIQUE INDEX `id_distincion_UNIQUE` (`id_distincion` ASC) )
 ENGINE = InnoDB;
@@ -895,12 +895,12 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Cursos/Diplomado_Formacion` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cursos/Diplomado_Formacion` (
   `id_C/D` INT NOT NULL AUTO_INCREMENT,
   `id_academico` INT NULL,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Curso/Diplomado` INT NULL COMMENT '1= cursos\n0= diplomados',
   `P/D` INT NULL COMMENT '1= Disciplinar\n0= Pedagogico',
   `Horas` INT NULL,
   `id_IES/Empresa` INT NULL,
-  `Lugar` VARCHAR(150) NULL,
+  `Lugar` VARCHAR(200) NULL,
   `Fecha` DATE NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_C/D`),
@@ -926,7 +926,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_puesto` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_puesto` (
   `id_Puesto` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_Puesto`))
 ENGINE = InnoDB;
 
@@ -975,9 +975,9 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Participacion_PLADEA` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Participacion_PLADEA` (
   `id_Pladea` INT NOT NULL AUTO_INCREMENT,
   `id_academico` INT NULL,
-  `Comision` VARCHAR(200) NULL,
-  `Meta` VARCHAR(200) NULL,
-  `Accion` VARCHAR(200) NULL,
+  `Comision` VARCHAR(500) NULL,
+  `Meta` VARCHAR(500) NULL,
+  `Accion` VARCHAR(500) NULL,
   `Fecha` DATE NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_Pladea`),
@@ -1019,7 +1019,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_modalidad` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_modalidad` (
   `id_modalidad` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_modalidad`))
 ENGINE = InnoDB;
 
@@ -1031,7 +1031,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Academias` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Academias` (
   `idAcademias` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(80) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Status` INT NULL COMMENT '1= activo\n0= inactivo',
   PRIMARY KEY (`idAcademias`))
 ENGINE = InnoDB;
@@ -1047,7 +1047,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Trabajos_Recepcionales` (
   `id_alumno` INT NULL,
   `id_modalidad` INT NULL,
   `id_grado` INT NULL,
-  `Nombre_Trabajo` VARCHAR(90) NULL,
+  `Nombre_Trabajo` VARCHAR(200) NULL,
   `id_academia` INT NULL,
   `Proceso` INT NULL,
   `Fecha_Presentacion` DATE NULL,
@@ -1111,7 +1111,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Articulos` (
   `Registro` INT NULL COMMENT '1= con registro\n0= sin registro',
   `Arbitrada` INT NULL COMMENT '1= arbitrada\n0= sin arbitraje',
   `id_tipoN_I` INT NULL,
-  `Nombre` VARCHAR(90) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_articulos`),
   INDEX `fk_Arti_N_I_idx` (`id_tipoN_I` ASC) ,
@@ -1131,7 +1131,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Congresos` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Congresos` (
   `id_congresos` INT NOT NULL AUTO_INCREMENT,
   `id_Nac_Int` INT NULL,
-  `Nombre` VARCHAR(90) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_congresos`),
   INDEX `fk_congresos_N_I_idx` (`id_Nac_Int` ASC) ,
@@ -1153,7 +1153,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Revistas` (
   `id_N_I` INT NULL,
   `Registro` INT NULL COMMENT '1= con registro\n0= sin registro\n',
   `Arbitrada` INT NULL COMMENT '1= albitrada\n0= sin arbitraje',
-  `Nombre` VARCHAR(90) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_revistas`),
   INDEX `fk_revistas_N_I_idx` (`id_N_I` ASC) ,
@@ -1173,7 +1173,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Reportes_Tecnicos` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Reportes_Tecnicos` (
   `id_Reportes_Tecnicos` INT NOT NULL AUTO_INCREMENT,
   `Lugar_Empresa/Sector` INT NULL COMMENT '1= Empresa\n0= Sector beneficiado',
-  `Nombre` VARCHAR(90) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_Reportes_Tecnicos`))
 ENGINE = InnoDB;
@@ -1186,9 +1186,9 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Cap_Libro` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Cap_Libro` (
   `id_cap_Libro` INT NOT NULL AUTO_INCREMENT,
-  `Titulo` VARCHAR(90) NULL,
+  `Titulo` VARCHAR(200) NULL,
   `id_Editorial` INT NULL,
-  `ISBN` VARCHAR(45) NULL,
+  `ISBN` VARCHAR(200) NULL,
   `anio` INT NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_cap_Libro`),
@@ -1209,7 +1209,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Concursos` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Concursos` (
   `id_concursos` INT NOT NULL AUTO_INCREMENT,
   `id_Nac_Inter` INT NULL,
-  `Nombre` VARCHAR(75) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_concursos`),
   INDEX `fk_concursos_NacInt_idx` (`id_Nac_Inter` ASC) ,
@@ -1229,7 +1229,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Rediseño_Plan_Estudios` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Rediseño_Plan_Estudios` (
   `id_Rediseño_Actualizacion_Estudios` INT NOT NULL AUTO_INCREMENT,
   `id_academico` INT NULL,
-  `Area` VARCHAR(50) NULL,
+  `Area` VARCHAR(200) NULL,
   `id_programa` INT NULL,
   `Coordinador/Colaborador` TINYINT NULL COMMENT '1= coordinador\n0= colaborador',
   `Archivo` VARCHAR(500) NULL,
@@ -1288,7 +1288,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Manuales_Practica` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Manuales_Practica` (
   `id_Materiales_Practica` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(100) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `id_academico` INT NULL,
   `Archivo` VARCHAR(500) NULL,
   `id_Periodo` INT NULL,
@@ -1316,7 +1316,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Proyecto_Educativos` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Proyecto_Educativos` (
   `id_Proyecto_Educativos` INT NOT NULL AUTO_INCREMENT,
   `id_academico` INT NULL,
-  `Descripcion` VARCHAR(200) NULL,
+  `Descripcion` VARCHAR(500) NULL,
   `Archivo` VARCHAR(500) NULL,
   `id_Periodo` INT NULL,
   PRIMARY KEY (`id_Proyecto_Educativos`),
@@ -1342,7 +1342,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Laboratorio` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Laboratorio` (
   `id_Tipo_Laboratorio` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`id_Tipo_Laboratorio`))
 ENGINE = InnoDB;
 
@@ -1381,7 +1381,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`libroEE` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`libroEE` (
   `id_libroEE` INT NOT NULL AUTO_INCREMENT,
   `id_academico` INT NULL,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Archivo` VARCHAR(500) NULL,
   `id_Periodo` INT NULL,
   PRIMARY KEY (`id_libroEE`),
@@ -1407,7 +1407,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Ct_Tipo_Calificacion` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_Tipo_Calificacion` (
   `id_Ct_Tipo_Calificacion` INT NOT NULL AUTO_INCREMENT,
-  `Tipo` VARCHAR(45) NULL,
+  `Tipo` VARCHAR(200) NULL,
   PRIMARY KEY (`id_Ct_Tipo_Calificacion`))
 ENGINE = InnoDB;
 
@@ -1505,7 +1505,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tb_RubrosExamenes` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_RubrosExamenes` (
   `id_Tb_Rubros_Examenes` INT NOT NULL AUTO_INCREMENT,
-  `Rubro_Examen` VARCHAR(60) NULL,
+  `Rubro_Examen` VARCHAR(200) NULL,
   `tipo_examen` INT NULL,
   `Status` INT NULL,
   PRIMARY KEY (`id_Tb_Rubros_Examenes`))
@@ -1546,10 +1546,10 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Ct_Movilidades` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_Movilidades` (
   `idCt_Movilidades` INT NOT NULL AUTO_INCREMENT,
   `tipo_movilidades` INT NULL,
-  `Pais_destino_movilidad` VARCHAR(45) NULL,
-  `Entidad_destino_movilidad` VARCHAR(45) NULL,
-  `Escuela_destino_movilidad` VARCHAR(45) NULL,
-  `Tiempo_permanencia_movilidad` VARCHAR(45) NULL,
+  `Pais_destino_movilidad` VARCHAR(200) NULL,
+  `Entidad_destino_movilidad` VARCHAR(200) NULL,
+  `Escuela_destino_movilidad` VARCHAR(200) NULL,
+  `Tiempo_permanencia_movilidad` VARCHAR(200) NULL,
   `status` INT NULL,
   PRIMARY KEY (`idCt_Movilidades`))
 ENGINE = InnoDB;
@@ -1720,7 +1720,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Programas_Trasversales` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Programas_Trasversales` (
   `idProgramas_Trasversales` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(90) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Status` INT NULL COMMENT '1= activo\n0= inactivo',
   PRIMARY KEY (`idProgramas_Trasversales`))
 ENGINE = InnoDB;
@@ -1774,7 +1774,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tutorados_Externos` ;
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tutorados_Externos` (
   `idTutorados_Externos` INT NOT NULL AUTO_INCREMENT,
   `id_academico` INT NULL,
-  `Nombre` VARCHAR(60) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `Matricula` VARCHAR(45) NULL,
   PRIMARY KEY (`idTutorados_Externos`),
   INDEX `fk_TE_academicos_idx` (`id_academico` ASC) ,
@@ -1819,8 +1819,8 @@ DROP TABLE IF EXISTS `SGCFIEE`.`usuarios` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`usuarios` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  `contrasenia` VARCHAR(45) NOT NULL,
+  `nombre` VARCHAR(200) NOT NULL,
+  `contrasenia` VARCHAR(200) NOT NULL,
   `idAcademico` INT NULL,
   `idAlumno` INT NULL,
   `tipo` INT NOT NULL,
@@ -1851,7 +1851,7 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Asistencias` (
   `Salida` TIME NULL,
   `Fecha` DATE NULL,
   `Horas_descontadas` INT NULL,
-  `Observaciones` VARCHAR(255) NULL,
+  `Observaciones` VARCHAR(500) NULL,
   `R_academicos` INT NULL,
   PRIMARY KEY (`idAsistencias`),
   INDEX `fk_asistencias_academicos_idx` (`R_academicos` ASC) ,
@@ -1891,7 +1891,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Tramite_Alumnos` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Tramite_Alumnos` (
   `idTipo_Tramite_Alumnos` INT NOT NULL,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`idTipo_Tramite_Alumnos`))
 ENGINE = InnoDB;
 
@@ -1905,8 +1905,8 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tramites_Alumnos` (
   `idTramites_Alumnos` INT NOT NULL AUTO_INCREMENT,
   `Fecha_envio` DATETIME NULL,
   `Fecha_regreso` DATETIME NULL,
-  `Folio` VARCHAR(45) NULL,
-  `Observacioes` VARCHAR(255) NULL,
+  `Folio` VARCHAR(200) NULL,
+  `Observacioes` VARCHAR(500) NULL,
   `Tipo_tramite` INT NULL,
   `R_alumnos` INT NULL,
   PRIMARY KEY (`idTramites_Alumnos`),
@@ -1932,7 +1932,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Tipo_Tramite_Academicos` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tipo_Tramite_Academicos` (
   `idTipo_Tramite_Academicos` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   PRIMARY KEY (`idTipo_Tramite_Academicos`))
 ENGINE = InnoDB;
 
@@ -1946,8 +1946,8 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tramites_Academicos` (
   `idTramites_Academicos` INT NOT NULL AUTO_INCREMENT,
   `Fecha_envio` DATETIME NULL,
   `Fecha_regreso` DATETIME NULL,
-  `Folio` VARCHAR(45) NULL,
-  `Observaciones` VARCHAR(255) NULL,
+  `Folio` VARCHAR(200) NULL,
+  `Observaciones` VARCHAR(500) NULL,
   `Tipo_tramite` INT NULL,
   `R_academicos` INT NULL,
   PRIMARY KEY (`idTramites_Academicos`),
@@ -1973,7 +1973,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Ct_Problemas` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_Problemas` (
   `idCt_Problemas` INT NOT NULL AUTO_INCREMENT,
-  `Nombre_Problemas` VARCHAR(45) NULL,
+  `Nombre_Problemas` VARCHAR(200) NULL,
   PRIMARY KEY (`idCt_Problemas`))
 ENGINE = InnoDB;
 
@@ -2053,7 +2053,7 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Ct_ExperienciaRecepcional` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_ExperienciaRecepcional` (
   `idCt_ExperienciaRecepcional` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
+  `Nombre` VARCHAR(200) NULL,
   `FechaFin` DATE NULL,
   `Tipo` INT NULL,
   `R_Asesor` INT NOT NULL,
@@ -2074,9 +2074,9 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Ct_Empresa_Serv_Prac` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Ct_Empresa_Serv_Prac` (
   `idCt_Empresas` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NULL,
-  `Direccion` VARCHAR(100) NULL,
-  `Telefono` VARCHAR(20) NULL,
+  `Nombre` VARCHAR(200) NULL,
+  `Direccion` VARCHAR(200) NULL,
+  `Telefono` VARCHAR(50) NULL,
   PRIMARY KEY (`idCt_Empresas`))
 ENGINE = InnoDB;
 

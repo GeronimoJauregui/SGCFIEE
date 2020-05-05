@@ -1,0 +1,1 @@
+SELECT * FROM SGCFIEE.Tipo_certificacion;

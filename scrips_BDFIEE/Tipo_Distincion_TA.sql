@@ -1,0 +1,5 @@
+USE SGCFIEE;
+
+INSERT INTO Tipo_Distincion_TA(Nombre)VALUES
+("PRODEP"),
+("SNI");
