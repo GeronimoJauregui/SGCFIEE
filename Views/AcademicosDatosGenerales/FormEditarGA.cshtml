@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "TablaGA";
     Layout = "~/Views/Home/Principal.cshtml";
-    var NombreTitulo = (IEnumerable<NombreTitulo>)ViewData["nt"];
     var GradoTitulo = (IEnumerable<GradoTitulo>)ViewData["gt"];
     var ies = (IEnumerable<InstitucionesEmpresas>)ViewData["ies"];
     var academico = (int)ViewData["academico"];
@@ -24,16 +23,16 @@
                             <input asp-for="IdEstudios" type="hidden">
                             <div class="form-group">
                                 <label>Nombre del titulo</label>
-                                <select asp-for="IdNombreTitulo" class="form-control">
-                                    @foreach (var item in NombreTitulo)
+                                <select asp-for="IdGradoTitulo" class="form-control">
+                                    @foreach (var item in GradoTitulo)
                                     {
-                                        @if (item.IdNombreTitulo != Model.IdNombreTitulo)
+                                        @if (item.IdGradoTitulo != Model.IdGradoTitulo)
                                         {
-                                            <option value="@item.IdNombreTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            <option value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
                                         }
                                         else
                                         {
-                                            <option selected value="@item.IdNombreTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            <option selected value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
                                         }
                                     }
                                 </select>
@@ -54,22 +53,7 @@
                                     }
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Grado obtenido</label>
-                                <select asp-for="IdGradoTitulo" class="form-control">
-                                    @foreach (var item in GradoTitulo)
-                                    {
-                                        @if (item.IdGradoTitulo != Model.IdGradoTitulo)
-                                        {
-                                            <option value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
-                                        }
-                                        else
-                                        {
-                                            <option selected value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
-                                        }
-                                    }
-                                </select>
-                            </div>
+                            
                             <div class="form-group">
                                 Fecha de egreso
                                 <input name="FechaDeEgreso" asp-for="FechaDeEgreso"  id="fechaegreso" type="date" class="form-control">
@@ -101,7 +85,7 @@
                             <input type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
                             <br>
                             <br>
-                            <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarGA" type="button" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarGA" class="btn btn-default btn-sm m-b-10" style="float:right">
                                 Volver
                             </a>
                         </div>

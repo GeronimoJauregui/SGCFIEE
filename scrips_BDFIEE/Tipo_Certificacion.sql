@@ -1,1 +1,3 @@
-SELECT * FROM SGCFIEE.Tipo_certificacion;
+USE SGCFIEE;
+INSERT INTO Tipo_certificacion(Nombre)VALUE
+("Ingles");

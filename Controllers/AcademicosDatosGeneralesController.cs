@@ -209,12 +209,11 @@ namespace SGCFIEE.Controllers
             List<pEstudios> estudios = new List<pEstudios>();
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var NombreTitulo = context.NombreTitulo.ToList();
+                
                 var ies = context.InstitucionesEmpresas.Where(w => w.IesEmpresa == 2).ToList();
                 var GradoTitulo = context.GradoTitulo.ToList();
 
                 estudios = (from es in context.Estudios
-                            join nt in context.NombreTitulo on es.IdNombreTitulo equals nt.IdNombreTitulo
                             join ie in context.InstitucionesEmpresas on es.IdInstitucion equals ie.IdIE
                             join gt in context.GradoTitulo on es.IdGradoTitulo equals gt.IdGradoTitulo
                             where es.IdAcademico == id
@@ -222,7 +221,6 @@ namespace SGCFIEE.Controllers
                             {
                                 IdEstudios = es.IdEstudios,
                                 IdAcademico = es.IdAcademico,
-                                NombreTitulo = nt.Nombre,
                                 Institucion = ie.Nombre,
                                 GradoTitulo = gt.Nombre,
                                 AcrePnpc = es.AcrePnpc,
@@ -239,7 +237,6 @@ namespace SGCFIEE.Controllers
                     if (item.AcrePnpc == 0)
                         item.Reconocimiento = "PNPC";
                 }
-                ViewData["nt"] = NombreTitulo;
                 ViewData["gt"] = GradoTitulo;
                 ViewData["ies"] = ies;
                 ViewData["academico"] = id;
@@ -297,7 +294,6 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 estudios = (from es in context.Estudios
-                            join nt in context.NombreTitulo on es.IdNombreTitulo equals nt.IdNombreTitulo
                             join ie in context.InstitucionesEmpresas on es.IdInstitucion equals ie.IdIE
                             join gt in context.GradoTitulo on es.IdGradoTitulo equals gt.IdGradoTitulo
                             where es.IdAcademico == id
@@ -305,7 +301,6 @@ namespace SGCFIEE.Controllers
                             {
                                 IdEstudios = es.IdEstudios,
                                 IdAcademico = es.IdAcademico,
-                                NombreTitulo = nt.Nombre,
                                 Institucion = ie.Nombre,
                                 GradoTitulo = gt.Nombre,
                                 AcrePnpc = es.AcrePnpc,
@@ -335,11 +330,10 @@ namespace SGCFIEE.Controllers
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var NombreTitulo = context.NombreTitulo.ToList();
                 var ies = context.InstitucionesEmpresas.Where(w => w.IesEmpresa == 2).ToList();
                 var GradoTitulo = context.GradoTitulo.ToList();
 
-                ViewData["nt"] = NombreTitulo;
+            
                 ViewData["gt"] = GradoTitulo;
                 ViewData["ies"] = ies;
                 ViewData["academico"] = id;
@@ -394,12 +388,10 @@ namespace SGCFIEE.Controllers
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var NombreTitulo = context.NombreTitulo.ToList();
                 var ies = context.InstitucionesEmpresas.Where(w => w.IesEmpresa == 2).ToList();
                 var GradoTitulo = context.GradoTitulo.ToList();
                 var ga = context.Estudios.Where(w => w.IdEstudios == id).Single();
 
-                ViewData["nt"] = NombreTitulo;
                 ViewData["gt"] = GradoTitulo;
                 ViewData["ies"] = ies;
                 ViewData["academico"] = id;
@@ -1413,7 +1405,6 @@ namespace SGCFIEE.Controllers
             {
 
                 estudios = (from es in context.Estudios
-                            join nt in context.NombreTitulo on es.IdNombreTitulo equals nt.IdNombreTitulo
                             join ie in context.InstitucionesEmpresas on es.IdInstitucion equals ie.IdIE
                             join gt in context.GradoTitulo on es.IdGradoTitulo equals gt.IdGradoTitulo
                             where es.IdAcademico == id
@@ -1421,7 +1412,6 @@ namespace SGCFIEE.Controllers
                             {
                                 IdEstudios = es.IdEstudios,
                                 IdAcademico = es.IdAcademico,
-                                NombreTitulo = nt.Nombre,
                                 Institucion = ie.Nombre,
                                 GradoTitulo = gt.Nombre,
                                 AcrePnpc = es.AcrePnpc,

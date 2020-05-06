@@ -37,7 +37,6 @@
                             <thead>
                                 <tr>
                                     <th class="mdl-data-table__cell--non-numeric center">Nombre</th>
-                                    <th class="mdl-data-table__cell--non-numeric center">Grado</th>
                                     <th class="mdl-data-table__cell--non-numeric center">Institución</th>
                                     <th class="mdl-data-table__cell--non-numeric center">Reconocimiento</th>
                                     <th class="mdl-data-table__cell--non-numeric center">Fecha de egreso</th>
@@ -50,7 +49,6 @@
                                 @foreach (var item in estudios)
                                 {
                                 <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.NombreTitulo)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.GradoTitulo)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Institucion)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Reconocimiento)</td>

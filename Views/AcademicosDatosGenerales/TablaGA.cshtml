@@ -23,10 +23,10 @@
                             <input asp-for="IdAcademico" type="hidden" value="@academico">
                             <div class="form-group">
                                 <label>Nombre del titulo</label>
-                                <select asp-for="IdNombreTitulo" class="form-control">
-                                    @foreach (var item in NombreTitulo)
+                                <select asp-for="IdGradoTitulo" class="form-control">
+                                    @foreach (var item in GradoTitulo)
                                     {
-                                        <option value="@item.IdNombreTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                        <option value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
                                     }
                                 </select>
                             </div>
@@ -39,15 +39,7 @@
                                     }
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label>Grado obtenido</label>
-                                <select asp-for="IdGradoTitulo" class="form-control">
-                                    @foreach (var item in GradoTitulo)
-                                    {
-                                        <option value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
-                                    }
-                                </select>
-                            </div>
+                            
                             <div class="form-group">
                                 Fecha de egreso
                                 <input name="FechaDeEgreso" asp-for="FechaDeEgreso" id="fechaegreso" type="date" class="form-control">

@@ -36,7 +36,7 @@
                                 <div class="row p-b-20">
                                     <div class="col-md-6 col-sm-6 col-6">
                                         <div class="btn-group">
-                                            <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="FormCrearGA" id="agregargrado" type="button" class="btn btn-success btn-sm m-b-10">
+                                            <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="FormCrearGA" id="agregargrado" class="btn btn-success btn-sm m-b-10">
                                                 Agregar <i class="fa fa-plus" style="color: white"></i>
                                             </a>
                                         </div>
@@ -47,7 +47,6 @@
                                         <thead>
                                             <tr>
                                                 <th class="mdl-data-table__cell--non-numeric center">Nombre</th>
-                                                <th class="mdl-data-table__cell--non-numeric center">Grado</th>
                                                 <th class="mdl-data-table__cell--non-numeric center">Institución</th>
                                                 <th class="mdl-data-table__cell--non-numeric center">Reconocimiento</th>
                                                 <th class="mdl-data-table__cell--non-numeric center">Fecha de egreso</th>
@@ -61,7 +60,6 @@
                                             @foreach (var item in estudios)
                                             {
                                             <tr>
-                                                <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.NombreTitulo)</td>
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.GradoTitulo)</td>
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Institucion)</td>
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Reconocimiento)</td>

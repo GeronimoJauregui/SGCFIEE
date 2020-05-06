@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "EditarGA";
     Layout = "~/Views/Home/Principal.cshtml";
-    var NombreTitulo = (IEnumerable<NombreTitulo>)ViewData["nt"];
     var GradoTitulo = (IEnumerable<GradoTitulo>)ViewData["gt"];
     var ies = (IEnumerable<InstitucionesEmpresas>)ViewData["ies"];
     var academico = (int)ViewData["academico"];
@@ -39,10 +38,10 @@
                                     <input asp-for="IdAcademico" type="hidden" value="@academico">
                                     <div class="form-group">
                                         <label>Nombre del titulo</label>
-                                        <select asp-for="IdNombreTitulo" class="form-control">
-                                            @foreach (var item in NombreTitulo)
+                                        <select asp-for="IdGradoTitulo" class="form-control">
+                                            @foreach (var item in GradoTitulo)
                                             {
-                                                <option value="@item.IdNombreTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                <option value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
                                             }
                                         </select>
                                     </div>
@@ -52,15 +51,6 @@
                                             @foreach (var item in ies)
                                             {
                                                 <option value="@item.IdIE">@Html.DisplayFor(modelItem => item.Nombre)</option>
-                                            }
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Grado obtenido</label>
-                                        <select asp-for="IdGradoTitulo" class="form-control">
-                                            @foreach (var item in GradoTitulo)
-                                            {
-                                                <option value="@item.IdGradoTitulo">@Html.DisplayFor(modelItem => item.Nombre)</option>
                                             }
                                         </select>
                                     </div>
@@ -93,7 +83,7 @@
                                     <input type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
                                     <br>
                                     <br>
-                                    <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarGA" type="button" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                    <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarGA" class="btn btn-default btn-sm m-b-10" style="float:right">
                                         Cancelar
                                     </a>
                                 </div>

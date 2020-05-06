@@ -52,6 +52,10 @@ namespace SGCFIEE.Controllers
                     context.SaveChanges();
                     Academicos aca2 = context.Academicos.Last();
                     int idUsu = aca2.IdAcademicos;
+                    ContratacionPtc Cptc = new ContratacionPtc();
+                    Cptc.IdAcademico = idUsu;
+                    context.ContratacionPtc.Add(Cptc);
+                    context.SaveChanges();
                     Usuarios usunuevo = new Usuarios();
                     usunuevo.IdAcademico = idUsu;
                     usunuevo.Nombre = "15344";
