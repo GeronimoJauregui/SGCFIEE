@@ -25,18 +25,18 @@ namespace SGCFIEE.Controllers
         public IActionResult Principal(SGCFIEE.Models.UsuarioLogin user)
         {
             String usuario = user.matricula;
-            if (usuario.Equals("root"))
+            if (usuario.Equals("Administrador"))
             {
                 using(sgcfieeContext context = new sgcfieeContext())
                 {
                     TipoPersonal tp = new TipoPersonal();
-                    tp.Nombre = "Default";
+                    tp.Nombre = "Profesor de Tiempo Completo (PTC)";
                     context.TipoPersonal.Add(tp);
                     context.SaveChanges();
                     TipoPersonal tp2 = context.TipoPersonal.Last();
                     int tipoPer = tp2.IdTipoPersonal;
                     ProgramaEducativo pe = new ProgramaEducativo();
-                    pe.Nombre = "Default";
+                    pe.Nombre = "Ingeniería Informática";
                     context.ProgramaEducativo.Add(pe);
                     context.SaveChanges();
                     ProgramaEducativo pe2 = context.ProgramaEducativo.Last();
@@ -44,16 +44,20 @@ namespace SGCFIEE.Controllers
                     Academicos aca = new Academicos();
                     aca.IdProgramaEducativo = ProEdu;
                     aca.RTipoPersonal = tipoPer;
+                    aca.Nombre = "LUIS HECTOR";
+                    aca.ApellidoPaterno = "PORRAGAS";
+                    aca.ApellidoMaterno = "BELTRAN";
+                    aca.Curp = "POBL660419HVZRLS02";
                     context.Academicos.Add(aca);
                     context.SaveChanges();
                     Academicos aca2 = context.Academicos.Last();
                     int idUsu = aca2.IdAcademicos;
                     Usuarios usunuevo = new Usuarios();
                     usunuevo.IdAcademico = idUsu;
-                    usunuevo.Nombre = "root2";
+                    usunuevo.Nombre = "15344";
                     usunuevo.Tipo = 1;
 
-                    String p = string.Concat("root2", "root");
+                    String p = string.Concat("15344", "POBL660419");
                     SHA1 sha = new SHA1CryptoServiceProvider();
                     byte[] input2 = (new UnicodeEncoding()).GetBytes(p);
                     byte[] h = sha.ComputeHash(input2);

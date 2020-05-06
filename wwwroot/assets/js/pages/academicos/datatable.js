@@ -52,4 +52,5 @@ $(document).ready(function () {
     $("#TablaPreJurExperiencia").DataTable();
     $("#TablaPLADEA").DataTable();
     $("#TablaPartRedisenio").DataTable();
+    $("#tbcomp").DataTable();
 });

@@ -154,18 +154,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SGCFIEE`.`Nombre_Titulo`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `SGCFIEE`.`Nombre_Titulo` ;
-
-CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Nombre_Titulo` (
-  `idNombre_Titulo` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(200) NULL,
-  PRIMARY KEY (`idNombre_Titulo`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `SGCFIEE`.`Instituciones/Empresas`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `SGCFIEE`.`Instituciones/Empresas` ;
@@ -207,15 +195,9 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Estudios` (
   `ArchivoTitulo` VARCHAR(500) NULL,
   `ArchivoCedula` VARCHAR(500) NULL,
   PRIMARY KEY (`idEstudios`),
-  INDEX `fk_estudios_titulo_idx` (`idNombreTitulo` ASC) ,
   INDEX `fk_estudios_institucion_idx` (`idInstitucion` ASC) ,
   INDEX `fk_estudios_academico_idx` (`id_Academico` ASC) ,
   INDEX `fk_estudios_grado_titulo_idx` (`id_grado_titulo` ASC) ,
-  CONSTRAINT `fk_estudios_titulo`
-    FOREIGN KEY (`idNombreTitulo`)
-    REFERENCES `SGCFIEE`.`Nombre_Titulo` (`idNombre_Titulo`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
   CONSTRAINT `fk_estudios_institucion`
     FOREIGN KEY (`idInstitucion`)
     REFERENCES `SGCFIEE`.`Instituciones/Empresas` (`id_I/E`)
