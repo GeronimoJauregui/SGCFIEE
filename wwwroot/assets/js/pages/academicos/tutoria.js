@@ -21,14 +21,27 @@
         if (t === '1') {
             $("#div_laboratorio").hide();
             $("#div_fecha_nombramiento").show();
-        } else if (t === '2') {
-            $("#div_laboratorio").hide();
+        } else if (t === '3') {
+            $("#div_laboratorio").show();
             $("#div_fecha_nombramiento").hide();
         } else {
-            $("#div_laboratorio").show();
+            $("#div_laboratorio").hide();
             $("#div_fecha_nombramiento").hide();
         }
     });
+
+    var cod = document.getElementById("tipocontratacion").value;
+
+    if (cod === '1') {
+        $("#div_laboratorio").hide();
+        $("#div_fecha_nombramiento").show();
+    } else if (cod === '3') {
+        $("#div_laboratorio").show();
+        $("#div_fecha_nombramiento").hide();
+    } else {
+        $("#div_laboratorio").hide();
+        $("#div_fecha_nombramiento").hide();
+    }
 });
 
 

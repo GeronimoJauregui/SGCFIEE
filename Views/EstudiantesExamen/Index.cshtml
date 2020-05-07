@@ -35,17 +35,21 @@
                                                         <strong asp-for="CalificacionExamen">@Html.DisplayFor(modelItem => item.RubroExamen)</strong>
                                                         <input asp-for="CalificacionExamen" value="" type="number" class="form-control" placeholder="Calificacion" name="calificacion" required="required">
                                                         <input asp-for="IdRubroExamen" value="@item.IdTbRubrosExamenes" type="hidden" name="rubro">
-                                                         <input asp-for="IdAlumno" value="@idAlu" type="hidden" name="alumno">
+                                                        <input asp-for="IdAlumno" value="@idAlu" type="hidden" name="alumno">
+                                                        
                                                     </div>
                                                     <strong>Tipo Examen</strong>
-                                                    <!--<select asp-for="TipoExamen" class="form-control" name="tipoExamen">
-
-                                                        <option value="1">Examen ingreso</option>
-                                                        <option value="2">Examen interno</option>
-                                                        
-                                                    </select> <br/> <br />-->
+                                                    @if(item.TipoExamen == 1)
+                                                    {
+                                                         <div>Examen ingreso</div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div>Examen interno</div>
+                                                    }
+                                                     <br/> <br />
                                                 </div>
-                                                    
+
                                                 }
                                             </div>
                                         </div>

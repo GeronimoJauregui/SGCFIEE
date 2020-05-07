@@ -157,77 +157,34 @@ namespace SGCFIEE.Controllers
             {
                 var x = context.Academicos.ToList();
                 var y = context.TbSalones.ToList();
+                var z = context.TipoPeriodo.ToList();
                 ViewData["academicos"] = x;
                 ViewData["salones"] = y;
+                ViewData["periodos"] = z;
             }
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize]
-        //public IActionResult Crear(PafisAcademicos pafis)
-        //{
-        //    DateTime fech = DateTime.Today.Date;
-        //    int mes, ano;
-        //    mes = fech.Month;
-        //    ano = fech.Year;
-        //    pafis.Estado = 0;
-        //    pafis.NumHoras = 20;
-        //    pafis.Tipopafi = 0;
-        //    pafis.Solicitud = 0;
-        //    TbPafisAlumno tbpafi = new TbPafisAlumno();
-        //    int idPa = 0;
-        //    tbpafi.RAlumno = (int)HttpContext.Session.GetInt32("IdUsu");
-        //    List<TipoPeriodo> tp = new List<TipoPeriodo>();
-        //    using (sgcfieeContext context = new sgcfieeContext())
-        //    {
-        //        tp = context.TipoPeriodo.ToList();
-        //        foreach (TipoPeriodo periodo in tp)
-        //        {
-        //            int mes2, ano2;
-        //            DateTime dt = periodo.FechaInicio.Value;
-        //            mes2 = dt.Month;
-        //            ano2 = dt.Year;
-        //            if (mes2 <= mes && ano2 <= ano)
-        //            {
-        //                DateTime dt2 = periodo.FechaFin.Value;
-        //                mes2 = dt2.Month;
-        //                ano2 = dt2.Year;
-        //                if (ano2 == ano)
-        //                {
-        //                    if (mes2 >= mes)
-        //                    {
-        //                        idPa = periodo.IdPeriodo;
-        //                        break;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    if (ano2 > ano)
-        //                    {
-        //                        idPa = periodo.IdPeriodo;
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        if (idPa == 0)
-        //        {
-        //            return RedirectToAction("Index");
-        //        }
-        //        pafis.IdPeriodo = idPa;
-        //        context.PafisAcademicos.Add(pafis);
-        //        context.SaveChanges();
-        //        TempData["Mensaje"] = "Datos registrados";
-        //        var x = context.PafisAcademicos.Last();
-        //        int idpafinuevo = x.IdPafis;
-        //        tbpafi.RInfopafi = idpafinuevo;
-        //        context.TbPafisAlumno.Add(tbpafi);
-        //        context.SaveChanges();
-        //    }
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public IActionResult Crear(PafisAcademicos pafis)
+        {
+            TbPafisAlumno tbpafi = new TbPafisAlumno();
+            tbpafi.RAlumno = (int)HttpContext.Session.GetInt32("IdUsu");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                context.PafisAcademicos.Add(pafis);
+                context.SaveChanges();
+                TempData["Mensaje"] = "Datos registrados";
+                var x = context.PafisAcademicos.Last();
+                int idpafinuevo = x.IdPafis;
+                tbpafi.RInfopafi = idpafinuevo;
+                context.TbPafisAlumno.Add(tbpafi);
+                context.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
         [Authorize]
         public IActionResult Inscribir(int id)
         {

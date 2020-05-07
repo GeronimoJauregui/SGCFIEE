@@ -2506,6 +2506,40 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`AcademicosJuradoRecep` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `SGCFIEE`.`pafis_solicitados`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SGCFIEE`.`pafis_solicitados` ;
+
+CREATE TABLE IF NOT EXISTS `SGCFIEE`.`pafis_solicitados` (
+  `idpafis_solicitados` INT NOT NULL AUTO_INCREMENT,
+  `nombre_solicitados` VARCHAR(200) NULL,
+  `horario_posible` VARCHAR(100) NULL,
+  `id_academico` INT NULL,
+  `id_periodo` INT NULL,
+  `id_alumno` INT NULL,
+  PRIMARY KEY (`idpafis_solicitados`),
+  INDEX `fk_solicitados_academicos_idx` (`id_academico` ASC) ,
+  INDEX `fk_solicitados_periodos_idx` (`id_periodo` ASC) ,
+  INDEX `fk_solicitados_alumnos_idx` (`id_alumno` ASC) ,
+  CONSTRAINT `fk_solicitados_academicos`
+    FOREIGN KEY (`id_academico`)
+    REFERENCES `SGCFIEE`.`Academicos` (`idAcademicos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_solicitados_periodos`
+    FOREIGN KEY (`id_periodo`)
+    REFERENCES `SGCFIEE`.`tipo_periodo` (`id_periodo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_solicitados_alumnos`
+    FOREIGN KEY (`id_alumno`)
+    REFERENCES `SGCFIEE`.`Alumnos` (`idAlumnos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

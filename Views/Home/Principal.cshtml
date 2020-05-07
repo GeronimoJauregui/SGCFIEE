@@ -53,6 +53,7 @@
     <!-- favicon -->
     <link rel="shortcut icon" href="~/assets/img/logicon.jpg" />
 
+
 </head>
 <body class="page-header-fixed sidemenu-closed-hidelogo page-content-white page-md header-blue white-sidebar-color logo-white">
     <div class="page-wrapper">
@@ -375,7 +376,7 @@
                 console.log("hola1");
                 html2canvas($("#reporte").get(0)).then(function (canvas) {
                     var img = canvas.toDataURL("image/png");
-                    console.log("hola2");
+                    
                     var doc = new jsPDF();
                     doc.addImage(img, 'JPEG', 5, 5, 200, 270);
                     doc.save('reporte.pdf');
