@@ -19,6 +19,5 @@ namespace SGCFIEE.Models
         public virtual Academicos IdAcademicoNavigation { get; set; }
         public virtual GradoTitulo IdGradoTituloNavigation { get; set; }
         public virtual InstitucionesEmpresas IdInstitucionNavigation { get; set; }
-        public virtual NombreTitulo IdNombreTituloNavigation { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace SGCFIEE.Models
         {
             CaAlumnos = new HashSet<CaAlumnos>();
             EventosAlumnos = new HashSet<EventosAlumnos>();
+            PafisSolicitados = new HashSet<PafisSolicitados>();
             TbBuzonAcademicos = new HashSet<TbBuzonAcademicos>();
             TbBuzonDeQuejas = new HashSet<TbBuzonDeQuejas>();
             TbExamenalumno = new HashSet<TbExamenalumno>();
@@ -36,6 +37,7 @@ namespace SGCFIEE.Models
         public virtual ProgramaEducativo RProgramaEducativoNavigation { get; set; }
         public virtual ICollection<CaAlumnos> CaAlumnos { get; set; }
         public virtual ICollection<EventosAlumnos> EventosAlumnos { get; set; }
+        public virtual ICollection<PafisSolicitados> PafisSolicitados { get; set; }
         public virtual ICollection<TbBuzonAcademicos> TbBuzonAcademicos { get; set; }
         public virtual ICollection<TbBuzonDeQuejas> TbBuzonDeQuejas { get; set; }
         public virtual ICollection<TbExamenalumno> TbExamenalumno { get; set; }

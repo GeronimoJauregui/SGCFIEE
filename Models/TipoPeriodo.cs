@@ -20,6 +20,7 @@ namespace SGCFIEE.Models
             ManualesPractica = new HashSet<ManualesPractica>();
             MateriaDidactico = new HashSet<MateriaDidactico>();
             PafisAcademicos = new HashSet<PafisAcademicos>();
+            PafisSolicitados = new HashSet<PafisSolicitados>();
             ProyectoEducativos = new HashSet<ProyectoEducativos>();
             RecursosExternos = new HashSet<RecursosExternos>();
             TbBuzonAcademicos = new HashSet<TbBuzonAcademicos>();
@@ -44,6 +45,7 @@ namespace SGCFIEE.Models
         public virtual ICollection<ManualesPractica> ManualesPractica { get; set; }
         public virtual ICollection<MateriaDidactico> MateriaDidactico { get; set; }
         public virtual ICollection<PafisAcademicos> PafisAcademicos { get; set; }
+        public virtual ICollection<PafisSolicitados> PafisSolicitados { get; set; }
         public virtual ICollection<ProyectoEducativos> ProyectoEducativos { get; set; }
         public virtual ICollection<RecursosExternos> RecursosExternos { get; set; }
         public virtual ICollection<TbBuzonAcademicos> TbBuzonAcademicos { get; set; }

@@ -77,8 +77,8 @@ namespace SGCFIEE.Models
         public virtual DbSet<ManualesPractica> ManualesPractica { get; set; }
         public virtual DbSet<MapaCurricular> MapaCurricular { get; set; }
         public virtual DbSet<MateriaDidactico> MateriaDidactico { get; set; }
-        public virtual DbSet<NombreTitulo> NombreTitulo { get; set; }
         public virtual DbSet<PafisAcademicos> PafisAcademicos { get; set; }
+        public virtual DbSet<PafisSolicitados> PafisSolicitados { get; set; }
         public virtual DbSet<Pagos> Pagos { get; set; }
         public virtual DbSet<ParticipacionPladea> ParticipacionPladea { get; set; }
         public virtual DbSet<PatentesAcademicos> PatentesAcademicos { get; set; }
@@ -128,7 +128,7 @@ namespace SGCFIEE.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=1234567890;");
+                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=admin;");
             }
         }
 
@@ -1515,9 +1515,6 @@ namespace SGCFIEE.Models
                 entity.HasIndex(e => e.IdInstitucion)
                     .HasName("fk_estudios_institucion_idx");
 
-                entity.HasIndex(e => e.IdNombreTitulo)
-                    .HasName("fk_estudios_titulo_idx");
-
                 entity.Property(e => e.IdEstudios).HasColumnName("idEstudios");
 
                 entity.Property(e => e.AcrePnpc).HasColumnName("ACRE/PNPC");
@@ -1557,11 +1554,6 @@ namespace SGCFIEE.Models
                     .WithMany(p => p.Estudios)
                     .HasForeignKey(d => d.IdInstitucion)
                     .HasConstraintName("fk_estudios_institucion");
-
-                entity.HasOne(d => d.IdNombreTituloNavigation)
-                    .WithMany(p => p.Estudios)
-                    .HasForeignKey(d => d.IdNombreTitulo)
-                    .HasConstraintName("fk_estudios_titulo");
             });
 
             modelBuilder.Entity<EvaluacionConsejoTecnico>(entity =>
@@ -2108,18 +2100,6 @@ namespace SGCFIEE.Models
                     .HasConstraintName("fk_material_tipoperido");
             });
 
-            modelBuilder.Entity<NombreTitulo>(entity =>
-            {
-                entity.HasKey(e => e.IdNombreTitulo)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("nombre_titulo");
-
-                entity.Property(e => e.IdNombreTitulo).HasColumnName("idNombre_Titulo");
-
-                entity.Property(e => e.Nombre).HasColumnType("varchar(200)");
-            });
-
             modelBuilder.Entity<PafisAcademicos>(entity =>
             {
                 entity.HasKey(e => e.IdPafis)
@@ -2190,6 +2170,54 @@ namespace SGCFIEE.Models
                     .WithMany(p => p.PafisAcademicos)
                     .HasForeignKey(d => d.IdSalon)
                     .HasConstraintName("fk_pafis_Tb_salones");
+            });
+
+            modelBuilder.Entity<PafisSolicitados>(entity =>
+            {
+                entity.HasKey(e => e.IdpafisSolicitados)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("pafis_solicitados");
+
+                entity.HasIndex(e => e.IdAcademico)
+                    .HasName("fk_solicitados_academicos_idx");
+
+                entity.HasIndex(e => e.IdAlumno)
+                    .HasName("fk_solicitados_alumnos_idx");
+
+                entity.HasIndex(e => e.IdPeriodo)
+                    .HasName("fk_solicitados_periodos_idx");
+
+                entity.Property(e => e.IdpafisSolicitados).HasColumnName("idpafis_solicitados");
+
+                entity.Property(e => e.HorarioPosible)
+                    .HasColumnName("horario_posible")
+                    .HasColumnType("varchar(100)");
+
+                entity.Property(e => e.IdAcademico).HasColumnName("id_academico");
+
+                entity.Property(e => e.IdAlumno).HasColumnName("id_alumno");
+
+                entity.Property(e => e.IdPeriodo).HasColumnName("id_periodo");
+
+                entity.Property(e => e.NombreSolicitados)
+                    .HasColumnName("nombre_solicitados")
+                    .HasColumnType("varchar(200)");
+
+                entity.HasOne(d => d.IdAcademicoNavigation)
+                    .WithMany(p => p.PafisSolicitados)
+                    .HasForeignKey(d => d.IdAcademico)
+                    .HasConstraintName("fk_solicitados_academicos");
+
+                entity.HasOne(d => d.IdAlumnoNavigation)
+                    .WithMany(p => p.PafisSolicitados)
+                    .HasForeignKey(d => d.IdAlumno)
+                    .HasConstraintName("fk_solicitados_alumnos");
+
+                entity.HasOne(d => d.IdPeriodoNavigation)
+                    .WithMany(p => p.PafisSolicitados)
+                    .HasForeignKey(d => d.IdPeriodo)
+                    .HasConstraintName("fk_solicitados_periodos");
             });
 
             modelBuilder.Entity<Pagos>(entity =>
