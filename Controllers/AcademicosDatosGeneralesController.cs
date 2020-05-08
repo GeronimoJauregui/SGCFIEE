@@ -1062,7 +1062,18 @@ namespace SGCFIEE.Controllers
                     lab.Status = 1;
                     context.Laboratorio.Add(lab);
                     var academico = context.Academicos.Where(w => w.IdAcademicos == datos.IdAcademico).Single();
-                    academico.RTipoPersonal = 1;
+                    academico.RTipoPersonal = 3;
+                    context.Academicos.Update(academico);
+                    context.SaveChanges();
+                }
+
+            }
+            if (datos.tipopersonal == 2 || datos.tipopersonal == 4)
+            {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    var academico = context.Academicos.Where(w => w.IdAcademicos == datos.IdAcademico).Single();
+                    academico.RTipoPersonal = datos.tipopersonal;
                     context.Academicos.Update(academico);
                     context.SaveChanges();
                 }
@@ -1081,6 +1092,7 @@ namespace SGCFIEE.Controllers
             {
                 var ptc = context.ContratacionPtc.Where(w => w.IdAcademico == id).ToList();
                 var lab = context.Laboratorio.Where(w => w.IdAcademico == id).ToList();
+                var aca = context.Academicos.Where(w => w.IdAcademicos == id).Single();
                 if (ptc.Count > 0)
                 {
                     tipoc.IdAcademico = ptc[0].IdAcademico;
@@ -1100,7 +1112,13 @@ namespace SGCFIEE.Controllers
                     tipoc.tipopersonal = 3;
                 }
                 else {
-                    tipoc.tipopersonal = 2;
+                    if (aca.RTipoPersonal == 2)
+                    {
+                        tipoc.tipopersonal = 2;
+                    }
+                    else {
+                        tipoc.tipopersonal = 4;
+                    }
                     tipoc.Archivo = "NULL";
                 }
                 var tl = context.TipoLaboratorio.ToList();
@@ -1221,7 +1239,7 @@ namespace SGCFIEE.Controllers
 
 
             }
-            if (datos.tipopersonal == 2 && academico.RTipoPersonal != 2)
+            if ((datos.tipopersonal == 2 && academico.RTipoPersonal != 2) || (datos.tipopersonal == 4 && academico.RTipoPersonal != 4))
             {
                 using (sgcfieeContext context = new sgcfieeContext())
                 {
@@ -1232,13 +1250,14 @@ namespace SGCFIEE.Controllers
                         context.SaveChanges();
 
                     }
-                    else {
+                    if (academico.RTipoPersonal == 3)
+                    {
                         Laboratorio eliminar = context.Laboratorio.Where(w => w.IdAcademico == datos.IdAcademico).Single();
                         context.Laboratorio.Remove(eliminar);
                         context.SaveChanges();
                     }
 
-                    academico.RTipoPersonal = 2;
+                    academico.RTipoPersonal = datos.tipopersonal;
                     context.Academicos.Update(academico);
                     context.SaveChanges();
                 }
