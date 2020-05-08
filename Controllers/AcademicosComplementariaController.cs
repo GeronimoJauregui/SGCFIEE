@@ -524,18 +524,6 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
-        public IActionResult MostrarTTitulo()
-        {
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            List<NombreTitulo> titulo = new List<NombreTitulo>();
-            using (sgcfieeContext context = new sgcfieeContext())
-            {
-                titulo = context.NombreTitulo.ToList();
-            }
-                return View(titulo);
-        }
-
-        [Authorize]
         public IActionResult MostrarGTitulo()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -763,25 +751,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarPeriodos");
         }
-
-        [Authorize]
-        public IActionResult InsertarTTitulo()
-        {
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult CrearTTitulo(NombreTitulo titulo)
-        {
-            using (sgcfieeContext context = new sgcfieeContext())
-            {
-                context.NombreTitulo.Add(titulo);
-                context.SaveChanges();
-            }
-            return RedirectToAction("MostrarTTitulo");
-        }
+        
 
         [Authorize]
         public IActionResult InsertarGTitulo()
@@ -1132,17 +1102,6 @@ namespace SGCFIEE.Controllers
             return RedirectToAction("MostrarTContratacion");
         }
 
-        public IActionResult EliminarTTitulo(int id)
-        {
-            NombreTitulo nt;
-            using(sgcfieeContext context = new sgcfieeContext())
-            {
-                nt = context.NombreTitulo.Where(s => s.IdNombreTitulo == id).Single();
-                context.NombreTitulo.Remove(nt);
-                context.SaveChanges();
-            }
-            return RedirectToAction("MostrarTTitulo");
-        }
 
         [Authorize]
         public IActionResult FormEditarAcademia(int id)
@@ -1406,30 +1365,6 @@ namespace SGCFIEE.Controllers
                 context.SaveChanges();
             }
             return RedirectToAction("MostrarTContratacion");
-        }
-
-        [Authorize]
-        public IActionResult FormEditarNomTitulo(int id)
-        {
-            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            NombreTitulo tit;
-            using(sgcfieeContext context = new sgcfieeContext())
-            {
-                tit = context.NombreTitulo.Where(s => s.IdNombreTitulo == id).Single();
-            }
-            return View(tit);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult EditarNomTitulo(NombreTitulo tit)
-        {
-            using(sgcfieeContext context = new sgcfieeContext())
-            {
-                context.NombreTitulo.Update(tit);
-                context.SaveChanges();
-            }
-            return RedirectToAction("MostrarTTitulo");
         }
     } 
 }

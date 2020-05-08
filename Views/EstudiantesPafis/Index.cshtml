@@ -37,12 +37,14 @@
                 <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
                     <thead>
                         <tr>
+                            <th class="center" hidden></th>
                             <th class="center">Alumnos inscritos</th>
                             <th class="center">Nombre del pafi</th>
                             <th class="center">Horario</th>
                             <th class="center">Nombre del academico</th>
                             <th class="center">Salon</th>
-                            <th class="center">Acciones</th>
+                            <th class="center">Programa educativo al que impacta</th>
+                            <th class="center">Acción</th>
 
                         </tr>
                     </thead>
@@ -50,25 +52,21 @@
                         @foreach (var item in Model)
                         {
                             <tr class="odd gradeX">
+                                <td class="center" hidden></td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.TotalAlum)</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.NombrePafi)</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.Horario)</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.NombreMaestro)</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.ClvSalon)</td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.ProgrmaEdu)</td>
                                 <td class="center">
-                                    <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="DetallesPafi" class="btn btn-success btn-xs infoextra" title="Toda la información">
-                                        <i class="fa fa-check"></i>
-                                    </a>
+                                    
                                     @if (x == 1)
                                     {
-                                        <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="FormEditar" class="btn btn-primary btn-xs editar" title="Editar">
-                                            <i class="fa fa-pencil"></i>
+                                        <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="DetallesPafi" class="btn btn-success btn-xs infoextra" title="Toda la información">
+                                            <i class="fa fa-check"></i>
                                         </a>
-                                        <a data-value="@item.idPafi" data-controlador="EstudiantesPafis" data-accion="Eliminar" name="laeliminacion" class="btn btn-danger btn-xs eliminar" title="Eliminar">
-                                            <i class="fa fa-trash-o "></i>
-                                        </a>
-                                        <a data-controlador="EstudiantesPafis" data-accion="Index" hidden name="actualizar">
-                                        </a>
+                                        
                                     }
                                     @if (x == 3)
                                     {

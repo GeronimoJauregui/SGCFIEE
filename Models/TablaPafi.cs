@@ -15,6 +15,7 @@ namespace SGCFIEE.Models
         public String ApePaterno { get; set; }
         public String ApeMaterno { get; set; }
         public String ClvSalon { get; set; }
+        public String ProgrmaEdu { get; set; }
         public int TotalAlum { get; set; }
         public int ocupado { get; set; }
 

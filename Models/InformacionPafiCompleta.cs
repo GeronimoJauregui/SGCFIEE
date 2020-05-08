@@ -7,16 +7,15 @@ namespace SGCFIEE.Models
 {
     public class InformacionPafiCompleta
     {
-        public int idPafi { get; set; }
+        public int? idpafi { get; set; }
+        public String alumno { get; set; }
+        public String academico { get; set; }
+        public String matricula { get; set; }
         public String nombrePafi { get; set; }
-        public String nombreMaestro { get; set; }
-        public String ApePaterno { get; set; }
-        public String ApeMaterno { get; set; }
-        public String clave_salon { get; set; }
-        public String edificio { get; set; }
-        public String edo { get; set; }
-        public int estado { get; set; }
-        public int? totHoras { get; set; }
-        public String Horario { get; set; }
+        public int? Horas { get; set; }
+        public String salon { get; set; }
+        public String programa { get; set; }
+        public String horario { get; set; }
+        public int? tipoPafi { get; set; }
     }
 }
