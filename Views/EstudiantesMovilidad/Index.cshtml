@@ -39,11 +39,12 @@
                                                                 <option value="1">Nacional</option>
                                                                 <option value="2">Internacional</option>
                                                             </select>
+                                                            <br />
+                                                            <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
+                                                                Buscar
+                                                            </button>
                                                         </div>
-                                                        <br />
-                                                        <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
-                                                            Enviar
-                                                        </button>
+                                                        
                                                     </div>
                                                 </form>
                                                 <br />
@@ -82,7 +83,7 @@
                                                         <td class="center">@Html.DisplayFor(modelItem => item.TiempoPermanenciaMovilidad)</td>
                                                         @if (x != 3)
                                                         {
-                                                            <td>
+                                                            <td class="center">
                                                                 <a asp-route-id="@item.IdCtMovilidades" asp-controller="EstudiantesMovilidad" asp-action="Editar" class="btn btn-primary btn-xs editar" title="Editar">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </a>

@@ -140,7 +140,8 @@ namespace SGCFIEE.Controllers
                 dp = context.DatosPersonales.Where(s => s.IdDatosPersonales == alumno).SingleOrDefault();
                 mov = context.CtMovilidades.Where(m => m.IdCtMovilidades == movilidad).SingleOrDefault();
                 alu = context.Alumnos.Where(a => a.IdAlumnos == alumno).SingleOrDefault();
-
+                var periodo = context.TipoPeriodo.ToList();
+                ViewData["periodo"] = periodo;
             }
             formulario.NombreAlumno = dp.Nombre + " " + dp.ApellidoPaterno + " " + dp.ApellidoMaterno;
             formulario.idAlumno = alumno;
@@ -153,61 +154,31 @@ namespace SGCFIEE.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult GuardarInscripcion(FormInscribirMovilidad formovi)
-        //{
-        //    TbMovilidad tb = new TbMovilidad();
-        //    tb.RAlumno = formovi.idAlumno;
-        //    tb.RMovilidad = formovi.idMovilidad;
-        //    DateTime fech = DateTime.Today.Date;
-        //    int mes, ano;
-        //    mes = fech.Month;
-        //    ano = fech.Year;
-        //    List<TipoPeriodo> tp = new List<TipoPeriodo>();
-        //    int idPa = 0;
-        //    using (sgcfieeContext context = new sgcfieeContext())
-        //    {
-        //        tp = context.TipoPeriodo.ToList();
-        //        foreach (TipoPeriodo periodo in tp)
-        //        {
-        //            int mes2, ano2;
-        //            DateTime dt = periodo.FechaInicio.Value;
-        //            mes2 = dt.Month;
-        //            ano2 = dt.Year;
-        //            if (mes2 <= mes && ano2 <= ano)
-        //            {
-        //                DateTime dt2 = periodo.FechaFin.Value;
-        //                mes2 = dt2.Month;
-        //                ano2 = dt2.Year;
-        //                if (ano2 == ano)
-        //                {
-        //                    if (mes2 >= mes)
-        //                    {
-        //                        idPa = periodo.IdPeriodo;
-        //                        break;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    if (ano2 > ano)
-        //                    {
-        //                        idPa = periodo.IdPeriodo;
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //        }
-        //        if (idPa == 0)
-        //        {
-        //            return RedirectToAction("Index");
-        //        }
-        //        tb.RPeriodo = idPa;
-        //        context.TbMovilidad.Add(tb);
-        //        context.SaveChanges();
-        //    }
-        //    return RedirectToAction("Index");
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarInscripcion(FormInscribirMovilidad formovi)
+        {
+            TbMovilidad tb = new TbMovilidad();
+            tb.RAlumno = formovi.idAlumno;
+            tb.RMovilidad = formovi.idMovilidad;
+            tb.RPeriodo = formovi.idPeriodo;
+            List<TbMovilidad> datosmovilidad = new List<TbMovilidad>();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                datosmovilidad = context.TbMovilidad.ToList();
+                foreach (TbMovilidad item in datosmovilidad)
+                {
+                    if (item.RAlumno == formovi.idAlumno && item.RMovilidad == formovi.idMovilidad && item.RPeriodo==formovi.idPeriodo)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                context.TbMovilidad.Add(tb);
+                context.SaveChanges();
+            }
+            
+            return RedirectToAction("Index");
+        }
 
         [Authorize]
         public IActionResult ConsultarEstatus()

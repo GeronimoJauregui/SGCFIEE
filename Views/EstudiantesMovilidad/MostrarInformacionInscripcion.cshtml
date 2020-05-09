@@ -5,6 +5,7 @@
     var y = (SGCFIEE.Models.Alumnos)ViewData["dtEAlu"];
     var z = (SGCFIEE.Models.DatosPersonales)ViewData["dtPAlu"];
     var k = (SGCFIEE.Models.FormInscribirMovilidad)ViewData["dt"];
+    var periodo = (IEnumerable<TipoPeriodo>)ViewData["periodo"];
 }
 
 <!DOCTYPE html>
@@ -58,6 +59,17 @@
                                                 <div class="row">
                                                     <input type="hidden" asp-for="idMovilidad" value="@k.idMovilidad" />
                                                     <input type="hidden" asp-for="idAlumno" value="@k.idAlumno" />
+
+                                                    <div class="form-group">
+                                                        <label>Periodo de inicio</label>
+                                                        <select asp-for="idPeriodo" class="form-control">
+                                                            @foreach (var item in periodo)
+                                                            {
+                                                                <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-success btn-sm m-b-10" id="guardarmovi">
