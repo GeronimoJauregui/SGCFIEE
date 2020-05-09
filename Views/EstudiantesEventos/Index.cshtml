@@ -21,12 +21,6 @@
                     </div>
                 </div>
                 <div class="white-box">
-                    <!-- Nav tabs -->
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Formulario Eventos</a></li>
-                        </ul>
-                    </div>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
@@ -46,11 +40,12 @@
                                                             <option value=@item.IdEventos>@Html.DisplayFor(modelItem => item.Nombre)</option>
                                                         }
                                                     </select>
+                                                    <br />
+                                                    <button id="registrarEvento" type="submit" class="btn btn-success btn-sm m-b-10">
+                                                        Buscar
+                                                    </button>
                                                 </div>
-                                                <br />
-                                                      <button id="registrarEvento" type="submit" class="btn btn-success btn-sm m-b-10">
-                                                          Enviar
-                                                      </button>
+                                                
                                             </div>
                                         </form>
                                     </div>

@@ -22,47 +22,45 @@
                     </div>
                 </div>
                 <div class="white-box">
-                    <!-- Nav tabs -->
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Agregar Empresas</a></li>
-                        </ul>
-                    </div>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
 
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
-                                    <div class="card-head" id="idDatosPersonales">
-                                        <header>Servicio y/o Practicas</header>
-                                    </div>
                                     <div class="card-body " id="bar-parent2">
                                         <form asp-action="CrearEmpresa" asp-antiforgery="true">
                                             <div class="form-group">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <input id="" type="hidden" value="Guardar" class="form-control">
-                                                        <label asp-for="Nombre">Nombre empresa</label>
-                                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre" required="required">
-                                                        <span asp-validation-for="Nombre" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input id="" type="hidden" value="Guardar" class="form-control">
-                                                        <label asp-for="Direccion">Direccion</label>
-                                                        <input asp-for="Direccion" type="text" class="form-control" placeholder="Direccion " required="required">
-                                                        <span asp-validation-for="Direccion" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <input id="" type="hidden" value="Guardar" class="form-control">
+                                                            <label asp-for="Nombre">Nombre empresa</label>
+                                                            <input asp-for="Nombre" type="text" class="form-control" placeholder="Nombre" required="required">
+                                                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input id="" type="hidden" value="Guardar" class="form-control">
+                                                            <label asp-for="Direccion">Direccion</label>
+                                                            <input asp-for="Direccion" type="text" class="form-control" placeholder="Direccion " required="required">
+                                                            <span asp-validation-for="Direccion" class="text-danger"></span>
+                                                        </div>
+                                                        <div class="form-group">
 
-                                                        <input id="" type="hidden" value="Guardar" class="form-control">
-                                                        <label asp-for="Telefono">Telefono</label>
-                                                        <input asp-for="Telefono" type="number" class="form-control" placeholder="Telefono" required="required">
-                                                        <span asp-validation-for="Telefono" class="text-danger"></span>
+                                                            <input id="" type="hidden" value="Guardar" class="form-control">
+                                                            <label asp-for="Telefono">Telefono</label>
+                                                            <input asp-for="Telefono" type="number" class="form-control" placeholder="Telefono" required="required">
+                                                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                                            
                                         </form>
                                     </div>
                                 </div>

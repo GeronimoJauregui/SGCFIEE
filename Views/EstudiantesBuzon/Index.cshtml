@@ -24,14 +24,15 @@
                         <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
                     </div>
                 </div>
+                <div class="p-rl-20">
+                    <ul class="nav customtab nav-tabs" role="tablist">
+                        <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Buzón Infraestructura</a></li>
+                        <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">Buzón Desempeño Académico</a></li>
+                    </ul>
+                </div>
                 <div class="white-box">
                     <!-- Nav tabs -->
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Buzón Infraestructura</a></li>
-                            <li class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">Buzón Desempeño Académico</a></li>
-                        </ul>
-                    </div>
+                    
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
@@ -42,34 +43,49 @@
                                     <div class="card-body " id="bar-parent2">
                                         <form asp-action="CrearSugerencia" asp-antiforgery="true">
                                             <div class="form-group">
-                                                <div class="col-md-3 col-sm-3">
-                                                    <header>Infraestructura</header> <br>
-                                                    <label>Seleccione un problema</label>
-                                                    <select asp-for="RProblema" class="form-control" id="areaexp">
-                                                        @foreach (var item in y)
-                                                        {
-                                                            <option value="@item.IdCtProblemas">@Html.DisplayFor(modelItem => item.NombreProblemas) </option>
-                                                        }
-                                                    </select> <br />
-                                                    <label>Seleccione periodo actual</label>
-                                                    <select asp-for="RPeriodo" class="form-control" id="areaexp">
-                                                        @foreach (var item in x)
-                                                        {
-                                                            <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
-                                                        }
-                                                    </select>
-                                                </div> <br> <br>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <label asp-for="Propuesta">Describa la situacion a continuación</label>
-                                                    <textarea asp-for="Propuesta" class="form-control" rows="3" placeholder="Escriba ..." required id="situacionInf"></textarea> <br> <br>
-                                                    <label asp-for="Sugerencia">Agregue una sugerencia</label>
-                                                    <textarea asp-for="Sugerencia" class="form-control" rows="3" placeholder="Escriba ..." required id="sugerenciaInf"></textarea>
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-4"></div>
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <label>Seleccione un problema</label>
+                                                        <select asp-for="RProblema" class="form-control" id="areaexp">
+                                                            @foreach (var item in y)
+                                                            {
+                                                                <option value="@item.IdCtProblemas">@Html.DisplayFor(modelItem => item.NombreProblemas) </option>
+                                                            }
+                                                        </select> <br />
+                                                        <label>Seleccione periodo actual</label>
+                                                        <select asp-for="RPeriodo" class="form-control" id="areaexp">
+                                                            @foreach (var item in x)
+                                                            {
+                                                                <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4"></div>
+                                                    
+                                                </div>
+                                                <div class="row">
+                                                    
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <br> <br>
+                                                        <label asp-for="Propuesta">Describa la situacion a continuación</label>
+                                                        <textarea asp-for="Propuesta" class="form-control" rows="3" placeholder="Escriba ..." required id="situacionInf"></textarea> <br> <br>
+                                                        <label asp-for="Sugerencia">Agregue una sugerencia</label>
+                                                        <textarea asp-for="Sugerencia" class="form-control" rows="3" placeholder="Escriba ..." required id="sugerenciaInf"></textarea>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <br>
+                                                        <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                                            
                                         </form>
                                     </div>
-                                    <label>*Agrega un problema si el campo esta vacio ejemplo: equipo, muebles, etc.</label> <br /> <br />
+                                    <label>*Agrega un problema si no encuentra el que requiere, ejemplo: equipo, muebles, etc.</label> <br /> <br />
                                     <a asp-controller="EstudiantesBuzon" asp-action="CrearProblema" class="btn btn-success btn-sm m-b-10">
                                         Agregar Problema
                                     </a>
@@ -85,32 +101,43 @@
                                         <!-- text input -->
                                         <form asp-action="CrearSugerenciaAca" asp-antiforgery="true">
                                             <div class="form-group">
-                                                <div class="col-md-3 col-sm-3">
-                                                    <header>Desempeño académico</header> <br>
-                                                    <label>Seleccione un academico</label>
-                                                    <select asp-for="RAcademicos" class="form-control" id="areaexp">
-                                                        @foreach (var item in z)
-                                                        {
-                                                            var name = item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno;
-                                                            <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => name) </option>
-                                                        }
-                                                    </select> <br />
-                                                    <label>Seleccione periodo actual</label>
-                                                    <select asp-for="RPeriodo" class="form-control" id="areaexp">
-                                                        @foreach (var item in x)
-                                                        {
-                                                            <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
-                                                        }
-                                                    </select>
-                                                </div><br> <br>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <label asp-for="Propuesta">Describa la situacion a continuación</label>
-                                                    <textarea asp-for="Propuesta" class="form-control" rows="3" placeholder="Escriba ..." id="situacionDes"></textarea> <br> <br>
-                                                    <label asp-for="Sugerencia">Agregue una sugerencia </label>
-                                                    <textarea asp-for="Sugerencia" class="form-control" rows="3" placeholder="Escriba ..." id="sugerenciaDes"></textarea>
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-4"></div>
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <label>Seleccione un academico</label>
+                                                        <select asp-for="RAcademicos" class="form-control" id="areaexp">
+                                                            @foreach (var item in z)
+                                                            {
+                                                                var name = item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno;
+                                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => name) </option>
+                                                            }
+                                                        </select> <br />
+                                                        <label>Seleccione periodo actual</label>
+                                                        <select asp-for="RPeriodo" class="form-control" id="areaexp">
+                                                            @foreach (var item in x)
+                                                            {
+                                                                <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4"></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <br> <br>
+                                                        <label asp-for="Propuesta">Describa la situacion a continuación</label>
+                                                        <textarea asp-for="Propuesta" class="form-control" rows="3" placeholder="Escriba ..." id="situacionDes"></textarea> <br> <br>
+                                                        <label asp-for="Sugerencia">Agregue una sugerencia </label>
+                                                        <textarea asp-for="Sugerencia" class="form-control" rows="3" placeholder="Escriba ..." id="sugerenciaDes"></textarea>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <br>
+                                                        <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
                                         </form>
                                     </div>
 

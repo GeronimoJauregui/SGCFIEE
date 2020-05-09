@@ -38,41 +38,46 @@
                                                             <option value="1">Sugerencias en infrestructura</option>
                                                             <option value="2">Sugerencias en academicos</option>
                                                         </select>
+                                                        <br />
+                                                        <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
+                                                            Buscar
+                                                        </button>
                                                     </div>
-                                                    <br />
-                                                    <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
-                                                        Enviar
-                                                    </button>
+                                                    
                                                 </div>
                                             </form>
                                             <br />
                                         </div>
                                     </div>
-                                    <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
-                                        <thead>
-                                            <tr>
-                                                <th class="center"> Nombre del problema</th>
-                                                <th class="center"> Nombre del alumno</th>
-                                                <th class="center"> Periodo</th>
-                                                <th class="center"> Propuesta</th>
-                                                <th class="center"> Sugerencia</th>
+                                    <div class="table-scrollable">
+                                        <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden></th>
+                                                    <th class="center"> Nombre del problema</th>
+                                                    <th class="center"> Nombre del alumno</th>
+                                                    <th class="center"> Periodo</th>
+                                                    <th class="center"> Propuesta</th>
+                                                    <th class="center"> Sugerencia</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var item in modelo)
-                                            {
-                                                var name = item.nombreAlu + " " + item.apeAluP + " " + item.apeAluM;
-                                            <tr class="odd gradeX">
-                                                <td class="center">@Html.DisplayFor(modelItem => item.nombrePro)</td>
-                                                <td class="center">@Html.DisplayFor(modelItem => name)</td>
-                                                <td class="center">@Html.DisplayFor(modelItem => item.nomPeri)</td>
-                                                <td class="center">@Html.DisplayFor(modelItem => item.propuesta)</td>
-                                                <td class="center">@Html.DisplayFor(modelItem => item.sugerencia)</td>
-                                            </tr>
-                                            }
-                                        </tbody>
-                                    </table>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in modelo)
+                                                {
+                                                    var name = item.nombreAlu + " " + item.apeAluP + " " + item.apeAluM;
+                                                <tr class="odd gradeX">
+                                                    <td hidden></td>
+                                                    <td class="center">@Html.DisplayFor(modelItem => item.nombrePro)</td>
+                                                    <td class="center">@Html.DisplayFor(modelItem => name)</td>
+                                                    <td class="center">@Html.DisplayFor(modelItem => item.nomPeri)</td>
+                                                    <td class="center">@Html.DisplayFor(modelItem => item.propuesta)</td>
+                                                    <td class="center">@Html.DisplayFor(modelItem => item.sugerencia)</td>
+                                                </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

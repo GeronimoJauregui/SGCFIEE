@@ -18,23 +18,18 @@
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-topline-green"></div>
-                <div class="white-box">
-                    <!-- Nav tabs -->
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Información De Calificación</a></li>
-                        </ul>
+                <div class="card-topline-green">
+                    <div class="card-head" id="idDatosPersonales">
+                        <header>Calificación</header>
                     </div>
-                    <!-- Tab panes -->
+                </div>
+                <div class="white-box">
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
                             <form asp-action="CrearCali" asp-antiforgery="true">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
-                                        <div class="card-head" id="idDatosPersonales">
-                                            <header>Calificación</header>
-                                        </div>
+                                        
                                         <div class="card-body " id="bar-parent2">
                                             <div class="row">
 
@@ -95,12 +90,14 @@
                                                             }
                                                         </select>
                                                     </div>
+                                                    <br /><br /><br />
+                                                    <input id="enviacalialum" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <input id="enviacalialum" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                                
                             </form>
                         </div>
                     </div>

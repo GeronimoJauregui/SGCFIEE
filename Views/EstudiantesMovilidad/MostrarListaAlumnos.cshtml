@@ -12,13 +12,12 @@
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card">
-                <div class="card-topline-green"></div>
-                <div class="white-box">
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Registrar alumno en movilidad</a></li>
-                        </ul>
+                <div class="card-topline-green">
+                    <div class="card-head">
+                        <header>Registrar alumno en movilidad</header>
                     </div>
+                </div>
+                <div class="white-box">
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
                             <div class="row">
@@ -39,12 +38,13 @@
                                                                 }
                                                             </select>
                                                         </div>
+                                                        <button type="submit" class="btn btn-success btn-sm m-b-10" id="guardarmovi">
+                                                            Cargar alumnos
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-success btn-sm m-b-10" id="guardarmovi">
-                                                Cargar alumnos
-                                            </button>
+                                            
                                         </form>
                                         <form asp-action="MostrarInformacionInscripcion" asp-antiforgery="true">
                                             <div class="card-body " id="bar-parent2">
@@ -61,16 +61,18 @@
                                                                 }
                                                             </select>
                                                         </div>
+                                                        <a id="cancelarEdicion" asp-controller="EstudiantesMovilidad" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                                            Cancelar
+                                                        </a>
+                                                        <button type="submit" class="btn btn-success btn-sm m-b-10" id="guardarmovi">
+                                                            Cargar informacion
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-success btn-sm m-b-10" id="guardarmovi">
-                                                Cargar informacion
-                                            </button>
+                                            
                                         </form>
-                                        <a id="cancelarEdicion" asp-controller="EstudiantesMovilidad" asp-action="Index" class="btn btn-default btn-sm m-b-10">
-                                            Cancelar
-                                        </a>
+                                        
                                     </div>
                                 </div>
                             </div>

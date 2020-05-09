@@ -23,54 +23,58 @@
                     <div class="col-md-12 col-sm-12 col-12">
                         <div class="btn-group">
                             <a asp-controller="EstudiantesInformacion" asp-action="Crear" class="btn btn-success btn-sm m-b-10">
-                                Agregar <i class="fa fa-plus"></i>
+                                Agregar <i class="fa fa-plus" style="color:white"></i>
                             </a>
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
-                    <thead>
-                        <tr>
-                            <th class="center"> Nombre    </th>
-                            <th class="center"> A. Paterno </th>
-                            <th class="center"> A. Materno </th>
-                            <th class="center"> Matricula</th>
-                            <th class="center"> Carrera </th>
-                            <th style="display: none"></th>
-                            <th style="display: none"></th>
-                            <th class="center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-
-                            <tr class="odd gradeX">
-                                <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                <td class="center">@Html.DisplayFor(modelItem => item.ApellidoPaterno)</td>
-                                <td class="center">@Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
-                                <td class="center">@Html.DisplayFor(modelItem => item.Matricula)</td>
-                                <td class="center">@Html.DisplayFor(modelItem => item.NombrePro)</td>
-                                <td style="display: none">iddpersonales</td>
-                                <td style="display: none">idalumno</td>
-
-                                <td>
-                                    <a asp-route-id="@item.id" asp-controller="EstudiantesInformacion" asp-action="Detalles" class="btn btn-success btn-xs infoextra" title="Toda la información">
-                                        <i class="fa fa-check"></i>
-                                    </a>
-                                    <a asp-route-id="@item.id" asp-controller="EstudiantesInformacion" asp-action="Editar" class="btn btn-primary btn-xs editar" title="Editar">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a data-value="@item.id" data-controlador="EstudiantesInformacion" data-accion="Eliminar" name="laeliminacion" class="btn btn-danger btn-xs eliminar" title="Eliminar">
-                                        <i class="fa fa-trash-o "></i>
-                                    </a>
-                                    <a data-controlador="EstudiantesInformacion" data-accion="Index" hidden name="actualizar">
-                                    </a>
-                                </td>
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                        <thead>
+                            <tr>
+                                <th hidden></th>
+                                <th class="center"> Nombre    </th>
+                                <th class="center"> A. Paterno </th>
+                                <th class="center"> A. Materno </th>
+                                <th class="center"> Matricula</th>
+                                <th class="center"> Carrera </th>
+                                <th style="display: none"></th>
+                                <th style="display: none"></th>
+                                <th class="center">Acciones</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+
+                                <tr class="odd gradeX">
+                                    <td hidden></td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.ApellidoPaterno)</td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.Matricula)</td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.NombrePro)</td>
+                                    <td style="display: none">iddpersonales</td>
+                                    <td style="display: none">idalumno</td>
+
+                                    <td class="center">
+                                        <a asp-route-id="@item.id" asp-controller="EstudiantesInformacion" asp-action="Detalles" class="btn btn-success btn-xs infoextra" title="Toda la información">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                        <a asp-route-id="@item.id" asp-controller="EstudiantesInformacion" asp-action="Editar" class="btn btn-primary btn-xs editar" title="Editar">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a data-value="@item.id" data-controlador="EstudiantesInformacion" data-accion="Eliminar" name="laeliminacion" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                        <a data-controlador="EstudiantesInformacion" data-accion="Index" hidden name="actualizar">
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -15,20 +15,8 @@
             <div class="card card-topline-green">
                 <div class="card-head">
                     <header>EVENTOS</header>
-                    <div class="tools">
-                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
-                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
-                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
-                    </div>
                 </div>
                 <div class="white-box">
-                    <!-- Nav tabs -->
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Formulario Eventos</a></li>
-                        </ul>
-                    </div>
-                    <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
                             <div class="row">
@@ -47,36 +35,39 @@
                                                             <option value=@item.IdEventos>@Html.DisplayFor(modelItem => item.Nombre)</option>
                                                         }
                                                     </select>
+                                                    <br />
+                                                    <button id="registrarEvento" type="submit" class="btn btn-success btn-sm m-b-10">
+                                                        Buscar
+                                                    </button>
                                                 </div>
-                                                <br />
-                                                <button id="registrarEvento" type="submit" class="btn btn-success btn-sm m-b-10">
-                                                    Enviar
-                                                </button>
+                                                
                                             </div>
                                         </form>
-                                        <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
-                                            <thead>
-                                                <tr>
-                                                    <th class="center">Nombre del evento</th>
-                                                    <th class="center">Acciones</th>
+                                        <div class="table-scrollable">
+                                            <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="center">Nombre del evento</th>
+                                                        <th class="center">Acciones</th>
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var a in x)
-                                                {
-                                                    <tr class="odd gradeX">
-                                                        <td class="center">@Html.DisplayFor(modelItem => a.Nombre)</td>
-                                                        <td class="center">
-                                                            <a asp-route-id="@a.IdEventos" asp-controller="EstudiantesEventos" asp-action="FormEvento" class="btn btn-success btn-xs infoextra" title="Toda la información">
-                                                                <i class="fa fa-check"></i>
-                                                            </a>
-                                                        </td>
                                                     </tr>
-                                                }
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var a in x)
+                                                    {
+                                                        <tr class="odd gradeX">
+                                                            <td class="center">@Html.DisplayFor(modelItem => a.Nombre)</td>
+                                                            <td class="center">
+                                                                <a asp-route-id="@a.IdEventos" asp-controller="EstudiantesEventos" asp-action="FormEvento" class="btn btn-success btn-xs infoextra" title="Toda la información">
+                                                                    <i class="fa fa-check"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    }
 
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

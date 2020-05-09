@@ -24,8 +24,17 @@
 
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
-                                        <div class="card-head" id="idDatosPersonales">
-                                            <header>Generales</header>
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="card-head" id="idDatosPersonales">
+                                                    <header>Generales</header>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-sm-6">
+                                                <div class="card-head">
+                                                    <header>Domicilio</header>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="card-body " id="bar-parent2">
                                             <div class="row">
@@ -34,37 +43,37 @@
                                                     <!-- text input -->
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Nombre">Nombre</label>
-                                                        <input asp-for="RDatosPersonNavigation.Nombre" type="text" class="form-control" placeholder="Nombre" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.Nombre" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.Nombre" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.ApellidoPaterno">Apellido Paterno</label>
-                                                        <input asp-for="RDatosPersonNavigation.ApellidoPaterno" type="text" class="form-control" placeholder="Apellido paterno" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.ApellidoPaterno" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.ApellidoPaterno" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.ApellidoMaterno">Apellido Materno</label>
-                                                        <input asp-for="RDatosPersonNavigation.ApellidoMaterno" type="text" class="form-control" placeholder="Apellido materno" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.ApellidoMaterno" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.ApellidoMaterno" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Correo">Correo</label>
-                                                        <input asp-for="RDatosPersonNavigation.Correo" type="email" class="form-control" placeholder="Correo" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.Correo" type="email" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.Correo" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.FechaNacimiento">Fecha de Nacimiento</label>
-                                                        <input asp-for="RDatosPersonNavigation.FechaNacimiento" type="date" class="form-control" placeholder="Fecha de nacimiento">
+                                                        <input asp-for="RDatosPersonNavigation.FechaNacimiento" type="date" class="form-control" placeholder="Ingresar...">
                                                         <span asp-validation-for="RDatosPersonNavigation.FechaNacimiento" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Nacionalidad">Nacionalidad</label>
-                                                        <input asp-for="RDatosPersonNavigation.Nacionalidad" type="text" class="form-control" placeholder="Nacionalidad">
+                                                        <input asp-for="RDatosPersonNavigation.Nacionalidad" type="text" class="form-control" placeholder="Ingresar...">
                                                         <span asp-validation-for="RDatosPersonNavigation.Nacionalidad" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.EstadoCivil">Estado Civil</label>
-                                                        <input asp-for="RDatosPersonNavigation.EstadoCivil" type="text" class="form-control" placeholder="Estado civil">
+                                                        <input asp-for="RDatosPersonNavigation.EstadoCivil" type="text" class="form-control" placeholder="Ingresar...">
                                                         <span asp-validation-for="RDatosPersonNavigation.EstadoCivil" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
@@ -83,62 +92,59 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.IngresoMensual">Ingreso mensual aproximado</label>
-                                                        <input asp-for="RDatosPersonNavigation.IngresoMensual" type="number" class="form-control" placeholder="Ingreso mensula aproximado">
+                                                        <input asp-for="RDatosPersonNavigation.IngresoMensual" type="number" class="form-control" placeholder="Ingresar...">
                                                         <span asp-validation-for="RDatosPersonNavigation.IngresoMensual" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Curp">CURP</label>
-                                                        <input asp-for="RDatosPersonNavigation.Curp" type="text" class="form-control" placeholder="Curp" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.Curp" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.Curp" class="text-danger"></span>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6 col-sm-6">
-                                                    <div class="card-head">
-                                                        <header>Domicilio</header>
-                                                    </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Calle">Calle</label>
-                                                        <input asp-for="RDatosPersonNavigation.Calle" type="text" class="form-control" placeholder="Calle">
+                                                        <input asp-for="RDatosPersonNavigation.Calle" type="text" class="form-control" placeholder="Ingresar...">
                                                         <span asp-validation-for="RDatosPersonNavigation.Calle" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Colonia">Colonia</label>
-                                                        <input asp-for="RDatosPersonNavigation.Colonia" type="text" class="form-control" placeholder="Colonia" reuiqred>
+                                                        <input asp-for="RDatosPersonNavigation.Colonia" type="text" class="form-control" placeholder="Ingresar..." reuiqred>
                                                         <span asp-validation-for="RDatosPersonNavigation.Colonia" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Ciudad">Ciudad</label>
-                                                        <input asp-for="RDatosPersonNavigation.Ciudad" type="text" class="form-control" placeholder="Ciudad" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.Ciudad" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.Ciudad" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Municipio">Municipio</label>
-                                                        <input asp-for="RDatosPersonNavigation.Municipio" type="text" class="form-control" placeholder="Municipio" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.Municipio" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.Municipio" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Estado">Estado</label>
-                                                        <input asp-for="RDatosPersonNavigation.Estado" type="text" class="form-control" placeholder="Estado" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.Estado" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.Estado" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Pais">Pais</label>
-                                                        <input asp-for="RDatosPersonNavigation.Pais" type="text" class="form-control" placeholder="Pais">
+                                                        <input asp-for="RDatosPersonNavigation.Pais" type="text" class="form-control" placeholder="Ingresar...">
                                                         <span asp-validation-for="RDatosPersonNavigation.Pais" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.CodigoPostal">Código Postal</label>
-                                                        <input asp-for="RDatosPersonNavigation.CodigoPostal" type="number" class="form-control" placeholder="Codigo postal" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.CodigoPostal" type="number" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.CodigoPostal" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.RecidenciaActual">Residencia Actual</label>
-                                                        <input asp-for="RDatosPersonNavigation.RecidenciaActual" type="text" class="form-control" placeholder="Residencia acual" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.RecidenciaActual" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.RecidenciaActual" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label asp-for="RDatosPersonNavigation.Telefono">Teléfono</label>
-                                                        <input asp-for="RDatosPersonNavigation.Telefono" type="number" class="form-control" placeholder="Telefono" required="required">
+                                                        <input asp-for="RDatosPersonNavigation.Telefono" type="number" class="form-control" placeholder="Ingresar..." required="required">
                                                         <span asp-validation-for="RDatosPersonNavigation.Telefono" class="text-danger"></span>
                                                     </div>
                                                 </div>
@@ -160,22 +166,22 @@
                                                                  <!-- text input -->
                                                                  <div class="form-group">
                                                                      <label asp-for="Matricula">Matrícula</label>
-                                                                     <input asp-for="Matricula" type="text" class="form-control" placeholder="Matricula" required="required">
+                                                                     <input asp-for="Matricula" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                                      <span asp-validation-for="Matricula" class="text-danger"></span>
                                                                  </div>
                                                                  <div class="form-group">
                                                                      <label asp-for="CorreoInstitucional">Correo Institucional</label>
-                                                                     <input asp-for="CorreoInstitucional" type="email" class="form-control" placeholder="Correo institucional" required="required">
+                                                                     <input asp-for="CorreoInstitucional" type="email" class="form-control" placeholder="Ingresar..." required="required">
                                                                      <span asp-validation-for="CorreoInstitucional" class="text-danger"></span>
                                                                  </div>
                                                                  <div class="form-group">
                                                                      <label asp-for="AnioIngreso">Año de ingreso</label>
-                                                                     <input asp-for="AnioIngreso" type="number" class="form-control" placeholder="Año de ingreso">
+                                                                     <input asp-for="AnioIngreso" type="number" class="form-control" placeholder="Ingresar...">
                                                                      <span asp-validation-for="AnioIngreso" class="text-danger"></span>
                                                                  </div>
                                                                  <div class="form-group">
                                                                      <label asp-for="Modalidad">Modalidad</label>
-                                                                     <input asp-for="Modalidad" type="text" class="form-control" placeholder="Modalidad" required="required">
+                                                                     <input asp-for="Modalidad" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                                      <span asp-validation-for="Modalidad" class="text-danger"></span>
                                                                  </div>
                                                              </div>
@@ -183,7 +189,7 @@
 
                                                                  <div class="form-group">
                                                                      <label asp-for="Bachillerato">Bachillerato de Procedencia</label>
-                                                                     <input asp-for="Bachillerato" type="text" class="form-control" placeholder="Bachillerato de procedencia">
+                                                                     <input asp-for="Bachillerato" type="text" class="form-control" placeholder="Ingresar...">
                                                                      <span asp-validation-for="Bachillerato" class="text-danger"></span>
                                                                  </div>
                                                                  <div class="form-group">
@@ -197,16 +203,19 @@
                                                                      </select>
 
                                                                  </div>
+                                                                 <br /><br /><br /><br /><br /><br />
+                                                                 <input id="enviadatosa" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                                 <a asp-controller="EstudiantesInformacion" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                                     Cancelar
+                                                                 </a>
+                                                                 
                                                              </div>
 
                                                          </div>
                                                      </div>
                                                  </div>
                                              </div>
-                                             <a asp-controller="EstudiantesInformacion" asp-action="Index" class="btn btn-default btn-sm m-b-10">
-                                                 Cancelar
-                                             </a>
-                                             <input id="enviadatosa" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10">
+                                             
                                          </div>
                         </form>
                     </div>

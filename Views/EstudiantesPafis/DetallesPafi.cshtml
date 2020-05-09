@@ -12,12 +12,15 @@
         <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-topline-green"></div>
-                <div class="white-box">
-                    <div class="p-rl-20">
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab"> @foreach (var item in Model) { @Html.DisplayFor(modelItem => item.nombrePafi) break; }</a></li>
-                        </ul>
+                <div class="card-head">
+                        <header>@foreach (var item in Model) { @Html.DisplayFor(modelItem => item.nombrePafi) break; }</header>
+                        <div class="tools">
+                            <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                            <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                            <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                        </div>
                     </div>
+                <div class="white-box">
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
                             <div class="row">
@@ -89,6 +92,7 @@
                                             <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="tabla_califEE">
                                                 <thead>
                                                     <tr>
+                                                        <th hidden></th>
                                                         <th class="center"> Matricula</th>
                                                         <th class="center"> Alumno </th>
                                                     </tr>
@@ -97,6 +101,7 @@
                                                     @foreach (var item in Model)
                                                     {
                                                         <tr class="odd gradeX">
+                                                            <td hidden></td>
                                                             <td class="center">@Html.DisplayFor(modelItem => item.matricula)</td>
                                                             <td class="center">@Html.DisplayFor(modelItem => item.alumno)</td>
                                                         </tr>
@@ -105,7 +110,7 @@
                                             </table>
                                         </div>
                                     }
-
+                                    <br />
                                     <a asp-controller="EstudiantesPafis" asp-action="Index" class="btn btn-success btn-sm m-b-10" style="float:right">
                                     Regresar
                                     </a>
