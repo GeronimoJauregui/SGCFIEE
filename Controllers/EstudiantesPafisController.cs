@@ -18,6 +18,7 @@ namespace SGCFIEE.Controllers
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             List<TablaPafi> tb_pafi = new List<TablaPafi>();
             List<TbPafisAlumno> pafi_alum = new List<TbPafisAlumno>();
+            int alum = (int)HttpContext.Session.GetInt32("IdUsu");
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 tb_pafi = (from d in context.PafisAcademicos
@@ -36,9 +37,11 @@ namespace SGCFIEE.Controllers
                                NombreMaestro = a.Nombre,
                                ApePaterno = a.ApellidoPaterno,
                                ApeMaterno = a.ApellidoMaterno,
-                               ClvSalon = s.ClaveSalon,
+                               ClvSalon = s.Edificio + "-" + s.ClaveSalon,
                                ProgrmaEdu = p.Nombre,
+                               TipoPafi = d.Tipopafi,
                                ocupado = 0,
+                               inscrito = 0,
                                estado = d.Estado.Value
                            }
                           ).Where(s => s.estado == 0).ToList();
@@ -54,8 +57,14 @@ namespace SGCFIEE.Controllers
                         cont++;
                     }
 
+                    if (item1.idPafi == item2.RInfopafi && item2.RAlumno == alum) 
+                    {
+                        item1.inscrito = 1;
+                    }
                 }
                 item1.TotalAlum = cont;
+
+
             }
 
             return View(tb_pafi);
@@ -87,7 +96,7 @@ namespace SGCFIEE.Controllers
                                matricula = al.Matricula,
                                nombrePafi = pa.Nombre,
                                Horas = pa.NumHoras,
-                               salon = s.Edificio + " " + s.ClaveSalon,
+                               salon = s.Edificio + "-" + s.ClaveSalon,
                                programa = pi.Nombre,
                                horario = pa.Horario,
                                tipoPafi = pa.Tipopafi
@@ -114,10 +123,8 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var x = context.Academicos.ToList();
-                var y = context.TbSalones.ToList();
                 var z = context.TipoPeriodo.ToList();
                 ViewData["academicos"] = x;
-                ViewData["salones"] = y;
                 ViewData["periodos"] = z;
             }
             return View();
@@ -126,20 +133,14 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public IActionResult Crear(PafisAcademicos pafis)
+        public IActionResult Crear(PafisSolicitados pafis)
         {
-            TbPafisAlumno tbpafi = new TbPafisAlumno();
-            tbpafi.RAlumno = (int)HttpContext.Session.GetInt32("IdUsu");
+            pafis.IdAlumno = (int)HttpContext.Session.GetInt32("IdUsu");
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                context.PafisAcademicos.Add(pafis);
+                context.PafisSolicitados.Add(pafis);
                 context.SaveChanges();
                 TempData["Mensaje"] = "Datos registrados";
-                var x = context.PafisAcademicos.Last();
-                int idpafinuevo = x.IdPafis;
-                tbpafi.RInfopafi = idpafinuevo;
-                context.TbPafisAlumno.Add(tbpafi);
-                context.SaveChanges();
             }
             return RedirectToAction("Index");
         }
@@ -175,14 +176,7 @@ namespace SGCFIEE.Controllers
                 {
                     context.TbPafisAlumno.Remove(tbpafi);
                     context.SaveChanges();
-                    int x = 0;
-                    x = context.TbPafisAlumno.Where(a => a.RInfopafi.Value == id).Count();
-                    if (x < 1)
-                    {
-                        PafisAcademicos pafi = context.PafisAcademicos.Where(b => b.IdPafis == id).Single();
-                        context.PafisAcademicos.Remove(pafi);
-                        context.SaveChanges();
-                    }
+                    
                 }
             }
             return RedirectToAction("Index");

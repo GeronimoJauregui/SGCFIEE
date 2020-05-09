@@ -1,8 +1,7 @@
-﻿@model SGCFIEE.Models.PafisAcademicos;
+﻿@model SGCFIEE.Models.PafisSolicitados;
 @{
     Layout = "~/Views/Home/Principal.cshtml";
     var x = (IEnumerable<Academicos>)ViewData["academicos"];
-    var y = (IEnumerable<TbSalones>)ViewData["salones"];
     var z = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
 }
 
@@ -31,14 +30,27 @@
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <label asp-for="Nombre">Nombre de materia/curso del pafi que desea solicitar</label>
-                                                            <input asp-for="Nombre" id="nom" type="text" class="form-control" placeholder="Nombre ..." required="required">
-                                                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                                                            <label asp-for="NombreSolicitados">Nombre de materia/curso del pafi que desea solicitar</label>
+                                                            <input asp-for="NombreSolicitados" id="nom" type="text" class="form-control" placeholder="Nombre ..." required="required">
+                                                            <span asp-validation-for="NombreSolicitados" class="text-danger"></span>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label asp-for="Horario">Horario posible</label>
-                                                            <input asp-for="Horario" id="horario" type="text" class="form-control" placeholder="Horario posible ..." required="required">
-                                                            <span asp-validation-for="Horario" class="text-danger"></span>
+                                                            <label asp-for="HorarioPosible">Horario posible</label>
+                                                            <input asp-for="HorarioPosible" id="horario" type="text" class="form-control" placeholder="Horario posible ..." required="required">
+                                                            <span asp-validation-for="HorarioPosible" class="text-danger"></span>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        
+                                                        <div class="form-group">
+                                                            <label>Periodo</label>
+                                                            <select asp-for="IdPeriodo" class="form-control">
+                                                                @foreach (var item in z)
+                                                                {
+                                                                    <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                                }
+                                                            </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label asp-for="IdAcademico">Maestro posible</label>
@@ -47,26 +59,6 @@
                                                                 {
                                                                     var name = item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno;
                                                                     <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => name)</option>
-                                                                }
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-6">
-                                                        <div class="form-group">
-                                                            <label asp-for="IdSalon">Salon posible</label>
-                                                            <select asp-for="IdSalon" id="salones" class="form-control">
-                                                                @foreach (var i in y)
-                                                                {
-                                                                    <option value="@i.IdTbSalones">@Html.DisplayFor(modelItem => i.Edificio)-@Html.DisplayFor(modelItem => i.ClaveSalon)</option>
-                                                                }
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Periodo</label>
-                                                            <select asp-for="IdPeriodo" class="form-control">
-                                                                @foreach (var item in z)
-                                                                {
-                                                                    <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre)</option>
                                                                 }
                                                             </select>
                                                         </div>

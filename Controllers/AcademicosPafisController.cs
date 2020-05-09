@@ -19,6 +19,7 @@ namespace SGCFIEE.Controllers
         public IActionResult Index()
         {
             List<pPafisAcademicos> ListPafis = new List<pPafisAcademicos>();
+            List<ListPafisSolic> ListPafisSolic = new List<ListPafisSolic>();
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             ViewData["tipo"] = tipo;
             using (sgcfieeContext context = new sgcfieeContext())
@@ -53,6 +54,26 @@ namespace SGCFIEE.Controllers
                                  }
                             ).ToList();
                     ViewData["pafis"] = ListPafis;
+
+                    ListPafisSolic = (from pa in context.PafisSolicitados
+                                 join per in context.TipoPeriodo on pa.IdPeriodo equals per.IdPeriodo
+                                 join aca in context.Academicos on pa.IdAcademico equals aca.IdAcademicos
+                                 join alum in context.Alumnos on pa.IdAlumno equals alum.IdAlumnos
+                                 join dg in context.DatosPersonales  on alum.RDatosPerson equals dg.IdDatosPersonales
+
+                                 select new ListPafisSolic
+                                 {
+                                     idPafiSolic = pa.IdpafisSolicitados,
+                                     NombrePafi = pa.NombreSolicitados,
+                                     Horario = pa.HorarioPosible,
+                                     Nombre_academico = aca.Nombre + " " + aca.ApellidoPaterno + " " + aca.ApellidoMaterno,
+                                     Periodo = per.Nombre,
+                                     matricula = alum.Matricula,
+                                     alumno = dg.Nombre + " " + dg.ApellidoPaterno + " " + dg.ApellidoMaterno
+                                     
+                                 }
+                                ).ToList();
+                    ViewData["pafisSolic"] = ListPafisSolic;
                 }
                 if (tipo == 2)
                 {
@@ -310,6 +331,16 @@ namespace SGCFIEE.Controllers
             {
                 PafisAcademicos eliminar = context.PafisAcademicos.Where(w => w.IdPafis == id).Single();
                 context.PafisAcademicos.Remove(eliminar);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+        }
+        public IActionResult EliminarPafiSolic(int id)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                PafisSolicitados eliminar = context.PafisSolicitados.Where(w => w.IdpafisSolicitados == id).Single();
+                context.PafisSolicitados.Remove(eliminar);
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }

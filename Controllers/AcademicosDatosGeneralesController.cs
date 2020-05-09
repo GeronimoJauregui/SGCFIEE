@@ -1223,11 +1223,11 @@ namespace SGCFIEE.Controllers
                             context.ContratacionPtc.Remove(eliminar);
                             context.SaveChanges();
 
-                            academico.RTipoPersonal = 3;
-                            context.Academicos.Update(academico);
-                            context.SaveChanges();
+                            
                         }
-
+                        academico.RTipoPersonal = 3;
+                        context.Academicos.Update(academico);
+                        context.SaveChanges();
                     }
                     else {
                         Laboratorio lab = context.Laboratorio.Where(w => w.IdAcademico == datos.IdAcademico).Single();

@@ -19,6 +19,7 @@
     <None Remove="SGCFIEE.mwb.bak" />
     <None Remove="SGCFIEE.mwb.bak" />
     <None Remove="SGCFIEE.mwb" />
+    <Content Remove="wwwroot\Archivos\PafisAcademicos\Acta_1_IINF-11-E-CR-Trayectoria-sugerida-2016.pdf" />
   </ItemGroup>
 
 

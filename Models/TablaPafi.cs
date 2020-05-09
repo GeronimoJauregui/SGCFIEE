@@ -18,6 +18,8 @@ namespace SGCFIEE.Models
         public String ProgrmaEdu { get; set; }
         public int TotalAlum { get; set; }
         public int ocupado { get; set; }
+        public int? TipoPafi { get; set; }
+        public int inscrito { get; set; }
 
     }
 }

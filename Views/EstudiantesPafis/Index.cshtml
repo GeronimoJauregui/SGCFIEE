@@ -44,6 +44,7 @@
                             <th class="center">Nombre del academico</th>
                             <th class="center">Salon</th>
                             <th class="center">Programa educativo al que impacta</th>
+                            <th class="center">Tipo de PAFI</th>
                             <th class="center">Acción</th>
 
                         </tr>
@@ -60,23 +61,31 @@
                                 <td class="center">@Html.DisplayFor(modelItem => item.ClvSalon)</td>
                                 <td class="center">@Html.DisplayFor(modelItem => item.ProgrmaEdu)</td>
                                 <td class="center">
-                                    
+                                @if(item.TipoPafi == 0)
+                                {
+                                    <div>Nivelatorio</div>
+                                }
+                                else
+                                {
+                                    <div>Remedial</div>
+                                }
+                                </td>
+                                <td class="center">
                                     @if (x == 1)
                                     {
                                         <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="DetallesPafi" class="btn btn-success btn-xs infoextra" title="Toda la información">
                                             <i class="fa fa-check"></i>
                                         </a>
-                                        
                                     }
                                     @if (x == 3)
                                     {
-                                        @if (item.ocupado == 0)
+                                        @if (item.inscrito == 0)
                                         {
                                             <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="Inscribir" class="btn btn-success btn-xs eliminar" title="Enlistar">
                                                 <i class="fa fa-sign-in "></i>
                                             </a>
                                         }
-                                        @if (item.ocupado == 1)
+                                        @if (item.inscrito == 1)
                                         {
                                             <a asp-route-id="@item.idPafi" asp-controller="EstudiantesPafis" asp-action="Desenlistar" class="btn btn-danger btn-xs eliminar" title="Desenlistar">
                                                 <i class="fa fa-sign-out "></i>

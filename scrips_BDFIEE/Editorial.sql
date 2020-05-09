@@ -1,5 +1,5 @@
 USE SGCFIEE;
-INSERT INTO tipo_personal (Nombre) VALUES
+INSERT INTO Editorial (Nombre) VALUES
 ("McGraw"),
 ("Prentice Hall"),
 ("UV"),
