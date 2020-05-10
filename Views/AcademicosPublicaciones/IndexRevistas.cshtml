@@ -50,6 +50,7 @@
                                                 <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaRevistas" >
                                                     <thead>
                                                         <tr>
+                                                            <th hidden></th>
                                                             <th class="center"> Nombre de la revista</th>
                                                             <th class="center"> Nacional<br>o<br>Internacional</th>
                                                             <th class="center"> Registro</th>
@@ -62,6 +63,7 @@
                                                         @foreach (var item in Model)
                                                         {
                                                             <tr class="odd gradeX">
+                                                                <td hidden></td>
                                                                 <td class="center">@Html.DisplayFor(modelItem => item.NombreRevista)</td>
                                                                 <td class="center">@Html.DisplayFor(modelItem => item.Tipo)</td>
                                                                 <td class="center">

@@ -1,19 +1,21 @@
 ﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
   <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/HomeController.cs">
-    <Files>
-      <File FileName="Controllers/HomeController.cs" Line="64" Column="66" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="HomeController.cs" selected="True" />
-              </Node>
               <Node name="Views" expanded="True">
-                <Node name="EstudiantesInformacion" expanded="True" />
+                <Node name="AcademicosConsejoTecnico" expanded="True" />
+                <Node name="Home" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="assets" expanded="True">
+                  <Node name="css" expanded="True">
+                    <Node name="inicio.css" selected="True" />
+                  </Node>
+                </Node>
               </Node>
             </Node>
           </Node>

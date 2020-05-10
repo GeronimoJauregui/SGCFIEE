@@ -73,6 +73,7 @@
                         <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable" id="tablaep">
                             <thead>
                                 <tr>
+                                    <th hidden></th>
                                     <th class="mdl-data-table__cell--non-numeric">Empresa</th>
                                     <th class="mdl-data-table__cell--non-numeric">Puesto</th>
                                     <th class="mdl-data-table__cell--non-numeric">Área de desarrollo profesional</th>
@@ -83,6 +84,7 @@
                                 @foreach (var item in ep)
                                 {
                                     <tr>
+                                        <td hidden></td>
                                         <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.empresa)</td>
                                         <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.TipoPuesto)</td>
                                         <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.AreaDesarrollo)</td>

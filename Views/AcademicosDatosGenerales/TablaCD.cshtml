@@ -76,6 +76,7 @@
                         <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable" id="tablaCD">
                             <thead>
                                 <tr>
+                                    <th hidden></th>
                                     <th class="mdl-data-table__cell--non-numeric">Curso/Diplomado</th>
                                     <th class="mdl-data-table__cell--non-numeric">Nombre</th>
                                     <th class="mdl-data-table__cell--non-numeric">Número de horas</th>
@@ -89,6 +90,7 @@
                                 @foreach (var item in cd)
                                 {
                                 <tr>
+                                    <td hidden></td>
                                     <td class="mdl-data-table__cell--non-numeric">@if (item.CursoDiplomado == 0) { <div>Curso</div>} @if (item.CursoDiplomado == 1) {<div>Diplomado</div>}</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Nombre)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Horas)</td>

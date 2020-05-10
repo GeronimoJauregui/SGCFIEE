@@ -48,50 +48,55 @@
                         </div>
                     </form>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="tabla_tutoria">
-                    <thead>
-                        <tr>
-                            <th class="center"> Matricula </th>
-                            <th class="center"> Nombre del alumno</th>
-                            <th class="center"> Miembro </th>
-                            <th class="center"> Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in tutoI)
-                        {
-                            <tr class="odd gradeX">
-                                <td>@Html.DisplayFor(modelItem => item.matricula)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.A_paterno) @Html.DisplayFor(modelItem => item.A_materno)</td>
-                                <td>Interno</td>
-                                <td class="center">
-                                    <a asp-route-id="@item.IdAlumnos" asp-controller="AcademicosTutoria" asp-action="EditarI" class="btn btn-primary btn-xs" title="Editar">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a data-value="@item.IdAlumnos" data-controlador="AcademicosTutoria" data-accion="EliminarI" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                        <i class="fa fa-trash-o "></i>
-                                    </a>
-                                </td>
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="tabla_tutoria">
+                        <thead>
+                            <tr>
+                                <th hidden></th>
+                                <th class="center"> Matricula </th>
+                                <th class="center"> Nombre del alumno</th>
+                                <th class="center"> Miembro </th>
+                                <th class="center"> Acción</th>
                             </tr>
-                        }
-                        @foreach (var item in tutoE)
-                        {
-                            <tr class="odd gradeX">
-                                <td>@Html.DisplayFor(modelItem => item.Matricula)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                <td>Externo</td>
-                                <td class="center">
-                                    <a asp-route-id="@item.IdTutoradosExternos" asp-controller="AcademicosTutoria" asp-action="EditarE" class="btn btn-primary btn-xs " title="Editar">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a data-value="@item.IdTutoradosExternos" data-controlador="AcademicosTutoria" data-accion="EliminarE" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                        <i class="fa fa-trash-o "></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in tutoI)
+                            {
+                                <tr class="odd gradeX">
+                                    <td hidden></td>
+                                    <td>@Html.DisplayFor(modelItem => item.matricula)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.A_paterno) @Html.DisplayFor(modelItem => item.A_materno)</td>
+                                    <td>Interno</td>
+                                    <td class="center">
+                                        <a asp-route-id="@item.IdAlumnos" asp-controller="AcademicosTutoria" asp-action="EditarI" class="btn btn-primary btn-xs" title="Editar">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a data-value="@item.IdAlumnos" data-controlador="AcademicosTutoria" data-accion="EliminarI" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var item in tutoE)
+                            {
+                                <tr class="odd gradeX">
+                                    <td hidden></td>
+                                    <td>@Html.DisplayFor(modelItem => item.Matricula)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                    <td>Externo</td>
+                                    <td class="center">
+                                        <a asp-route-id="@item.IdTutoradosExternos" asp-controller="AcademicosTutoria" asp-action="EditarE" class="btn btn-primary btn-xs " title="Editar">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a data-value="@item.IdTutoradosExternos" data-controlador="AcademicosTutoria" data-accion="EliminarE" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

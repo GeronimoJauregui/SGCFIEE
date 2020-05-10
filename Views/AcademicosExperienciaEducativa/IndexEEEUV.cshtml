@@ -41,7 +41,8 @@
                                             <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="tabla_EEExterna">
                                                 <thead>
                                                     <tr>
-                                                        <th class="center" style="width: 100px;"> Número de personal </th>
+                                                        <th hidden></th>
+                                                        <th class="center"> Número de personal </th>
                                                         <th class="center"> Nombre del académico</th>
                                                         <th class="center"> Institución nivel superior </th>
                                                         <th class="center"> Nombre de la EE </th>
@@ -53,6 +54,7 @@
                                                     @foreach (var item in eep)
                                                     {
                                                     <tr class="odd gradeX">
+                                                        <td hidden></td>
                                                         <td>@Html.DisplayFor(modelItem => item.Npersonal)</td>
                                                         <td>@Html.DisplayFor(modelItem => item.academico)</td>
                                                         <td>@Html.DisplayFor(modelItem => item.institucion)</td>

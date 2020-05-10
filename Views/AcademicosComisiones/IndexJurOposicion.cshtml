@@ -45,6 +45,7 @@
                                                 <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaJurOposicion" >
                                                     <thead>
                                                         <tr>
+                                                            <th hidden></th>
                                                             <th class="center"> Tipo de<br>examen</th>
                                                             <th class="center"> Nombre de la<br>EE</th>
                                                             <th class="center"> Fecha<br>(aa/mm/dd)</th>
@@ -56,6 +57,7 @@
                                                         @foreach (var item in Model)
                                                         {
                                                             <tr class="odd gradeX">
+                                                                <td hidden></td>
                                                                 <td class="center"> 
                                                                     @if (item.TipoExamen == 1)
                                                                     { <div>EE</div>  }

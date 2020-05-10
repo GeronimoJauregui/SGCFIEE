@@ -28,42 +28,46 @@
                         </div>
                     </div>
                 </div>
-                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="ConsejoTecnico">
-                    <thead>
-                        <tr>
-                            <th class="center"> Número de personal </th>
-                            <th class="center"> Nombre del académico</th>
-                            <th class="center"> Periodo de inicio </th>
-                            <th class="center"> Periodo de termino </th>
-                            <th class="center"> Evidencia</th>
-                            <th class="center"> Acción </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr class="odd gradeX">
-                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
-                                <td>@Html.DisplayFor(modelItem => item.PeriodoInicio)</td>
-                                <td>@Html.DisplayFor(modelItem => item.PeriodoTermino)</td>
-                                <td class="center">
-                                    <a asp-route-filename="@item.Archivo" asp-controller="AcademicosConsejoTecnico" asp-action="Descargar" class="btn btn-primary btn-xs" title="Descargar evidencia">
-                                        <i class="fa fa-download"></i>
-                                    </a>
-                                </td>
-                                <td class="center">
-                                    <a asp-route-id="@item.IdCT" asp-controller="AcademicosConsejoTecnico" asp-action="Editar" class="btn btn-primary btn-xs modificar" title="Editar">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a data-value="@item.IdCT" data-controlador="AcademicosConsejoTecnico" data-accion="Eliminar" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                        <i class="fa fa-trash-o "></i>
-                                    </a>
-                                </td>
+                <div class="table-scrollable">
+                    <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="ConsejoTecnico">
+                        <thead>
+                            <tr>
+                                <th hidden></th>
+                                <th class="center"> Número de personal </th>
+                                <th class="center"> Nombre del académico</th>
+                                <th class="center"> Periodo de inicio </th>
+                                <th class="center"> Periodo de termino </th>
+                                <th class="center"> Evidencia</th>
+                                <th class="center"> Acción </th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="odd gradeX">
+                                    <td hidden></td>
+                                    <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PeriodoInicio)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.PeriodoTermino)</td>
+                                    <td class="center">
+                                        <a asp-route-filename="@item.Archivo" asp-controller="AcademicosConsejoTecnico" asp-action="Descargar" class="btn btn-primary btn-xs" title="Descargar evidencia">
+                                            <i class="fa fa-download"></i>
+                                        </a>
+                                    </td>
+                                    <td class="center">
+                                        <a asp-route-id="@item.IdCT" asp-controller="AcademicosConsejoTecnico" asp-action="Editar" class="btn btn-primary btn-xs modificar" title="Editar">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a data-value="@item.IdCT" data-controlador="AcademicosConsejoTecnico" data-accion="Eliminar" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

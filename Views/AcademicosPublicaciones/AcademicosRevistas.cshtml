@@ -58,6 +58,7 @@
                                                 <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="TablaArticulos" >
                                                     <thead>
                                                         <tr>
+                                                            <th hidden></th>
                                                             <th class="center"> Numero de personal</th>
                                                             <th class="center"> Nombre del académico</th>
                                                             @if(tipo == 2)
@@ -77,6 +78,7 @@
                                                         @foreach (var item in Model)
                                                         {
                                                             <tr class="odd gradeX">
+                                                                <td hidden></td>
                                                                 <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
                                                                 <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
                                                                 @if (tipo == 2)

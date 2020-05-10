@@ -36,6 +36,7 @@
                         <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
                             <thead>
                                 <tr>
+                                    <th hidden></th>
                                     <th class="mdl-data-table__cell--non-numeric">Nombre</th>
                                     <th class="mdl-data-table__cell--non-numeric">Tipo</th>
                                     <th class="mdl-data-table__cell--non-numeric" style="width: 100px;">Evidencia</th>
@@ -45,6 +46,7 @@
                                 @foreach (var item in certificaciones)
                                 {
                                 <tr>
+                                    <td hidden></td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Nombre)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.TipoCertificacion)</td>
                                     <td class="mdl-data-table__cell--non-numeric center">

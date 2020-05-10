@@ -46,6 +46,7 @@
                                     <table class="table table-striped table-bordered table-hover table-checkable order-column " style="width: 100%" id="tablaCD">
                                         <thead>
                                             <tr>
+                                                <th hidden></th>
                                                 <th class="center">Curso/Diplomado</th>
                                                 <th class="center">Nombre</th>
                                                 <th class="center">Número de horas</th>
@@ -61,6 +62,7 @@
                                             @foreach (var item in cd)
                                             {
                                             <tr>
+                                                <td hidden></td>
                                                 <td class="mdl-data-table__cell--non-numeric">
                                                     @if (item.CursoDiplomado == 0)
                                                     {<div>Curso</div>} @if (item.CursoDiplomado == 1)
