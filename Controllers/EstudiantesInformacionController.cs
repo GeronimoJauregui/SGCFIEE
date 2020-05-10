@@ -64,7 +64,7 @@ namespace SGCFIEE.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
-            ViewData["tipo"] = 3;
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var x = context.ProgramaEducativo.ToList();
