@@ -1,5 +1,21 @@
 ﻿$(document).ready(function () {
+    //----------------editorial----------------
+    $("#div_agregarEdi").hide();
+    $("#nueva_editorial").change(function () {        
+        element = document.getElementById("div_agregarEdi");
+        check = document.getElementById("nueva_editorial");
+        if (check.checked) {
+            element.style.display = 'block';
+        }
+        else {
+            element.style.display = 'none';
+            $("#agregarEdi").val(null);
+        }
+    });
+
+
     /*Agregar tutorado*/
+
     $("#nombre").hide();
     $("#matricula").hide();
     $("input[name=Tipotutorado]").change(function () {
@@ -41,10 +57,21 @@
     } else {
         $("#div_laboratorio").hide();
         $("#div_fecha_nombramiento").hide();
-    }
+    };
+
+
+    
+    //$("#div_agregarEdi").hide();
+    //$("#nueva_editorial").change(function () {
+    //    var t = $(this).val();
+    //    if (t === '1') {
+    //        $("#agregarEdi").show();
+    //    } else {
+    //        $("#agregarEdi").hide();
+
+    //    }
+    //});
 });
-
-
 
 
 

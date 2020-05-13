@@ -1090,13 +1090,28 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarLibros(IFormFile file, LibrosAcademicos datos, int idAcademico, int Lider)
+        public async Task<IActionResult> GuardarLibros(IFormFile file, LibrosAcademicos datos, int idAcademico, int Lider,string nuevaE)
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             if (tipo == 2)
             {
                 idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
             }
+
+            if (nuevaE != null) {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    Editorial nuevo = new Editorial();
+                    nuevo.Nombre = nuevaE;
+                    context.Editorial.Add(nuevo);
+                    context.SaveChanges();
+                    Editorial ultimaE = context.Editorial.Last();
+                    datos.IdEditorial = ultimaE.IdEditorial;
+                }
+                    
+            }
+
+
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var name = file.GetFilename();

@@ -1552,3 +1552,4 @@ C:\Users\dxvm1\Desktop\sgc cuarentena\SGCFIEE\obj\Debug\netcoreapp2.2\SGCFIEE.Vi
 C:\Users\dxvm1\Desktop\sgc cuarentena\SGCFIEE\obj\Debug\netcoreapp2.2\SGCFIEE.dll
 C:\Users\dxvm1\Desktop\sgc cuarentena\SGCFIEE\obj\Debug\netcoreapp2.2\SGCFIEE.pdb
 C:\Users\dxvm1\Desktop\sgc cuarentena\SGCFIEE\obj\Debug\netcoreapp2.2\SGCFIEE.csproj.CopyComplete
+C:\Users\dxvm1\Desktop\sgc cuarentena\SGCFIEE\obj\Debug\netcoreapp2.2\SGCFIEE.csprojAssemblyReference.cache
