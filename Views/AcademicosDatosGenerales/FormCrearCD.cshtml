@@ -49,13 +49,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Tipo</label> <br>
-                                        <input asp-for="PD" type="radio" id="optionsRadios3" value="1" checked=""> Disciplinar
-                                        <input asp-for="PD" type="radio" id="optionsRadios4" value="0"> Pedagógico
+                                        <input asp-for="PD" type="radio" value="1" checked=""> Disciplinar
+                                        <input asp-for="PD" type="radio" value="0"> Pedagógico
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
-                                        <label>Empresa o IES</label>
+                                        <label>Empresa o Institución de Educación Superior</label>
                                         <select class="form-control" asp-for="IdIesEmpresa" id="empresa_ies">
                                             @foreach (var item in ies)
                                             {
@@ -63,6 +63,16 @@
                                             }
                                         </select>
                                     </div>
+
+                                    <input type="checkbox" id="select2"> <label>Otra empresa o institución</label>
+                                    <div class="form-group" id="div_radio">
+                                        <input type="radio" name="tipo" value="1" checked=""/> Empresa
+                                        <input type="radio" name="tipo" value="2"/> Institucón de Educación Superior
+                                    </div>
+                                    <div class="form-group" id="div_agregar2">
+                                        <input type="text" id="agregar2" name="nuevaInstEmpre" class="form-control" placeholder="Ingresar...">
+                                    </div>
+
                                     <div class="form-group">
                                         <label>Lugar</label>
                                         <input asp-for="Lugar" type="text" class="form-control" placeholder="Ingresar...">

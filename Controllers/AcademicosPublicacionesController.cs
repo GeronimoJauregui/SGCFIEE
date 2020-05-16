@@ -38,7 +38,7 @@ namespace SGCFIEE.Controllers
                                      NombreArticulo = datos.Nombre,
                                  }
                                ).ToList();
-                if(tipoUsu == 2)
+                if (tipoUsu == 2)
                 {
                     List<Academicoarticulos> ListAcad = new List<Academicoarticulos>();
                     ListAcad = context.Academicoarticulos.Where(w => w.IdAcademico == idUsu && w.Lider == 1).ToList();
@@ -1090,7 +1090,7 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarLibros(IFormFile file, LibrosAcademicos datos, int idAcademico, int Lider,string nuevaE)
+        public async Task<IActionResult> GuardarLibros(IFormFile file, LibrosAcademicos datos, int idAcademico, int Lider, string nuevaE)
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             if (tipo == 2)
@@ -1098,7 +1098,8 @@ namespace SGCFIEE.Controllers
                 idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
             }
 
-            if (nuevaE != null) {
+            if (nuevaE != null)
+            {
                 using (sgcfieeContext context = new sgcfieeContext())
                 {
                     Editorial nuevo = new Editorial();
@@ -1108,7 +1109,7 @@ namespace SGCFIEE.Controllers
                     Editorial ultimaE = context.Editorial.Last();
                     datos.IdEditorial = ultimaE.IdEditorial;
                 }
-                    
+
             }
 
 
@@ -1162,8 +1163,22 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> ActualizarLibros(IFormFile file, LibrosAcademicos datos)
+        public async Task<IActionResult> ActualizarLibros(IFormFile file, LibrosAcademicos datos, string nuevaE)
         {
+
+            if (nuevaE != null)
+            {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    Editorial nuevo = new Editorial();
+                    nuevo.Nombre = nuevaE;
+                    context.Editorial.Add(nuevo);
+                    context.SaveChanges();
+                    Editorial ultimaE = context.Editorial.Last();
+                    datos.IdEditorial = ultimaE.IdEditorial;
+                }
+
+            }
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
@@ -1362,8 +1377,23 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarCapitulos(IFormFile file, CapLibro datos, int idAcademico, int Lider)
+        public async Task<IActionResult> GuardarCapitulos(IFormFile file, CapLibro datos, int idAcademico, int Lider, string nuevaE)
         {
+
+            if (nuevaE != null)
+            {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    Editorial nuevo = new Editorial();
+                    nuevo.Nombre = nuevaE;
+                    context.Editorial.Add(nuevo);
+                    context.SaveChanges();
+                    Editorial ultimaE = context.Editorial.Last();
+                    datos.IdEditorial = ultimaE.IdEditorial;
+                }
+
+            }
+
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             if (tipo == 2)
             {
@@ -1418,8 +1448,23 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> ActualizarCapitulos(IFormFile file, CapLibro datos)
+        public async Task<IActionResult> ActualizarCapitulos(IFormFile file, CapLibro datos, string nuevaE)
         {
+
+            if (nuevaE != null)
+            {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    Editorial nuevo = new Editorial();
+                    nuevo.Nombre = nuevaE;
+                    context.Editorial.Add(nuevo);
+                    context.SaveChanges();
+                    Editorial ultimaE = context.Editorial.Last();
+                    datos.IdEditorial = ultimaE.IdEditorial;
+                }
+
+            }
+
 
             using (sgcfieeContext context = new sgcfieeContext())
             {

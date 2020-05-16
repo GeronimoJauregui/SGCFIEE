@@ -9,9 +9,7 @@
               <Node name="Controllers" expanded="True">
                 <Node name="HomeController.cs" selected="True" />
               </Node>
-              <Node name="Views" expanded="True">
-                <Node name="AcademicosDatosGenerales" expanded="True" />
-              </Node>
+              <Node name="Views" expanded="True" />
               <Node name="wwwroot" expanded="True">
                 <Node name="assets" expanded="True">
                   <Node name="js" expanded="True">

@@ -14,14 +14,18 @@
     });
 
     $("#div_agregar2").hide();
+    $("#div_radio").hide();
     $("#select2").change(function () {
         element = document.getElementById("div_agregar2");
+        elementRadio = document.getElementById("div_radio");
         check = document.getElementById("select2");
         if (check.checked) {
             element.style.display = 'block';
+            elementRadio.style.display = "block";
         }
         else {
             element.style.display = 'none';
+            elementRadio.style.display = "none";
             $("#agregar2").val(null);
         }
     });

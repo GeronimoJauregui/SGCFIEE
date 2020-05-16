@@ -19,7 +19,7 @@
                 <form asp-controller="AcademicosDatosGenerales" asp-action="FormActualizarTablaGA" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
-                            <input asp-for="IdAcademico" type="hidden" value="@academico">
+                            <input asp-for="IdAcademico" type="hidden" >
                             <input asp-for="IdEstudios" type="hidden">
                             <div class="form-group">
                                 <label>Nombre del titulo</label>
@@ -37,6 +37,11 @@
                                     }
                                 </select>
                             </div>
+                            <input type="checkbox" id="select"> <label>Otro titulo</label>
+                                
+                            <div class="form-group" id="div_agregar">
+                                <input type="text" id="agregar" name="nuevoTitulo" class="form-control" placeholder="Ingresar...">
+                            </div>
                             <div class="form-group">
                                 <label>IES</label>
                                 <select asp-for="IdInstitucion" class="form-control">
@@ -53,7 +58,11 @@
                                     }
                                 </select>
                             </div>
-                            
+                            <input type="checkbox" id="select2"> <label>Otra Institución</label>
+                                
+                            <div class="form-group" id="div_agregar2">
+                                <input type="text" id="agregar2" name="nuevaInstitucion" class="form-control" placeholder="Ingresar...">
+                            </div>
                             <div class="form-group">
                                 Fecha de egreso
                                 <input name="FechaDeEgreso" asp-for="FechaDeEgreso"  id="fechaegreso" type="date" class="form-control">

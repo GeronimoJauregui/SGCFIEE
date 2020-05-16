@@ -21,12 +21,6 @@
                             <input asp-for="IdAcademico" type="hidden">
                             <input asp-for="IdCertificaciones" type="hidden">
                             <div class="form-group">
-                                <label>Nombre de la certificación</label>
-                                <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar...">
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="form-group">
                                 <label>Tipo de certificación</label>
                                 <select id="tipo_certificacion" asp-for="IdTipoCertificacion" class="form-control">
                                     @foreach (var item in tc)
@@ -44,7 +38,20 @@
                                     }
 
                                 </select>
+                                <input type="checkbox" id="select"> <label>Agregar otro tipo</label>
+
+                                <div class="form-group" id="div_agregar">
+                                    <input type="text" id="agregar" name="nuevoTC" class="form-control" placeholder="Ingresar...">
+                                </div>
                             </div>
+
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Nombre de la certificación</label>
+                                <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar...">
+                            </div>
+                            
                             <label>Actualizar evidencia:  @Model.Archivo </label><br>
                             <input asp-for="Archivo" type="file" class="default" name="file">
                             <br>

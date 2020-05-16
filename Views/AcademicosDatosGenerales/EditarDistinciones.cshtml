@@ -35,12 +35,12 @@
                             <form asp-controller="AcademicosDatosGenerales" asp-action="ActualizarDistinciones" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <input asp-for="IdAcademico" type="hidden" value="@academico">
-                                    <input asp-for="IdDistincion" type="hidden">
+                                    
                                     <div class="col-md-6 col-sm-6">
 
                                         <div class="form-group">
                                             <label>Tipo de distinción</label>
-                                            <select id="distincion" asp-for="IdDistincion" name="id_distincion" class="form-control">
+                                            <select asp-for="IdDistincion" class="form-control">
                                                 @foreach (var item in td)
                                                 {
                                                     @if (item.IdDistincion != Model.IdDistincion)

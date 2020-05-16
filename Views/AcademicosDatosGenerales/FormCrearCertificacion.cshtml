@@ -36,12 +36,6 @@
                                 <div class="col-md-6 col-sm-6">
                                     <input asp-for="IdAcademico" type="hidden" value="@academico">
                                     <div class="form-group">
-                                        <label>Nombre de la certificación</label>
-                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar...">
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-sm-6">
-                                    <div class="form-group">
                                         <label>Tipo de certificación</label>
                                         <select id="tipo_certificacion" asp-for="IdTipoCertificacion" class="form-control">
                                             @foreach (var item in tc)
@@ -50,6 +44,17 @@
                                             }
 
                                         </select>
+                                    </div>
+                                    <input type="checkbox" id="select"> <label>Agregar otro tipo</label>
+
+                                    <div class="form-group" id="div_agregar">
+                                        <input type="text" id="agregar" name="nuevoTC" class="form-control" placeholder="Ingresar...">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Nombre de la certificación</label>
+                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar...">
                                     </div>
                                     Archivo de evidencia<br>
                                     <input asp-for="Archivo" type="file" class="default" name="file">

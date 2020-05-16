@@ -21,7 +21,7 @@
 
                             <div class="form-group">
                                 <label>Tipo de distinción</label>
-                                <select id="distincion" asp-for="IdDistinciones" name="id_distincion" class="form-control">
+                                <select asp-for="IdDistinciones" class="form-control">
                                     @foreach (var item in td)
                                     {
                                         <option value="@item.IdDistincion">@Html.DisplayFor(modelItem => item.Nombre)</option>

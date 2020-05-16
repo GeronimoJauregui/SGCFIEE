@@ -225,7 +225,9 @@ namespace SGCFIEE.Controllers
                                 GradoTitulo = gt.Nombre,
                                 AcrePnpc = es.AcrePnpc,
                                 FechaDeEgreso = es.FechaDeEgreso.ToString(),
-                                FechaDeTitulacion = es.FechaDeTitulacion.ToString()
+                                FechaDeTitulacion = es.FechaDeTitulacion.ToString(),
+                                ArchivoCedula = es.ArchivoCedula,
+                                ArchivoTitulo = es.ArchivoTitulo
                             }
                                ).ToList();
 
@@ -274,8 +276,8 @@ namespace SGCFIEE.Controllers
                     datos.IdGradoTitulo = ultima.IdGradoTitulo;
                 }
 
-                var new_name_table = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[0].GetFilename();
-                var new_name_table2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[1].GetFilename();
+                var new_name_table = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file[0].GetFilename();
+                var new_name_table2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file[1].GetFilename();
                 datos.ArchivoTitulo = new_name_table;
                 datos.ArchivoCedula = new_name_table2;
                 context.Estudios.Add(datos);
@@ -285,7 +287,7 @@ namespace SGCFIEE.Controllers
             if (file[0] == null || file[0].Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[0].GetFilename();
+            var new_name_file = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file[0].GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Estudios", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -296,7 +298,7 @@ namespace SGCFIEE.Controllers
             if (file[1] == null || file[1].Length == 0)
                 return Content("file not selected");
 
-            var new_name_file2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[1].GetFilename();
+            var new_name_file2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file[1].GetFilename();
             var path2 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Estudios", new_name_file2);
 
             using (var stream = new FileStream(path2, FileMode.Create))
@@ -392,8 +394,8 @@ namespace SGCFIEE.Controllers
                 }
 
 
-                var new_name_table = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[0].GetFilename();
-                var new_name_table2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[1].GetFilename();
+                var new_name_table = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file[0].GetFilename();
+                var new_name_table2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file[1].GetFilename();
                 datos.ArchivoTitulo = new_name_table;
                 datos.ArchivoCedula = new_name_table2;
                 context.Estudios.Add(datos);
@@ -403,7 +405,7 @@ namespace SGCFIEE.Controllers
             if (file[0] == null || file[0].Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[0].GetFilename();
+            var new_name_file = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file[0].GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Estudios", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -414,7 +416,7 @@ namespace SGCFIEE.Controllers
             if (file[1] == null || file[1].Length == 0)
                 return Content("file not selected");
 
-            var new_name_file2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[1].GetFilename();
+            var new_name_file2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file[1].GetFilename();
             var path2 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Estudios", new_name_file2);
 
             using (var stream = new FileStream(path2, FileMode.Create))
@@ -446,40 +448,91 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> FormActualizarTablaGA(IFormFile file, IFormFile file2, Estudios datos)
+        public async Task<IActionResult> FormActualizarTablaGA(IFormFile file, IFormFile file2, Estudios datos, string nuevoTitulo, string nuevaInstitucion)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file.GetFilename();
-                var new_name_table2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file2.GetFilename();
-                datos.ArchivoTitulo = new_name_table;
-                datos.ArchivoCedula = new_name_table2;
+
+                if (nuevaInstitucion != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaInstitucion;
+                    nuevo.IesEmpresa = 2;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdInstitucion = ultima.IdIE;
+                }
+
+                if (nuevoTitulo != null)
+                {
+                    GradoTitulo nuevo = new GradoTitulo();
+                    nuevo.Nombre = nuevoTitulo;
+                    context.GradoTitulo.Add(nuevo);
+                    context.SaveChanges();
+                    GradoTitulo ultima = context.GradoTitulo.Last();
+                    datos.IdGradoTitulo = ultima.IdGradoTitulo;
+                }
+
+                if (file == null || file.Length == 0)
+                {
+                    var nomArchivo = context.Estudios.Where(w => w.IdEstudios == datos.IdEstudios).Single();
+                    datos.ArchivoTitulo = nomArchivo.ArchivoTitulo;
+                }
+                else
+                {
+                    var new_name_table = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file.GetFilename();
+                    datos.ArchivoTitulo = new_name_table;
+                }
+
+                if (file2 == null || file2.Length == 0)
+                {
+                    var nomArchivo = context.Estudios.Where(w => w.IdEstudios == datos.IdEstudios).Single();
+                    datos.ArchivoCedula = nomArchivo.ArchivoCedula;
+                }
+                else
+                {
+                    var new_name_table2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file2.GetFilename();
+                    datos.ArchivoCedula = new_name_table2;
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.Estudios.Update(datos);
                 context.SaveChanges();
             }
 
-            if (file == null || file.Length == 0)
-                return Content("file not selected");
-
-            var new_name_file = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file.GetFilename();
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Estudios", new_name_file);
-
-            using (var stream = new FileStream(path, FileMode.Create))
+            if (file == null || file.Length != 0)
             {
-                await file.CopyToAsync(stream);
+                
+            }
+            else
+            {
+                var new_name_file = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file.GetFilename();
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Estudios", new_name_file);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(stream);
+                }
             }
 
-            if (file2 == null || file2.Length == 0)
-                return Content("file not selected");
-
-            var new_name_file2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file2.GetFilename();
-            var path2 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Estudios", new_name_file2);
-
-            using (var stream = new FileStream(path2, FileMode.Create))
+            if (file2 == null || file2.Length != 0)
             {
-                await file2.CopyToAsync(stream);
+               
             }
+            else
+            {
+                var new_name_file2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdGradoTitulo + "_" + file2.GetFilename();
+                var path2 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Estudios", new_name_file2);
+
+                using (var stream = new FileStream(path2, FileMode.Create))
+                {
+                    await file2.CopyToAsync(stream);
+                }
+            }
+
 
             return RedirectToAction("EditarGA", new { id = datos.IdAcademico });
         }
@@ -515,12 +568,26 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarTablaCertificaciones(IFormFile file, Certificaciones datos)
+        public async Task<IActionResult> GuardarTablaCertificaciones(IFormFile file, Certificaciones datos, string nuevoTC)
         {
+
+            if (nuevoTC != null)
+            {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    TipoCertificacion nuevo = new TipoCertificacion();
+                    nuevo.Nombre = nuevoTC;
+                    context.TipoCertificacion.Add(nuevo);
+                    context.SaveChanges();
+                    TipoCertificacion ultimaE = context.TipoCertificacion.Last();
+                    datos.IdTipoCertificacion = ultimaE.IdCertificacion;
+                }
+
+            }
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+                var new_name_table = "Certificacion" + "" + datos.IdAcademico + "" + datos.Nombre + "_" + file.GetFilename();
                 datos.Archivo = new_name_table;
                 context.Certificaciones.Add(datos);
                 context.SaveChanges();
@@ -529,7 +596,7 @@ namespace SGCFIEE.Controllers
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+            var new_name_file = "Certificacion" + "" + datos.IdAcademico + "" + datos.Nombre + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Certificaciones", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -582,12 +649,26 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarFormCertificaciones(IFormFile file, Certificaciones datos)
+        public async Task<IActionResult> GuardarFormCertificaciones(IFormFile file, Certificaciones datos, string nuevoTC)
         {
+
+            if (nuevoTC != null)
+            {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    TipoCertificacion nuevo = new TipoCertificacion();
+                    nuevo.Nombre = nuevoTC;
+                    context.TipoCertificacion.Add(nuevo);
+                    context.SaveChanges();
+                    TipoCertificacion ultimaE = context.TipoCertificacion.Last();
+                    datos.IdTipoCertificacion = ultimaE.IdCertificacion;
+                }
+
+            }
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+                var new_name_table = "Certificacion" + "" + datos.IdAcademico + "" + datos.Nombre + "_" + file.GetFilename();
                 datos.Archivo = new_name_table;
                 context.Certificaciones.Add(datos);
                 context.SaveChanges();
@@ -596,7 +677,7 @@ namespace SGCFIEE.Controllers
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+            var new_name_file = "Certificacion" + "" + datos.IdAcademico + "" + datos.Nombre + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Certificaciones", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -626,13 +707,27 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> ActualizarFormCertificaciones(IFormFile file, Certificaciones datos)
+        public async Task<IActionResult> ActualizarFormCertificaciones(IFormFile file, Certificaciones datos, string nuevoTC)
         {
+            if (nuevoTC != null)
+            {
+                using (sgcfieeContext context = new sgcfieeContext())
+                {
+                    TipoCertificacion nuevo = new TipoCertificacion();
+                    nuevo.Nombre = nuevoTC;
+                    context.TipoCertificacion.Add(nuevo);
+                    context.SaveChanges();
+                    TipoCertificacion ultimaE = context.TipoCertificacion.Last();
+                    datos.IdTipoCertificacion = ultimaE.IdCertificacion;
+                }
+
+            }
+
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 if (file != null)
                 {
-                    var new_name_table = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+                    var new_name_table = "Certificacion" + "" + datos.IdAcademico + "" + datos.Nombre + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
                 else
@@ -650,8 +745,9 @@ namespace SGCFIEE.Controllers
                 TempData["Mensaje"] = "La informacion se ha guardado correctamente";
             }
 
-            if (file != null) {
-                var new_name_file = "Certificacion" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
+            if (file != null)
+            {
+                var new_name_file = "Certificacion" + "" + datos.IdAcademico + "" + datos.Nombre + "_" + file.GetFilename();
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Certificaciones", new_name_file);
 
                 using (var stream = new FileStream(path, FileMode.Create))
@@ -733,11 +829,22 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarTablaCD(IFormFile file, CursosDiplomadoFormacion datos)
+        public async Task<IActionResult> GuardarTablaCD(IFormFile file, CursosDiplomadoFormacion datos, int tipo, string nuevaInstEmpre)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (nuevaInstEmpre != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaInstEmpre;
+                    nuevo.IesEmpresa = tipo;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdIesEmpresa = ultima.IdIE;
+                }
+
                 var new_name_table = "CD" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
                 datos.Archivo = new_name_table;
                 context.CursosDiplomadoFormacion.Add(datos);
@@ -773,11 +880,22 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarFormCD(IFormFile file, CursosDiplomadoFormacion datos)
+        public async Task<IActionResult> GuardarFormCD(IFormFile file, CursosDiplomadoFormacion datos, int tipo, string nuevaInstEmpre)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (nuevaInstEmpre != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaInstEmpre;
+                    nuevo.IesEmpresa = tipo;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdIesEmpresa = ultima.IdIE;
+                }
+
                 var new_name_table = "CD" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
                 datos.Archivo = new_name_table;
                 context.CursosDiplomadoFormacion.Add(datos);
@@ -817,11 +935,23 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> ActualizarFormCD(IFormFile file, CursosDiplomadoFormacion datos)
+        public async Task<IActionResult> ActualizarFormCD(IFormFile file, CursosDiplomadoFormacion datos, int tipo, string nuevaInstEmpre)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (nuevaInstEmpre != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaInstEmpre;
+                    nuevo.IesEmpresa = tipo;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdIesEmpresa = ultima.IdIE;
+                }
+
+
                 if (file != null)
                 {
                     var new_name_table = "CD" + "_" + datos.IdAcademico + "_" + datos.Nombre + "_" + file.GetFilename();
@@ -832,7 +962,9 @@ namespace SGCFIEE.Controllers
                     var nomArchivo = context.CursosDiplomadoFormacion.Where(w => w.IdCD == datos.IdCD).Single();
                     datos.Archivo = nomArchivo.Archivo;
                 }
-
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CursosDiplomadoFormacion.Update(datos);
                 context.SaveChanges();
             }
@@ -925,12 +1057,24 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarTablaEP(IFormFile file, ExperienciaProfesional datos)
+        public async Task<IActionResult> GuardarTablaEP(IFormFile file, ExperienciaProfesional datos, string nuevaEmpresa)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+
+                if (nuevaEmpresa != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaEmpresa;
+                    nuevo.IesEmpresa = 1;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdEmpresa = ultima.IdIE;
+                }
+
+                var new_name_table = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEmpresa + "_" + file.GetFilename();
                 datos.Archivo = new_name_table;
                 context.ExperienciaProfesional.Add(datos);
                 context.SaveChanges();
@@ -939,7 +1083,7 @@ namespace SGCFIEE.Controllers
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+            var new_name_file = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEmpresa + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Exp_Profesional", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -968,12 +1112,23 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarFormEP(IFormFile file, ExperienciaProfesional datos)
+        public async Task<IActionResult> GuardarFormEP(IFormFile file, ExperienciaProfesional datos, string nuevaEmpresa)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var new_name_table = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+                if (nuevaEmpresa != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaEmpresa;
+                    nuevo.IesEmpresa = 1;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdEmpresa = ultima.IdIE;
+                }
+
+                var new_name_table = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEmpresa + "_" + file.GetFilename();
                 datos.Archivo = new_name_table;
                 context.ExperienciaProfesional.Add(datos);
                 context.SaveChanges();
@@ -982,7 +1137,7 @@ namespace SGCFIEE.Controllers
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var new_name_file = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+            var new_name_file = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEmpresa + "_" + file.GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Exp_Profesional", new_name_file);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -1016,14 +1171,26 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> ActualizarFormEP(IFormFile file, ExperienciaProfesional datos)
+        public async Task<IActionResult> ActualizarFormEP(IFormFile file, ExperienciaProfesional datos, string nuevaEmpresa)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
+
+                if (nuevaEmpresa != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaEmpresa;
+                    nuevo.IesEmpresa = 1;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdEmpresa = ultima.IdIE;
+                }
+
                 if (file != null)
                 {
-                    var new_name_table = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+                    var new_name_table = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEmpresa + "_" + file.GetFilename();
                     datos.Archivo = new_name_table;
                 }
                 else
@@ -1031,13 +1198,15 @@ namespace SGCFIEE.Controllers
                     var nomArchivo = context.ExperienciaProfesional.Where(w => w.IdEp == datos.IdEp).Single();
                     datos.Archivo = nomArchivo.Archivo;
                 }
-
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.ExperienciaProfesional.Update(datos);
                 context.SaveChanges();
             }
 
             if (file != null) {
-                var new_name_file = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEp + "_" + file.GetFilename();
+                var new_name_file = "EP" + "_" + datos.IdAcademico + "_" + datos.IdEmpresa + "_" + file.GetFilename();
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/DatosGenerales/Exp_Profesional", new_name_file);
 
                 using (var stream = new FileStream(path, FileMode.Create))
@@ -1491,7 +1660,7 @@ namespace SGCFIEE.Controllers
                         item.Reconocimiento = "Ninguno";
                     if (item.AcrePnpc == 1)
                         item.Reconocimiento = "Acreditado";
-                    if (item.AcrePnpc == 0)
+                    if (item.AcrePnpc == 2)
                         item.Reconocimiento = "PNPC";
                 }
                 ViewData["academico"] = id;

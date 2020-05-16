@@ -68,11 +68,13 @@
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.FechaDeEgreso)</td>
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.FechaDeTitulacion)</td>
                                                 <td class="center">
+                                                    <div>@Html.DisplayFor(modelItem => item.ArchivoTitulo)---</div>
                                                     <a class="btn btn-primary btn-xs" asp-route-filename="@item.ArchivoTitulo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarGA">
                                                         <i class="fa fa-download"></i>
                                                     </a>
                                                 </td>
                                                 <td class="mdl-data-table__cell--non-numeric center">
+                                                    <div>@Html.DisplayFor(modelItem => item.ArchivoCedula)---</div>
                                                     <a class="btn btn-primary btn-xs" asp-route-filename="@item.ArchivoCedula" asp-controller="AcademicosDatosGenerales" asp-action="DescargarGA">
                                                         <i class="fa fa-download"></i>
                                                     </a>
