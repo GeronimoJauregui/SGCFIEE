@@ -234,7 +234,7 @@ namespace SGCFIEE.Controllers
                         item.Reconocimiento = "Ninguno";
                     if (item.AcrePnpc == 1)
                         item.Reconocimiento = "Acreditado";
-                    if (item.AcrePnpc == 0)
+                    if (item.AcrePnpc == 2)
                         item.Reconocimiento = "PNPC";
                 }
                 ViewData["gt"] = GradoTitulo;
@@ -248,11 +248,32 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarTablaGA(List<IFormFile> file, Estudios datos)
+        public async Task<IActionResult> GuardarTablaGA(List<IFormFile> file, Estudios datos, string nuevoTitulo, string nuevaInstitucion)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (nuevaInstitucion != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaInstitucion;
+                    nuevo.IesEmpresa = 2;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdInstitucion = ultima.IdIE;
+                }
+
+                if (nuevoTitulo != null)
+                {
+                    GradoTitulo nuevo = new GradoTitulo();
+                    nuevo.Nombre = nuevoTitulo;
+                    context.GradoTitulo.Add(nuevo);
+                    context.SaveChanges();
+                    GradoTitulo ultima = context.GradoTitulo.Last();
+                    datos.IdGradoTitulo = ultima.IdGradoTitulo;
+                }
+
                 var new_name_table = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[0].GetFilename();
                 var new_name_table2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[1].GetFilename();
                 datos.ArchivoTitulo = new_name_table;
@@ -315,7 +336,7 @@ namespace SGCFIEE.Controllers
                         item.Reconocimiento = "Ninguno";
                     if (item.AcrePnpc == 1)
                         item.Reconocimiento = "Acreditado";
-                    if (item.AcrePnpc == 0)
+                    if (item.AcrePnpc == 2)
                         item.Reconocimiento = "PNPC";
                 }
                 ViewData["academico"] = id;
@@ -344,11 +365,33 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> GuardarFormTablaGA(List<IFormFile> file, Estudios datos)
+        public async Task<IActionResult> GuardarFormTablaGA(List<IFormFile> file, Estudios datos, string nuevoTitulo, string nuevaInstitucion)
         {
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (nuevaInstitucion != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaInstitucion;
+                    nuevo.IesEmpresa = 2;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdInstitucion = ultima.IdIE;
+                }
+
+                if (nuevoTitulo != null)
+                {
+                    GradoTitulo nuevo = new GradoTitulo();
+                    nuevo.Nombre = nuevoTitulo;
+                    context.GradoTitulo.Add(nuevo);
+                    context.SaveChanges();
+                    GradoTitulo ultima = context.GradoTitulo.Last();
+                    datos.IdGradoTitulo = ultima.IdGradoTitulo;
+                }
+
+
                 var new_name_table = "Titulo" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[0].GetFilename();
                 var new_name_table2 = "Cedula" + "_" + datos.IdAcademico + "_" + datos.IdNombreTitulo + "_" + file[1].GetFilename();
                 datos.ArchivoTitulo = new_name_table;

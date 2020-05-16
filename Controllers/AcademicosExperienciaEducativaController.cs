@@ -397,7 +397,7 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public IActionResult GuardarEEEUV(ExperienciaEducativaPeriodo datos)
+        public IActionResult GuardarEEEUV(ExperienciaEducativaPeriodo datos, string nuevaInstitucion)
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -406,6 +406,18 @@ namespace SGCFIEE.Controllers
                 {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
                 }
+
+                if (nuevaInstitucion != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaInstitucion;
+                    nuevo.IesEmpresa = 2;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdInstitucionSuperior = ultima.IdIE;
+                }
+
                 datos.Status = 1;
                 context.ExperienciaEducativaPeriodo.Add(datos);
                 context.SaveChanges();
@@ -452,7 +464,7 @@ namespace SGCFIEE.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ActualizarEEEUV(ExperienciaEducativaPeriodo datos)
+        public IActionResult ActualizarEEEUV(ExperienciaEducativaPeriodo datos, string nuevaInstitucion)
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -461,6 +473,18 @@ namespace SGCFIEE.Controllers
                 {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
                 }
+
+                if (nuevaInstitucion != null)
+                {
+                    InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
+                    nuevo.Nombre = nuevaInstitucion;
+                    nuevo.IesEmpresa = 2;
+                    context.InstitucionesEmpresas.Add(nuevo);
+                    context.SaveChanges();
+                    InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
+                    datos.IdInstitucionSuperior = ultima.IdIE;
+                }
+
                 context.ExperienciaEducativaPeriodo.Update(datos);
                 context.SaveChanges();
                 TempData["Mensaje"] = "La informacion se ha guardado correctamente";

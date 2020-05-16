@@ -6,14 +6,18 @@
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
+              <Node name="Controllers" expanded="True">
+                <Node name="HomeController.cs" selected="True" />
+              </Node>
               <Node name="Views" expanded="True">
-                <Node name="AcademicosConsejoTecnico" expanded="True" />
-                <Node name="Home" expanded="True" />
+                <Node name="AcademicosDatosGenerales" expanded="True" />
               </Node>
               <Node name="wwwroot" expanded="True">
                 <Node name="assets" expanded="True">
-                  <Node name="css" expanded="True">
-                    <Node name="inicio.css" selected="True" />
+                  <Node name="js" expanded="True">
+                    <Node name="pages" expanded="True">
+                      <Node name="academicos" expanded="True" />
+                    </Node>
                   </Node>
                 </Node>
               </Node>
