@@ -365,10 +365,13 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 ListJurOposicion = (from datos in context.JuradoExamenOposicion
-                                    join ee in context.ExperienciaEducativa on datos.IdEe equals ee.IdExperienciaEducativa
+                                    join mc in context.MapaCurricular on datos.IdEe equals mc.IdMapaCurricular
+                                    join pe in context.ProgramaEducativo on mc.IdProgramaEducativo equals pe.IdProgramaEducativo
+                                    join ee in context.ExperienciaEducativa on mc.IdExperienciaEducativa equals ee.IdExperienciaEducativa
                                     select new TablaJurOposicion
                                     {
                                         IdJurado = datos.IdJexposicion,
+                                        Pe = pe.Nombre,
                                         Ee = ee.Nombre,
                                         TipoExamen = datos.TipoExamen,
                                         Fecha = datos.Fecha.ToString(),
@@ -387,13 +390,30 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult CrearJurOposicion()
         {
+            List<MCEE> ListMCEE = new List<MCEE>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                ListMCEE = (from MC in context.MapaCurricular
+                            join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
+                            join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                            where PE.Nombre != "Externo"
+                            select new MCEE
+                            {
+                                IdMapaCurricular = MC.IdMapaCurricular,
+                                IdExperienciaEducativa = MC.IdExperienciaEducativa,
+                                NombreEE = EE.Nombre,
+                                IdProgramaEducativo = MC.IdProgramaEducativo,
+                                NombrePE = PE.Nombre,
+                                Estado = MC.Estado
+
+                            }
+                               ).ToList();
+
+
                 var acad = context.Academicos.ToList();
-                var Ee = context.ExperienciaEducativa.ToList();
                 ViewData["academicos"] = acad;
-                ViewData["ExperienciasE"] = Ee;
+                ViewData["ExperienciasE"] = ListMCEE;
             }
             return View();
         }
@@ -445,15 +465,30 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public IActionResult EditarJurOposicion(int id)
         {
+            List<MCEE> ListMCEE = new List<MCEE>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 JuradoExamenOposicion DatosJur = context.JuradoExamenOposicion.Where(s => s.IdJexposicion == id).Single();
 
 
-                var Ee = context.ExperienciaEducativa.ToList();
+                ListMCEE = (from MC in context.MapaCurricular
+                            join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
+                            join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                            where PE.Nombre != "Externo"
+                            select new MCEE
+                            {
+                                IdMapaCurricular = MC.IdMapaCurricular,
+                                IdExperienciaEducativa = MC.IdExperienciaEducativa,
+                                NombreEE = EE.Nombre,
+                                IdProgramaEducativo = MC.IdProgramaEducativo,
+                                NombrePE = PE.Nombre,
+                                Estado = MC.Estado
 
-                ViewData["ExperienciasE"] = Ee;
+                            }
+                               ).ToList();
+
+                ViewData["ExperienciasE"] = ListMCEE;
                 string fecha = DatosJur.Fecha.ToString();
                 string[] resultado = fecha.Split(' ');
                 ViewData["fecha"] = resultado[0];

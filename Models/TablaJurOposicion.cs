@@ -9,6 +9,7 @@ namespace SGCFIEE.Models
         public String ApellidoPaterno { get; set; }
         public String ApellidoMaterno { get; set; }
         public String Ee { get; set; }
+        public String Pe { get; set; }
         public int? TipoExamen { get; set; }
         public String Fecha { get; set; }
         public String Archivo { get; set; }

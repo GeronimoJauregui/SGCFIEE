@@ -3,7 +3,7 @@
     ViewData["Title"] = "CrearJurOposicion";
     Layout = "~/Views/Home/Principal.cshtml";
     var acad = (IEnumerable<Academicos>)ViewData["academicos"];
-    var Ee = (IEnumerable<ExperienciaEducativa>)ViewData["ExperienciasE"];
+    var Ee = (IEnumerable<MCEE>)ViewData["ExperienciasE"];
     var tipo = (int)ViewData["tipo"];
 }
 <!DOCTYPE html>
@@ -45,7 +45,7 @@
                                     <select asp-for="IdEe" class="form-control">
                                         @foreach (var item in Ee)
                                         {
-                                            <option value="@item.IdExperienciaEducativa">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                            <option value="@item.IdMapaCurricular"> @Html.DisplayFor(modelItem => item.NombrePE) -----> @Html.DisplayFor(modelItem => item.NombreEE)</option>
                                         }
                                     </select>
                                 </div>

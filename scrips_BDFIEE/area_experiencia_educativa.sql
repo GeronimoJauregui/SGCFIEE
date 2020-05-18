@@ -4,4 +4,5 @@ INSERT INTO area_experiencia_educativa (Nombre, Status) VALUES
 ("AID",1),
 ("AFD",1),
 ("AFT",1),
-("AFEL",1)
+("AFEL",1),
+("Externo",1);

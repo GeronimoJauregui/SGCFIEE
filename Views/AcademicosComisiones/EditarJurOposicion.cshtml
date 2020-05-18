@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "EditarJurOposion";
     Layout = "~/Views/Home/Principal.cshtml";
-    var Ee = (IEnumerable<ExperienciaEducativa>)ViewData["ExperienciasE"];
+    var Ee = (IEnumerable<MCEE>)ViewData["ExperienciasE"];
 }
 <!DOCTYPE html>
 
@@ -32,13 +32,13 @@
                                     <select asp-for="IdEe" class="form-control">
                                         @foreach (var item in Ee)
                                         {
-                                            @if (item.IdExperienciaEducativa != Model.IdEe)
+                                            @if (item.IdMapaCurricular != Model.IdEe)
                                             {
-                                                <option value="@item.IdExperienciaEducativa">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                <option value="@item.IdMapaCurricular">@Html.DisplayFor(modelItem => item.NombrePE) -----> @Html.DisplayFor(modelItem => item.NombreEE)</option>
                                             }
                                             else
                                             {
-                                                <option selected value="@item.IdExperienciaEducativa">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                <option selected value="@item.IdMapaCurricular">@Html.DisplayFor(modelItem => item.NombrePE) -----> @Html.DisplayFor(modelItem => item.NombreEE)</option>
                                             }
                                         }
                                     </select>

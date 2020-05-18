@@ -397,7 +397,7 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public IActionResult GuardarEEEUV(ExperienciaEducativaPeriodo datos, string nuevaInstitucion)
+        public IActionResult GuardarEEEUV(ExperienciaEducativaPeriodo datos, string nuevaInstitucion, string nuevaEEE)
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -417,7 +417,51 @@ namespace SGCFIEE.Controllers
                     InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
                     datos.IdInstitucionSuperior = ultima.IdIE;
                 }
+                if (nuevaEEE != null)
+                {
+                    var ListAEE = context.AreaExperienciaEducativa.ToList();
+                    AreaExperienciaEducativa datoAEE = new AreaExperienciaEducativa();
+                    foreach (AreaExperienciaEducativa item in ListAEE)
+                    { 
+                        if (item.Nombre == "Externo")
+                        {
+                            datoAEE = item;
+                            break;
+                        }
+                    }
+                    ExperienciaEducativa nuevo = new ExperienciaEducativa();
+                    nuevo.Nombre = nuevaEEE;
+                    nuevo.Creditos = 0;
+                    nuevo.Horas = 0;
+                    nuevo.IdArea = datoAEE.IdAreaExperienciaEducativa;
+                    nuevo.Status = 1;
+                    context.ExperienciaEducativa.Add(nuevo);
+                    context.SaveChanges();
+                    ExperienciaEducativa ultima = context.ExperienciaEducativa.Last();
 
+                    var ListPE = context.ProgramaEducativo.ToList();
+                    ProgramaEducativo datoPE = new ProgramaEducativo();
+                    foreach (ProgramaEducativo item in ListPE)
+                    {
+                        if (item.Nombre == "Externo")
+                        {
+                            datoPE = item;
+                            break;
+                        }
+                    }
+                    MapaCurricular nuevainfo = new MapaCurricular();
+                    nuevainfo.IdProgramaEducativo = datoPE.IdProgramaEducativo;
+                    nuevainfo.IdExperienciaEducativa = ultima.IdExperienciaEducativa;
+                    nuevainfo.Estado = 1;
+                    context.MapaCurricular.Add(nuevainfo);
+                    context.SaveChanges();
+                    MapaCurricular ultimo = context.MapaCurricular.Last();
+                    datos.IdMapaCurricular = ultimo.IdMapaCurricular;
+                }
+
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 datos.Status = 1;
                 context.ExperienciaEducativaPeriodo.Add(datos);
                 context.SaveChanges();
