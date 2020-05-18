@@ -36,7 +36,6 @@
                         <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
                             <thead>
                                 <tr>
-                                    <th hidden></th>
                                     <th class="mdl-data-table__cell--non-numeric center">Nombre</th>
                                     <th class="mdl-data-table__cell--non-numeric center">Institución</th>
                                     <th class="mdl-data-table__cell--non-numeric center">Reconocimiento</th>
@@ -50,18 +49,17 @@
                                 @foreach (var item in estudios)
                                 {
                                 <tr>
-                                    <td hidden></td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.GradoTitulo)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Institucion)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Reconocimiento)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.FechaDeEgreso)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.FechaDeTitulacion)</td>
-                                    <td class="center">
+                                    <td class="mdl-data-table__cell--non-numeric center">
                                         <a class="btn btn-primary btn-xs" asp-route-filename="@item.ArchivoTitulo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarGA">
                                             <i class="fa fa-download"></i>
                                         </a>
                                     </td>
-                                    <td class="mdl-data-table__cell--non-numeric center">
+                                    <td class=" mdl-data-table__cell--non-numeric center">
                                         <a class="btn btn-primary btn-xs" asp-route-filename="@item.ArchivoCedula" asp-controller="AcademicosDatosGenerales" asp-action="DescargarGA">
                                             <i class="fa fa-download"></i>
                                         </a>

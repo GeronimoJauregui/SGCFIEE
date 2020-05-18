@@ -19,7 +19,7 @@
                 <form asp-controller="AcademicosDatosGenerales" asp-action="FormActualizarTablaGA" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
-                            <input asp-for="IdAcademico" type="hidden" >
+                            <input asp-for="IdAcademico" type="hidden" value="@academico">
                             <input asp-for="IdEstudios" type="hidden">
                             <div class="form-group">
                                 <label>Nombre del titulo</label>
@@ -73,7 +73,7 @@
 
                             <div class="form-group">
                                 Fecha de titulación
-                                <input asp-for="FechaDeTitulacion" value="@Model.FechaDeTitulacion" name="FechaDeTitulacion" id="fechatitulacion" type="date" class="form-control">
+                                <input asp-for="FechaDeTitulacion" name="FechaDeTitulacion" id="fechatitulacion" type="date" class="form-control">
                                 <br>
                             </div>
                             <div class="form-group">
@@ -92,10 +92,8 @@
                             <br>
                             <br>
                             <input type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <br>
-                            <br>
                             <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarGA" class="btn btn-default btn-sm m-b-10" style="float:right">
-                                Volver
+                                Cancelar
                             </a>
                         </div>
                     </div>

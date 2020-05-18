@@ -65,22 +65,20 @@
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.GradoTitulo)</td>
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Institucion)</td>
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Reconocimiento)</td>
-                                                <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.FechaDeEgreso)</td>
-                                                <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.FechaDeTitulacion)</td>
+                                                <td class="center">@Html.DisplayFor(modelItem => item.FechaDeEgreso)</td>
+                                                <td class="center">@Html.DisplayFor(modelItem => item.FechaDeTitulacion)</td>
                                                 <td class="center">
-                                                    <div>@Html.DisplayFor(modelItem => item.ArchivoTitulo)---</div>
                                                     <a class="btn btn-primary btn-xs" asp-route-filename="@item.ArchivoTitulo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarGA">
                                                         <i class="fa fa-download"></i>
                                                     </a>
                                                 </td>
-                                                <td class="mdl-data-table__cell--non-numeric center">
-                                                    <div>@Html.DisplayFor(modelItem => item.ArchivoCedula)---</div>
+                                                <td class="center">
                                                     <a class="btn btn-primary btn-xs" asp-route-filename="@item.ArchivoCedula" asp-controller="AcademicosDatosGenerales" asp-action="DescargarGA">
                                                         <i class="fa fa-download"></i>
                                                     </a>
                                                 </td>
                                                 <td class="center">
-                                                    <a asp-route-id="@item.IdEstudios" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarGA" title="Editar" class="btn btn-primary btn-xs verdatos">
+                                                    <a asp-route-id="@item.IdEstudios" asp-route-idAcad="@academico" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarGA" title="Editar" class="btn btn-primary btn-xs verdatos">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a data-value="@item.IdEstudios" data-controlador="AcademicosDatosGenerales" data-accion="EliminarGA" data-id="@academico" data-regreso="EditarGA" name="eliminaracademico" class="btn btn-danger btn-xs" title="Eliminar">

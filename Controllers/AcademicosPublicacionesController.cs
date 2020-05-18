@@ -132,20 +132,18 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idArticulo"] = id;
-                if (tipoUsu == 2)
+
+                Academicoarticulos Acad = new Academicoarticulos();
+                int cant = context.Academicoarticulos.Where(w => w.IdArticulo == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicoarticulos Acad = new Academicoarticulos();
-                    int cant = context.Academicoarticulos.Where(w => w.IdArticulo == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicoarticulos.Where(w => w.IdArticulo == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicoarticulos.Where(w => w.IdArticulo == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
 
             }
             return View(ListAcadArticulos);
@@ -481,20 +479,18 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idCongreso"] = id;
-                if (tipoUsu == 2)
+
+                Academicocongresos Acad = new Academicocongresos();
+                int cant = context.Academicocongresos.Where(w => w.IdCongreso == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicocongresos Acad = new Academicocongresos();
-                    int cant = context.Academicocongresos.Where(w => w.IdCongreso == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicocongresos.Where(w => w.IdCongreso == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicocongresos.Where(w => w.IdCongreso == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
             }
             return View(ListAcadCongresos);
         }
@@ -739,20 +735,19 @@ namespace SGCFIEE.Controllers
                 ViewData["academicos"] = acade;
                 ViewData["idRevistas"] = id;
 
-                if (tipoUsu == 2)
+                
+                Academicorevistas Acad = new Academicorevistas();
+                int cant = context.Academicorevistas.Where(w => w.IdRevista == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicorevistas Acad = new Academicorevistas();
-                    int cant = context.Academicorevistas.Where(w => w.IdRevista == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicorevistas.Where(w => w.IdRevista == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicorevistas.Where(w => w.IdRevista == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadRevistas);
         }
@@ -988,20 +983,20 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idReportes"] = id;
-                if (tipoUsu == 2)
+
+                
+                Academicoreportest Acad = new Academicoreportest();
+                int cant = context.Academicoreportest.Where(w => w.IdReportesTec == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicoreportest Acad = new Academicoreportest();
-                    int cant = context.Academicoreportest.Where(w => w.IdReportesTec == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicoreportest.Where(w => w.IdReportesTec == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicoreportest.Where(w => w.IdReportesTec == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadReportes);
         }
@@ -1276,20 +1271,19 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idLibros"] = id;
-                if (tipoUsu == 2)
+                
+                Academicolibro Acad = new Academicolibro();
+                int cant = context.Academicolibro.Where(w => w.IdLibroAcad == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicolibro Acad = new Academicolibro();
-                    int cant = context.Academicolibro.Where(w => w.IdLibroAcad == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicolibro.Where(w => w.IdLibroAcad == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicolibro.Where(w => w.IdLibroAcad == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadLibros);
         }
@@ -1561,20 +1555,19 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idCapLibros"] = id;
-                if (tipoUsu == 2)
+                
+                Academicocaplibro Acad = new Academicocaplibro();
+                int cant = context.Academicocaplibro.Where(w => w.IdCapLibro == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicocaplibro Acad = new Academicocaplibro();
-                    int cant = context.Academicocaplibro.Where(w => w.IdCapLibro == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicocaplibro.Where(w => w.IdCapLibro == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicocaplibro.Where(w => w.IdCapLibro == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadCapLibros);
         }
@@ -1815,20 +1808,19 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idPatentes"] = id;
-                if (tipoUsu == 2)
+                
+                Academicospatentes Acad = new Academicospatentes();
+                int cant = context.Academicospatentes.Where(w => w.IdPatentes == id && w.Lider == 1 && w.IdAcademicos == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicospatentes Acad = new Academicospatentes();
-                    int cant = context.Academicospatentes.Where(w => w.IdPatentes == id && w.Lider == 1 && w.IdAcademicos == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicospatentes.Where(w => w.IdPatentes == id && w.Lider == 1 && w.IdAcademicos == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicospatentes.Where(w => w.IdPatentes == id && w.Lider == 1 && w.IdAcademicos == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadPatentes);
         }
@@ -1940,6 +1932,18 @@ namespace SGCFIEE.Controllers
             if (tipo == 2)
             {
                 idAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                
+                var ListTrabRecep = context.TrabajosRecepcionales.ToList();
+
+                foreach(TrabajosRecepcionales item in ListTrabRecep){
+                    if(item.IdAlumno == datos.IdAlumno)
+                    {
+                        return RedirectToAction("IndexTrabajoRecep");
+                    }
+                }
             }
             using (sgcfieeContext context = new sgcfieeContext())
             {
@@ -2103,20 +2107,19 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idTrabajos"] = id;
-                if (tipoUsu == 2)
+                
+                Academicotrabajosrecep Acad = new Academicotrabajosrecep();
+                int cant = context.Academicotrabajosrecep.Where(w => w.IdTrabajosRecep == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicotrabajosrecep Acad = new Academicotrabajosrecep();
-                    int cant = context.Academicotrabajosrecep.Where(w => w.IdTrabajosRecep == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicotrabajosrecep.Where(w => w.IdTrabajosRecep == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicotrabajosrecep.Where(w => w.IdTrabajosRecep == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadTrabajosRecep);
         }
@@ -2360,20 +2363,19 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idConcursos"] = id;
-                if (tipoUsu == 2)
+                
+                Academicoconcursos Acad = new Academicoconcursos();
+                int cant = context.Academicoconcursos.Where(w => w.IdConcursos == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicoconcursos Acad = new Academicoconcursos();
-                    int cant = context.Academicoconcursos.Where(w => w.IdConcursos == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicoconcursos.Where(w => w.IdConcursos == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicoconcursos.Where(w => w.IdConcursos == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadConcursos);
         }

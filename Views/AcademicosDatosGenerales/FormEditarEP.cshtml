@@ -76,12 +76,10 @@
                             </div>
                             <label>Actualizar Contrato:  @Model.Archivo </label><br>
                             <input asp-for="Archivo" type="file" class="default" name="file" id="archivoexperiencia">
-                            <br>
+                            <br><br>
                             <input id="guardarexperiencia" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                            <br>
-                            <br>
                             <a asp-route-id="@academico" asp-controller="AcademicosDatosGenerales" asp-action="EditarEP" class="btn btn-default btn-sm m-b-10" style="float:right">
-                                Volver
+                                Cancelar
                             </a>
 
                         </div>

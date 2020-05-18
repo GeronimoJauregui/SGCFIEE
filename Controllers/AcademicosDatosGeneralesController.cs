@@ -328,7 +328,9 @@ namespace SGCFIEE.Controllers
                                 GradoTitulo = gt.Nombre,
                                 AcrePnpc = es.AcrePnpc,
                                 FechaDeEgreso = es.FechaDeEgreso.ToString(),
-                                FechaDeTitulacion = es.FechaDeTitulacion.ToString()
+                                FechaDeTitulacion = es.FechaDeTitulacion.ToString(),
+                                ArchivoCedula = es.ArchivoCedula,
+                                ArchivoTitulo = es.ArchivoTitulo
                             }
                                ).ToList();
 
@@ -428,7 +430,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
-        public IActionResult FormEditarGA(int id)
+        public IActionResult FormEditarGA(int id, int idAcad)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -439,7 +441,7 @@ namespace SGCFIEE.Controllers
 
                 ViewData["gt"] = GradoTitulo;
                 ViewData["ies"] = ies;
-                ViewData["academico"] = id;
+                ViewData["academico"] = idAcad;
                 return View(ga);
             }
 
@@ -688,7 +690,7 @@ namespace SGCFIEE.Controllers
             return RedirectToAction("EditarCertificaciones", new { id = datos.IdAcademico });
         }
 
-        public IActionResult FormEditarCertificaciones(int id)
+        public IActionResult FormEditarCertificaciones(int id, int idAcad)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             Certificaciones certificaciones = new Certificaciones();
@@ -699,7 +701,7 @@ namespace SGCFIEE.Controllers
                 certificaciones = context.Certificaciones.Where(w => w.IdCertificaciones == id).Single();
 
                 ViewData["tc"] = tc;
-                ViewData["academico"] = id;
+                ViewData["academico"] = idAcad;
                 return View(certificaciones);
             }
         }
@@ -916,7 +918,7 @@ namespace SGCFIEE.Controllers
             return RedirectToAction("EditarCD", new { id = datos.IdAcademico });
         }
 
-        public IActionResult FormEditarCD(int id)
+        public IActionResult FormEditarCD(int id, int idAcad)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             CursosDiplomadoFormacion CD = new CursosDiplomadoFormacion();
@@ -927,7 +929,7 @@ namespace SGCFIEE.Controllers
                 CD = context.CursosDiplomadoFormacion.Where(w => w.IdCD == id).Single();
 
                 ViewData["ies"] = ies;
-                ViewData["academico"] = id;
+                ViewData["academico"] = idAcad;
             }
             return View(CD);
         }
@@ -1149,7 +1151,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
-        public IActionResult FormEditarEP(int id)
+        public IActionResult FormEditarEP(int id, int idAcad)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             ExperienciaProfesional EP = new ExperienciaProfesional();
@@ -1163,7 +1165,7 @@ namespace SGCFIEE.Controllers
 
                 ViewData["ies"] = ies;
                 ViewData["tp"] = tp;
-                ViewData["academico"] = id;
+                ViewData["academico"] = idAcad;
             }
             return View(EP);
         }

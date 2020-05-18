@@ -63,14 +63,14 @@
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.empresa)</td>
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.TipoPuesto)</td>
                                                 <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.AreaDesarrollo)</td>
-                                                <td class="mdl-data-table__cell--non-numeric">10</td>
-                                                <td class="mdl-data-table__cell--non-numeric center">
+                                                <td class="center">10</td>
+                                                <td class="center">
                                                     <a class="btn btn-primary btn-xs" asp-route-filename="@item.Archivo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarEP">
                                                         <i class="fa fa-download"></i>
                                                     </a>
                                                 </td>
                                                 <td class="center">
-                                                    <a asp-route-id="@item.IdEp" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarEP" title="Editar" class="btn btn-primary btn-xs verdatos">
+                                                    <a asp-route-id="@item.IdEp" asp-route-idAcad="@academico" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarEP" title="Editar" class="btn btn-primary btn-xs verdatos">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a data-value="@item.IdEp" data-controlador="AcademicosDatosGenerales" data-accion="EliminarEP" data-id="@academico" data-regreso="EditarEP" name="eliminaracademico" class="btn btn-danger btn-xs" title="Eliminar">

@@ -84,7 +84,7 @@
                                                     </a>
                                                 </td>
                                                 <td class="center">
-                                                    <a asp-route-id="@item.IdCD" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarCD" title="Editar" class="btn btn-primary btn-xs verdatos">
+                                                    <a asp-route-id="@item.IdCD" asp-route-idAcad="@academico" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarCD" title="Editar" class="btn btn-primary btn-xs verdatos">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a data-value="@item.IdCD" data-controlador="AcademicosDatosGenerales" data-accion="EliminarCD" data-id="@academico" data-regreso="EditarCD" name="eliminaracademico" class="btn btn-danger btn-xs" title="Eliminar">

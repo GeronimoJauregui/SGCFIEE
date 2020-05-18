@@ -301,20 +301,19 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idJur"] = id;
-                if (tipoUsu == 2)
+                
+                Academicosjuradorecep Acad = new Academicosjuradorecep();
+                int cant = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicosjuradorecep Acad = new Academicosjuradorecep();
-                    int cant = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadJurExp);
         }
@@ -562,20 +561,19 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idJur"] = id;
-                if (tipoUsu == 2)
+                
+                Academicosjuroposicion Acad = new Academicosjuroposicion();
+                int cant = context.Academicosjuroposicion.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicosjuroposicion Acad = new Academicosjuroposicion();
-                    int cant = context.Academicosjuroposicion.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicosjuroposicion.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicosjuroposicion.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadJurOpo);
         }
@@ -1269,20 +1267,19 @@ namespace SGCFIEE.Controllers
                 var acade = context.Academicos.ToList();
                 ViewData["academicos"] = acade;
                 ViewData["idJur"] = id;
-                if (tipoUsu == 2)
+                
+                Academicosjuradorecep Acad = new Academicosjuradorecep();
+                int cant = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
+                if (cant > 0)
                 {
-                    Academicosjuradorecep Acad = new Academicosjuradorecep();
-                    int cant = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Count();
-                    if (cant > 0)
-                    {
-                        Acad = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
-                    }
-                    else
-                    {
-                        Acad = null;
-                    }
-                    ViewData["Acad"] = Acad;
+                    Acad = context.Academicosjuradorecep.Where(w => w.IdJurado == id && w.Lider == 1 && w.IdAcademico == idUsu).Single();
                 }
+                else
+                {
+                    Acad = null;
+                }
+                ViewData["Acad"] = Acad;
+                
             }
             return View(ListAcadJurExp);
         }
