@@ -6,7 +6,6 @@ namespace SGCFIEE.Models
     public partial class Estudios
     {
         public int IdEstudios { get; set; }
-        public int IdNombreTitulo { get; set; }
         public int IdInstitucion { get; set; }
         public int IdAcademico { get; set; }
         public int? IdGradoTitulo { get; set; }

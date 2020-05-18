@@ -16,7 +16,7 @@ namespace SGCFIEE.Models
         public DateTime? Fecha { get; set; }
         public string Archivo { get; set; }
 
-        public virtual ExperienciaEducativa IdEeNavigation { get; set; }
+        public virtual MapaCurricular IdEeNavigation { get; set; }
         public virtual ICollection<Academicosjuroposicion> Academicosjuroposicion { get; set; }
     }
 }

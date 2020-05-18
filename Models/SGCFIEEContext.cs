@@ -128,7 +128,7 @@ namespace SGCFIEE.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=1234567890;");
+                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=admin;");
             }
         }
 
@@ -1537,8 +1537,6 @@ namespace SGCFIEE.Models
 
                 entity.Property(e => e.IdInstitucion).HasColumnName("idInstitucion");
 
-                entity.Property(e => e.IdNombreTitulo).HasColumnName("idNombreTitulo");
-
                 entity.HasOne(d => d.IdAcademicoNavigation)
                     .WithMany(p => p.Estudios)
                     .HasForeignKey(d => d.IdAcademico)
@@ -1862,7 +1860,7 @@ namespace SGCFIEE.Models
                 entity.ToTable("jurado_examen_oposicion");
 
                 entity.HasIndex(e => e.IdEe)
-                    .HasName("fk_Jexposicion_EE_idx");
+                    .HasName("fk_exposicion_EE_idx");
 
                 entity.Property(e => e.IdJexposicion).HasColumnName("id_JExposicion");
 

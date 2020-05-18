@@ -8,6 +8,7 @@ namespace SGCFIEE.Models
         public MapaCurricular()
         {
             ExperienciaEducativaPeriodo = new HashSet<ExperienciaEducativaPeriodo>();
+            JuradoExamenOposicion = new HashSet<JuradoExamenOposicion>();
         }
 
         public int IdMapaCurricular { get; set; }
@@ -18,5 +19,6 @@ namespace SGCFIEE.Models
         public virtual ExperienciaEducativa IdExperienciaEducativaNavigation { get; set; }
         public virtual ProgramaEducativo IdProgramaEducativoNavigation { get; set; }
         public virtual ICollection<ExperienciaEducativaPeriodo> ExperienciaEducativaPeriodo { get; set; }
+        public virtual ICollection<JuradoExamenOposicion> JuradoExamenOposicion { get; set; }
     }
 }
