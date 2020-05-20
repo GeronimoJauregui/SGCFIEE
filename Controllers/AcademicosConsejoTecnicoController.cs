@@ -43,6 +43,7 @@ namespace SGCFIEE.Controllers
                                  }
                                ).ToList();
             }
+            
             return View(ListCT);
         }
         [Authorize]
@@ -71,6 +72,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("Index");
                     }
                 }
@@ -90,7 +92,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '"+ "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("Index");
         }
         [Authorize]
@@ -114,12 +116,13 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var ListCT = context.ConsejoTecnico.ToList();
+                var ListCT = context.ConsejoTecnico.Where(x => x.IdConsejoTecnico != datos.IdConsejoTecnico).ToList();
 
                 foreach (ConsejoTecnico item in ListCT)
                 {
-                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre && datos.IdConsejoTecnico != item.IdConsejoTecnico)
+                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("Index");
                     }
                 }
@@ -142,10 +145,10 @@ namespace SGCFIEE.Controllers
             {
                 context.ConsejoTecnico.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
             }
             if (file == null || file.Length == 0)
             {
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("Index");
             }
             var new_name_file = datos.IdFechaInicial + "_" + datos.IdFechaCierre + "_" + datos.IdAcademico + "_" + file.GetFilename();
@@ -155,7 +158,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("Index");
         }
         public IActionResult Eliminar(int id)
