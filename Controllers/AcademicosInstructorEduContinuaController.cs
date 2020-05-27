@@ -64,14 +64,18 @@ namespace SGCFIEE.Controllers
                 var ListInstructorEdu = context.RecursosExternos.ToList();
                 foreach (RecursosExternos item in ListInstructorEdu)
                 {
-                    if (datos.IdAcademicos == item.IdAcademicos && datos.IdPeriodo == item.IdPeriodo)
+                    if (datos.IdAcademicos == item.IdAcademicos && datos.IdPeriodo == item.IdPeriodo && datos.Nombre==item.Nombre && datos.Ingreso== item.Ingreso)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("Index");
                     }
                 }
+
                 context.RecursosExternos.Add(datos);
                 context.SaveChanges();
+                
             }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("Index");
         }
         public IActionResult Editar(int id)
@@ -94,12 +98,13 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var ListInstructorEdu = context.RecursosExternos.ToList();
+                var ListInstructorEdu = context.RecursosExternos.Where(y => y.IdRecursosExternos != datos.IdRecursosExternos).ToList();
 
                 foreach (RecursosExternos item in ListInstructorEdu)
                 {
-                    if (datos.IdAcademicos == item.IdAcademicos && datos.IdPeriodo == item.IdPeriodo && datos.IdRecursosExternos != item.IdRecursosExternos)
+                    if (datos.IdAcademicos == item.IdAcademicos && datos.IdPeriodo == item.IdPeriodo && datos.Nombre == item.Nombre && datos.Ingreso == item.Ingreso)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("Index");
                     }
                 }
@@ -108,7 +113,8 @@ namespace SGCFIEE.Controllers
             {
                 context.RecursosExternos.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                
             }
             return RedirectToAction("Index");
         }

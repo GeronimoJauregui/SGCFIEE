@@ -4,10 +4,17 @@
     Layout = "~/Views/Home/Principal.cshtml";
 }
 <script src="~/assets/js/pages/table/table_data.js"></script>
+<link rel="stylesheet" href="~/assets/plugins/sweet-alert/sweetalert.min.css">
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 
 <!DOCTYPE html>
 <html>
     <div class="row">
+        @if (TempData["msg"] != null)
+        {
+            @Html.Raw(TempData["msg"])
+        }
         <div class="col-md-12 col-sm-12">
             <div class="card card-box">
                 <div class="card-topline-green card-head">

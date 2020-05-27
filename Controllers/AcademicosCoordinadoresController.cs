@@ -71,8 +71,9 @@ namespace SGCFIEE.Controllers
                 var ListAcademia = context.CoordinadorAcademia.ToList();
                 foreach (CoordinadorAcademia item in ListAcademia)
                 {
-                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre)
+                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre && datos.IdAcadademia == item.IdAcadademia)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexAcademia");
                     }
                 }
@@ -92,7 +93,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("IndexAcademia");
         }
         [Authorize]
@@ -122,8 +123,9 @@ namespace SGCFIEE.Controllers
 
                 foreach (CoordinadorAcademia item in ListAcademia)
                 {
-                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre && datos.IdCoordinadorAcademia != item.IdCoordinadorAcademia)
+                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre && datos.IdAcadademia == item.IdAcadademia && datos.IdCoordinadorAcademia != item.IdCoordinadorAcademia)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexAcademia");
                     }
                 }
@@ -146,7 +148,8 @@ namespace SGCFIEE.Controllers
             {
                 context.CoordinadorAcademia.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                
             }
             if (file == null || file.Length == 0)
             {
@@ -159,7 +162,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            
             return RedirectToAction("IndexAcademia");
         }
         public IActionResult EliminarAcademia(int id)
@@ -251,8 +254,9 @@ namespace SGCFIEE.Controllers
                 var ListPrograma = context.CoordinadorProgramaTransversal.ToList();
                 foreach (CoordinadorProgramaTransversal item in ListPrograma)
                 {
-                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre)
+                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre && datos.IdPt == item.IdPt)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexProgramaTransversal");
                     }
                 }
@@ -260,6 +264,7 @@ namespace SGCFIEE.Controllers
                 datos.Evidencia = new_name_table;
                 context.CoordinadorProgramaTransversal.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
 
             if (file == null || file.Length == 0)
@@ -302,8 +307,9 @@ namespace SGCFIEE.Controllers
 
                 foreach (CoordinadorProgramaTransversal item in ListPrograma)
                 {
-                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre && datos.IdCoordinadorProgramaTransversal != item.IdCoordinadorProgramaTransversal)
+                    if (datos.IdAcademico == item.IdAcademico && datos.IdFechaInicial == item.IdFechaInicial && datos.IdFechaCierre == item.IdFechaCierre && datos.IdPt == item.IdPt && datos.IdCoordinadorProgramaTransversal != item.IdCoordinadorProgramaTransversal)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexProgramaTransversal");
                     }
                 }
@@ -326,7 +332,8 @@ namespace SGCFIEE.Controllers
             {
                 context.CoordinadorProgramaTransversal.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+               
             }
             if (file == null || file.Length == 0)
             {
