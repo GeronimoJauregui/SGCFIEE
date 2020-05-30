@@ -71,6 +71,18 @@ namespace SGCFIEE.Controllers
             }
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var ListEvaluador = context.EvaluadoresAcademicos.ToList();
+                foreach (EvaluadoresAcademicos item in ListEvaluador)
+                {
+                    if (datos.IdTipoEvaluador == item.IdTipoEvaluador && datos.RevisorEvaluador == item.RevisorEvaluador)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("IndexArbitraje");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 var name = file.GetFilename();
                 datos.Archivo = name;
                 context.EvaluadoresAcademicos.Add(datos);
@@ -101,6 +113,7 @@ namespace SGCFIEE.Controllers
                 info.Lider = Lider;
                 context.Academicosevaluadores.Add(info);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("IndexArbitraje");
         }
@@ -124,7 +137,18 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarArbitraje(IFormFile file, EvaluadoresAcademicos datos)
         {
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var ListEvaluador = context.EvaluadoresAcademicos.Where(e => e.IdEvaluadoresAcademicos != datos.IdEvaluadoresAcademicos).ToList();
+                foreach (EvaluadoresAcademicos item in ListEvaluador)
+                {
+                    if (datos.IdTipoEvaluador == item.IdTipoEvaluador && datos.RevisorEvaluador == item.RevisorEvaluador)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("IndexArbitraje");
+                    }
+                }
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 if (file == null || file.Length == 0)
@@ -143,7 +167,7 @@ namespace SGCFIEE.Controllers
             {
                 context.EvaluadoresAcademicos.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -248,6 +272,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (idAcademico == item.IdAcademico && arbitraje == item.IdEvaluadores)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "El académico ya se encuentra registrado!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("AcademicosArbitraje", new { id = arbitraje });
                     }
                 }
@@ -256,6 +281,7 @@ namespace SGCFIEE.Controllers
                 AcadArbitraje.IdEvaluadores = arbitraje;
                 context.Academicosevaluadores.Add(AcadArbitraje);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("AcademicosArbitraje", new { id = AcadArbitraje.IdEvaluadores });
         }
@@ -326,6 +352,18 @@ namespace SGCFIEE.Controllers
             }
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var ListCurTalle = context.CursosTalleresAplicacion.ToList();
+                foreach (CursosTalleresAplicacion item in ListCurTalle)
+                {
+                    if (datos.CT == item.CT && datos.Titulo == item.Titulo && datos.Fecha == item.Fecha)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("IndexCursos_Talleres");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 var name = file.GetFilename();
                 datos.Archivo = name;
                 context.CursosTalleresAplicacion.Add(datos);
@@ -356,6 +394,7 @@ namespace SGCFIEE.Controllers
                 info.Lider = Lider;
                 context.Academicoscursostaller.Add(info);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("IndexCursos_Talleres");
         }
@@ -379,7 +418,18 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarCursos_Talleres(IFormFile file, CursosTalleresAplicacion datos)
         {
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var ListCurTalle = context.CursosTalleresAplicacion.Where(c => c.IdCursosTalleres != datos.IdCursosTalleres).ToList();
+                foreach (CursosTalleresAplicacion item in ListCurTalle)
+                {
+                    if (datos.CT == item.CT && datos.Titulo == item.Titulo && datos.Fecha == item.Fecha)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("IndexCursos_Talleres");
+                    }
+                }
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 if (file == null || file.Length == 0)
@@ -398,7 +448,7 @@ namespace SGCFIEE.Controllers
             {
                 context.CursosTalleresAplicacion.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -503,6 +553,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (idAcademico == item.IdAcademico && cursotaller == item.IdCursosDiplo)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "El académico ya se encuentra registrado!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("AcademicosCursos_Talleres", new { id = cursotaller });
                     }
                 }
@@ -511,6 +562,7 @@ namespace SGCFIEE.Controllers
                 AcadCursoTaller.IdCursosDiplo = cursotaller;
                 context.Academicoscursostaller.Add(AcadCursoTaller);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("AcademicosCursos_Talleres", new { id = AcadCursoTaller.IdCursosDiplo });
         }
@@ -586,6 +638,18 @@ namespace SGCFIEE.Controllers
             }
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var ListCA = context.CaAcademicos.ToList();
+                foreach (CaAcademicos item in ListCA)
+                {
+                    if (datos.IdCanivelJerarquico == item.IdCuerpoAcademico && datos.IdCuerpoAcademico == item.IdCuerpoAcademico && datos.FechaRegistro == item.FechaRegistro && datos.Status == item.Status)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("IndexPartCuerpos");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 var name = file.GetFilename();
                 datos.Archivo = name;
                 context.CaAcademicos.Add(datos);
@@ -616,6 +680,7 @@ namespace SGCFIEE.Controllers
                 info.Lider = Lider;
                 context.Academicoscuerposacad.Add(info);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("IndexPartCuerpos");
         }
@@ -642,7 +707,18 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarPartCuerpos(IFormFile file, CaAcademicos datos)
         {
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var ListCA = context.CaAcademicos.Where(a => a.IdCa != datos.IdCa).ToList();
+                foreach (CaAcademicos item in ListCA)
+                {
+                    if (datos.IdCanivelJerarquico == item.IdCuerpoAcademico && datos.IdCuerpoAcademico == item.IdCuerpoAcademico && datos.FechaRegistro == item.FechaRegistro && datos.Status == item.Status)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("IndexPartCuerpos");
+                    }
+                }
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 if (file == null || file.Length == 0)
@@ -661,7 +737,7 @@ namespace SGCFIEE.Controllers
             {
                 context.CaAcademicos.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -767,6 +843,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (idAcademico == item.IdAcademico && cuerpoacademico == item.IdCuerpoAcad)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "El académico ya se encuentra registrado!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("AcademicosPartCuerpos", new { id = cuerpoacademico });
                     }
                 }
@@ -775,6 +852,7 @@ namespace SGCFIEE.Controllers
                 AcadCuerpoAcad.IdCuerpoAcad = cuerpoacademico;
                 context.Academicoscuerposacad.Add(AcadCuerpoAcad);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("AcademicosPartCuerpos", new { id = AcadCuerpoAcad.IdCuerpoAcad });
         }
@@ -847,6 +925,18 @@ namespace SGCFIEE.Controllers
             }
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var ListPonConf = context.PonenciasConferencias.ToList();
+                foreach (PonenciasConferencias item in ListPonConf)
+                {
+                    if (datos.PonenciaConferencia == item.PonenciaConferencia && datos.IdTipo == item.IdTipo && datos.Fecha == item.Fecha && datos.Nombre == item.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("IndexPonencias_Conferencias");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 var name = file.GetFilename();
                 datos.Archivo = name;
                 context.PonenciasConferencias.Add(datos);
@@ -877,6 +967,7 @@ namespace SGCFIEE.Controllers
                 info.Lider = Lider;
                 context.Academicoponenciasconf.Add(info);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("IndexPonencias_Conferencias");
         }
@@ -902,7 +993,18 @@ namespace SGCFIEE.Controllers
         [Authorize]
         public async Task<IActionResult> ActualizarPonencias_Conferencias(IFormFile file, PonenciasConferencias datos)
         {
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var ListPonConf = context.PonenciasConferencias.Where(p => p.IdPonencias != datos.IdPonencias).ToList();
+                foreach (PonenciasConferencias item in ListPonConf)
+                {
+                    if (datos.PonenciaConferencia == item.PonenciaConferencia && datos.IdTipo == item.IdTipo && datos.Fecha == item.Fecha && datos.Nombre == item.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("IndexPonencias_Conferencias");
+                    }
+                }
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 if (file == null || file.Length == 0)
@@ -921,7 +1023,7 @@ namespace SGCFIEE.Controllers
             {
                 context.PonenciasConferencias.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -1026,6 +1128,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (idAcademico == item.IdAcademico && ponencia == item.IdPonenciasConf)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "El académico ya se encuentra registrado!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("AcademicosPonencias_Conferencias", new { id = ponencia });
                     }
                 }
@@ -1034,6 +1137,7 @@ namespace SGCFIEE.Controllers
                 AcadPonenciaConfe.IdPonenciasConf = ponencia;
                 context.Academicoponenciasconf.Add(AcadPonenciaConfe);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("AcademicosPonencias_Conferencias", new { id = AcadPonenciaConfe.IdPonenciasConf });
         }
