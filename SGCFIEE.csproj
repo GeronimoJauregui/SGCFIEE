@@ -20,6 +20,11 @@
     <None Remove="SGCFIEE.mwb.bak" />
     <None Remove="SGCFIEE.mwb" />
     <Content Remove="wwwroot\Archivos\PafisAcademicos\Acta_1_IINF-11-E-CR-Trayectoria-sugerida-2016.pdf" />
+    <Content Remove="Views\AcademicosComplementaria\CrearSalon.cshtml" />
+    <Content Remove="Views\AcademicosComplementaria\CrearTipo.cshtml" />
+    <Content Remove="Views\AcademicosComplementaria\CrearTipoe.cshtml" />
+    <Content Remove="Views\AcademicosComplementaria\DetallesMovilidad.cshtml" />
+    <Content Remove="Views\AcademicosComplementaria\MostrarEvento.cshtml" />
   </ItemGroup>
 
 

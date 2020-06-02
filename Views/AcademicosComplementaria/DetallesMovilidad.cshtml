@@ -1,0 +1,75 @@
+﻿@model SGCFIEE.Models.CtMovilidades
+@{
+    ViewData["Title"] = "Dtalle Movilidad";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+                    <div class="card-head" id="idDatosPersonales">
+                        <header>Información de movilidad</header>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fontawesome-demo active show" id="tab1">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                
+                                <div class="card-body " id="bar-parent2">
+                                    <div class="row">
+                                        <div class="col-md-6 col-6 b-r">
+                                            <strong>Tipo de movilidad</strong>
+                                            <br>
+                                            @if (Model.TipoMovilidades == 1)
+                                            {  <div><p id="" class="text-muted"> Nacional </p> </div> }
+                                            @if (Model.TipoMovilidades == 2)
+                                            { <div><p id="" class="text-muted"> Internacional</p> </div>}
+                                            
+                                            <br>
+                                        </div>
+                                        <div class="col-md-6 col-6 b-r">
+                                            <strong>Pais destino</strong>
+                                            <br>
+                                            <p id="" class="text-muted">@Html.DisplayFor(model => model.PaisDestinoMovilidad)</p>
+                                            <br>
+                                        </div>
+                                        <div class="col-md-6 col-6 b-r">
+                                            <strong>Entidad destino</strong>
+                                            <br>
+                                            <p id="" class="text-muted">@Html.DisplayFor(model => model.EntidadDestinoMovilidad)</p>
+                                            <br>
+                                        </div>
+                                        <div class="col-md-6 col-6">
+                                            <strong>Escuela destino</strong>
+                                            <br>
+                                            <p id="" class="text-muted">@Html.DisplayFor(model => model.EscuelaDestinoMovilidad)</p>
+                                            <br>
+                                        </div>
+                                        <div class="col-md-6 col-6">
+                                            <strong>Tiempo de permanencia</strong>
+                                            <br>
+                                            <p id="" class="text-muted">@Html.DisplayFor(model => model.TiempoPermanenciaMovilidad)</p>
+                                            <br>
+                                        </div>
+                                    </div>
+                                    <a asp-controller="AcademicosComplementaria" asp-action="MostrarMovilidad" class="btn btn-success btn-sm m-b-10">
+                                        Regresar a tabla
+                                    </a>
+                                    
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

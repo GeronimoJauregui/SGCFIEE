@@ -1,0 +1,78 @@
+﻿@model SGCFIEE.Models.TipoEventos
+@{
+    ViewData["Title"] = "Crear Tipo eventos";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+                    <div class="card-head">
+                        <header>Tipo de evento</header>
+                    </div>
+                </div>
+                <div class="white-box">
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="CrearTipoe" asp-antiforgery="true">
+                                            <div class="card-body " id="bar-parent2">
+                                                <div class="row">
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label asp-for="Nombre">Nombre del tipo de evento</label>
+                                                            <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <div class="card-body " id="bar-parent2">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <a asp-controller="AcademicosComplementaria" asp-action="MostrarTipoe" class="btn btn-success btn-sm m-b-10">
+                                                                    Mostrar tabla
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-6 col-sm-6">
+                                                                <input type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                                <a asp-controller="AcademicosComplementaria" asp-action="CrearEvento" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                                    Cancelar
+                                                                </a>
+                                                                
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</html>

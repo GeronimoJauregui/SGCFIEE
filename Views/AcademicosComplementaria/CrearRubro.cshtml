@@ -1,0 +1,77 @@
+﻿@model SGCFIEE.Models.TbRubrosexamenes
+@{
+
+
+    ViewData["Title"] = "Crear Rubro";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+                    <div class="card-head" id="idDatosPersonales">
+                        <header>Información de rubros de examen</header>
+                    </div>
+                </div>
+                <div class="white-box">
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <form asp-action="CrearRubro" asp-antiforgery="true">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="RubroExamen">Nombre del rubro</label>
+                                                        <input asp-for="RubroExamen" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                                        <span asp-validation-for="RubroExamen" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                    Tipo de examen:<br>
+                                                    <input asp-for="TipoExamen" type="radio" value="1" checked /> Examen ingreso<br>
+                                                    <input asp-for="TipoExamen" type="radio" value="0" /> Examen interno
+                                                </div>
+                                                </div>  
+                                                <input asp-for="Status" type="number" value="1" hidden="true">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <a asp-controller="AcademicosComplementaria" asp-action="MostrarRubro" class="btn btn-success btn-sm m-b-10">
+                                                        Mostrar tabla
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <input id="enviaru" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                    <a asp-controller="AcademicosComplementaria" asp-action="VistaOpcionesCatalogos" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                        Cancelar
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,102 @@
+﻿@model SGCFIEE.Models.TbEventos
+@using SGCFIEE.Models
+@{
+    ViewData["Title"] = "Crear eventos";
+    Layout = "~/Views/Home/Principal.cshtml";
+
+    var y = (IEnumerable<TipoEventos>)ViewData["e"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+                    <div class="card-head">
+                        <header>Información del eventos</header>
+                    </div>
+                </div>
+                <div class="white-box">
+                    
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            <form asp-action="CrearEvento" asp-antiforgery="true">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <a  asp-action="CrearTipoe" asp-controller="AcademicosComplementaria" class="btn btn-success btn-sm m-b-10">
+                                                        INSERTAR TIPO DE EVENTO
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                   
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                       
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-sm-6">
+                                                    <!-- text input -->
+                                                    <input asp-for="Status" type="number" value="1" hidden="true">
+                                                    <div class="form-group">
+                                                        <label>Tipo de evento</label>
+                                                        <select asp-for="RTioEvento" class="form-control" id="areaexp">
+                                                            @foreach(var item in y)
+                                                            {
+                                                                <option value="@item.IdEventos">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="Nombre">Nombre del evento</label>
+                                                        <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+                                                <div class="col-md-6 col-sm-6">
+                                                    <a asp-controller="AcademicosComplementaria" asp-action="MostrarEvento" class="btn btn-success btn-sm m-b-10">
+                                                        Mostrar tabla
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6">
+                                                    <input type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                    <a asp-controller="AcademicosComplementaria" asp-action="VistaOpcionesCatalogos" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                        Cancelar
+                                                    </a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

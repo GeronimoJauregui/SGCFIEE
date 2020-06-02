@@ -1,0 +1,71 @@
+﻿@model IEnumerable<SGCFIEE.Models.TablaExperiencia>
+@{
+    ViewData["Title"] = "Mostrar Experiencia";
+    Layout = "~/Views/Home/Principal.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-topline-green">
+            <div class="card-head">
+                <header>EXPERIENCIAS EDUCATIVAS</header>
+                <div class="tools">
+                    <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                    <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                    <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                </div>
+            </div>
+            <div class="card-body ">
+                <div class="row p-b-20">
+                    <div class="col-md-6 col-sm-6 col-6">
+                        <div class="btn-group">
+                            <a  asp-action="CrearExperiencia" asp-controller="AcademicosComplementaria" class="btn btn-success btn-sm m-b-10">
+                                INSERTAR
+                            </a>
+                        </div>
+                        <a asp-controller="AcademicosComplementaria" asp-action="VistaOpcionesCatalogos" class="btn btn-default btn-sm m-b-10">
+                            VOLVER
+                        </a>
+                    </div>
+                </div>
+                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="tbcomp">
+                    <thead>
+                        <tr>
+                            <th style="display: none"></th>
+                            <th class="center" style="width: 100px;"> Nombre </th>
+                            <th class="center">Creditos</th>
+                            <th class="center">Área</th>
+                            <th class="center">Horas</th>
+                            <th class="center">Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="odd gradeX">
+                                <td class="center">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.Creditos)</td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.Nombrearea)</td>
+                                <td class="center">@Html.DisplayFor(modelItem => item.Horas)</td>
+                                <td>
+                                    <div class="center">
+                                        <a asp-route-id="@item.IdExperienciaEducativa" asp-controller="AcademicosComplementaria" asp-action="EditarExperiencia" class="btn btn-primary btn-xs editar" title="Editar">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a data-value="@item.IdExperienciaEducativa" data-controlador="AcademicosComplementaria" data-accion="EliminarExperiencia" data-regreso="MostrarExperiencia" name="eliminardato" class="btn btn-danger btn-xs eliminar" title="Eliminar">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
