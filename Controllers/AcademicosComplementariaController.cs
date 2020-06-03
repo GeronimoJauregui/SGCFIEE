@@ -44,8 +44,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoLocNacInter.ToList();
+                foreach(TipoLocNacInter item in info)
+                {
+                    if(item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarLocalizacion");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoLocNacInter.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarLocalizacion");
         }
@@ -65,8 +78,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoLocNacInter.Where(i => i.IdTipo != datos.IdTipo).ToList();
+                foreach (TipoLocNacInter item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarLocalizacion");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoLocNacInter.Update(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarLocalizacion");
         }
@@ -107,8 +133,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.Editorial.ToList();
+                foreach (Editorial item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarEditorial");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.Editorial.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarEditorial");
         }
@@ -128,8 +167,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.Editorial.Where(e => e.IdEditorial != datos.IdEditorial).ToList();
+                foreach (Editorial item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarEditorial");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.Editorial.Update(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarEditorial");
         }
@@ -170,8 +222,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.CanivelJerarquico.ToList();
+                foreach (CanivelJerarquico item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarNivel");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CanivelJerarquico.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarNivel");
         }
@@ -191,8 +256,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.CanivelJerarquico.Where(c => c.IdCanivelJerarquico != datos.IdCanivelJerarquico).ToList();
+                foreach (CanivelJerarquico item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarNivel");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CanivelJerarquico.Update(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarNivel");
         }
@@ -233,8 +311,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoEvaluador.ToList();
+                foreach (TipoEvaluador item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarProducto");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoEvaluador.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarProducto");
         }
@@ -254,8 +345,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoEvaluador.Where(t => t.IdTipoEvaluador != datos.IdTipoEvaluador).ToList();
+                foreach (TipoEvaluador item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarProducto");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoEvaluador.Update(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarProducto");
         }
@@ -296,8 +400,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoModalidad.ToList();
+                foreach (TipoModalidad item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarModalidad");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoModalidad.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarModalidad");
         }
@@ -317,8 +434,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoModalidad.Where(t => t.IdModalidad != datos.IdModalidad).ToList();
+                foreach (TipoModalidad item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarModalidad");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoModalidad.Update(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarModalidad");
         }
@@ -371,8 +501,29 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if(datos.IdEstado == null)
+                {
+                    TempData["msg"] = "<script language='javascript'> swal({ title:'" + "No se ha encontrado el estado del cuerpo académico!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                    return RedirectToAction("InsertarCuerpo");
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.CuerposAcademicos.ToList();
+                foreach (CuerposAcademicos item in info)
+                {
+                    if (item.Nombre == datos.Nombre && item.IdEstado == datos.IdEstado)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarCuerpos");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CuerposAcademicos.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarCuerpos");
         }
@@ -394,8 +545,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.CuerposAcademicos.Where(c => c.IdCuerpoAcademico != datos.IdCuerpoAcademico).ToList();
+                foreach (CuerposAcademicos item in info)
+                {
+                    if (item.Nombre == datos.Nombre && item.IdEstado == datos.IdEstado)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarCuerpos");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CuerposAcademicos.Update(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarCuerpos");
         }
@@ -434,8 +598,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.CuerpoEstados.ToList();
+                foreach (CuerpoEstados item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarEstado");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CuerpoEstados.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarEstado");
         }
@@ -455,8 +632,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.CuerpoEstados.Where(e => e.IdEstado != datos.IdEstado).ToList();
+                foreach (CuerpoEstados item in info)
+                {
+                    if (item.Nombre == datos.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarEstado");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CuerpoEstados.Update(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarEstado");
         }
@@ -687,10 +877,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult CrearPersonal(TipoPersonal personal)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.TipoPersonal.ToList();
+                foreach (TipoPersonal item in info)
+                {
+                    if (item.Nombre == personal.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarPersonal");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPersonal.Add(personal);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarPersonal");
         }
@@ -708,8 +911,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoPuesto.ToList();
+                foreach (TipoPuesto item in info)
+                {
+                    if (item.Nombre == puesto.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarPuestos");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoPuesto.Add(puesto);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarPuestos");
         }
@@ -727,8 +943,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoLaboratorio.ToList();
+                foreach (TipoLaboratorio item in info)
+                {
+                    if (item.Nombre == lab.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarLaboratorios");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoLaboratorio.Add(lab);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarLaboratorios");
         }
@@ -746,8 +975,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoPeriodo.ToList();
+                foreach (TipoPeriodo item in info)
+                {
+                    if (item.Nombre == periodo.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarPeriodos");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoPeriodo.Add(periodo);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarPeriodos");
         }
@@ -766,8 +1008,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.GradoTitulo.ToList();
+                foreach (GradoTitulo item in info)
+                {
+                    if (item.Nombre == titulo.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarGTitulo");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.GradoTitulo.Add(titulo);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarGTitulo");
         }
@@ -785,8 +1040,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoDistincionTa.ToList();
+                foreach (TipoDistincionTa item in info)
+                {
+                    if (item.Nombre == distincion.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarDistincionesTA");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoDistincionTa.Add(distincion);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarDistincionesTA");
         }
@@ -804,8 +1072,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoCertificacion.ToList();
+                foreach (TipoCertificacion item in info)
+                {
+                    if (item.Nombre == certificado.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarCertificacion");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoCertificacion.Add(certificado);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarCertificacion");
         }
@@ -823,8 +1104,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.InstitucionesEmpresas.ToList();
+                foreach (InstitucionesEmpresas item in info)
+                {
+                    if (item.Nombre == IE.Nombre && item.IesEmpresa == IE.IesEmpresa)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarInstiEmpre");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.InstitucionesEmpresas.Add(IE);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarInstiEmpre");
         }
@@ -842,8 +1136,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.Academias.ToList();
+                foreach (Academias item in info)
+                {
+                    if (item.Nombre == aca.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarAcademias");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.Academias.Add(aca);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarAcademias");
         }
@@ -861,8 +1168,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.ProgramasTrasversales.ToList();
+                foreach (ProgramasTrasversales item in info)
+                {
+                    if (item.Nombre == PT.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarProTransversales");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.ProgramasTrasversales.Add(PT);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarProTransversales");
         }
@@ -880,8 +1200,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoContratacionee.ToList();
+                foreach (TipoContratacionee item in info)
+                {
+                    if (item.Nombre == ee.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarTContratacion");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoContratacionee.Add(ee);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarTContratacion");
         }
@@ -965,6 +1298,7 @@ namespace SGCFIEE.Controllers
             {
                 context.MapaCurricular.Add(mc);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarMaterias");
         }
@@ -1119,10 +1453,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarAcademia(Academias aca)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.Academias.Where(a => a.IdAcademias != aca.IdAcademias).ToList();
+                foreach (Academias item in info)
+                {
+                    if (item.Nombre == aca.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarAcademias");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.Academias.Update(aca);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarAcademias");
         }
@@ -1143,10 +1490,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarCertificacion(TipoCertificacion cert)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.TipoCertificacion.Where(c => c.IdCertificacion != cert.IdCertificacion).ToList();
+                foreach (TipoCertificacion item in info)
+                {
+                    if (item.Nombre == cert.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarCertificacion");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoCertificacion.Update(cert);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarCertificacion");
         }
@@ -1167,10 +1527,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarDistincion(TipoDistincionTa ta)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.TipoDistincionTa.Where(t => t.IdDistincion != ta.IdDistincion).ToList();
+                foreach (TipoDistincionTa item in info)
+                {
+                    if (item.Nombre == ta.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarDistincionesTA");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoDistincionTa.Update(ta);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarDistincionesTA");
         }
@@ -1194,8 +1567,21 @@ namespace SGCFIEE.Controllers
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.GradoTitulo.Where(g => g.IdGradoTitulo != gt.IdGradoTitulo).ToList();
+                foreach (GradoTitulo item in info)
+                {
+                    if (item.Nombre == gt.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarGTitulo");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.GradoTitulo.Update(gt);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarGTitulo");
         }
@@ -1216,10 +1602,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarIE(InstitucionesEmpresas ie)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.InstitucionesEmpresas.Where(i => i.IdIE != ie.IdIE).ToList();
+                foreach (InstitucionesEmpresas item in info)
+                {
+                    if (item.Nombre == ie.Nombre && item.IesEmpresa == ie.IesEmpresa)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarInstiEmpre");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.InstitucionesEmpresas.Update(ie);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarInstiEmpre");
         }
@@ -1239,10 +1638,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarLab(TipoLaboratorio lab)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.TipoLaboratorio.Where(l => l.IdTipoLaboratorio != lab.IdTipoLaboratorio).ToList();
+                foreach (TipoLaboratorio item in info)
+                {
+                    if (item.Nombre == lab.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarLaboratorios");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoLaboratorio.Update(lab);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarLaboratorios");
         }
@@ -1263,10 +1675,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarPeriodo(TipoPeriodo per)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.TipoPeriodo.Where(p => p.IdPeriodo != per.IdPeriodo).ToList();
+                foreach (TipoPeriodo item in info)
+                {
+                    if (item.Nombre == per.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarPeriodos");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPeriodo.Update(per);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarPeriodos");
         }
@@ -1287,10 +1712,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarPersonal(TipoPersonal per)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.TipoPersonal.Where( p => p.IdTipoPersonal != per.IdTipoPersonal).ToList();
+                foreach (TipoPersonal item in info)
+                {
+                    if (item.Nombre == per.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarPersonal");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPersonal.Update(per);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarPersonal");
         }
@@ -1311,10 +1749,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarProTra(ProgramasTrasversales pt)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.ProgramasTrasversales.Where( p => p.IdProgramasTrasversales != pt.IdProgramasTrasversales).ToList();
+                foreach (ProgramasTrasversales item in info)
+                {
+                    if (item.Nombre == pt.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarProTransversales");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.ProgramasTrasversales.Update(pt);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarProTransversales");
         }
@@ -1335,10 +1786,23 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditarPuesto(TipoPuesto puesto)
         {
-            using(sgcfieeContext context = new sgcfieeContext())
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var info = context.TipoPuesto.Where(p => p.IdPuesto != puesto.IdPuesto).ToList();
+                foreach (TipoPuesto item in info)
+                {
+                    if (item.Nombre == puesto.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarPuestos");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPuesto.Update(puesto);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarPuestos");
         }
@@ -1361,8 +1825,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoContratacionee.Where(e => e.IdTipoContratacion != ee.IdTipoContratacion).ToList();
+                foreach (TipoContratacionee item in info)
+                {
+                    if (item.Nombre == ee.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarTContratacion");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoContratacionee.Update(ee);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarTContratacion");
         }
@@ -1386,9 +1863,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.ProgramaEducativo.ToList();
+                foreach (ProgramaEducativo item in info)
+                {
+                    if (item.Nombre == programa.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarProgramas");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.ProgramaEducativo.Add(programa);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Programa agregado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarProgramas");
             }
         }
@@ -1430,9 +1919,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.ProgramaEducativo.Where(p => p.IdProgramaEducativo != programa.IdProgramaEducativo).ToList();
+                foreach (ProgramaEducativo item in info)
+                {
+                    if (item.Nombre == programa.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarProgramas");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.ProgramaEducativo.Update(programa);
                 context.SaveChanges();
-                TempData["mensaje"] = "Datos actualizados correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarProgramas");
             }
         }
@@ -1462,9 +1963,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TbRubrosexamenes.ToList();
+                foreach (TbRubrosexamenes item in info)
+                {
+                    if (item.RubroExamen == rubro.RubroExamen && item.TipoExamen == rubro.TipoExamen)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarRubro");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TbRubrosexamenes.Add(rubro);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Rubro guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarRubro");
             }
         }
@@ -1495,9 +2008,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TbRubrosexamenes.Where(r => r.IdTbRubrosExamenes != rubro.IdTbRubrosExamenes).ToList();
+                foreach (TbRubrosexamenes item in info)
+                {
+                    if (item.RubroExamen == rubro.RubroExamen && item.TipoExamen == rubro.TipoExamen)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarRubro");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TbRubrosexamenes.Update(rubro);
                 context.SaveChanges();
-                TempData["mensaje"] = "datos actualziados correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarRubro");
             }
         }
@@ -1529,9 +2054,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TbSalones.ToList();
+                foreach (TbSalones item in info)
+                {
+                    if (item.ClaveSalon == salon.ClaveSalon && item.Edificio == salon.Edificio)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarSalon");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TbSalones.Add(salon);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Salon agregado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarSalon");
             }
         }
@@ -1562,9 +2099,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TbSalones.Where(s => s.IdTbSalones != salon.IdTbSalones).ToList();
+                foreach (TbSalones item in info)
+                {
+                    if (item.ClaveSalon == salon.ClaveSalon && item.Edificio == salon.Edificio)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarSalon");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TbSalones.Update(salon);
                 context.SaveChanges();
-                TempData["mensaje"] = "datos actualziados correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarSalon");
             }
         }
@@ -1594,9 +2143,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.AreaExperienciaEducativa.ToList();
+                foreach (AreaExperienciaEducativa item in info)
+                {
+                    if (item.Nombre == area.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarArea");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.AreaExperienciaEducativa.Add(area);
                 context.SaveChanges();
-                TempData["mensaje"] = "El area se guardo correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarArea");
             }
         }
@@ -1627,9 +2188,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.AreaExperienciaEducativa.Where( a => a.IdAreaExperienciaEducativa != area.IdAreaExperienciaEducativa).ToList();
+                foreach (AreaExperienciaEducativa item in info)
+                {
+                    if (item.Nombre == area.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarArea");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.AreaExperienciaEducativa.Update(area);
                 context.SaveChanges();
-                TempData["mensaje"] = "datos acrualizados correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarArea");
             }
         }
@@ -1664,9 +2237,26 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.ExperienciaEducativa.ToList();
+                foreach (ExperienciaEducativa item in info)
+                {
+                    if (item.Nombre == expe.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarExperiencia");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                if (expe.IdArea == null)
+                {
+                    TempData["msg"] = "<script language='javascript'> swal({ title:'" + "No se ha encontrado el área de la Experiencia Educativa!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                    return RedirectToAction("CrearExperiencia");
+                }
                 context.ExperienciaEducativa.Add(expe);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Experiencia agregada correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarExperiencia");
             }
         }
@@ -1711,10 +2301,22 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.ExperienciaEducativa.Where(e => e.IdArea != expe.IdArea).ToList();
+                foreach (ExperienciaEducativa item in info)
+                {
+                    if (item.Nombre == expe.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarExperiencia");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
 
                 context.ExperienciaEducativa.Update(expe);
                 context.SaveChanges();
-                TempData["Mensjae"] = "datos actualziados correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarExperiencia");
             }
         }
@@ -1744,9 +2346,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.CtMovilidades.ToList();
+                foreach (CtMovilidades item in info)
+                {
+                    if (item.EntidadDestinoMovilidad == movi.EntidadDestinoMovilidad && item.PaisDestinoMovilidad == movi.PaisDestinoMovilidad && item.EscuelaDestinoMovilidad == movi.EscuelaDestinoMovilidad && item.TiempoPermanenciaMovilidad == movi.TiempoPermanenciaMovilidad)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarMovilidad");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CtMovilidades.Add(movi);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Movildiad guardada correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarMovilidad");
             }
         }
@@ -1788,9 +2402,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.CtMovilidades.Where(m => m.IdCtMovilidades != movi.IdCtMovilidades).ToList();
+                foreach (CtMovilidades item in info)
+                {
+                    if (item.EntidadDestinoMovilidad == movi.EntidadDestinoMovilidad && item.PaisDestinoMovilidad == movi.PaisDestinoMovilidad && item.EscuelaDestinoMovilidad == movi.EscuelaDestinoMovilidad && item.TiempoPermanenciaMovilidad == movi.TiempoPermanenciaMovilidad)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarMovilidad");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CtMovilidades.Update(movi);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Datos actualizados correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarMovilidad");
             }
         }
@@ -1820,9 +2446,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.CtTipoCalificacion.ToList();
+                foreach (CtTipoCalificacion item in info)
+                {
+                    if (item.Tipo == tip.Tipo )
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarMovilidad");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CtTipoCalificacion.Add(tip);
                 context.SaveChanges();
-                TempData["Mensaje"] = "El tipo se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarTipo");
             }
         }
@@ -1853,9 +2491,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.CtTipoCalificacion.Where(c => c.IdCtTipoCalificacion != cali.IdCtTipoCalificacion).ToList();
+                foreach (CtTipoCalificacion item in info)
+                {
+                    if (item.Tipo == cali.Tipo)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarMovilidad");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.CtTipoCalificacion.Update(cali);
                 context.SaveChanges();
-                TempData["Menssaje"] = "Datos actualizados correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarTipo");
             }
         }
@@ -1885,9 +2535,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoEventos.ToList();
+                foreach (TipoEventos item in info)
+                {
+                    if (item.Nombre == tipoe.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarTipoe");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoEventos.Add(tipoe);
                 context.SaveChanges();
-                TempData["Mensaje"] = "El tipo de evento ha sido guardado";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarTipoe");
             }
         }
@@ -1918,9 +2580,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TipoEventos.Where( t => t.IdEventos != tipoe.IdEventos).ToList();
+                foreach (TipoEventos item in info)
+                {
+                    if (item.Nombre == tipoe.Nombre)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarTipoe");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TipoEventos.Update(tipoe);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Datos actualziados correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarTipoe");
             }
         }
@@ -1955,9 +2629,27 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                if (evento.RTioEvento == null)
+                {
+                    TempData["msg"] = "<script language='javascript'> swal({ title:'" + "No se ha encontrado el tipo del evento!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                    return RedirectToAction("CrearEvento");
+                }
+
+                var info = context.TbEventos.ToList();
+                foreach (TbEventos item in info)
+                {
+                    if (item.Nombre == evento.Nombre && item.RTioEvento == evento.RTioEvento)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarEvento");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TbEventos.Add(evento);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Evento guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarEvento");
             }
         }
@@ -2000,9 +2692,21 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var info = context.TbEventos.Where(e => e.IdEventos != eve.IdEventos).ToList();
+                foreach (TbEventos item in info)
+                {
+                    if (item.Nombre == eve.Nombre && item.RTioEvento == eve.RTioEvento)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("MostrarEvento");
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 context.TbEventos.Update(eve);
                 context.SaveChanges();
-                TempData["mensaje"] = "Datos actualizados correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarEvento");
             }
         }

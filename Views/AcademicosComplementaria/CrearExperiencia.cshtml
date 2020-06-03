@@ -8,12 +8,18 @@
 
     var y = (IEnumerable<AreaExperienciaEducativa>)ViewData["area"];
 }
-
+<link rel="stylesheet" href="~/assets/plugins/sweet-alert/sweetalert.min.css">
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 <!DOCTYPE html>
 
 <html>
 <div class="profile-content">
     <div class="row">
+        @if (TempData["msg"] != null)
+        {
+            @Html.Raw(TempData["msg"])
+        }
         <div class="col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-topline-green">
