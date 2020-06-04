@@ -2452,7 +2452,7 @@ namespace SGCFIEE.Controllers
                     if (item.Tipo == tip.Tipo )
                     {
                         TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
-                        return RedirectToAction("MostrarMovilidad");
+                        return RedirectToAction("MostrarTipo");
                     }
                 }
             }
@@ -2497,7 +2497,7 @@ namespace SGCFIEE.Controllers
                     if (item.Tipo == cali.Tipo)
                     {
                         TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
-                        return RedirectToAction("MostrarMovilidad");
+                        return RedirectToAction("MostrarTipo");
                     }
                 }
             }

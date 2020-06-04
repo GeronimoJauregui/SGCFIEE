@@ -1,16 +1,20 @@
 ﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
   <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Controllers/AcademicosComplementariaController.cs">
+    <Files>
+      <File FileName="Controllers/AcademicosComplementariaController.cs" Line="2461" Column="53" />
+      <File FileName="Views/AcademicosComplementaria/VistaOpcionesCatalogos.cshtml" Line="393" Column="113" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
             <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="AcademicosComplementariaController.cs" selected="True" />
+              </Node>
               <Node name="Views" expanded="True">
-                <Node name="AcademicosComplementaria" expanded="True">
-                  <Node name="MostrarMaterias.cshtml" selected="True" />
-                </Node>
+                <Node name="AcademicosComplementaria" expanded="True" />
               </Node>
             </Node>
           </Node>
