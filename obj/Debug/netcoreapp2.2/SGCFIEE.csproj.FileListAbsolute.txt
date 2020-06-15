@@ -1542,3 +1542,10 @@ C:/Users/dxvm1/Desktop/sgc cuarentena/SGCFIEE/obj/Debug/netcoreapp2.2/SGCFIEE.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComplementaria/MostrarSalon.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComplementaria/MostrarTipo.cshtml.g.cs
 /Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/AcademicosComplementaria/MostrarTipoe.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesInformacion/DetallesInfoAcademica.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesInformacion/DetallesBoleta.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesInformacion/DetallesEventos.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesInformacion/DetallesExamen.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesInformacion/DetallesInstancias.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesInformacion/DetallesMovilidad.cshtml.g.cs
+/Users/mac/Desktop/SGCFIEE_ACADEMICOS/SGCFIEE/obj/Debug/netcoreapp2.2/Razor/Views/EstudiantesInformacion/DetallesPafis.cshtml.g.cs

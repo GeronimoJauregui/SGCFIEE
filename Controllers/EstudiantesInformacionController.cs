@@ -111,7 +111,7 @@ namespace SGCFIEE.Controllers
                     DatosPersonales dp = context.DatosPersonales.Where(s => s.IdDatosPersonales == alum).Single();
                     EnviarCorreo("Recordatorio de datos", dp.Correo, alu2.Matricula, dp.ApellidoPaterno);
                 }
-                TempData["Mensaje"] = "Datos registrados";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("Index");
 
             }
@@ -199,13 +199,14 @@ namespace SGCFIEE.Controllers
                 alum.RProgramaEducativo = alumno.RProgramaEducativo;
                 alum.AnioIngreso = alumno.AnioIngreso;
                 alum.Bachillerato = alumno.Bachillerato;
+                alum.RStatus = 0;
 
                 context.Alumnos.Update(alum);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La infromacion ha sido actualizada";
+                
                 context.DatosPersonales.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La infromacion ha sido actualizada";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("Index");
             }
 
@@ -219,107 +220,92 @@ namespace SGCFIEE.Controllers
             {
                 id = (int)HttpContext.Session.GetInt32("IdUsu");
             }
+            ViewData["alumno"] = id;
             CompletoAlumnos datosalumno = new CompletoAlumnos();
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var y = context.TipoEventos.ToList();
-                ViewData["tipoevento"] = y;
+                
+                var datos = context.DatosPersonales.Where(s => s.IdDatosPersonales == id).FirstOrDefault();
+
+                string fecha = datos.FechaNacimiento.ToString();
+                string[] resultado = fecha.Split(' ');
+                ViewData["fecha"] = resultado[0];
+
+                datosalumno.IdDatosPersonales = id;
+                datosalumno.Nombre = datos.Nombre;
+                datosalumno.ApellidoPaterno = datos.ApellidoPaterno;
+                datosalumno.ApellidoMaterno = datos.ApellidoMaterno;
+                datosalumno.Correo = datos.Correo;
+                //datosalumno.FechaNacimiento = datos.FechaNacimiento.ToString();
+                datosalumno.Nacionalidad = datos.Nacionalidad;
+                datosalumno.EstadoCivil = datos.EstadoCivil;
+                datosalumno.Genero = datos.Genero;
+                datosalumno.Curp = datos.Curp;
+                datosalumno.Calle = datos.Calle;
+                datosalumno.Colonia = datos.Colonia;
+                datosalumno.Ciudad = datos.Ciudad;
+                datosalumno.Municipio = datos.Municipio;
+                datosalumno.Estado = datos.Estado;
+                datosalumno.Pais = datos.Pais;
+                datosalumno.CodigoPostal = datos.CodigoPostal;
+                datosalumno.Telefono = datos.Telefono;
+                datosalumno.RecidenciaActual = datos.RecidenciaActual;
+                datosalumno.Trabaja = datos.Trabaja;
+                datosalumno.IngresoMensual = datos.IngresoMensual;
+
+                return View(datosalumno);
+            }
+
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult DetallesInfoAcademica(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (id == 0)
+            {
+                id = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
+            ViewData["alumno"] = id;
+            CompletoAlumnos datosalumno = new CompletoAlumnos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var alumno = context.Alumnos.Where(s => s.IdAlumnos == id).FirstOrDefault();
+                var programa = context.ProgramaEducativo.Where(s => s.IdProgramaEducativo == alumno.RProgramaEducativo).FirstOrDefault();
+                
+
+                datosalumno.Matricula = alumno.Matricula;
+                datosalumno.CorreoInstitucional = alumno.CorreoInstitucional;
+                datosalumno.AnioIngreso = alumno.AnioIngreso;
+                datosalumno.Modalidad = alumno.Modalidad;
+                datosalumno.Bachillerato = alumno.Bachillerato;
+                datosalumno.Nombrepro = programa.Nombre;
+
+                return View(datosalumno);
+            }
+
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult DetallesBoleta(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (id == 0)
+            {
+                id = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
+            ViewData["alumno"] = id;
+            CompletoAlumnos datosalumno = new CompletoAlumnos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 var x = context.TipoPeriodo.ToList();
                 ViewData["periodo"] = x;
-                var alumno = context.Alumnos.Where(s => s.IdAlumnos == id).FirstOrDefault();
-                var datos = context.DatosPersonales.Where(s => s.IdDatosPersonales == id).FirstOrDefault();
-                var programa = context.ProgramaEducativo.Where(s => s.IdProgramaEducativo == alumno.RProgramaEducativo).FirstOrDefault();
-                List<TbPafisAlumno> pafi = new List<TbPafisAlumno>();
-                List<AlumnoPafi> listpafi = new List<AlumnoPafi>();
-                AlumnoPafi datospafi = new AlumnoPafi();
-                Academicos acapafi = new Academicos();
-                TbSalones salonpafi = new TbSalones();
-                List<TbMovilidad> movi = new List<TbMovilidad>();
-                List<AlumnoMovilidad> listmovi = new List<AlumnoMovilidad>();
-                AlumnoMovilidad datosmovi = new AlumnoMovilidad();
-                List<EventosAlumnos> evento = new List<EventosAlumnos>();
-                List<AlumnoEvento> listevento = new List<AlumnoEvento>();
-                AlumnoEvento datoseve = new AlumnoEvento();
-                TbEventos datosevento = new TbEventos();
-                List<TbExamenalumno> examen = new List<TbExamenalumno>();
-                List<AlumnoExamen> listexamen = new List<AlumnoExamen>();
-                AlumnoExamen datosexamen = new AlumnoExamen();
-                TbRubrosexamenes rubro = new TbRubrosexamenes();
+                
+                
                 List<TbHorario> horario = new List<TbHorario>();
                 List<CalificacionAlumno> listcali = new List<CalificacionAlumno>();
                 CalificacionAlumno cali = new CalificacionAlumno();
-                List<TbInstanciafinalAlumno> instancia = new List<TbInstanciafinalAlumno>();
-                List<AlumnoFinal> listfinal = new List<AlumnoFinal>();
-                AlumnoFinal datosfinal = new AlumnoFinal();
-                pafi = context.TbPafisAlumno.Where(s => s.RAlumno == id).ToList<TbPafisAlumno>();
-                if (pafi != null)
-                {
-                    foreach (var item in pafi)
-                    {
-                        var a = context.PafisAcademicos.Where(s => s.IdPafis == item.RInfopafi).FirstOrDefault();
-                        var b = context.TbSalones.Where(s => s.IdTbSalones == a.IdSalon).FirstOrDefault();
-                        var c = context.Academicos.Where(s => s.IdAcademicos == a.IdAcademico).FirstOrDefault();
-                        var d = context.TipoPeriodo.Where(s => s.IdPeriodo == a.IdPeriodo).SingleOrDefault();
-                        datospafi.nombrepafi = a.Nombre;
-                        datospafi.acapafi = c.Nombre;
-                        datospafi.horario = a.Horario;
-                        datospafi.salon = b.ClaveSalon;
-                        datospafi.idperiodo = d.IdPeriodo;
-                        listpafi.Add(datospafi);
-                        datospafi = new AlumnoPafi();
-
-                    }
-                    ViewData["pafi"] = listpafi;
-                }
-                movi = context.TbMovilidad.Where(s => s.RAlumno == id).ToList();
-                if (movi != null)
-                {
-                    foreach (var item in movi)
-                    {
-                        var a = context.CtMovilidades.Where(s => s.IdCtMovilidades == item.RMovilidad).FirstOrDefault();
-                        datosmovi.tipomovi = a.TipoMovilidades;
-                        datosmovi.paisdestino = a.PaisDestinoMovilidad;
-                        datosmovi.entidaddestino = a.EntidadDestinoMovilidad;
-                        datosmovi.escueladestino = a.EscuelaDestinoMovilidad;
-                        datosmovi.tiempoperma = a.TiempoPermanenciaMovilidad;
-                        datosmovi.idperiodo = item.RPeriodo;
-                        listmovi.Add(datosmovi);
-                        datosmovi = new AlumnoMovilidad();
-
-                    }
-                    ViewData["movilidad"] = listmovi;
-                }
-
-                evento = context.EventosAlumnos.Where(s => s.RAlumno == id).ToList();
-                if (evento != null)
-                {
-                    foreach (var item in evento)
-                    {
-                        var a = context.TbEventos.Where(s => s.IdEventos == item.REvento).FirstOrDefault();
-                        var b = context.TipoEventos.Where(s => s.IdEventos == a.RTioEvento).FirstOrDefault();
-                        datoseve.nombreeve = a.Nombre;
-                        datoseve.fecha = item.Fecha.ToString();
-                        datoseve.tipoeve = b.Nombre;
-                        listevento.Add(datoseve);
-                        datoseve = new AlumnoEvento();
-                    }
-                    ViewData["evento"] = listevento;
-                }
-
-                examen = context.TbExamenalumno.Where(s => s.IdAlumno == id).ToList();
-                if (examen != null)
-                {
-                    foreach (var item in examen)
-                    {
-                        var a = context.TbRubrosexamenes.Where(s => s.IdTbRubrosExamenes == item.IdRubroExamen).FirstOrDefault();
-                        //datosexamen.tipoexa = item.TipoExamen;
-                        datosexamen.calificacion = item.CalificacionExamen;
-                        datosexamen.rubroexamen = a.RubroExamen;
-                        listexamen.Add(datosexamen);
-                        datosexamen = new AlumnoExamen();
-                    }
-                    ViewData["examen"] = listexamen;
-                }
+                
                 horario = context.TbHorario.Where(s => s.RAlumno == id).ToList<TbHorario>();
                 if (horario != null)
                 {
@@ -343,6 +329,203 @@ namespace SGCFIEE.Controllers
                     }
                     ViewData["calificacion"] = listcali;
                 }
+                
+
+                datosalumno.IdDatosPersonales = id;
+                
+
+                return View(datosalumno);
+            }
+
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult DetallesPafis(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (id == 0)
+            {
+                id = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
+            ViewData["alumno"] = id;
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var x = context.TipoPeriodo.ToList();
+                ViewData["periodo"] = x;
+                
+                List<TbPafisAlumno> pafi = new List<TbPafisAlumno>();
+                List<AlumnoPafi> listpafi = new List<AlumnoPafi>();
+                AlumnoPafi datospafi = new AlumnoPafi();
+                
+                pafi = context.TbPafisAlumno.Where(s => s.RAlumno == id).ToList<TbPafisAlumno>();
+                if (pafi != null)
+                {
+                    foreach (var item in pafi)
+                    {
+                        var a = context.PafisAcademicos.Where(s => s.IdPafis == item.RInfopafi).FirstOrDefault();
+                        var b = context.TbSalones.Where(s => s.IdTbSalones == a.IdSalon).FirstOrDefault();
+                        var c = context.Academicos.Where(s => s.IdAcademicos == a.IdAcademico).FirstOrDefault();
+                        var d = context.TipoPeriodo.Where(s => s.IdPeriodo == a.IdPeriodo).SingleOrDefault();
+                        datospafi.nombrepafi = a.Nombre;
+                        datospafi.acapafi = c.Nombre + " " + c.ApellidoPaterno + " " + c.ApellidoMaterno;
+                        datospafi.horario = a.Horario;
+                        datospafi.clave = b.ClaveSalon;
+                        datospafi.salon = b.Edificio;
+                        datospafi.idperiodo = d.IdPeriodo;
+                        listpafi.Add(datospafi);
+                        datospafi = new AlumnoPafi();
+
+                    }
+                    ViewData["pafi"] = listpafi;
+                }
+                
+
+                return View();
+            }
+
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult DetallesExamen(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (id == 0)
+            {
+                id = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
+            ViewData["alumno"] = id;
+            
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                List<TbExamenalumno> examen = new List<TbExamenalumno>();
+                List<AlumnoExamen> listexamen = new List<AlumnoExamen>();
+                AlumnoExamen datosexamen = new AlumnoExamen();
+                
+                examen = context.TbExamenalumno.Where(s => s.IdAlumno == id).ToList();
+                if (examen != null)
+                {
+                    foreach (var item in examen)
+                    {
+                        var a = context.TbRubrosexamenes.Where(s => s.IdTbRubrosExamenes == item.IdRubroExamen).FirstOrDefault();
+                        //datosexamen.tipoexa = item.TipoExamen;
+                        datosexamen.calificacion = item.CalificacionExamen;
+                        datosexamen.rubroexamen = a.RubroExamen;
+                        datosexamen.tipoexa = a.TipoExamen;
+                        listexamen.Add(datosexamen);
+                        datosexamen = new AlumnoExamen();
+                    }
+                    ViewData["examen"] = listexamen;
+                }
+
+                return View();
+            }
+
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult DetallesEventos(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (id == 0)
+            {
+                id = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
+            ViewData["alumno"] = id;
+            
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                
+                List<EventosAlumnos> evento = new List<EventosAlumnos>();
+                List<AlumnoEvento> listevento = new List<AlumnoEvento>();
+                AlumnoEvento datoseve = new AlumnoEvento();
+               
+                
+                evento = context.EventosAlumnos.Where(s => s.RAlumno == id).ToList();
+                if (evento != null)
+                {
+                    foreach (var item in evento)
+                    {
+                        var a = context.TbEventos.Where(s => s.IdEventos == item.REvento).FirstOrDefault();
+                        var b = context.TipoEventos.Where(s => s.IdEventos == a.RTioEvento).FirstOrDefault();
+                        datoseve.nombreeve = a.Nombre;
+                        datoseve.fecha = item.Fecha.ToString();
+                        datoseve.tipoeve = b.Nombre;
+                        listevento.Add(datoseve);
+                        datoseve = new AlumnoEvento();
+                    }
+                    ViewData["evento"] = listevento;
+                }
+                
+
+                return View();
+            }
+
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult DetallesMovilidad(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (id == 0)
+            {
+                id = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
+            ViewData["alumno"] = id;
+            CompletoAlumnos datosalumno = new CompletoAlumnos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var x = context.TipoPeriodo.ToList();
+                ViewData["periodo"] = x;
+                
+                List<TbMovilidad> movi = new List<TbMovilidad>();
+                List<AlumnoMovilidad> listmovi = new List<AlumnoMovilidad>();
+                AlumnoMovilidad datosmovi = new AlumnoMovilidad();
+                
+                
+                movi = context.TbMovilidad.Where(s => s.RAlumno == id).ToList();
+                if (movi != null)
+                {
+                    foreach (var item in movi)
+                    {
+                        var a = context.CtMovilidades.Where(s => s.IdCtMovilidades == item.RMovilidad).FirstOrDefault();
+                        datosmovi.tipomovi = a.TipoMovilidades;
+                        datosmovi.paisdestino = a.PaisDestinoMovilidad;
+                        datosmovi.entidaddestino = a.EntidadDestinoMovilidad;
+                        datosmovi.escueladestino = a.EscuelaDestinoMovilidad;
+                        datosmovi.tiempoperma = a.TiempoPermanenciaMovilidad;
+                        datosmovi.idperiodo = item.RPeriodo;
+                        listmovi.Add(datosmovi);
+                        datosmovi = new AlumnoMovilidad();
+
+                    }
+                    ViewData["movilidad"] = listmovi;
+                }
+
+                return View();
+            }
+
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult DetallesInstancias(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (id == 0)
+            {
+                id = (int)HttpContext.Session.GetInt32("IdUsu");
+            }
+            ViewData["alumno"] = id;
+            CompletoAlumnos datosalumno = new CompletoAlumnos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var alumno = context.Alumnos.Where(s => s.IdAlumnos == id).FirstOrDefault();
+                var datos = context.DatosPersonales.Where(s => s.IdDatosPersonales == id).FirstOrDefault();
+                var programa = context.ProgramaEducativo.Where(s => s.IdProgramaEducativo == alumno.RProgramaEducativo).FirstOrDefault();
+                
+                List<TbInstanciafinalAlumno> instancia = new List<TbInstanciafinalAlumno>();
+                List<AlumnoFinal2> listfinal = new List<AlumnoFinal2>();
+                AlumnoFinal2 datosfinal = new AlumnoFinal2();
+                
                 instancia = context.TbInstanciafinalAlumno.Where(s => s.RAlumno == id).ToList();
                 if (instancia != null)
                 {
@@ -354,14 +537,21 @@ namespace SGCFIEE.Controllers
                             if (b.REmpresa != null)
                             {
                                 var c = context.CtEmpresaServPrac.Where(s => s.IdCtEmpresas == b.REmpresa).FirstOrDefault();
-                                datosfinal.fechafinserv = b.FechaInicio;
-                                datosfinal.fechafinserv = b.FechaFin;
+
+                                string fechainicio = b.FechaInicio.ToString();
+                                string[] resultadoinicio = fechainicio.Split(' ');
+
+                                string fechafin = b.FechaInicio.ToString();
+                                string[] resultadofin = fechafin.Split(' ');
+
+                                datosfinal.fechainiserv = resultadoinicio;
+                                datosfinal.fechafinserv = resultadofin;
                                 datosfinal.nombreempresa = c.Nombre;
                                 datosfinal.direccion = c.Direccion;
                                 datosfinal.tiposervprac = b.Tipo;
                                 datosfinal.telefono = c.Telefono;
                                 listfinal.Add(datosfinal);
-                                datosfinal = new AlumnoFinal();
+                                datosfinal = new AlumnoFinal2();
                             }
                         }
                         if (item.RExpRep != null)
@@ -370,12 +560,17 @@ namespace SGCFIEE.Controllers
                             if (a.RAsesor != null)
                             {
                                 var d = context.Academicos.Where(s => s.IdAcademicos == a.RAsesor).FirstOrDefault();
+
+                                string fechafin = a.FechaFin.ToString();
+                                string[] resultadofin = fechafin.Split(' ');
+
                                 datosfinal.nombreexpre = a.Nombre;
-                                datosfinal.fechafinexp = a.FechaFin;
+                                datosfinal.fechafinexp = resultadofin;
                                 datosfinal.tipoexpre = a.Tipo;
+                                datosfinal.rexprep = item.RExpRep;
                                 if (d != null) datosfinal.nombreasesor = d.Nombre;
                                 listfinal.Add(datosfinal);
-                                datosfinal = new AlumnoFinal();
+                                datosfinal = new AlumnoFinal2();
                             }
                         }
                     }
@@ -387,36 +582,22 @@ namespace SGCFIEE.Controllers
                 datosalumno.ApellidoPaterno = datos.ApellidoPaterno;
                 datosalumno.ApellidoMaterno = datos.ApellidoMaterno;
                 datosalumno.Correo = datos.Correo;
-                datosalumno.FechaNacimiento = datos.FechaNacimiento.ToString();
-                datosalumno.Nacionalidad = datos.Nacionalidad;
-                datosalumno.EstadoCivil = datos.EstadoCivil;
-                datosalumno.Genero = datos.Genero;
-                datosalumno.Curp = datos.Curp;
-                datosalumno.Calle = datos.Calle;
-                datosalumno.Colonia = datos.Colonia;
-                datosalumno.Ciudad = datos.Ciudad;
-                datosalumno.Municipio = datos.Municipio;
-                datosalumno.Estado = datos.Estado;
-                datosalumno.Pais = datos.Pais;
-                datosalumno.CodigoPostal = datos.CodigoPostal;
-                datosalumno.Telefono = datos.Telefono;
-                datosalumno.RecidenciaActual = datos.RecidenciaActual;
-                datosalumno.Trabaja = datos.Trabaja;
-                datosalumno.IngresoMensual = datos.IngresoMensual;
                 datosalumno.Matricula = alumno.Matricula;
-                datosalumno.CorreoInstitucional = alumno.CorreoInstitucional;
-                datosalumno.AnioIngreso = alumno.AnioIngreso;
-                datosalumno.Modalidad = alumno.Modalidad;
-                datosalumno.Bachillerato = alumno.Bachillerato;
+                
                 datosalumno.Nombrepro = programa.Nombre;
 
                 return View(datosalumno);
             }
 
         }
+
+
+
+
+
         [Authorize]
         [HttpGet]
-        public IActionResult CrearCali([FromQuery] int idalum)
+        public IActionResult CrearCali( int idalum)
         {
             int id = (int)HttpContext.Session.GetInt32("IdUsu");
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -437,13 +618,15 @@ namespace SGCFIEE.Controllers
                 ViewData["tipocali"] = e;
                 List<ModeloMCadd> lista = (from z in context.MapaCurricular
                                            join x in context.ExperienciaEducativa on z.IdExperienciaEducativa equals x.IdExperienciaEducativa
+                                           join PE in context.ProgramaEducativo on z.IdProgramaEducativo equals PE.IdProgramaEducativo
+                                           where PE.Nombre != "Externo" && z.Estado == 1
                                            select
                                            new ModeloMCadd
                                            {
                                                id = z.IdMapaCurricular,
                                                mat = x.Nombre,
-                                               pe = z.IdProgramaEducativo.Value
-                                           }).Where(y => y.pe == idPE).ToList();
+                                               programa = PE.Nombre,
+                                           }).ToList();
                 ViewData["mapa"] = lista;
                 ViewData["idalumno"] = idalum;
                 return View();
@@ -463,7 +646,6 @@ namespace SGCFIEE.Controllers
                 calificacion.Calificacion = calialum.Calificacion;
                 context.TbCalificacion.Add(calificacion);
                 context.SaveChanges();
-                TempData["mensaje"] = "Dato guardado";
 
                 experienciaperiodo.Nrc = calialum.Nrc;
                 experienciaperiodo.IdPeriodo = calialum.IdPeriodo;
@@ -473,18 +655,17 @@ namespace SGCFIEE.Controllers
                 experienciaperiodo.IdMapaCurricular = calialum.IdMapaCurricular;
                 context.ExperienciaEducativaPeriodo.Add(experienciaperiodo);
                 context.SaveChanges();
-                TempData["mensaje"] = "Dato guardado";
 
                 horario.RExperienciaPeriodo = experienciaperiodo.IdExperienciaEducativaPeriodo;
                 horario.RAlumno = calialum.idalumno;
                 horario.Calificacion = calialum.Calificacion;
-                horario.RSalon = calialum.IdSalon;
+                //horario.RSalon = calialum.IdSalon;
                 horario.RTipoCalif = calialum.RTipoCalificacion;
                 context.TbHorario.Add(horario);
                 context.SaveChanges();
-                TempData["mensaje"] = "Dato guardado";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("DetallesBoleta",new { id = calialum.idalumno });
             }
         }
         [HttpGet]
@@ -503,7 +684,7 @@ namespace SGCFIEE.Controllers
         }
 
         [HttpGet]
-        public IActionResult CrearFinal([FromQuery] int idalum)
+        public IActionResult CrearFinal(int idalum)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -522,6 +703,27 @@ namespace SGCFIEE.Controllers
         {
             TbInstanciafinalAlumno instancia = new TbInstanciafinalAlumno();
             TbServiciopracticas servprac = new TbServiciopracticas();
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var insta = context.TbInstanciafinalAlumno.ToList();
+                
+                foreach (TbInstanciafinalAlumno item in insta)
+                {
+                    if (item.RAlumno == final.ralumno)
+                    {
+                        var serprac = context.TbServiciopracticas.Where(x => x.IdTbServicioPracticas == item.RServPrac).ToList();
+                        foreach (TbServiciopracticas item2 in serprac)
+                        {
+                            if (item2.Tipo == final.tiposervprac)
+                            {
+                                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                                return RedirectToAction("DetallesInstancias", new { id = final.ralumno });
+                            }
+                        }
+                    }
+                }
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 servprac.FechaInicio = final.fechainiserv;
@@ -531,14 +733,18 @@ namespace SGCFIEE.Controllers
                 context.TbServiciopracticas.Add(servprac);
                 context.SaveChanges();
                 TempData["mensaje"] = "Dato guardado";
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                TbServiciopracticas ultimo = context.TbServiciopracticas.Last();
 
                 instancia.RAlumno = final.ralumno;
-                instancia.RServPrac = servprac.IdTbServicioPracticas;
+                instancia.RServPrac = ultimo.IdTbServicioPracticas;
                 context.TbInstanciafinalAlumno.Add(instancia);
                 context.SaveChanges();
-                TempData["mesnaje"] = "dato guardado";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
 
-                return RedirectToAction("Index");
+                return RedirectToAction("DetallesInstancias",new { id = final.ralumno });
             }
         }
         [HttpPost]
@@ -549,6 +755,21 @@ namespace SGCFIEE.Controllers
             CtExperienciarecepcional experiencia = new CtExperienciarecepcional();
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var insta = context.TbInstanciafinalAlumno.ToList();
+
+                foreach (TbInstanciafinalAlumno item in insta)
+                {
+                    if (item.RAlumno == exprecepcional.ralumno && item.RExpRep != null)
+                    {
+                        
+                            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                            return RedirectToAction("DetallesInstancias", new { id = exprecepcional.ralumno });
+                           
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
                 experiencia.Nombre = exprecepcional.nombreexpre;
                 experiencia.FechaFin = exprecepcional.fechafinexp;
                 experiencia.Tipo = exprecepcional.tipoexpre;
@@ -556,34 +777,51 @@ namespace SGCFIEE.Controllers
                 context.CtExperienciarecepcional.Add(experiencia);
                 context.SaveChanges();
                 TempData["Mnesjae"] = "Dato guardado";
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                CtExperienciarecepcional ultimo = context.CtExperienciarecepcional.Last();
 
                 instancia.RAlumno = exprecepcional.ralumno;
-                instancia.RExpRep = experiencia.IdCtExperienciaRecepcional;
+                instancia.RExpRep = ultimo.IdCtExperienciaRecepcional;
                 context.TbInstanciafinalAlumno.Add(instancia);
                 context.SaveChanges();
-                TempData["mesnaje"] = "dato guardado";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
 
 
-                return RedirectToAction("Index");
+                return RedirectToAction("DetallesInstancias", new { id = exprecepcional.ralumno });
             }
         }
         [HttpGet]
-        public IActionResult CrearEmpresa()
+        public IActionResult CrearEmpresa(int idalum)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            ViewData["idalumno"] = idalum;
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CrearEmpresa(CtEmpresaServPrac empresa)
+        public IActionResult CrearEmpresa(CtEmpresaServPrac empresa, int idalum)
         {
-
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var emp = context.CtEmpresaServPrac.ToList();
+                foreach (CtEmpresaServPrac item in emp)
+                {
+                    if(item.Nombre == empresa.Nombre && item.Direccion == empresa.Direccion)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("CrearFinal", new { idalum = idalum });
+                    }
+                }
+            }
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CtEmpresaServPrac.Add(empresa);
                 context.SaveChanges();
-                TempData["mensaje"] = "dato guardado";
-                return RedirectToAction("Index");
+
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                return RedirectToAction("CrearFinal", new { idalum = idalum });
             }
         }
         [HttpGet]

@@ -9,6 +9,6 @@ namespace SGCFIEE.Models
     {
         public int id { get; set; }
         public String mat { get; set; }
-        public int pe { get; set; }
+        public String programa { get; set; }
     }
 }

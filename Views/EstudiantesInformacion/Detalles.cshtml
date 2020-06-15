@@ -2,15 +2,9 @@
 @{
     ViewData["Title"] = "Detalles";
     Layout = "~/Views/Home/Principal.cshtml";
-    var y = (IEnumerable<TipoPeriodo>)ViewData["periodo"];
-    var z = (IEnumerable< TipoEventos>)ViewData["tipoevento"];
-    var cali = (IEnumerable<CalificacionAlumno>)ViewData["calificacion"];
-    var evento = (IEnumerable<AlumnoEvento>)ViewData["evento"];
-    var movilidad = (IEnumerable<AlumnoMovilidad>)ViewData["movilidad"];
-    var pafi = (IEnumerable<AlumnoPafi>)ViewData["pafi"];
-    var examen = (IEnumerable<AlumnoExamen>)ViewData["examen"];
-    var final = (IEnumerable<AlumnoFinal>)ViewData["Instancias"];
     var tipo = (int)ViewData["tipo"];
+    var alumno = (int)ViewData["alumno"];
+    var fecha = (string)ViewData["fecha"];
 }
 
 <!DOCTYPE html>
@@ -24,14 +18,15 @@
 
                     <div class="p-rl-20">
                         <ul class="nav customtab nav-tabs" role="tablist">
-                            <li id="tb1" class="nav-item"><a href="#tab1" class="nav-link active show" data-toggle="tab">Información General</a></li>
-                            <li id="tb2" class="nav-item"><a href="#tab2" class="nav-link" data-toggle="tab">Información Académica</a></li>
-                            <li id="tb3" class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">Boleta</a></li>
-                            <li id="tb4" class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Pafis</a></li>
-                            <li id="tb5" class="nav-item"><a href="#tab5" class="nav-link" data-toggle="tab">Examen ingreso e interno</a></li>
-                            <li id="tb7" class="nav-item"><a href="#tab6" class="nav-link" data-toggle="tab">Participación en Eventos</a></li>
-                            <li id="tb6" class="nav-item"><a href="#tab7" class="nav-link" data-toggle="tab">Información Movilidad</a></li>
-                            <li id="tb6" class="nav-item"><a href="#tab8" class="nav-link" data-toggle="tab">Instancias Finales</a></li>
+                            
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="Detalles" class="nav-link active">Información general</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInfoAcademica" class="nav-link" >Información académica</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" class="nav-link" >Boleta</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesPafis" class="nav-link" >PAFIs</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesExamen" class="nav-link" >Examen ingreso e interno</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesEventos" class="nav-link" >Participación en eventos</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesMovilidad" class="nav-link" >Información movilidad</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInstancias" class="nav-link" >Instancias finales</a></li>
                         </ul>
                     </div>
                     <!-- Tab panes -->
@@ -67,9 +62,9 @@
                                                 <br>
                                             </div>
                                             <div class="col-md-6 col-6">
-                                                <strong>Fecha de Nacimiento</strong>
+                                                <strong>Fecha de nacimiento (mm/dd/aa)</strong>
                                                 <br>
-                                                <p id="fecha" class="text-muted">@Html.DisplayFor(model => model.FechaNacimiento)</p>
+                                                <p id="fecha" class="text-muted">@fecha</p>
                                                 <br>
                                             </div>
                                             <div class="col-md-6 col-6">
@@ -78,7 +73,7 @@
                                                 <p id="Nacionalidad" class="text-muted">@Html.DisplayFor(model => model.Nacionalidad)</p>
                                             </div>
                                             <div class="col-md-6 col-6">
-                                                <strong>Estado Civil</strong>
+                                                <strong>Estado civil</strong>
                                                 <br>
                                                 <p id="Estadoc" class="text-muted">@Html.DisplayFor(model => model.EstadoCivil)</p>
                                                 <br>
@@ -135,359 +130,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab2">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12">
-
-                                    <div class="card-body " id="bar-parent2">
-                                        <div class="row">
-                                            <div class="col-md-6 col-6 b-r">
-                                                <strong>Matricula</strong>
-                                                <br>
-                                                <p id="Matricula" class="text-muted">@Html.DisplayFor(model => model.Matricula)</p>
-                                                <br>
-                                            </div>
-                                            <div class="col-md-6 col-6 b-r">
-                                                <strong>Correo institucional</strong>
-                                                <br>
-                                                <p id="emaili" class="text-muted">@Html.DisplayFor(model => model.CorreoInstitucional)</p>
-                                                <br>
-                                            </div>
-                                            <div class="col-md-6 col-6 b-r">
-                                                <strong>Año de ingreso</strong>
-                                                <br>
-                                                <p id="anioi" class="text-muted">@Html.DisplayFor(model => model.AnioIngreso)</p>
-                                                <br>
-                                            </div>
-                                            <div class="col-md-6 col-6">
-                                                <strong>Modalidad</strong>
-                                                <br>
-                                                <p id="Modalidad" class="text-muted">@Html.DisplayFor(model => model.Modalidad)</p>
-                                                <br>
-                                            </div>
-                                            <div class="col-md-6 col-6">
-                                                <strong>Programa Educativo</strong>
-                                                <br>
-                                                <p id="Programa" class="text-muted">@Html.DisplayFor(model => model.Nombrepro)</p>
-                                                <br>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab3">
-                            <div id="calialumno">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-
-                                        <div class="card-body " id="bar-parent2">
-                                            <div class="col-md-12 col-sm-12">
-                                                <a href="/EstudiantesInformacion/CrearCali?idalum=@Model.IdDatosPersonales" class="btn btn-success btn-sm m-b-10">
-                                                    Agregar Calificacion
-                                                </a>
-                                            </div>
-                                            <div class="col-md-3 col-sm-3">
-                                                <label>Seleccione un periodo</label>
-                                                <select id="selectPeriodo" class="form-control">
-                                                    @foreach (var item in y)
-                                                    {
-                                                        <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
-                                                    }
-                                                </select> <br /> <br />
-                                            </div>
-                                            <div class="row">
-                                                @foreach (var item in cali)
-                                                {
-                                                    <div class="col-sm-4" name="calificacion-@item.IdPeriodo">
-                                                        <div class="panel">
-                                                            <header class="panel-heading panel-heading-blue">
-                                                                @Html.DisplayFor(modelItem => item.Nombreexpe)
-                                                            </header>
-                                                            <div class="panel-body" style="background-color:#4CB36E;">
-                                                                <p style="color: white;" id="">NRC:        @Html.DisplayFor(modelItem => item.Nrc)</p>
-                                                                <p style="color:white;">Academico:         @Html.DisplayFor(modelItem => item.Nombreaca)  </p>
-                                                                <p style="color:white;">Calificacion:      @Html.DisplayFor(modelItem => item.Calificacion)</p>
-                                                                <p style="color:white;">Tipo calificacion: @Html.DisplayFor(modelItem => item.tipocali)</p>
-                                                                <p style="color:white;">Creditos:          @Html.DisplayFor(modelItem => item.creditos)</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                }
-
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab4">
-                            <div id="pafialumno">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        
-                                        <div class="card-body">
-                                            <div class="col-md-3 col-sm-3">
-                                                <label>Seleccione un periodo</label>
-                                                <select id="PeriodoPafi" class="form-control">
-                                                    @foreach (var item in y)
-                                                    {
-                                                        <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
-                                                    }
-                                                </select> <br /> <br />
-                                            </div>
-                                            <div class="table-scrollable">
-                                                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="display: none"></th>
-                                                            <th class="center">Nombre del pafi</th>
-                                                            <th class="center">Maestro</th>
-                                                            <th class="center">Horario</th>
-                                                            <th class="center">Salon</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach (var item in pafi)
-                                                        {
-                                                            <tr class="odd gradeX" name="pafi-@item.idperiodo">
-                                                                <td style="display:none">id</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.nombrepafi)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.acapafi)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.horario)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.salon)</td>
-                                                            </tr>
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab5">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12">
-
-                                    <div class="card-body " id="bar-parent2">
-                                        <div class="card-head">
-                                            <header>Examen Ingreso</header>
-                                        </div> <br>
-                                        <div class="row">
-                                            @foreach (var item in examen)
-                                            {
-                                                @if (item.tipoexa == 1)
-                                                {
-
-
-                                                    <div class="col-md-6 col-6 b-r">
-                                                        <strong>@Html.DisplayFor(modelItem => item.rubroexamen)</strong>
-                                                        <p id="Comprension" class="text-muted">@Html.DisplayFor(modelItem => item.calificacion)</p>
-                                                        <br> <br>
-                                                    </div>
-
-                                                }
-
-                                            }
-                                        </div><br> <br>
-                                        <div class="card-head">
-                                            <header>Examen interno</header>
-                                        </div> <br>
-                                        <div class="row">
-                                            @foreach (var item2 in examen)
-                                            {
-                                                @if (item2.tipoexa == 2)
-                                                {
-
-
-                                                    <div class="col-md-6 col-6 b-r">
-                                                        <strong>@Html.DisplayFor(modelItem => item2.rubroexamen)</strong>
-                                                        <p id="Pensamientom" class="text-muted">@Html.DisplayFor(modelItem => item2.calificacion)</p>
-                                                        <br>
-                                                    </div>
-
-                                                }
-                                            }
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane" id="tab6">
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12">
-                                    <div class="card-body " id="bar-parent2">
-                                        <br> 
-                                        <div class="row">
-                                            @foreach (var item in evento)
-                                            {
-                                                <div class="col-md-3 col-6 b-r">
-                                                    <strong>@Html.DisplayFor(modelItem => item.tipoeve)</strong> <br> <br>
-                                                    <p id="" class="text-muted">@Html.DisplayFor(modelItem => item.nombreeve)</p> <br>
-                                                    <p id="" class="text-muted">@Html.DisplayFor(modelItem => item.fecha)</p> <br>
-                                                </div>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab7">
-                            <div id="movialumno">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-
-                                        <div class="card-body " id="bar-parent2">
-                                            <div class="col-md-3 col-sm-3">
-
-                                                <label>Seleccione un periodo</label>
-                                                <select id="PeriodoMovi" class="form-control">
-                                                    @foreach (var item in y)
-                                                    {
-                                                        <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
-                                                    }
-                                                </select>
-                                            </div> <br> <br>
-                                            <div class="row">
-                                                @foreach (var item in movilidad)
-                                                {
-                                                <div class="col-md-6 col-6 b-r" name="movilidad-@item.idperiodo">
-                                                    <strong>Información</strong> <br> <br>
-                                                    @if (item.tipomovi == 1)
-                                                    {
-                                                        <p class="text-muted">Tipo movilidad: Nacional</p>
-                                                    }
-                                                    @if (item.tipomovi == 2)
-                                                    {
-                                                        <p class="text-muted">Tipo movilidad: Internacional</p>
-                                                    }
-                                                    <p id="" class="text-muted">Pais destino:   @Html.DisplayFor(modelItem => item.paisdestino) </p>
-                                                    <p id="" class="text-muted">Entidad destino:    @Html.DisplayFor(modelItem => item.entidaddestino)</p>
-                                                    <p id="" class="text-muted">Escuela destino:    @Html.DisplayFor(modelItem => item.escueladestino)</p>
-                                                    <p id="" class="text-muted">TIempo permanencia: @Html.DisplayFor(modelItem => item.tiempoperma)</p>
-                                                </div>
-                                                }
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="tab8">
-
-                            <div class="profile-content">
-                                <div id="biography">
-                                    <div class="row">
-                                        <div class="col-md-12 col-12">
-                                            <a href="/EstudiantesInformacion/CrearFinal?idalum=@Model.IdDatosPersonales" class="btn btn-success btn-sm m-b-10 center">
-                                                Agregar
-                                            </a>
-                                        </div>
-                                        <br />
-                                        <div class="col-md-3 col-6 b-r">
-                                            <strong>Nombre</strong>
-                                            <br>
-                                            <p class="text-muted">@Html.DisplayFor(model => model.Nombre) @Html.DisplayFor(model => model.ApellidoPaterno)</p>
-                                        </div>
-                                        <div class="col-md-3 col-6 b-r">
-                                            <strong>Matricula</strong>
-                                            <br>
-                                            <p class="text-muted">@Html.DisplayFor(model => model.Matricula)</p>
-                                        </div>
-                                        <div class="col-md-3 col-6 b-r">
-                                            <strong>Programa Educativo</strong>
-                                            <br>
-                                            <p class="text-muted">@Html.DisplayFor(model => model.Nombrepro)</p>
-                                        </div>
-                                        <div class="col-md-3 col-6">
-                                            <strong>Correo</strong>
-                                            <br>
-                                            <p class="text-muted">@Html.DisplayFor(model => model.Correo)</p>
-                                        </div>
-                                    </div>
-                                    <h3>Servicio social y Prácticas profesionales</h3> <br />
-                                    <div class="row">
-                                        @foreach (var item in final)
-                                        {
-                                            @if (item.tiposervprac == 1)
-                                            {
-                                                <div class="col-md-6 col-6">
-                                                    <hr>
-                                                    <h4 class="font-bold">Servicio Social</h4>
-                                                    <hr>
-                                                    <p>@Html.DisplayFor(modelItem => item.nombreempresa)</p>
-                                                    <p>@Html.DisplayFor(modelItem => item.direccion)</p>
-                                                    <p>@Html.DisplayFor(modeltem => item.telefono)</p>
-                                                    <p>@Html.DisplayFor(modelItem => item.fechainiserv)</p>
-                                                    <p>@Html.DisplayFor(modelItem => item.fechafinserv)</p>
-                                                </div>
-                                            }
-                                        }
-                                        @foreach (var item in final)
-                                        {
-                                            @if (item.tiposervprac == 2)
-                                            {
-                                                <div class="col-md-3 col-6">
-                                                    <hr>
-                                                    <h4 class="font-bold">Prácticas Profesionales</h4>
-                                                    <hr>
-                                                    <p>@Html.DisplayFor(modelItem => item.nombreempresa)</p>
-                                                    <p>@Html.DisplayFor(modelItem => item.direccion)</p>
-                                                    <p>@Html.DisplayFor(modeltem => item.telefono)</p>
-                                                    <p>@Html.DisplayFor(modelItem => item.fechainiserv)</p>
-                                                    <p>@Html.DisplayFor(modelItem => item.fechafinserv)</p>
-                                                </div>
-                                            }
-                                        }
-                                    </div><br />
-                                    <h3>Acreditacion de experiencia recepcional</h3>
-                                    <div class="row">
-                                        @foreach (var item in final)
-                                        {
-                                            @if (item.rexprep != null)
-                                            {
-                                                <div class="col-md-6 col-6">
-                                                    <hr>
-                                                    <h4 class="font-bold">Experiencia Recepcional</h4>
-                                                    <hr>
-                                                    <p>@Html.DisplayFor(modelItem => item.nombreexpre)</p>
-                                                    <p>
-                                                        @if (item.tipoexpre == 1)
-                                                        {
-                                                        <p>TESIS</p>}
-                                                        @if (item.tipoexpre == 2)
-                                                        {<p>TESINA</p>}
-                                                        @if (item.tipoexpre == 3)
-                                                        {<p> PROYECTO PRACTICO TECNICO</p>}
-                                                        @if (item.tipoexpre == 4)
-                                                        {<p>PROYECTO PRACTICO</p>}
-                                                        @if (item.tipoexpre == 5)
-                                                        {<p>MONOGRAFIA</p>}
-                                                        @if (item.tipoexpre == 6)
-                                                        {<p>EXAMEN</p>}
-                                                        @if (item.tipoexpre == 7)
-                                                        {<p>PROMEDIO</p>}
-                                                        </p>
-                                                        <p>@Html.DisplayFor(modelItem => item.nombreasesor)</p>
-                                                        <p>@Html.DisplayFor(modelItem => item.fechafinexp)</p>
-                                                    </div>
-                                                }
-
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                         @if (tipo == 1)
                         {
                             <div class="row">

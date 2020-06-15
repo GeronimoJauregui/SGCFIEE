@@ -34,17 +34,17 @@
                                             <div class="row">
 
                                                 <div class="col-md-6 col-sm-6">
-                                                    <input type="hidden" asp-for="idalumno" value="@id" />
+                                                    <input hidden  asp-for="idalumno" value="@id" />
                                                     <div class="form-group">
-                                                        <label asp-for="Nrc">NRC del academico</label>
-                                                        <input asp-for="Nrc" id="nrcaca" type="text" class="form-control" placeholder="NRC" required="required">
+                                                        <label asp-for="Nrc">NRC del académico</label>
+                                                        <input asp-for="Nrc" id="nrcaca" type="text" class="form-control" placeholder="Ingresar..." required="required">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Seleccione el nombre del academico</label>
+                                                        <label>Seleccione el nombre del académico</label>
                                                         <select asp-for="IdAcademico" class="form-control" id="areaexp">
                                                             @foreach (var item in v)
                                                             {
-                                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
                                                             }
                                                         </select>
                                                     </div>
@@ -62,7 +62,7 @@
                                                         <select asp-for="IdSalon" class="form-control" id="areaexp">
                                                             @foreach (var item in x)
                                                             {
-                                                                <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.ClaveSalon) </option>
+                                                                <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.Edificio)-@Html.DisplayFor(modelItem => item.ClaveSalon) </option>
                                                             }
                                                         </select>
                                                     </div>
@@ -73,13 +73,13 @@
                                                         <select asp-for="IdMapaCurricular" class="form-control" id="areaexp">
                                                             @foreach (var item in u)
                                                             {
-                                                                <option value="@item.id">@Html.DisplayFor(modelItem => item.mat) </option>
+                                                                <option value="@item.id">@Html.DisplayFor(modelItem => item.programa) ---> @Html.DisplayFor(modelItem => item.mat) </option>
                                                             }
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label asp-for="Calificacion">Calificacion</label>
-                                                        <input asp-for="Calificacion" id="calialum" type="number" class="form-control" placeholder="Calificacion" required="required">
+                                                        <label asp-for="Calificacion">Calificación</label>
+                                                        <input asp-for="Calificacion" id="calialum" type="number" class="form-control" placeholder="Ingresar..." required="required">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Seleccione el tipo de calificación</label>
@@ -92,6 +92,9 @@
                                                     </div>
                                                     <br /><br /><br />
                                                     <input id="enviacalialum" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                    <a asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" asp-route-id="@id" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                        Cancelar
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

@@ -12,6 +12,7 @@ namespace SGCFIEE.Models
         public string acapafi { get; set; }
         public string horario { get; set; }
         public string salon { get; set; }
-        
+        public string clave { get; set; }
+
     }
 }

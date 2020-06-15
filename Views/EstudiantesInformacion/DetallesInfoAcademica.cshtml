@@ -1,0 +1,94 @@
+﻿@model SGCFIEE.Models.CompletoAlumnos
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var tipo = (int)ViewData["tipo"];
+    var alumno = (int)ViewData["alumno"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="Detalles" class="nav-link ">Información general</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInfoAcademica" class="nav-link active" >Información académica</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" class="nav-link" >Boleta</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesPafis" class="nav-link" >PAFIs</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesExamen" class="nav-link" >Examen ingreso e interno</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesEventos" class="nav-link" >Participación en eventos</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesMovilidad" class="nav-link" >Información movilidad</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInstancias" class="nav-link" >Instancias finales</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab2">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="card-body " id="bar-parent2">
+                                        <div class="row">
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Matricula</strong>
+                                                <br>
+                                                <p id="Matricula" class="text-muted">@Html.DisplayFor(model => model.Matricula)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Correo institucional</strong>
+                                                <br>
+                                                <p id="emaili" class="text-muted">@Html.DisplayFor(model => model.CorreoInstitucional)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6 b-r">
+                                                <strong>Año de ingreso</strong>
+                                                <br>
+                                                <p id="anioi" class="text-muted">@Html.DisplayFor(model => model.AnioIngreso)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6">
+                                                <strong>Modalidad</strong>
+                                                <br>
+                                                <p id="Modalidad" class="text-muted">@Html.DisplayFor(model => model.Modalidad)</p>
+                                                <br>
+                                            </div>
+                                            <div class="col-md-6 col-6">
+                                                <strong>Programa Educativo</strong>
+                                                <br>
+                                                <p id="Programa" class="text-muted">@Html.DisplayFor(model => model.Nombrepro)</p>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                       
+                        @if (tipo == 1)
+                        {
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-body">
+                                        <a asp-controller="EstudiantesInformacion" asp-action="Index" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                            Regresar a tabla
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

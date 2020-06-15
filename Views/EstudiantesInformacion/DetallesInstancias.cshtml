@@ -1,0 +1,165 @@
+﻿@model SGCFIEE.Models.CompletoAlumnos
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Home/Principal.cshtml";
+    
+    var final = (IEnumerable<AlumnoFinal2>)ViewData["Instancias"];
+    var tipo = (int)ViewData["tipo"];
+    var alumno = (int)ViewData["alumno"];
+}
+<link rel="stylesheet" href="~/assets/plugins/sweet-alert/sweetalert.min.css">
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="Detalles" class="nav-link ">Información general</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInfoAcademica" class="nav-link " >Información académica</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" class="nav-link" >Boleta</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesPafis" class="nav-link" >PAFIs</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesExamen" class="nav-link" >Examen ingreso e interno</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesEventos" class="nav-link" >Participación en eventos</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesMovilidad" class="nav-link" >Información movilidad</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInstancias" class="nav-link active" >Instancias finales</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab8">
+
+                            <div class="profile-content">
+                                <div id="biography">
+                                    <div class="row">
+                                        <div class="col-md-12 col-12">
+                                            <a asp-controller="EstudiantesInformacion" asp-action="CrearFinal" asp-route-idalum="@Model.IdDatosPersonales" class="btn btn-success btn-sm m-b-10 center">
+                                                Agregar
+                                            </a>
+                                        </div>
+                                        <br/><br/>
+                                        <div class="col-md-3 col-6 b-r">
+                                            <strong>Nombre</strong>
+                                            <br>
+                                            <p class="text-muted">@Html.DisplayFor(model => model.Nombre) @Html.DisplayFor(model => model.ApellidoPaterno) @Html.DisplayFor(model => model.ApellidoMaterno)</p>
+                                        </div>
+                                        <div class="col-md-3 col-6 b-r">
+                                            <strong>Matricula</strong>
+                                            <br>
+                                            <p class="text-muted">@Html.DisplayFor(model => model.Matricula)</p>
+                                        </div>
+                                        <div class="col-md-3 col-6 b-r">
+                                            <strong>Programa Educativo</strong>
+                                            <br>
+                                            <p class="text-muted">@Html.DisplayFor(model => model.Nombrepro)</p>
+                                        </div>
+                                        <div class="col-md-3 col-6">
+                                            <strong>Correo</strong>
+                                            <br>
+                                            <p class="text-muted">@Html.DisplayFor(model => model.Correo)</p>
+                                        </div>
+                                    </div>
+
+                                    <h4 class="font-bold">Servicio social y prácticas profesionales</h4>
+                                    <div class="row">
+                                        @foreach (var item in final)
+                                        {
+                                            @if (item.tiposervprac == 1)
+                                            {
+                                                <div class="col-md-6 col-6">
+                                                    <hr>
+                                                    <h5 class=" center">Servicio Social</h5>
+                                                    <hr>
+                                                    <p>Empresa: @Html.DisplayFor(modelItem => item.nombreempresa)</p>
+                                                    <p>Dirección: @Html.DisplayFor(modelItem => item.direccion)</p>
+                                                    <p>Teléfono: @Html.DisplayFor(modeltem => item.telefono)</p>
+                                                    <p>Fecha de inicio (mm/dd/aa): @Html.DisplayFor(modelItem => item.fechainiserv[0])</p>
+                                                    <p>Fecha de termino (mm/dd/aa): @Html.DisplayFor(modelItem => item.fechafinserv[0])</p>
+                                                </div>
+                                            }
+                                        }
+                                        @foreach (var item in final)
+                                        {
+                                            @if (item.tiposervprac == 2)
+                                            {
+                                                <div class="col-md-6 col-6">
+                                                    <hr>
+                                                    <h5 class=" center">Prácticas Profesionales</h5>
+                                                    <hr>
+                                                    <p>Empresa: @Html.DisplayFor(modelItem => item.nombreempresa)</p>
+                                                    <p>Dierección: @Html.DisplayFor(modelItem => item.direccion)</p>
+                                                    <p>Teléfono: @Html.DisplayFor(modeltem => item.telefono)</p>
+                                                    <p>Fecha de inicio (mm/dd/aa): @Html.DisplayFor(modelItem => item.fechainiserv[0])</p>
+                                                    <p>Fecha de termino (mm/dd/aa): @Html.DisplayFor(modelItem => item.fechafinserv[0])</p>
+                                                </div>
+                                            }
+                                        }
+                                    </div><br />
+                                    <h4 class="font-bold">Acreditación de experiencia recepcional</h4>
+                                    <div class="row">
+                                        @foreach (var item in final)
+                                        {
+                                            @if (item.rexprep != null)
+                                            {
+                                                <div class="col-md-6 col-6">
+                                                    <hr>
+                                                    <h5 class=" center">Experiencia Recepcional</h5>
+                                                    <hr>
+                                                    <p>@Html.DisplayFor(modelItem => item.nombreexpre)</p>
+                                                    <p>
+                                                        @if (item.tipoexpre == 1)
+                                                        {
+                                                        <p>TESIS</p>}
+                                                        @if (item.tipoexpre == 2)
+                                                        {<p>TESINA</p>}
+                                                        @if (item.tipoexpre == 3)
+                                                        {<p> PROYECTO PRACTICO TECNICO</p>}
+                                                        @if (item.tipoexpre == 4)
+                                                        {<p>PROYECTO PRACTICO</p>}
+                                                        @if (item.tipoexpre == 5)
+                                                        {<p>MONOGRAFIA</p>}
+                                                        @if (item.tipoexpre == 6)
+                                                        {<p>EXAMEN</p>}
+                                                        @if (item.tipoexpre == 7)
+                                                        {<p>PROMEDIO</p>}
+                                                        </p>
+                                                        <p>Nombre del asesor: @Html.DisplayFor(modelItem => item.nombreasesor)</p>
+                                                        <p>Fecha de termino (mm/dd/aa): @Html.DisplayFor(modelItem => item.fechafinexp[0])</p>
+                                                    </div>
+                                                }
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @if (tipo == 1)
+                        {
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-body">
+                                        <a asp-controller="EstudiantesInformacion" asp-action="Index" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                            Regresar a tabla
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

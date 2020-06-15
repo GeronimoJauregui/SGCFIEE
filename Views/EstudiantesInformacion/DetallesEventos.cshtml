@@ -1,0 +1,75 @@
+﻿@model SGCFIEE.Models.CompletoAlumnos
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Home/Principal.cshtml";
+
+    var evento = (IEnumerable<AlumnoEvento>)ViewData["evento"];
+
+    var tipo = (int)ViewData["tipo"];
+    var alumno = (int)ViewData["alumno"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="Detalles" class="nav-link ">Información general</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInfoAcademica" class="nav-link " >Información académica</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" class="nav-link" >Boleta</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesPafis" class="nav-link" >PAFIs</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesExamen" class="nav-link" >Examen ingreso e interno</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesEventos" class="nav-link active" >Participación en eventos</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesMovilidad" class="nav-link" >Información movilidad</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInstancias" class="nav-link" >Instancias finales</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+
+                        <div class="tab-pane active" id="tab6">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-body " id="bar-parent2">
+                                        <br> 
+                                        <div class="row">
+                                            @foreach (var item in evento)
+                                            {
+                                                <div class="col-md-3 col-6 b-r">
+                                                    <strong>@Html.DisplayFor(modelItem => item.tipoeve)</strong> <br> <br>
+                                                    <p id="" class="text-muted">@Html.DisplayFor(modelItem => item.nombreeve)</p> <br>
+                                                    <p id="" class="text-muted">@Html.DisplayFor(modelItem => item.fecha)</p> <br>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        @if (tipo == 1)
+                        {
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-body">
+                                        <a asp-controller="EstudiantesInformacion" asp-action="Index" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                            Regresar a tabla
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

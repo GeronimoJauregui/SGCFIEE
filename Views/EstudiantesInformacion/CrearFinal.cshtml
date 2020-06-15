@@ -9,16 +9,22 @@
     var idalum = ViewData["idalumno"];
     var empresas = (IEnumerable<CtEmpresaServPrac>)ViewData["empresa"];
 }
-
+<link rel="stylesheet" href="~/assets/plugins/sweet-alert/sweetalert.min.css">
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 <!DOCTYPE html>
 
 <html>
 <div class="profile-content">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card card-topline-green">
                 <div class="card-head">
-                    <header>Estancia Final</header>
+                    <header>Estancia final</header>
                     <div class="tools">
                         <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
                         <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
@@ -44,7 +50,7 @@
                                                     <div class="col-md-3 col-sm-3"></div>
                                                     <div class="col-md-6 col-sm-6">
                                                         <div class="form-group">
-                                                            <input id="" type="hidden" asp-for="ralumno" value="@idalum" class="form-control">
+                                                            <input id="" hidden asp-for="ralumno" value="@idalum" class="form-control">
                                                             <label>Seleccione la empresa</label>
                                                             <select asp-for="rempresa" class="form-control" id="programa">
                                                                 @foreach (var item in empresas)
@@ -54,13 +60,13 @@
                                                             </select>
                                                             <input id="" type="hidden" value="Guardar" class="form-control">
                                                             <label asp-for="fechainiserv">Fecha inicio</label>
-                                                            <input asp-for="fechainiserv" type="date" class="form-control" placeholder="Fecha inicio" required="required">
+                                                            <input asp-for="fechainiserv" type="date" class="form-control" placeholder="mm/dd/aa" required="required">
                                                             <span asp-validation-for="fechainiserv" class="text-danger"></span>
                                                         </div>
                                                         <div class="form-group">
                                                             <input id="" type="hidden" value="Guardar" class="form-control">
                                                             <label asp-for="fechafinserv">Fecha fin</label>
-                                                            <input asp-for="fechafinserv" type="date" class="form-control" placeholder="Fecha fin" required="required">
+                                                            <input asp-for="fechafinserv" type="date" class="form-control" placeholder="mm/dd/aa" required="required">
                                                             <span asp-validation-for="fechafinserv" class="text-danger"></span>
                                                         </div>
                                                         <div class="form-group">
@@ -70,7 +76,7 @@
                                                                 <option value="2">Practicas Profesionales</option>
                                                             </select>
                                                         </div>
-                                                        <a asp-controller="EstudiantesInformacion" asp-action="CrearEmpresa" class=" center">
+                                                        <a asp-route-idalum="@idalum" asp-controller="EstudiantesInformacion" asp-action="CrearEmpresa" class=" center">
                                                             Si no se muestra la empresa a seleccionar, se puede agregar desde aquí.
                                                         </a>
                                                     </div>
@@ -79,6 +85,9 @@
                                                     </div>
                                                     <div class="col-md-12 col-sm-12">
                                                         <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                        <a asp-controller="EstudiantesInformacion" asp-action="DetallesInstancias" asp-route-id="@idalum" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                            Cancelar
+                                                        </a>
                                                     </div>
                                                     
                                                 </div>
@@ -105,13 +114,13 @@
                                                         <div class="form-group">
                                                             <input id="" type="hidden" asp-for="ralumno" value="@idalum" class="form-control">
                                                             <label asp-for="nombreexpre">Nombre del trabajo</label>
-                                                            <input asp-for="nombreexpre" type="text" class="form-control" placeholder="Titulo">
+                                                            <input asp-for="nombreexpre" type="text" class="form-control" placeholder="Ingresar...">
                                                             <span asp-validation-for="nombreexpre" class="text-danger"></span>
                                                         </div>
                                                         <div class="form-group">
                                                             <input id="" type="hidden" value="" class="form-control">
-                                                            <label asp-for="fechafinexp">Fecha fin</label>
-                                                            <input asp-for="fechafinexp" type="date" class="form-control" placeholder="Fecha donde culminó">
+                                                            <label asp-for="fechafinexp">Fecha donde culminó</label>
+                                                            <input asp-for="fechafinexp" type="date" class="form-control" placeholder="mm/dd/aa">
                                                             <span asp-validation-for="fechafinexp" class="text-danger"></span>
                                                         </div>
                                                         <div class="form-group">
@@ -125,7 +134,7 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Tipo de estancia</label>
-                                                            <select asp-for="tiposervprac" class="form-control" id="programa">
+                                                            <select asp-for="tipoexpre" class="form-control" id="programa">
                                                                 <option value="1">Tesis</option>
                                                                 <option value="2">Tesina</option>
                                                                 <option value="3">Proyecto practico tecnico</option>
@@ -141,6 +150,9 @@
                                                     </div>
                                                     <div class="col-md-12 col-sm-12">
                                                         <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                        <a asp-controller="EstudiantesInformacion" asp-action="DetallesInstancias" asp-route-id="@idalum" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                            Cancelar
+                                                        </a>
                                                     </div>
                                                 </div>
 

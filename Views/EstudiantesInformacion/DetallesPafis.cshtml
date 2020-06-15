@@ -1,0 +1,100 @@
+﻿@model SGCFIEE.Models.CompletoAlumnos
+@{
+    ViewData["Title"] = "Detalles";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var y = (IEnumerable<TipoPeriodo>)ViewData["periodo"];
+    var pafi = (IEnumerable<AlumnoPafi>)ViewData["pafi"];
+    var tipo = (int)ViewData["tipo"];
+    var alumno = (int)ViewData["alumno"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+
+                    <div class="p-rl-20">
+                        <ul class="nav customtab nav-tabs" role="tablist">
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="Detalles" class="nav-link ">Información general</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInfoAcademica" class="nav-link" >Información académica</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" class="nav-link" >Boleta</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesPafis" class="nav-link active" >PAFIs</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesExamen" class="nav-link" >Examen ingreso e interno</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesEventos" class="nav-link" >Participación en eventos</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesMovilidad" class="nav-link" >Información movilidad</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInstancias" class="nav-link" >Instancias finales</a></li>
+                        </ul>
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab4">
+                            <div id="pafialumno">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        
+                                        <div class="card-body">
+                                            <div class="col-md-3 col-sm-3">
+                                                <label>Seleccione un periodo</label>
+                                                <select id="PeriodoPafi" class="form-control">
+                                                    @foreach (var item in y)
+                                                    {
+                                                        <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                    }
+                                                </select> <br /> <br />
+                                            </div>
+                                            <div class="table-scrollable">
+                                                <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="example1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="display: none"></th>
+                                                            <th class="center">Nombre del pafi</th>
+                                                            <th class="center">Maestro</th>
+                                                            <th class="center">Horario</th>
+                                                            <th class="center">Salon</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in pafi)
+                                                        {
+                                                            <tr class="odd gradeX" name="pafi-@item.idperiodo">
+                                                                <td style="display:none">id</td>
+                                                                <td class="center">@Html.DisplayFor(modelItem => item.nombrepafi)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.acapafi)</td>
+                                                                <td class="center">@Html.DisplayFor(modelItem => item.horario)</td>
+                                                                <td class="center">@Html.DisplayFor(modelItem => item.salon)-@Html.DisplayFor(modelItem => item.clave)</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        @if (tipo == 1)
+                        {
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <div class="card-body">
+                                        <a asp-controller="EstudiantesInformacion" asp-action="Index" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                            Regresar a tabla
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
