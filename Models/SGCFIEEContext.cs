@@ -128,7 +128,7 @@ namespace SGCFIEE.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=1234567890;");
+                optionsBuilder.UseMySql("Server=localhost;Database=sgcfiee;User=root;Password=admin;");
             }
         }
 
@@ -2734,9 +2734,6 @@ namespace SGCFIEE.Models
                 entity.HasIndex(e => e.RExperienciaPeriodo)
                     .HasName("fk_horario_exp_educ_periodo_idx");
 
-                entity.HasIndex(e => e.RSalon)
-                    .HasName("fk_horario_salon_idx");
-
                 entity.HasIndex(e => e.RTipoCalif)
                     .HasName("fk_horario_calificacion_idx");
 
@@ -2745,8 +2742,6 @@ namespace SGCFIEE.Models
                 entity.Property(e => e.RAlumno).HasColumnName("R_alumno");
 
                 entity.Property(e => e.RExperienciaPeriodo).HasColumnName("R_Experiencia_Periodo");
-
-                entity.Property(e => e.RSalon).HasColumnName("R_Salon");
 
                 entity.Property(e => e.RTipoCalif).HasColumnName("R_Tipo_Calif");
 
@@ -2759,11 +2754,6 @@ namespace SGCFIEE.Models
                     .WithMany(p => p.TbHorario)
                     .HasForeignKey(d => d.RExperienciaPeriodo)
                     .HasConstraintName("fk_horario_exp_educ_periodo");
-
-                entity.HasOne(d => d.RSalonNavigation)
-                    .WithMany(p => p.TbHorario)
-                    .HasForeignKey(d => d.RSalon)
-                    .HasConstraintName("fk_horario_salon");
 
                 entity.HasOne(d => d.RTipoCalifNavigation)
                     .WithMany(p => p.TbHorario)

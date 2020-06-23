@@ -4,11 +4,20 @@
     Layout = "~/Views/Home/Principal.cshtml";
     var tc = (IEnumerable<TipoCertificacion>)ViewData["tc"];
     var certificaciones = (IEnumerable<pCertificaciones>)ViewData["cer"];
-    var academico = (int) ViewData["academico"];
+    var academico = (int)ViewData["academico"];
 }
 
-<html>
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
+
+
+<!DOCTYPE html>
+<html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12 col-sm-12">
         <div class="card card-box">
             <div class="card-topline-green card-head">
@@ -40,7 +49,7 @@
                                 <label>Nombre de la certificación</label>
                                 <input asp-for="Nombre" type="text" class="form-control" placeholder="Ingresar...">
                             </div>
-                            
+
                             Archivo de evidencia<br>
                             <input asp-for="Archivo" type="file" class="default" name="file">
                             <br>
@@ -65,14 +74,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach (var item in certificaciones){
+                                    @foreach (var item in certificaciones)
+                                    {
                                         <tr>
                                             <td hidden></td>
                                             <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Nombre)</td>
                                             <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.TipoCertificacion)</td>
                                         </tr>
                                     }
-                                    </tbody>
+                                </tbody>
                             </table>
                         </div>
                     </div>

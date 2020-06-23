@@ -150,6 +150,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdSalon == item.IdSalon && datos.Horario == item.Horario)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("Index");
                     }
                 }
@@ -182,7 +183,7 @@ namespace SGCFIEE.Controllers
             {
                 await file[1].CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("Index");
         }
 
@@ -266,14 +267,16 @@ namespace SGCFIEE.Controllers
                 {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
                 }
-                var pa = context.PafisAcademicos.ToList();
-                foreach (PafisAcademicos item in pa)
-                {
-                    if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdSalon == item.IdSalon && datos.Horario == item.Horario)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                }
+                //var pa = context.PafisAcademicos.ToList();
+                //foreach (PafisAcademicos item in pa)
+                //{
+                //    if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdSalon == item.IdSalon && datos.Horario == item.Horario)
+                //    {
+                //        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                //        return RedirectToAction("Index");
+
+                //    }
+                //}
             }
             using (sgcfieeContext context = new sgcfieeContext())
             {
@@ -293,12 +296,12 @@ namespace SGCFIEE.Controllers
                 }
 
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.PafisAcademicos.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                
             }
 
             if (file.Count() == 0)

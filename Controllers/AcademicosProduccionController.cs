@@ -262,6 +262,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexMaterialDidactico");
                     }
                 }
@@ -281,7 +282,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("IndexMaterialDidactico");
         }
         [Authorize]
@@ -317,6 +318,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdMateriaDidactico != item.IdMateriaDidactico)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexMaterialDidactico");
                     }
                 }
@@ -339,10 +341,11 @@ namespace SGCFIEE.Controllers
             {
                 context.MateriaDidactico.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("IndexMaterialDidactico");
             }
             var new_name_file = datos.IdPeriodo + "_" + datos.IdAcademico + "_" + file.GetFilename();
@@ -415,6 +418,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexMPractica");
                     }
                 }
@@ -434,7 +438,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("IndexMPractica");
         }
         [Authorize]
@@ -470,6 +474,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdMaterialesPractica != item.IdMaterialesPractica)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexMPractica");
                     }
                 }
@@ -492,10 +497,11 @@ namespace SGCFIEE.Controllers
             {
                 context.ManualesPractica.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                
             }
             if (file == null || file.Length == 0)
             {
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("IndexMPractica");
             }
             var new_name_file = datos.IdPeriodo + "_" + datos.IdAcademico + "_" + file.GetFilename();
@@ -505,7 +511,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("IndexMPractica");
         }
         public IActionResult EliminarMPractica(int id)
@@ -569,6 +575,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexLibroEE");
                     }
                 }
@@ -588,7 +595,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("IndexLibroEE");
         }
         [Authorize]
@@ -624,6 +631,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdLibroEe != item.IdLibroEe)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexLibroEE");
                     }
                 }
@@ -646,10 +654,11 @@ namespace SGCFIEE.Controllers
             {
                 context.Libroee.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("IndexLibroEE");
             }
             var new_name_file = datos.IdPeriodo + "_" + datos.IdAcademico + "_" + file.GetFilename();
@@ -722,6 +731,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexProyectosE");
                     }
                 }
@@ -741,7 +751,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("IndexProyectosE");
         }
         [Authorize]
@@ -777,6 +787,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdProyectoEducativos != item.IdProyectoEducativos)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexProyectosE");
                     }
                 }
@@ -799,10 +810,11 @@ namespace SGCFIEE.Controllers
             {
                 context.ProyectoEducativos.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("IndexProyectosE");
             }
             var new_name_file = datos.IdPeriodo + "_" + datos.IdAcademico + "_" + file.GetFilename();

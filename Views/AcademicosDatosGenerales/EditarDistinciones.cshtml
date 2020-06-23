@@ -6,10 +6,17 @@
     var academico = (int)ViewData["academico"];
     var tipo = (int)ViewData["tipo"];
 }
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
+
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12 col-sm-12">
         <div class="card card-box">
             <div class="card-topline-green card-head">
@@ -35,7 +42,7 @@
                             <form asp-controller="AcademicosDatosGenerales" asp-action="ActualizarDistinciones" method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <input asp-for="IdAcademico" type="hidden" value="@academico">
-                                    
+
                                     <div class="col-md-6 col-sm-6">
 
                                         <div class="form-group">
@@ -62,7 +69,7 @@
                                     </div>
                                     <div class="col-md-6 col-sm-6">
                                         <label>Archivo de evidencia: @Model.Archivo</label><br>
-                                        <input type="file" asp-for="Archivo" class="default"  id="archivodistincion" name="file">
+                                        <input type="file" asp-for="Archivo" class="default" id="archivodistincion" name="file">
                                         <br><br><br>
                                         <input id="guardardistincion" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
                                     </div>

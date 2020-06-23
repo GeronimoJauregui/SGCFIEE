@@ -197,6 +197,7 @@ namespace SGCFIEE.Controllers
 
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("EditarDG", new { id = datos.IdAcademicos });
             }
 
@@ -305,7 +306,7 @@ namespace SGCFIEE.Controllers
             {
                 await file[1].CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("TablaGA", new { id = datos.IdAcademico });
         }
 
@@ -425,7 +426,7 @@ namespace SGCFIEE.Controllers
             {
                 await file[1].CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("EditarGA", new { id = datos.IdAcademico });
         }
 
@@ -535,7 +536,7 @@ namespace SGCFIEE.Controllers
                 }
             }
 
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("EditarGA", new { id = datos.IdAcademico });
         }
 
@@ -605,7 +606,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("TablaCertificaciones", new { id = datos.IdAcademico });
         }
 
@@ -686,7 +687,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("EditarCertificaciones", new { id = datos.IdAcademico });
         }
 
@@ -744,7 +745,7 @@ namespace SGCFIEE.Controllers
             {
                 context.Certificaciones.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
 
             if (file != null)
@@ -863,7 +864,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("TablaCD", new { id = datos.IdAcademico });
         }
 
@@ -914,7 +915,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("EditarCD", new { id = datos.IdAcademico });
         }
 
@@ -981,6 +982,7 @@ namespace SGCFIEE.Controllers
                     await file.CopyToAsync(stream);
                 }
             }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("EditarCD", new { id = datos.IdAcademico });
         }
 
@@ -1050,6 +1052,17 @@ namespace SGCFIEE.Controllers
                       }
                                    ).ToList();
 
+                foreach (pExperienciaProfesional item in EP)
+                {
+                    int inicio = int.Parse(item.FechaInicio.Substring(0, 4));
+                    int fin = int.Parse(item.FechaFin.Substring(0, 4));
+                    int exp = fin - inicio;
+                    if (exp == 0)
+                        exp = 1;
+                    item.FechaInicio = exp.ToString();
+
+                }
+
                 ViewData["ep"] = EP;
                 ViewData["academico"] = id;
             }
@@ -1092,7 +1105,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("TablaEP", new { id = datos.IdAcademico });
         }
 
@@ -1146,7 +1159,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("EditarEP", new { id = datos.IdAcademico });
         }
 
@@ -1216,6 +1229,7 @@ namespace SGCFIEE.Controllers
                     await file.CopyToAsync(stream);
                 }
             }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("EditarEP", new { id = datos.IdAcademico });
         }
 
@@ -1476,6 +1490,7 @@ namespace SGCFIEE.Controllers
                     context.SaveChanges();
                 }
             }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("EditarTC", new { id = datos.IdAcademico });
         }
 
@@ -1542,7 +1557,7 @@ namespace SGCFIEE.Controllers
             {
                 await file.CopyToAsync(stream);
             }
-
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("Index");
         }
 
@@ -1577,6 +1592,7 @@ namespace SGCFIEE.Controllers
                     await file.CopyToAsync(stream);
                 }
             }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("EditarDistinciones", new { id = datos.IdAcademico });
         }
 
@@ -1756,6 +1772,18 @@ namespace SGCFIEE.Controllers
 
                       }
                                    ).ToList();
+
+
+
+                foreach (pExperienciaProfesional item in EP) {
+                    int inicio = int.Parse(item.FechaInicio.Substring(0, 4));
+                    int fin = int.Parse(item.FechaFin.Substring(0, 4));
+                    int exp = fin - inicio;
+                    if (exp == 0)
+                        exp = 1;
+                    item.FechaInicio = exp.ToString();
+
+                }
 
                 ViewData["ep"] = EP;
                 ViewData["academico"] = id;

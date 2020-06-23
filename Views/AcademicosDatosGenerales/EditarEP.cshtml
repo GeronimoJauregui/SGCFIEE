@@ -6,10 +6,17 @@
     var academico = (int)ViewData["academico"];
     var tipo = (int)ViewData["tipo"];
 }
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
+
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12 col-sm-12">
         <div class="card card-box">
             <div class="card-topline-green card-head">
@@ -58,26 +65,26 @@
                                         <tbody>
                                             @foreach (var item in ep)
                                             {
-                                            <tr>
-                                                <td hidden></td>
-                                                <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.empresa)</td>
-                                                <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.TipoPuesto)</td>
-                                                <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.AreaDesarrollo)</td>
-                                                <td class="center">10</td>
-                                                <td class="center">
-                                                    <a class="btn btn-primary btn-xs" asp-route-filename="@item.Archivo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarEP">
-                                                        <i class="fa fa-download"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="center">
-                                                    <a asp-route-id="@item.IdEp" asp-route-idAcad="@academico" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarEP" title="Editar" class="btn btn-primary btn-xs verdatos">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a data-value="@item.IdEp" data-controlador="AcademicosDatosGenerales" data-accion="EliminarEP" data-id="@academico" data-regreso="EditarEP" name="eliminaracademico" class="btn btn-danger btn-xs" title="Eliminar">
-                                                        <i class="fa fa-trash-o "></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                                <tr>
+                                                    <td hidden></td>
+                                                    <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.empresa)</td>
+                                                    <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.TipoPuesto)</td>
+                                                    <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.AreaDesarrollo)</td>
+                                                    <td class="center">@Html.DisplayFor(modelItem => item.FechaInicio)</td>
+                                                    <td class="center">
+                                                        <a class="btn btn-primary btn-xs" asp-route-filename="@item.Archivo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarEP">
+                                                            <i class="fa fa-download"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td class="center">
+                                                        <a asp-route-id="@item.IdEp" asp-route-idAcad="@academico" asp-controller="AcademicosDatosGenerales" asp-action="FormEditarEP" title="Editar" class="btn btn-primary btn-xs verdatos">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <a data-value="@item.IdEp" data-controlador="AcademicosDatosGenerales" data-accion="EliminarEP" data-id="@academico" data-regreso="EditarEP" name="eliminaracademico" class="btn btn-danger btn-xs" title="Eliminar">
+                                                            <i class="fa fa-trash-o "></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             }
                                         </tbody>
                                     </table>

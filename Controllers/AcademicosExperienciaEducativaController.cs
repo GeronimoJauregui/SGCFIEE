@@ -163,7 +163,9 @@ namespace SGCFIEE.Controllers
                 datos.Status = 1;
                 context.ExperienciaEducativaPeriodo.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
+
             return RedirectToAction("Index");
         }
 
@@ -277,7 +279,7 @@ namespace SGCFIEE.Controllers
 
                 context.ExperienciaEducativaPeriodo.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("Index");
         }
@@ -465,6 +467,7 @@ namespace SGCFIEE.Controllers
                 datos.Status = 1;
                 context.ExperienciaEducativaPeriodo.Add(datos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("IndexEEEUV");
         }
@@ -531,7 +534,7 @@ namespace SGCFIEE.Controllers
 
                 context.ExperienciaEducativaPeriodo.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("IndexEEEUV");
         }

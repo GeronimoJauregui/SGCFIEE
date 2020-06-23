@@ -204,6 +204,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexEvalCT");
                     }
                 }
@@ -211,6 +212,7 @@ namespace SGCFIEE.Controllers
                 context.EvaluacionConsejoTecnico.Add(datos);
                 context.SaveChanges();
             }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("IndexEvalCT");
         }
         [Authorize]
@@ -245,6 +247,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexEvalEstudiantes");
                     }
                 }
@@ -252,6 +255,7 @@ namespace SGCFIEE.Controllers
                 context.EvaluacionEstudiantes.Add(datos);
                 context.SaveChanges();
             }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("IndexEvalEstudiantes");
         }
         [Authorize]
@@ -284,12 +288,14 @@ namespace SGCFIEE.Controllers
                 {
                     if(datos.RAcademicos == item.RAcademicos && datos.RPeriodo == item.RPeriodo)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexEvalTutor");
                     }
                 }
                 context.TbCalificacionTutor.Add(datos);
                 context.SaveChanges();
             }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             return RedirectToAction("IndexEvalTutor");
         }
         [Authorize]
@@ -376,6 +382,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdEvaluacionEstudiantes != item.IdEvaluacionEstudiantes)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexEvalEstudiantes");
                     }
                 }
@@ -384,7 +391,7 @@ namespace SGCFIEE.Controllers
             {
                 context.EvaluacionEstudiantes.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("IndexEvalEstudiantes");
         }
@@ -421,6 +428,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.RAcademicos == item.RAcademicos && datos.RPeriodo == item.RPeriodo && datos.IdTbCalificacionTutor != item.IdTbCalificacionTutor)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexEvalTutor");
                     }
                 }
@@ -431,7 +439,7 @@ namespace SGCFIEE.Controllers
                 
                 context.TbCalificacionTutor.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("IndexEvalTutor");
         }
@@ -454,6 +462,7 @@ namespace SGCFIEE.Controllers
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdConsejoTecnico != item.IdConsejoTecnico)
                     {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("IndexEvalCT");
                     }
                 }
@@ -464,7 +473,7 @@ namespace SGCFIEE.Controllers
 
                 context.EvaluacionConsejoTecnico.Update(datos);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("IndexEvalCT");
         }

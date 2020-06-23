@@ -6,10 +6,15 @@
     var tutoI = (IEnumerable<pAcademicosAlumnos>)ViewData["tutoI"];
     var tutoE = (IEnumerable<TutoradosExternos>)ViewData["tutoE"];
 }
-
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 <!DOCTYPE html>
 <html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12">
         <div class="card card-topline-green">
             <div class="card-head">
@@ -33,14 +38,14 @@
                 <div class="form-group col-md-4">
                     <form asp-action="IdIndex" asp-antiforgery="true">
                         <div class="form-group">
-                            
-                                <label>Académico</label>
-                                <select class="form-control" asp-for="IdAcademicos" id="academicos">
-                                    @foreach (var item in aca)
-                                    {
-                                        <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                    }
-                                </select>
+
+                            <label>Académico</label>
+                            <select class="form-control" asp-for="IdAcademicos" id="academicos">
+                                @foreach (var item in aca)
+                                {
+                                    <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
+                                }
+                            </select>
                             <br />
                             <button id="BuscarMov" type="submit" class="btn btn-success btn-sm m-b-10">
                                 Buscar

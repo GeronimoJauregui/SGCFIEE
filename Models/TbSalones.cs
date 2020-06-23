@@ -9,7 +9,6 @@ namespace SGCFIEE.Models
         {
             ExperienciaEducativaPeriodo = new HashSet<ExperienciaEducativaPeriodo>();
             PafisAcademicos = new HashSet<PafisAcademicos>();
-            TbHorario = new HashSet<TbHorario>();
         }
 
         public int IdTbSalones { get; set; }
@@ -18,6 +17,5 @@ namespace SGCFIEE.Models
 
         public virtual ICollection<ExperienciaEducativaPeriodo> ExperienciaEducativaPeriodo { get; set; }
         public virtual ICollection<PafisAcademicos> PafisAcademicos { get; set; }
-        public virtual ICollection<TbHorario> TbHorario { get; set; }
     }
 }

@@ -7,10 +7,17 @@
     var academico = (int)ViewData["academico"];
     var tipo = (int)ViewData["tipo"];
 }
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
+
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12 col-sm-12">
         <div class="card card-box">
             <div class="card-topline-green card-head">
@@ -44,13 +51,13 @@
                                                 {
                                                     @if (item.IdTipoPersonal != Model.tipopersonal)
                                                     {
-                                                        <option  value="@item.IdTipoPersonal">@Html.DisplayFor(modelItem => item.Nombre)</option>
+                                                        <option value="@item.IdTipoPersonal">@Html.DisplayFor(modelItem => item.Nombre)</option>
                                                     }
                                                     else
                                                     {
                                                         <option selected value="@item.IdTipoPersonal">@Html.DisplayFor(modelItem => item.Nombre)</option>
                                                     }
-                                                    
+
                                                 }
                                             </select>
                                         </div>

@@ -6,9 +6,17 @@
     var cd = (IEnumerable<pCursosDiplomadoFormacion>)ViewData["cd"];
     var academico = (int)ViewData["academico"];
 }
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12 col-sm-12">
         <div class="card card-box">
             <div class="card-topline-green card-head">
@@ -50,11 +58,11 @@
 
                             <input type="checkbox" id="select2"> <label>Otra empresa o institución</label>
                             <div class="form-group" id="div_radio">
-                                <input type="radio" name="tipo" value="1" checked=""/> Empresa
-                                <input type="radio" name="tipo" value="2"/> Institucón de Educación Superior
+                                <input type="radio" name="tipo" value="1" checked="" /> Empresa
+                                <input type="radio" name="tipo" value="2" /> Institucón de Educación Superior
                             </div>
                             <div class="form-group" id="div_agregar2">
-                                <input type="text" id="agregar2" name="nuevaInstEmpre" class="form-control" placeholder="Ingresar..." >
+                                <input type="text" id="agregar2" name="nuevaInstEmpre" class="form-control" placeholder="Ingresar...">
                             </div>
 
                             <div class="form-group">
@@ -76,10 +84,10 @@
                             </a>
                         </div>
                     </div>
-                    
+
                 </form>
             </div>
-            
+
             <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="table-scrollable">
@@ -99,24 +107,28 @@
                             <tbody>
                                 @foreach (var item in cd)
                                 {
-                                <tr>
-                                    <td hidden></td>
-                                    <td class="mdl-data-table__cell--non-numeric">@if (item.CursoDiplomado == 0) { <div>Curso</div>} @if (item.CursoDiplomado == 1) {<div>Diplomado</div>}</td>
-                                    <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                    <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Horas)</td>
-                                    <td class="mdl-data-table__cell--non-numeric">@if (item.PD == 0){<div>Pedagógico</div>} @if (item.PD == 1){<div>Disciplinar</div> }</td>
-                                    <td class="mdl-data-table__cell--non-numeric" >@Html.DisplayFor(modelItem => item.institucion)</td>
-                                    <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Lugar)</td>
-                                    <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Fecha)</td>
-                                </tr>
+                                    <tr>
+                                        <td hidden></td>
+                                        <td class="mdl-data-table__cell--non-numeric">@if (item.CursoDiplomado == 0)
+                                        {<div>Curso</div>} @if (item.CursoDiplomado == 1)
+                                        {<div>Diplomado</div>}</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Horas)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@if (item.PD == 0)
+                                        {<div>Pedagógico</div>} @if (item.PD == 1)
+                                        {<div>Disciplinar</div>}</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.institucion)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Lugar)</td>
+                                        <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.Fecha)</td>
+                                    </tr>
                                 }
-                                </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
     </div>
+</div>
 </div>
 </html>

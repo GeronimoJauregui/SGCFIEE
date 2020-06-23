@@ -7,11 +7,17 @@
     var x = (int)ViewData["tipo"];
 }
 
-    <script src="~/assets/js/pages/table/table_data.js"></script>
+<script src="~/assets/js/pages/table/table_data.js"></script>
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12">
         <div class="card card-topline-green">
             <div class="card-head">
@@ -47,36 +53,41 @@
                         <tbody>
                             @foreach (var item in pafis)
                             {
-                            <tr class="odd gradeX">
-                                <td hidden></td>
-                                <td class="center">@Html.DisplayFor(modelItem => item.Npersonal)</td>
-                                <td class="center">@Html.DisplayFor(modelItem => item.Nombre_academico)</td>
-                                <td class="center">@Html.DisplayFor(modelItem => item.Nombre_pafi)</td>
-                                @if(item.Tipopafi == 0){
-                                <td>Nivelatorio</td>}
-                                @if(item.Tipopafi == 1){
-                                <td>Remedial</td>}
+                                <tr class="odd gradeX">
+                                    <td hidden></td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.Npersonal)</td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.Nombre_academico)</td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.Nombre_pafi)</td>
+                                    @if (item.Tipopafi == 0)
+                                    {
+                                        <td>Nivelatorio</td>
+                                    }
+                                    @if (item.Tipopafi == 1)
+                                    {
+                                        <td>Remedial</td>
+                                    }
 
-                                <td class="center">
-                                    <a asp-route-id="@item.IdPafis" asp-controller="AcademicosPafis" asp-action="Detalles" title="Detalles" class="btn btn-success btn-xs">
-                                        <i class="fa fa-check"></i>
-                                    </a>
-                                    <a asp-route-id="@item.IdPafis" asp-controller="AcademicosPafis" asp-action="Editar" title="Editar" class="btn btn-primary btn-xs">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                    <a data-value="@item.IdPafis" data-controlador="AcademicosPafis" data-accion="Eliminar" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                        <i class="fa fa-trash-o "></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                    <td class="center">
+                                        <a asp-route-id="@item.IdPafis" asp-controller="AcademicosPafis" asp-action="Detalles" title="Detalles" class="btn btn-success btn-xs">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                        <a asp-route-id="@item.IdPafis" asp-controller="AcademicosPafis" asp-action="Editar" title="Editar" class="btn btn-primary btn-xs">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a data-value="@item.IdPafis" data-controlador="AcademicosPafis" data-accion="Eliminar" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                            <i class="fa fa-trash-o "></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
                 </div>
-                
+
             </div>
         </div>
-        @if(x == 1) { 
+        @if (x == 1)
+        {
             <div class="card card-topline-green">
                 <div class="card-head">
                     <header>PAFIs solicitados por alumnos</header>
@@ -104,20 +115,20 @@
                             <tbody>
                                 @foreach (var item in pafisSolic)
                                 {
-                                <tr class="odd gradeX">
-                                    <td hidden></td>
-                                    <td class="center">@Html.DisplayFor(modelItem => item.matricula)</td>
-                                    <td class="center">@Html.DisplayFor(modelItem => item.alumno)</td>
-                                    <td class="center">@Html.DisplayFor(modelItem => item.NombrePafi)</td>
-                                    <td class="center">@Html.DisplayFor(modelItem => item.Horario)</td>
-                                    <td class="center">@Html.DisplayFor(modelItem => item.Nombre_academico)</td>
-                                    <td class="center">@Html.DisplayFor(modelItem => item.Periodo)</td>
-                                    <td class="center">
-                                        <a data-value="@item.idPafiSolic" data-controlador="AcademicosPafis" data-accion="EliminarPafiSolic" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                            <i class="fa fa-trash-o "></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <tr class="odd gradeX">
+                                        <td hidden></td>
+                                        <td class="center">@Html.DisplayFor(modelItem => item.matricula)</td>
+                                        <td class="center">@Html.DisplayFor(modelItem => item.alumno)</td>
+                                        <td class="center">@Html.DisplayFor(modelItem => item.NombrePafi)</td>
+                                        <td class="center">@Html.DisplayFor(modelItem => item.Horario)</td>
+                                        <td class="center">@Html.DisplayFor(modelItem => item.Nombre_academico)</td>
+                                        <td class="center">@Html.DisplayFor(modelItem => item.Periodo)</td>
+                                        <td class="center">
+                                            <a data-value="@item.idPafiSolic" data-controlador="AcademicosPafis" data-accion="EliminarPafiSolic" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                <i class="fa fa-trash-o "></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

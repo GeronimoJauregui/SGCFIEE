@@ -4,12 +4,18 @@
     var eep = (IEnumerable<pExperienciaEduPeriodo>)ViewData["EEP"];
 }
 
-    <script src="~/assets/js/pages/table/table_data.js"></script>
-    
+<script src="~/assets/js/pages/table/table_data.js"></script>
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12 col-sm-12">
         <div class="card card-box">
             <div class="card-topline-green card-head">
@@ -18,7 +24,7 @@
             <div class="white-box">
                 <div class="p-rl-20">
                     <ul class="nav customtab nav-tabs" role="tablist">
-                        <li class="nav-item"><a class="nav-link active" >Experiencias educativas de la UV</a></li>
+                        <li class="nav-item"><a class="nav-link active">Experiencias educativas de la UV</a></li>
                         <li class="nav-item"><a asp-controller="AcademicosExperienciaEducativa" asp-action="IndexEEEUV" class="nav-link">Experiencias educativas externas de la UV</a></li>
                     </ul>
                 </div>
@@ -56,27 +62,27 @@
                                                 <tbody>
                                                     @foreach (var item in eep)
                                                     {
-                                                    <tr class="odd gradeX">
-                                                        <td hidden></td>
-                                                        <td>@Html.DisplayFor(modelItem => item.Npersonal)</td>
-                                                        <td>@Html.DisplayFor(modelItem => item.academico)</td>
-                                                        <td>@Html.DisplayFor(modelItem => item.Nrc)</td>
-                                                        <td>@Html.DisplayFor(modelItem => item.EE)</td>
-                                                        <td>@Html.DisplayFor(modelItem => item.area)</td>
-                                                        <td>@Html.DisplayFor(modelItem => item.CalificacionAcademico)</td>
-                                                        <td>@Html.DisplayFor(modelItem => item.periodo)</td>
-                                                        <td class="center">
-                                                            <a asp-route-id="@item.IdExperienciaEducativaPeriodo" asp-controller="AcademicosExperienciaEducativa" asp-action="DetallesEEUV" title="Detalles" class="btn btn-success btn-xs Verdatos">
-                                                                <i class="fa fa-check"></i>
-                                                            </a>
-                                                            <a asp-route-id="@item.IdExperienciaEducativaPeriodo" asp-controller="AcademicosExperienciaEducativa" asp-action="EditarEEUV"  title="Editar" class="btn btn-primary btn-xs EditarEEUV">
-                                                                <i class="fa fa-pencil"></i>
-                                                            </a>
-                                                            <a data-value="@item.IdExperienciaEducativaPeriodo" data-controlador="AcademicosExperienciaEducativa" data-accion="EliminarEEUV" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                                                <i class="fa fa-trash-o "></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
+                                                        <tr class="odd gradeX">
+                                                            <td hidden></td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Npersonal)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.academico)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Nrc)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.EE)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.area)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.CalificacionAcademico)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.periodo)</td>
+                                                            <td class="center">
+                                                                <a asp-route-id="@item.IdExperienciaEducativaPeriodo" asp-controller="AcademicosExperienciaEducativa" asp-action="DetallesEEUV" title="Detalles" class="btn btn-success btn-xs Verdatos">
+                                                                    <i class="fa fa-check"></i>
+                                                                </a>
+                                                                <a asp-route-id="@item.IdExperienciaEducativaPeriodo" asp-controller="AcademicosExperienciaEducativa" asp-action="EditarEEUV" title="Editar" class="btn btn-primary btn-xs EditarEEUV">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <a data-value="@item.IdExperienciaEducativaPeriodo" data-controlador="AcademicosExperienciaEducativa" data-accion="EliminarEEUV" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
                                                     }
                                                 </tbody>
                                             </table>

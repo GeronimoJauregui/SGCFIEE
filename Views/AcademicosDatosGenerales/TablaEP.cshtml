@@ -7,9 +7,17 @@
     var ep = (IEnumerable<pExperienciaProfesional>)ViewData["ep"];
     var academico = (int)ViewData["academico"];
 }
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12 col-sm-12">
         <div class="card card-box">
             <div class="card-topline-green card-head">
@@ -30,7 +38,7 @@
                                 </select>
                             </div>
                             <input type="checkbox" id="select"> <label>Otra empresa</label>
-                                
+
                             <div class="form-group" id="div_agregar">
                                 <input type="text" id="agregar" name="nuevaEmpresa" class="form-control" placeholder="Ingresar...">
                             </div>
@@ -96,7 +104,7 @@
                                         <td class="mdl-data-table__cell--non-numeric">10</td>
                                     </tr>
                                 }
-                                </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>

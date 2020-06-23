@@ -7,9 +7,17 @@
 }
 
 <!DOCTYPE html>
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 <div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="col-md-12">
         <div class="card card-topline-green">
             <div class="card-head">
@@ -22,16 +30,17 @@
             </div>
             <div class="card-body ">
                 <div class="row p-b-20">
-                    @if (tipo == 1) { 
-                    <div class="col-md-6 col-sm-6 col-6">
-                        <div class="btn-group">
-                            <a asp-controller="AcademicosDatosGenerales" asp-action="CrearDG" id="agregar" class="btn btn-success btn-sm m-b-10">
-                                Agregar <i class="fa fa-plus" style="color: white"></i>
-                            </a>
+                    @if (tipo == 1)
+                    {
+                        <div class="col-md-6 col-sm-6 col-6">
+                            <div class="btn-group">
+                                <a asp-controller="AcademicosDatosGenerales" asp-action="CrearDG" id="agregar" class="btn btn-success btn-sm m-b-10">
+                                    Agregar <i class="fa fa-plus" style="color: white"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
                     }
-                    
+
                 </div>
                 <div class="table-scrollable">
                     <table class="table table-striped table-bordered table-hover table-checkable order-column " style="width: 100%" id="tabla_academicos">
@@ -68,11 +77,11 @@
                                         @if (tipo == 1)
                                         {<a data-value="@item.IdAcademicos" data-controlador="AcademicosDatosGenerales" data-accion="EliminarAcademico" data-regreso="Index" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
                                                 <i class="fa fa-trash-o "></i>
-                                         </a>}
-                                        </td>
+                                            </a>}
+                                    </td>
                                 </tr>
                             }
-                            </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>

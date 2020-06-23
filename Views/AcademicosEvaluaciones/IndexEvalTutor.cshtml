@@ -1,76 +1,82 @@
-﻿@model  IEnumerable<SGCFIEE.Models.TablaCalifTutor>
+﻿@model IEnumerable<SGCFIEE.Models.TablaCalifTutor>
 @{
     ViewData["Title"] = "EvalEstudiantes";
     Layout = "~/Views/Home/Principal.cshtml";
 }
 <script src="~/assets/js/pages/table/table_data.js"></script>
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
+
 
 <!DOCTYPE html>
-<html>
-    <div class="row">
-        <div class="col-md-12 col-sm-12">
-            <div class="card card-box">
-                <div class="card-topline-green card-head">
-                    <header>EVALUACIONES</header>
+<html lang="en">
+<div class="row">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
+    <div class="col-md-12 col-sm-12">
+        <div class="card card-box">
+            <div class="card-topline-green card-head">
+                <header>EVALUACIONES</header>
+            </div>
+            <div class="white-box">
+                <!-- Nav tabs -->
+                <div class="p-rl-20">
+                    <ul class="nav customtab nav-tabs" role="tablist">
+                        <li class="nav-item"><a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalEstudiantes" class="nav-link">Evaluación de estudiantes</a></li>
+                        <li class="nav-item"><a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalCT" class="nav-link">Evaluación del consejo tecnico</a></li>
+                        <li class="nav-item"><a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalTutor" class="nav-link active">Evaluación del tutorado</a></li>
+                    </ul>
                 </div>
-                <div class="white-box">
-                    <!-- Nav tabs -->
-                    <div class="p-rl-20"> 
-                        <ul class="nav customtab nav-tabs" role="tablist">
-                            <li class="nav-item"><a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalEstudiantes" class="nav-link">Evaluación de estudiantes</a></li>
-                            <li class="nav-item"><a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalCT" class="nav-link">Evaluación del consejo tecnico</a></li>
-                            <li class="nav-item"><a asp-controller="AcademicosEvaluaciones" asp-action="IndexEvalTutor" class="nav-link active">Evaluación del tutorado</a></li>
-                        </ul>
-                    </div>
-                    <div class="tab-content">
-                        <div class="tab-pane active" id="tab3">            
-                            <div id="tabla_evaluaciontutor">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card-body ">
-                                            <div class="row p-b-20">
-                                                <div class="col-md-6 col-sm-6 col-6">
-                                                    <div class="btn-group">
-                                                        <a asp-controller="AcademicosEvaluaciones" asp-action="CrearEvalTutor" class="btn btn-success btn-sm m-b-10">
-                                                            Agregar <i class="fa fa-plus" style="color:white"></i>
-                                                        </a>
-                                                    </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab3">
+                        <div id="tabla_evaluaciontutor">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card-body ">
+                                        <div class="row p-b-20">
+                                            <div class="col-md-6 col-sm-6 col-6">
+                                                <div class="btn-group">
+                                                    <a asp-controller="AcademicosEvaluaciones" asp-action="CrearEvalTutor" class="btn btn-success btn-sm m-b-10">
+                                                        Agregar <i class="fa fa-plus" style="color:white"></i>
+                                                    </a>
                                                 </div>
                                             </div>
-                                            <div class="table-scrollable">
-                                                <table class="table table-striped table-bordered table-hover table-checkable order-column"  style="width: 100%" id="evaluacionTutor">
-                                                    <thead>
-                                                        <tr>
-                                                            <th hidden></th>
-                                                            <th class="center"> Número de personal </th>
-                                                            <th class="center"> Nombre del académico</th>
-                                                            <th class="center"> Calificación </th>
-                                                            <th class="center"> Periodo </th>
-                                                            <th class="center"> Acción </th>
+                                        </div>
+                                        <div class="table-scrollable">
+                                            <table class="table table-striped table-bordered table-hover table-checkable order-column" style="width: 100%" id="evaluacionTutor">
+                                                <thead>
+                                                    <tr>
+                                                        <th hidden></th>
+                                                        <th class="center"> Número de personal </th>
+                                                        <th class="center"> Nombre del académico</th>
+                                                        <th class="center"> Calificación </th>
+                                                        <th class="center"> Periodo </th>
+                                                        <th class="center"> Acción </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        <tr class="odd gradeX">
+                                                            <td hidden></td>
+                                                            <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Calificacion)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
+                                                            <td class="center">
+                                                                <a asp-route-id="@item.IdCalifTutor" asp-controller="AcademicosEvaluaciones" asp-action="EditarEvalTutor" class="btn btn-primary btn-xs" title="Editar">
+                                                                    <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <a data-value="@item.IdCalifTutor" data-controlador="AcademicosEvaluaciones" data-accion="EliminarEvalTutor" data-regreso="IndexEvalTutor" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach (var item in Model)
-                                                        {
-                                                            <tr class="odd gradeX">
-                                                                <td hidden></td>
-                                                                <td>@Html.DisplayFor(modelItem => item.NumPersonal)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.Calificacion)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.Periodo)</td>
-                                                                <td class="center">
-                                                                    <a asp-route-id="@item.IdCalifTutor" asp-controller="AcademicosEvaluaciones" asp-action="EditarEvalTutor" class="btn btn-primary btn-xs" title="Editar">
-                                                                        <i class="fa fa-pencil"></i>
-                                                                    </a>
-                                                                    <a data-value="@item.IdCalifTutor" data-controlador="AcademicosEvaluaciones" data-accion="EliminarEvalTutor" data-regreso="IndexEvalTutor" name="eliminardato" class="btn btn-danger btn-xs" title="Eliminar">
-                                                                        <i class="fa fa-trash-o "></i>
-                                                                    </a>   
-                                                                </td>
-                                                            </tr>
-                                                        }
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                    }
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +85,8 @@
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
     </div>
+</div>
 </html>
 

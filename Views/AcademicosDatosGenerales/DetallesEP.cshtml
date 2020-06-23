@@ -52,7 +52,7 @@
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.empresa)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.TipoPuesto)</td>
                                     <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.AreaDesarrollo)</td>
-                                    <td class="mdl-data-table__cell--non-numeric">10</td>
+                                    <td class="mdl-data-table__cell--non-numeric">@Html.DisplayFor(modelItem => item.FechaInicio)</td>
                                     <td class="mdl-data-table__cell--non-numeric center">
                                         <a class="btn btn-primary btn-xs" asp-route-filename="@item.Archivo" asp-controller="AcademicosDatosGenerales" asp-action="DescargarEP">
                                             <i class="fa fa-download"></i>
