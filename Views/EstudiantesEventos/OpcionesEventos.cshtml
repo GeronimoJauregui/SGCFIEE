@@ -4,12 +4,21 @@
     Layout = "~/Views/Home/Principal.cshtml";
     var y = (IEnumerable<TipoEventos>)ViewData["tipos"];
     var x = (IEnumerable<TbEventos>)ViewData["Eventos"];
+    var idEvento = (int)ViewData["idEvento"];
 }
+
+<script src="~/assets/js/pages/table/table_data.js"></script>
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 
 <!DOCTYPE html>
 
 <html>
 <div class="profile-content">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card card-topline-green">
@@ -27,8 +36,8 @@
                                         <form asp-action="OpcionesEventos" asp-antiforgery="true">
                                             <div class="form-group">
                                                 <div class="col-md-3 col-sm-3">
-                                                    <label asp-for="IdEventos">Elija la categoria del evento</label>
-                                                    <select asp-for="IdEventos" id="tipo" class="form-control">
+                                                    <label>Elija la categoria del evento</label>
+                                                    <select name="idEvento" id="tipo" class="form-control">
                                                         <option value="">Seleccionar...</option>
                                                         @foreach (var item in y)
                                                         {
@@ -58,7 +67,7 @@
                                                         <tr class="odd gradeX">
                                                             <td class="center">@Html.DisplayFor(modelItem => a.Nombre)</td>
                                                             <td class="center">
-                                                                <a asp-route-id="@a.IdEventos" asp-controller="EstudiantesEventos" asp-action="FormEvento" class="btn btn-success btn-xs infoextra" title="Toda la información">
+                                                                <a asp-route-id="@a.IdEventos" asp-route-idEvento="@idEvento" asp-controller="EstudiantesEventos" asp-action="FormEvento" class="btn btn-success btn-xs infoextra" title="Toda la información">
                                                                     <i class="fa fa-check"></i>
                                                                 </a>
                                                             </td>

@@ -37,6 +37,25 @@ namespace SGCFIEE.Controllers
                 ViewData["problema"] = x;
                 var y = context.TipoPeriodo.ToList();
                 ViewData["periodo"] = y;
+                return View();
+            }
+
+        }
+        [HttpGet]
+        [Authorize]
+        public IActionResult IndexDesempenio()
+        {
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            if (tipo == 1)
+            {
+                return RedirectToAction("SeleccionarQueja");
+            }
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+
+                var y = context.TipoPeriodo.ToList();
+                ViewData["periodo"] = y;
                 var z = context.Academicos.ToList();
                 ViewData["academico"] = z;
                 return View();
@@ -57,7 +76,7 @@ namespace SGCFIEE.Controllers
                 buzon.Propuesta = suge.Propuesta;
                 context.TbBuzonDeQuejas.Add(buzon);
                 context.SaveChanges();
-                TempData["mensaje"] = "Dato guardadado";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Enviado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 var problem = context.CtProblemas.Where(s => s.IdCtProblemas == buzon.RProblema).Single();
                 string problema = problem.NombreProblemas;
                 try
@@ -97,7 +116,7 @@ namespace SGCFIEE.Controllers
                 buzon.Sugerencia = sugere.Sugerencia;
                 context.TbBuzonAcademicos.Add(buzon);
                 context.SaveChanges();
-                TempData["mensaje"] = "Dato guardado";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Enviado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 var aca = context.Academicos.Where(s => s.IdAcademicos == sugere.RAcademicos).Single();
                 string academico = aca.Nombre;
                 try
@@ -117,7 +136,7 @@ namespace SGCFIEE.Controllers
                 {
                     Console.WriteLine(e.StackTrace);
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("IndexDesempenio");
             }
         }
         [HttpGet]

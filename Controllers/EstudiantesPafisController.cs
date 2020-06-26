@@ -140,7 +140,7 @@ namespace SGCFIEE.Controllers
             {
                 context.PafisSolicitados.Add(pafis);
                 context.SaveChanges();
-                TempData["Mensaje"] = "Datos registrados";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La solicitud se ha enviado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("Index");
         }
@@ -159,7 +159,7 @@ namespace SGCFIEE.Controllers
                     nuevo.RInfopafi = id;
                     context.TbPafisAlumno.Add(nuevo);
                     context.SaveChanges();
-                    TempData["Mensaje"] = "Datos registrados";
+                    TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Agregado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 }
             }
             return RedirectToAction("Index");

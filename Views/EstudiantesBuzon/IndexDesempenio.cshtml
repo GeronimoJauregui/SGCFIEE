@@ -1,0 +1,99 @@
+﻿@model SGCFIEE.Models.BuzonSugerencias
+@using SGCFIEE.Models
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var x = (IEnumerable<TipoPeriodo>)ViewData["periodo"];
+    var z = (IEnumerable<Academicos>)ViewData["academico"];
+
+}
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card card-topline-green">
+                <div class="card-head">
+                    <header>BUZONES</header>
+                    <div class="tools">
+                        <a class="fa fa-repeat btn-color box-refresh" href="javascript:;"></a>
+                        <a class="t-collapse btn-color fa fa-chevron-down" href="javascript:;"></a>
+                        <a class="t-close btn-color fa fa-times" href="javascript:;"></a>
+                    </div>
+                </div>
+                <div class="p-rl-20">
+                    <ul class="nav customtab nav-tabs" role="tablist">
+                        <li class="nav-item"><a asp-controller="EstudiantesBuzon" asp-action="Index" class="nav-link ">Buzón infraestructura</a></li>
+                        <li class="nav-item"><a asp-controller="EstudiantesBuzon" asp-action="IndexDesempenio" class="nav-link active">Buzón desempeño académico</a></li>
+                    </ul>
+                </div>
+                <div class="white-box">
+                    <!-- Nav tabs -->
+                    
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active show" id="tab2">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+
+                                    <div class="card-body " id="bar-parent2">
+                                        <!-- text input -->
+                                        <form asp-action="CrearSugerenciaAca" asp-antiforgery="true">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <div class="col-md-4 col-sm-4"></div>
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <label>Seleccione un academico</label>
+                                                        <select asp-for="RAcademicos" class="form-control" id="areaexp">
+                                                            @foreach (var item in z)
+                                                            {
+                                                                var name = item.Nombre + " " + item.ApellidoPaterno + " " + item.ApellidoMaterno;
+                                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => name) </option>
+                                                            }
+                                                        </select> <br />
+                                                        <label>Seleccione periodo actual</label>
+                                                        <select asp-for="RPeriodo" class="form-control" id="areaexp">
+                                                            @foreach (var item in x)
+                                                            {
+                                                                <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4"></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <br> <br>
+                                                        <label asp-for="Propuesta">Describa la situación a continuación</label>
+                                                        <textarea asp-for="Propuesta" class="form-control" rows="3" placeholder="Escriba ..." id="situacionDes"></textarea> <br> <br>
+                                                        <label asp-for="Sugerencia">Agregue una sugerencia </label>
+                                                        <textarea asp-for="Sugerencia" class="form-control" rows="3" placeholder="Escriba ..." id="sugerenciaDes"></textarea>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-3"></div>
+                                                    <div class="col-md-12 col-sm-12">
+                                                        <br>
+                                                        <input id="" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

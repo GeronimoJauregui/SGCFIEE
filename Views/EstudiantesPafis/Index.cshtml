@@ -5,10 +5,16 @@
     Layout = "~/Views/Home/Principal.cshtml";
 }
     <script src="~/assets/js/pages/table/table_data.js"></script>
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 <!DOCTYPE html>
 
 <html>
 <div class="profile-content">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card card-topline-green">
@@ -58,7 +64,7 @@
                                     <td class="center">@Html.DisplayFor(modelItem => item.TotalAlum)</td>
                                     <td class="center">@Html.DisplayFor(modelItem => item.NombrePafi)</td>
                                     <td class="center">@Html.DisplayFor(modelItem => item.Horario)</td>
-                                    <td class="center">@Html.DisplayFor(modelItem => item.NombreMaestro)</td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.NombreMaestro) @Html.DisplayFor(modelItem => item.ApePaterno) @Html.DisplayFor(modelItem => item.ApeMaterno)</td>
                                     <td class="center">@Html.DisplayFor(modelItem => item.ClvSalon)</td>
                                     <td class="center">@Html.DisplayFor(modelItem => item.ProgrmaEdu)</td>
                                     <td class="center">

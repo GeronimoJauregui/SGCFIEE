@@ -6,7 +6,7 @@
                 "IdAlumno": $(this).find('input[name="alumno"]').val()
                 ,"IdRubroExamen": $(this).find('input[name="rubro"]').val()
                 , "CalificacionExamen": $(this).find('input[name="calificacion"]').val()
-                , "TipoExamen": $(this).find('select[name="tipoExamen"] option:selected').val()
+                , "IdTbExamenAlumno": $(this).find('input[name="idExamenAlum"]').val()
             });
         });
         alert("Calificaciones guardadas");

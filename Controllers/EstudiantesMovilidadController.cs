@@ -13,12 +13,13 @@ namespace SGCFIEE.Controllers
     {
         // GET: EstudiantesMovilidad
         [Authorize]
-        public ActionResult Index(CtMovilidades movi)
+        public ActionResult Index(int tipo)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var movilidades = context.CtMovilidades.Where(s => s.TipoMovilidades.Equals(movi.TipoMovilidades)).ToList();
+                var movilidades = context.CtMovilidades.Where(s => s.TipoMovilidades.Equals(tipo)).ToList();
                 ViewData["Movilidades"] = movilidades;
+                ViewData["tipoMovi"] = tipo;
             }
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             return View();
@@ -35,28 +36,29 @@ namespace SGCFIEE.Controllers
 
         // GET: EstudiantesMovilidad/Edit/5
         [Authorize]
-        public IActionResult Editar(int id)
+        public IActionResult Editar(int id, int tipo)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             CtMovilidades datosMovi;
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 datosMovi = context.CtMovilidades.Where(d => d.IdCtMovilidades == id).Single();
+                ViewData["tipoMovi"] = tipo;
             }
             return View(datosMovi);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult GuardarEdicion(CtMovilidades movilidades)
+        public IActionResult GuardarEdicion(CtMovilidades movilidades, int tipo)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CtMovilidades.Update(movilidades);
                 context.SaveChanges();
-                TempData["Mensaje"] = "La informacion se ha guardado correctamente";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { tipo = tipo});
         }
 
         [Authorize]
@@ -66,7 +68,7 @@ namespace SGCFIEE.Controllers
             return View();
         }
 
-        public IActionResult FormInscribir(int id)
+        public IActionResult FormInscribir(int id, int tipo)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -74,12 +76,13 @@ namespace SGCFIEE.Controllers
                 var y = context.ProgramaEducativo.ToList();
                 ViewData["clv"] = id;
                 ViewData["Programas"] = y;
+                ViewData["tipoMovi"] = tipo;
             }
             return View();
         }
 
         [Authorize]
-        public IActionResult MostrarListaAlumnos(FormInscribirMovilidad movi)
+        public IActionResult MostrarListaAlumnos(FormInscribirMovilidad movi, int tipo)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             int x = movi.idMovilidad;
@@ -104,6 +107,7 @@ namespace SGCFIEE.Controllers
                 y = context.ProgramaEducativo.ToList();
                 ViewData["clv"] = x;
                 ViewData["Programas"] = y;
+                ViewData["tipoMovi"] = tipo;
             }
             String nombrePe = "";
             foreach (ProgramaEducativo pe in y)
@@ -126,7 +130,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
-        public IActionResult MostrarInformacionInscripcion(FormInscribirMovilidad movi)
+        public IActionResult MostrarInformacionInscripcion(FormInscribirMovilidad movi, int tipo)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             int movilidad = movi.idMovilidad;
@@ -150,13 +154,14 @@ namespace SGCFIEE.Controllers
             ViewData["dtPAlu"] = dp;
             ViewData["dtEAlu"] = alu;
             ViewData["dt"] = formulario;
+            ViewData["tipoMovi"] = tipo;
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult GuardarInscripcion(FormInscribirMovilidad formovi)
+        public IActionResult GuardarInscripcion(FormInscribirMovilidad formovi, int tipo)
         {
             TbMovilidad tb = new TbMovilidad();
             tb.RAlumno = formovi.idAlumno;
@@ -170,14 +175,15 @@ namespace SGCFIEE.Controllers
                 {
                     if (item.RAlumno == formovi.idAlumno && item.RMovilidad == formovi.idMovilidad && item.RPeriodo==formovi.idPeriodo)
                     {
-                        return RedirectToAction("Index");
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("Index",new { tipo = tipo});
                     }
                 }
                 context.TbMovilidad.Add(tb);
                 context.SaveChanges();
             }
-            
-            return RedirectToAction("Index");
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+            return RedirectToAction("Index", new { tipo = tipo });
         }
 
         [Authorize]

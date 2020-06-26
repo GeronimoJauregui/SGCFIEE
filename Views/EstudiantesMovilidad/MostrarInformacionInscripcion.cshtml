@@ -1,6 +1,7 @@
 ﻿@model SGCFIEE.Models.FormInscribirMovilidad;
 @{
     Layout = "~/Views/Home/Principal.cshtml";
+    var tipo = (int)ViewData["tipoMovi"];
     var x = (SGCFIEE.Models.CtMovilidades)ViewData["dtMovi"];
     var y = (SGCFIEE.Models.Alumnos)ViewData["dtEAlu"];
     var z = (SGCFIEE.Models.DatosPersonales)ViewData["dtPAlu"];
@@ -56,6 +57,7 @@
                                         <form asp-action="GuardarInscripcion" asp-antiforgery="true">
                                             <div class="card-body " id="bar-parent2">
                                                 <div class="row">
+                                                    <input type="hidden" name="tipo" value="@tipo" />
                                                     <input type="hidden" asp-for="idMovilidad" value="@k.idMovilidad" />
                                                     <input type="hidden" asp-for="idAlumno" value="@k.idAlumno" />
 
@@ -72,7 +74,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-6 b-r">
-                                                <a id="cancelarEdicion" asp-controller="EstudiantesMovilidad" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                                <a id="cancelarEdicion" asp-controller="EstudiantesMovilidad" asp-route-tipo="@tipo" asp-action="Index" class="btn btn-default btn-sm m-b-10">
                                                     Cancelar
                                                 </a>
                                                 <button type="submit" class="btn btn-success btn-sm m-b-10" id="guardarmovi">

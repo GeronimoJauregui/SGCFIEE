@@ -1,14 +1,8 @@
-﻿@model SGCFIEE.Models.CalificacionAlumno
+﻿
 @{
     ViewData["Title"] = "Agregar Calificacion";
     Layout = "~/Views/Home/Principal.cshtml";
-    var v = (IEnumerable<Academicos>)ViewData["academicos"];
-    var w = (IEnumerable<TipoPeriodo>)ViewData["periodos"];
-    var x = (IEnumerable<TbSalones>)ViewData["salones"];
-    var y = (IEnumerable<ExperienciaEducativa>)ViewData["experiencias"];
-    var z = (IEnumerable<CtTipoCalificacion>)ViewData["tipocali"];
-    var u = (IEnumerable<ModeloMCadd>)ViewData["mapa"];
-    var id = ViewData["idalumno"];
+    var id = (int)ViewData["idalumno"];
 }
 
 <!DOCTYPE html>
@@ -26,82 +20,32 @@
                 <div class="white-box">
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
-                            <form asp-action="CrearCali" asp-antiforgery="true">
+                            
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12">
                                         
                                         <div class="card-body " id="bar-parent2">
-                                            <div class="row">
-
-                                                <div class="col-md-6 col-sm-6">
-                                                    <input hidden  asp-for="idalumno" value="@id" />
-                                                    <div class="form-group">
-                                                        <label asp-for="Nrc">NRC del académico</label>
-                                                        <input asp-for="Nrc" id="nrcaca" type="text" class="form-control" placeholder="Ingresar..." required="required">
+                                            <form asp-action="Informacion" asp-antiforgery="true">
+                                                <div class="row">
+                                                    <input   name="idalumno" value="@id" />
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <div class="form-group">
+                                                            <label>NRC de la Experiencia Educativa</label>
+                                                            <input name="nrc"  type="number" class="form-control" placeholder="Ingresar..." required="required">
+                                                        </div>
+                                                        <button type="submit" class="btn btn-success btn-sm m-b-10" style="float:right">Buscar</button>
+                                                        <a asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" asp-route-id="@id" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                            Cancelar
+                                                        </a>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label>Seleccione el nombre del académico</label>
-                                                        <select asp-for="IdAcademico" class="form-control" id="areaexp">
-                                                            @foreach (var item in v)
-                                                            {
-                                                                <option value="@item.IdAcademicos">@Html.DisplayFor(modelItem => item.Nombre) @Html.DisplayFor(modelItem => item.ApellidoPaterno) @Html.DisplayFor(modelItem => item.ApellidoMaterno)</option>
-                                                            }
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Seleccione un periodo</label>
-                                                        <select asp-for="IdPeriodo" class="form-control" id="areaexp">
-                                                            @foreach (var item in w)
-                                                            {
-                                                                <option value="@item.IdPeriodo">@Html.DisplayFor(modelItem => item.Nombre) </option>
-                                                            }
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Seleccione un salon</label>
-                                                        <select asp-for="IdSalon" class="form-control" id="areaexp">
-                                                            @foreach (var item in x)
-                                                            {
-                                                                <option value="@item.IdTbSalones">@Html.DisplayFor(modelItem => item.Edificio)-@Html.DisplayFor(modelItem => item.ClaveSalon) </option>
-                                                            }
-                                                        </select>
-                                                    </div>
+                                                
                                                 </div>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <div class="form-group">
-                                                        <label>Seleccione la experiencia educativa</label>
-                                                        <select asp-for="IdMapaCurricular" class="form-control" id="areaexp">
-                                                            @foreach (var item in u)
-                                                            {
-                                                                <option value="@item.id">@Html.DisplayFor(modelItem => item.programa) ---> @Html.DisplayFor(modelItem => item.mat) </option>
-                                                            }
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label asp-for="Calificacion">Calificación</label>
-                                                        <input asp-for="Calificacion" id="calialum" type="number" class="form-control" placeholder="Ingresar..." required="required">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Seleccione el tipo de calificación</label>
-                                                        <select asp-for="RTipoCalificacion" class="form-control" id="areaexp">
-                                                            @foreach (var item in z)
-                                                            {
-                                                                <option value="@item.IdCtTipoCalificacion">@Html.DisplayFor(modelItem => item.Tipo) </option>
-                                                            }
-                                                        </select>
-                                                    </div>
-                                                    <br /><br /><br />
-                                                    <input id="enviacalialum" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                                                    <a asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" asp-route-id="@id" class="btn btn-default btn-sm m-b-10" style="float:right">
-                                                        Cancelar
-                                                    </a>
-                                                </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                                 
-                            </form>
+                            
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Home/Principal.cshtml";
     var x = (int)ViewData["clv"];
+    var tipo = (int)ViewData["tipoMovi"];
     var y = (IEnumerable<ProgramaEducativo>)ViewData["Programas"];
     var alumnos = (IEnumerable<TablaAlumno>)ViewData["Alumnos"];
 }
@@ -27,6 +28,7 @@
                                         <form asp-action="MostrarListaAlumnos" asp-antiforgery="true">
                                             <div class="card-body " id="bar-parent2">
                                                 <div class="row">
+                                                    <input type="hidden" name="tipo" value="@tipo" />
                                                     <input type="hidden" asp-for="idMovilidad" value="@x" />
                                                     <div class="col-md-6 col-sm-6">
                                                         <div class="form-group">
@@ -49,6 +51,7 @@
                                         <form asp-action="MostrarInformacionInscripcion" asp-antiforgery="true">
                                             <div class="card-body " id="bar-parent2">
                                                 <div class="row">
+                                                    <input type="hidden" name="tipo" value="@tipo" />
                                                     <input type="hidden" asp-for="idMovilidad" value="@x" />
                                                     <div class="col-md-6 col-sm-6">
                                                         <div class="form-group">
@@ -61,7 +64,7 @@
                                                                 }
                                                             </select>
                                                         </div>
-                                                        <a id="cancelarEdicion" asp-controller="EstudiantesMovilidad" asp-action="Index" class="btn btn-default btn-sm m-b-10">
+                                                        <a id="cancelarEdicion" asp-controller="EstudiantesMovilidad" asp-route-tipo="@tipo" asp-action="Index" class="btn btn-default btn-sm m-b-10">
                                                             Cancelar
                                                         </a>
                                                         <button type="submit" class="btn btn-success btn-sm m-b-10" id="guardarmovi">

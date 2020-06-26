@@ -6,6 +6,7 @@
     Layout = "~/Views/Home/Principal.cshtml";
     var idAlu = (int)ViewData["idAlu"];
     var rubro = (IEnumerable<TbRubrosexamenes>)ViewData["rubros"];
+    var calif = (IEnumerable<TbExamenalumno>)ViewData["calif"];
 }
 
 <!DOCTYPE html>
@@ -32,25 +33,39 @@
                                             <div class="row">
                                                 @foreach (var item in rubro)
                                                 {
-                                                <div class="col-md-6 col-sm-6 calificacion">
-                                                    <div class="form-group">
-                                                        <strong asp-for="CalificacionExamen">@Html.DisplayFor(modelItem => item.RubroExamen)</strong>
-                                                        <input asp-for="CalificacionExamen" value="" type="number" class="form-control" placeholder="Calificacion" name="calificacion" required="required">
-                                                        <input asp-for="IdRubroExamen" value="@item.IdTbRubrosExamenes" type="hidden" name="rubro">
-                                                        <input asp-for="IdAlumno" value="@idAlu" type="hidden" name="alumno">
+                                                    var cont = '0';
+                                                    <div class="col-md-6 col-sm-6 calificacion">
+                                                        <div class="form-group">
+                                                            @foreach (var item2 in calif)
+                                                            {
+                                                                if (item.IdTbRubrosExamenes == item2.IdRubroExamen)
+                                                                {
+                                                                    <input asp-for="IdTbExamenAlumno" value="@item2.IdTbExamenAlumno" name="idExamenAlum" hidden>
+                                                                    <strong asp-for="CalificacionExamen">@Html.DisplayFor(modelItem => item.RubroExamen)</strong>
+                                                                    <input asp-for="CalificacionExamen" value="@item2.CalificacionExamen" type="number" class="form-control" placeholder="Ingresar..." name="calificacion" required="required">
+                                                                    cont = '1';
+                                                                }
+                                                            }
+                                                            @if(cont == '0')
+                                                            {
+                                                                <strong asp-for="CalificacionExamen">@Html.DisplayFor(modelItem => item.RubroExamen)</strong>
+                                                                <input asp-for="CalificacionExamen" value="" type="number" class="form-control" placeholder="Ingresar..." name="calificacion" required="required">
+                                                            }
+                                                            <input asp-for="IdRubroExamen" value="@item.IdTbRubrosExamenes" type="hidden" name="rubro">
+                                                            <input asp-for="IdAlumno" value="@idAlu" type="hidden" name="alumno">
                                                         
+                                                        </div>
+                                                        <strong>Tipo Examen</strong>
+                                                        @if(item.TipoExamen == 1)
+                                                        {
+                                                             <div>Examen ingreso</div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div>Examen interno</div>
+                                                        }
+                                                         <br/> <br />
                                                     </div>
-                                                    <strong>Tipo Examen</strong>
-                                                    @if(item.TipoExamen == 1)
-                                                    {
-                                                         <div>Examen ingreso</div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div>Examen interno</div>
-                                                    }
-                                                     <br/> <br />
-                                                </div>
 
                                                 }
                                                 <div class="col-md-12 col-sm-12">

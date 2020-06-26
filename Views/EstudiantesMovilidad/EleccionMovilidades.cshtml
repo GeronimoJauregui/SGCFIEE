@@ -28,11 +28,11 @@
 
                                     <div class="card-body " id="bar-parent2">
                                         <!-- text input -->
-                                        <form asp-action="Index" asp-antiforgery="true">
+                                        <form asp-controller="EstudiantesMovilidad" asp-action="Index" asp-antiforgery="true">
                                             <div class="form-group">
                                                 <div class="col-md-3 col-sm-3">
-                                                    <label asp-for="TipoMovilidades">Elija el tipo de movilidad</label>
-                                                    <select asp-for="TipoMovilidades" id="tipo" class="form-control">
+                                                    <label >Elija el tipo de movilidad</label>
+                                                    <select name="tipo" id="tipo" class="form-control">
                                                         <option value="0">Seleccionar...</option>
                                                         <option value="1">Nacional</option>
                                                         <option value="2">Internacional</option>

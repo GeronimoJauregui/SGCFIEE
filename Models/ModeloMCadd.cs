@@ -7,8 +7,11 @@ namespace SGCFIEE.Models
 {
     public class ModeloMCadd
     {
-        public int id { get; set; }
-        public String mat { get; set; }
-        public String programa { get; set; }
+        public int IdExpericiaEducPerio { get; set; }
+        public int? Nrc { get; set; }
+        public String Maestro { get; set; }
+        public String Periodo { get; set; }
+        public String Salon { get; set; }
+        public String Experiencia { get; set; }
     }
 }

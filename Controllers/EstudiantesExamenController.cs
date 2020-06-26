@@ -18,8 +18,10 @@ namespace SGCFIEE.Controllers
             ViewData["idAlu"] = (int)HttpContext.Session.GetInt32("IdUsu");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                var calif = context.TbExamenalumno.ToList();
                 var x = context.TbRubrosexamenes.ToList();
                 ViewData["rubros"] = x;
+                ViewData["calif"] = calif;
                 return View();
             }
                 
@@ -35,7 +37,7 @@ namespace SGCFIEE.Controllers
             {
                 foreach (var item in lista)
                 {
-                    context.TbExamenalumno.Add(item);
+                    context.TbExamenalumno.Update(item);
                     context.SaveChanges();
                 }                
                 TempData["mensaje"] = "Dato guardado";

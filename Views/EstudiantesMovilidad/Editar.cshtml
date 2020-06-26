@@ -1,6 +1,7 @@
 ﻿@model SGCFIEE.Models.CtMovilidades;
 @{
     Layout = "~/Views/Home/Principal.cshtml";
+    var tipo = (int)ViewData["tipoMovi"];
 }
 
 <div class="profile-content">
@@ -9,7 +10,7 @@
             <div class="card">
                 <div class="card-topline-green">
                      <div class="card-head">
-                        <header>Editar Movilidad</header>
+                        <header>Movilidad</header>
                     </div>
                 </div>
                 <div class="white-box">
@@ -22,6 +23,7 @@
                                         <form asp-action="GuardarEdicion" asp-antiforgery="true">
                                             <div class="card-body " id="bar-parent2">
                                                 <div class="row">
+                                                    <input type="hidden" name="tipo" value="@tipo"/>
                                                     <input type="hidden" asp-for="IdCtMovilidades" />
                                                     <div class="col-md-6 col-sm-6">
                                                         <div class="form-group">
@@ -67,7 +69,7 @@
                                                         <button type="submit" class="btn btn-success btn-sm m-b-10" id="guardarmovi" style="float:right">
                                                             Guardar
                                                         </button>
-                                                        <a id="cancelarEdicion" asp-controller="EstudiantesMovilidad" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                        <a id="cancelarEdicion" asp-route-tipo="@tipo" asp-controller="EstudiantesMovilidad" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
                                                             Cancelar
                                                         </a>
                                                     </div>

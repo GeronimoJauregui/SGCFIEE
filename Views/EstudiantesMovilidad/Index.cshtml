@@ -2,12 +2,20 @@
 @{
     ViewData["Title"] = "Index";
     var x = (int)ViewData["tipo"];
+    var tipo = (int)ViewData["tipoMovi"];
     Layout = "~/Views/Home/Principal.cshtml";
     var modelo = (IEnumerable<CtMovilidades>)ViewData["Movilidades"];
 }
+<link rel="stylesheet" href="~/assets/plugins/sweet-alert/sweetalert.min.css">
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 <!DOCTYPE html>
 <html>
 <div class="profile-content">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card">
@@ -30,11 +38,11 @@
                                     <div class="card-body ">
                                         <div class="row p-b-20">
                                             <div class="col-md-12 col-sm-12 col-12">
-                                                <form asp-action="Index" asp-antiforgery="true">
+                                                <form asp-controller="EstudiantesMovilidad" asp-action="Index" asp-antiforgery="true">
                                                     <div class="form-group">
                                                         <div class="col-md-3 col-sm-3">
-                                                            <label asp-for="TipoMovilidades">Elija el tipo de movilidad</label>
-                                                            <select asp-for="TipoMovilidades" id="tipo" class="form-control">
+                                                            <label>Elija el tipo de movilidad</label>
+                                                            <select name="tipo" id="tipo" class="form-control">
                                                                 <option value="0">Seleccionar...</option>
                                                                 <option value="1">Nacional</option>
                                                                 <option value="2">Internacional</option>
@@ -89,10 +97,10 @@
                                                             @if (x != 3)
                                                             {
                                                                 <td class="center">
-                                                                    <a asp-route-id="@item.IdCtMovilidades" asp-controller="EstudiantesMovilidad" asp-action="Editar" class="btn btn-primary btn-xs editar" title="Editar">
+                                                                    <a asp-route-id="@item.IdCtMovilidades" asp-route-tipo="@tipo" asp-controller="EstudiantesMovilidad" asp-action="Editar" class="btn btn-primary btn-xs editar" title="Editar">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
-                                                                    <a asp-route-id="@item.IdCtMovilidades" asp-controller="EstudiantesMovilidad" asp-action="FormInscribir" class="btn btn-success btn-xs eliminar" title="Inscribir">
+                                                                    <a asp-route-id="@item.IdCtMovilidades" asp-route-tipo="@tipo" asp-controller="EstudiantesMovilidad" asp-action="FormInscribir" class="btn btn-success btn-xs eliminar" title="Inscribir">
                                                                         <i class="fa fa-sign-in "></i>
                                                                     </a>
                                                                 </td>

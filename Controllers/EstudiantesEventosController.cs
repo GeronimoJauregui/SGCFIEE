@@ -40,9 +40,9 @@ namespace SGCFIEE.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult OpcionesEventos(TipoEventos eventos)
+        public IActionResult OpcionesEventos(int idEvento)
         {
-            int x = eventos.IdEventos;
+            int x = idEvento;
             if(x == 0)
             {
                 return RedirectToAction("Index");
@@ -56,32 +56,48 @@ namespace SGCFIEE.Controllers
                     var evento = context.TbEventos.Where(s => s.RTioEvento.Equals(x)).ToList<TbEventos>();
                     ViewData["tipos"] = categorias;
                     ViewData["Eventos"] = evento;
+                    ViewData["idEvento"] = x;
                 }
             }
             return View();
         }
         [Authorize]
-        public IActionResult FormEvento(int id)
+        public IActionResult FormEvento(int id, int idEvento)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var evento = context.TbEventos.Where(s => s.IdEventos.Equals(id)).Single();
                 ViewData["evento"] = evento;
+                ViewData["idEvento"] = idEvento;
             }
             return View();
         }
         [Authorize]
-        public IActionResult RegistrarEventoAlu(EventosAlumnos eventos)
+        public IActionResult RegistrarEventoAlu(EventosAlumnos eventos, int idEvento)
         {
             int idAlu = (int)HttpContext.Session.GetInt32("IdUsu");
             eventos.RAlumno = idAlu;
-            using(sgcfieeContext context = new sgcfieeContext())
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var even = context.EventosAlumnos.Where(a => a.RAlumno == idAlu).ToList();
+                foreach(EventosAlumnos item in even)
+                {
+                    if(item.REvento == eventos.REvento && item.Fecha == eventos.Fecha)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("OpcionesEventos", new { idEvento = idEvento });
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.EventosAlumnos.Add(eventos);
                 context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("OpcionesEventos", new { idEvento = idEvento});
         }
     }
 }
