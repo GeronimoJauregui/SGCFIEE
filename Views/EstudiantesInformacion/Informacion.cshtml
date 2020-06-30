@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Informacion";
     Layout = "~/Views/Home/Principal.cshtml";
-    
+    var id = (int)ViewData["nrc"];
 }
 
 <!DOCTYPE html>
@@ -20,7 +20,7 @@
                 <div class="white-box">
                     <div class="tab-content">
                         <div class="tab-pane fontawesome-demo active show" id="tab1">
-                            
+                            <input name="idalumno" value="@id" />
                         </div>
                     </div>
                 </div>

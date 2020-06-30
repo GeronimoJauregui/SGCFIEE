@@ -23,6 +23,7 @@ namespace SGCFIEE.Controllers
         private string pass = "Qwerty.12";
         MailMessage m = new MailMessage();
         SmtpClient smtp = new SmtpClient();
+        private object nrc;
         private readonly IHostingEnvironment _hostingEnvironment;
         public EstudiantesInformacionController(IHostingEnvironment hostingEnvironment)
         {
@@ -609,13 +610,14 @@ namespace SGCFIEE.Controllers
 
         }
 
-        
-        [HttpGet]
-        public IActionResult Informacion()
+
+        [HttpPost]
+        public IActionResult Informacion(int nrc)
         {
             
             int id = (int)HttpContext.Session.GetInt32("IdUsu");
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            ViewData["nrc"] = nrc;
             return View();
             //using (sgcfieeContext context = new sgcfieeContext())
             //{
@@ -685,7 +687,7 @@ namespace SGCFIEE.Controllers
         //        context.SaveChanges();
         //        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
 
-        //        return RedirectToAction("DetallesBoleta",new { id = calialum.idalumno });
+        //        return RedirectToAction("DetallesBoleta", new { id = calialum.idalumno });
         //    }
         //}
         [HttpGet]
