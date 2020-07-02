@@ -248,7 +248,7 @@ namespace SGCFIEE.Controllers
                 datos.IdTr = datosTR2.IdTrabajosRecepcionales;
                 context.JuradoExperienciaRecepcional.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -569,7 +569,7 @@ namespace SGCFIEE.Controllers
             {
                 context.JuradoExamenOposicion.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -868,7 +868,7 @@ namespace SGCFIEE.Controllers
             {
                 context.RediseñoPlanEstudios.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -1081,7 +1081,7 @@ namespace SGCFIEE.Controllers
             {
                 context.ParticipacionPladea.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -1351,7 +1351,7 @@ namespace SGCFIEE.Controllers
                 datos.IdTr = datosTR2.IdTrabajosRecepcionales;
                 context.JuradoExperienciaRecepcional.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {

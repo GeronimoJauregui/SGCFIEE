@@ -207,7 +207,7 @@ namespace SGCFIEE.Controllers
                 
                 context.DatosPersonales.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("Index");
             }
 
@@ -321,7 +321,7 @@ namespace SGCFIEE.Controllers
                         cali.Nombreexpe = e.Nombre;
                         cali.Nrc = a.Nrc;
                         cali.IdPeriodo = f.IdPeriodo;
-                        cali.Nombreaca = c.Nombre;
+                        cali.Nombreaca = c.Nombre + " " + c.ApellidoPaterno + " " + c.ApellidoMaterno;
                         cali.Calificacion = item.Calificacion;
                         cali.tipocali = b.Tipo;
                         cali.creditos = e.Creditos;
@@ -612,84 +612,92 @@ namespace SGCFIEE.Controllers
 
 
         [HttpPost]
-        public IActionResult Informacion(int nrc)
+        public IActionResult Informacion(int nrc, int idalumno)
         {
             
             int id = (int)HttpContext.Session.GetInt32("IdUsu");
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             ViewData["nrc"] = nrc;
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var EE = context.ExperienciaEducativaPeriodo.Where(n => n.Nrc == nrc).SingleOrDefault();
+
+                if (EE != null)
+                {
+                    ModeloMCadd lista = (from z in context.ExperienciaEducativaPeriodo
+                                         join acad in context.Academicos on z.IdAcademico equals acad.IdAcademicos
+                                         join per in context.TipoPeriodo on z.IdPeriodo equals per.IdPeriodo
+                                         join sal in context.TbSalones on z.IdSalon equals sal.IdTbSalones
+                                         join mapa in context.MapaCurricular on z.IdMapaCurricular equals mapa.IdMapaCurricular
+                                         join Expe in context.ExperienciaEducativa on mapa.IdExperienciaEducativa equals Expe.IdExperienciaEducativa
+                                         select
+                                         new ModeloMCadd
+                                         {
+                                             IdExpericiaEducPerio = z.IdExperienciaEducativaPeriodo,
+                                             Nrc = z.Nrc,
+                                             Maestro = acad.Nombre + " " + acad.ApellidoPaterno + " " + acad.ApellidoMaterno,
+                                             Periodo = per.Nombre,
+                                             Salon = sal.Edificio + "-" + sal.ClaveSalon,
+                                             Experiencia = Expe.Nombre
+                                         }).Where(n => n.Nrc == nrc).Single();
+                    var TipoCalif = context.CtTipoCalificacion.ToList();
+                    ViewData["tipocalif"] = TipoCalif;
+                    ViewData["info"] = lista;
+                    ViewData["idalumno"] = idalumno;
+
+                }
+                else
+                {
+                    TempData["msg"] = "<script language='javascript'> swal({ title:'" + "El NRC no existe!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                    return RedirectToAction("CrearCali", new { idalum = idalumno });
+                }
+
+            }
+
             return View();
-            //using (sgcfieeContext context = new sgcfieeContext())
-            //{
-            //    var EE = context.ExperienciaEducativaPeriodo.Where(n => n.Nrc == nrc).Single();
-                
-            //    if(EE != null)
-            //    {
-            //        ModeloMCadd lista = (from z in context.ExperienciaEducativaPeriodo
-            //                            join acad in context.Academicos on z.IdAcademico equals acad.IdAcademicos
-            //                            join per in context.TipoPeriodo on z.IdPeriodo equals per.IdPeriodo
-            //                            join sal in context.TbSalones on z.IdSalon equals sal.IdTbSalones
-            //                            join mapa in context.MapaCurricular on z.IdMapaCurricular equals mapa.IdMapaCurricular
-            //                            join Expe in context.ExperienciaEducativa on mapa.IdExperienciaEducativa equals Expe.IdExperienciaEducativa
-            //                            select
-            //                            new ModeloMCadd
-            //                            {
-            //                                IdExpericiaEducPerio = z.IdExperienciaEducativaPeriodo,
-            //                                Nrc = z.Nrc,
-            //                                Maestro = acad.Nombre + " " + acad.ApellidoPaterno + " " + acad.ApellidoMaterno,
-            //                                Periodo = per.Nombre,
-            //                                Salon = sal.Edificio + "-" + sal.ClaveSalon,
-            //                                Experiencia = Expe.Nombre
-            //                            }).Where(n=> n.Nrc == nrc).Single();
-            //        ViewData["info"] = lista;
-            //        ViewData["idalumno"] = idalumno;
-                    
-            //    }
-            //    else
-            //    {
-            //        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "El NRC no existe!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
-            //        return RedirectToAction("CrearCali", new { idalum = idalumno });
-            //    }
-                
-            //}
-            
-            //return View();
         }
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public IActionResult CrearCali(CalificacionAlumno calialum)
-        //{
-        //    ExperienciaEducativaPeriodo experienciaperiodo = new ExperienciaEducativaPeriodo();
-        //    TbCalificacion calificacion = new TbCalificacion();
-        //    TbHorario horario = new TbHorario();
-        //    using (sgcfieeContext context = new sgcfieeContext())
-        //    {
-        //        calificacion.RTipoCalificacion = calialum.RTipoCalificacion;
-        //        calificacion.Calificacion = calialum.Calificacion;
-        //        context.TbCalificacion.Add(calificacion);
-        //        context.SaveChanges();
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarBoleta(CalificacionAlumno calialum)
+        {
+            TbCalificacion calificacion = new TbCalificacion();
+            TbHorario horario = new TbHorario();
 
-        //        experienciaperiodo.Nrc = calialum.Nrc;
-        //        experienciaperiodo.IdPeriodo = calialum.IdPeriodo;
-        //        experienciaperiodo.IdAcademico = calialum.IdAcademico;
-        //        experienciaperiodo.IdSalon = calialum.IdSalon;
-        //        experienciaperiodo.CalificacionAcademico = calialum.Calificacion;
-        //        experienciaperiodo.IdMapaCurricular = calialum.IdMapaCurricular;
-        //        context.ExperienciaEducativaPeriodo.Add(experienciaperiodo);
-        //        context.SaveChanges();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var tb_horario = context.TbHorario.ToList();
+                foreach(TbHorario item in tb_horario)
+                {
+                    if(item.RAlumno == calialum.idalumno && item.RExperienciaPeriodo == calialum.IdExperienciaEducativaPeriodo)
+                    {
+                        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                        return RedirectToAction("DetallesBoleta", new { id = calialum.idalumno });
+                    }
+                }
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                calificacion.RTipoCalificacion = calialum.RTipoCalificacion;
+                calificacion.Calificacion = calialum.Calificacion;
+                context.TbCalificacion.Add(calificacion);
+                context.SaveChanges();
 
-        //        horario.RExperienciaPeriodo = experienciaperiodo.IdExperienciaEducativaPeriodo;
-        //        horario.RAlumno = calialum.idalumno;
-        //        horario.Calificacion = calialum.Calificacion;
-        //        //horario.RSalon = calialum.IdSalon;
-        //        horario.RTipoCalif = calialum.RTipoCalificacion;
-        //        context.TbHorario.Add(horario);
-        //        context.SaveChanges();
-        //        TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var idTbCalif = context.TbCalificacion.Last();
 
-        //        return RedirectToAction("DetallesBoleta", new { id = calialum.idalumno });
-        //    }
-        //}
+                horario.RExperienciaPeriodo = calialum.IdExperienciaEducativaPeriodo;
+                horario.RAlumno = calialum.idalumno;
+                horario.Calificacion = calialum.Calificacion;
+                horario.RTipoCalif = idTbCalif.IdTbCalificacion;
+                context.TbHorario.Add(horario);
+                context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+
+                return RedirectToAction("DetallesBoleta", new { id = calialum.idalumno });
+            }
+        }
         [HttpGet]
         public IActionResult Eliminar(int id)
         {

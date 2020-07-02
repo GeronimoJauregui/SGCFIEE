@@ -5,14 +5,7 @@
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
-            <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Views" expanded="True">
-                <Node name="EstudiantesInformacion" expanded="True">
-                  <Node name="CrearCali.cshtml" selected="True" />
-                </Node>
-              </Node>
-            </Node>
+            <Node name="SGCFIEE" expanded="True" />
           </Node>
         </State>
       </Pad>

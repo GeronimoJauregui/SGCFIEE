@@ -92,7 +92,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoLocNacInter.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarLocalizacion");
         }
@@ -181,7 +181,7 @@ namespace SGCFIEE.Controllers
             {
                 context.Editorial.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarEditorial");
         }
@@ -270,7 +270,7 @@ namespace SGCFIEE.Controllers
             {
                 context.CanivelJerarquico.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarNivel");
         }
@@ -359,7 +359,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoEvaluador.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarProducto");
         }
@@ -448,7 +448,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoModalidad.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarModalidad");
         }
@@ -559,7 +559,7 @@ namespace SGCFIEE.Controllers
             {
                 context.CuerposAcademicos.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarCuerpos");
         }
@@ -646,7 +646,7 @@ namespace SGCFIEE.Controllers
             {
                 context.CuerpoEstados.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarEstado");
         }
@@ -1469,7 +1469,7 @@ namespace SGCFIEE.Controllers
             {
                 context.Academias.Update(aca);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarAcademias");
         }
@@ -1506,7 +1506,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoCertificacion.Update(cert);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarCertificacion");
         }
@@ -1543,7 +1543,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoDistincionTa.Update(ta);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarDistincionesTA");
         }
@@ -1581,7 +1581,7 @@ namespace SGCFIEE.Controllers
             {
                 context.GradoTitulo.Update(gt);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarGTitulo");
         }
@@ -1618,7 +1618,7 @@ namespace SGCFIEE.Controllers
             {
                 context.InstitucionesEmpresas.Update(ie);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarInstiEmpre");
         }
@@ -1654,7 +1654,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoLaboratorio.Update(lab);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarLaboratorios");
         }
@@ -1691,7 +1691,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoPeriodo.Update(per);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarPeriodos");
         }
@@ -1728,7 +1728,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoPersonal.Update(per);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarPersonal");
         }
@@ -1765,7 +1765,7 @@ namespace SGCFIEE.Controllers
             {
                 context.ProgramasTrasversales.Update(pt);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarProTransversales");
         }
@@ -1802,7 +1802,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoPuesto.Update(puesto);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarPuestos");
         }
@@ -1839,7 +1839,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoContratacionee.Update(ee);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             return RedirectToAction("MostrarTContratacion");
         }
@@ -1933,7 +1933,7 @@ namespace SGCFIEE.Controllers
             {
                 context.ProgramaEducativo.Update(programa);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarProgramas");
             }
         }
@@ -2022,7 +2022,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TbRubrosexamenes.Update(rubro);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarRubro");
             }
         }
@@ -2113,7 +2113,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TbSalones.Update(salon);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarSalon");
             }
         }
@@ -2202,7 +2202,7 @@ namespace SGCFIEE.Controllers
             {
                 context.AreaExperienciaEducativa.Update(area);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarArea");
             }
         }
@@ -2316,7 +2316,7 @@ namespace SGCFIEE.Controllers
 
                 context.ExperienciaEducativa.Update(expe);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarExperiencia");
             }
         }
@@ -2416,7 +2416,7 @@ namespace SGCFIEE.Controllers
             {
                 context.CtMovilidades.Update(movi);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarMovilidad");
             }
         }
@@ -2505,7 +2505,7 @@ namespace SGCFIEE.Controllers
             {
                 context.CtTipoCalificacion.Update(cali);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarTipo");
             }
         }
@@ -2594,7 +2594,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TipoEventos.Update(tipoe);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarTipoe");
             }
         }
@@ -2706,7 +2706,7 @@ namespace SGCFIEE.Controllers
             {
                 context.TbEventos.Update(eve);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 return RedirectToAction("MostrarEvento");
             }
         }

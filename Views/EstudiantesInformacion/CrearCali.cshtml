@@ -4,11 +4,17 @@
     Layout = "~/Views/Home/Principal.cshtml";
     var id = (int)ViewData["idalumno"];
 }
-
+<link rel="stylesheet" href="~/assets/plugins/sweet-alert/sweetalert.min.css">
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 <!DOCTYPE html>
 
 <html>
 <div class="profile-content">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card">
@@ -27,14 +33,14 @@
                                         <div class="card-body " id="bar-parent2">
                                             <form asp-action="Informacion" asp-antiforgery="true">
                                                 <div class="row">
-                                                    <input   name="idalumno" value="@id" />
-                                                    <div class="col-md-6 col-sm-6">
+                                                    <input hidden  name="idalumno" value="@id" />
+                                                    <div class="col-md-4 col-sm-4">
                                                         <div class="form-group">
                                                             <label>NRC de la Experiencia Educativa</label>
                                                             <input name="nrc"  type="number" class="form-control" placeholder="Ingresar..." required="required">
                                                         </div>
-                                                        <button type="submit" class="btn btn-success btn-sm m-b-10" style="float:right">Buscar</button>
-                                                        <a asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" asp-route-id="@id" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                        <button type="submit" class="btn btn-success btn-sm m-b-10" >Buscar</button>
+                                                        <a asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" asp-route-id="@id" class="btn btn-default btn-sm m-b-10" >
                                                             Cancelar
                                                         </a>
                                                     </div>

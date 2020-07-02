@@ -113,8 +113,8 @@ namespace SGCFIEE.Controllers
             {
                 context.RecursosExternos.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
-                
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+
             }
             return RedirectToAction("Index");
         }

@@ -167,7 +167,7 @@ namespace SGCFIEE.Controllers
             {
                 context.EvaluadoresAcademicos.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -448,7 +448,7 @@ namespace SGCFIEE.Controllers
             {
                 context.CursosTalleresAplicacion.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -737,7 +737,7 @@ namespace SGCFIEE.Controllers
             {
                 context.CaAcademicos.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {
@@ -1023,7 +1023,7 @@ namespace SGCFIEE.Controllers
             {
                 context.PonenciasConferencias.Update(datos);
                 context.SaveChanges();
-                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
             }
             if (file == null || file.Length == 0)
             {

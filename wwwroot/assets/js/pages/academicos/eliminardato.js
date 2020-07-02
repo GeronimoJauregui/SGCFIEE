@@ -17,7 +17,7 @@
                 var newDoc = document.open("text/html", "replace");
                 newDoc.write(arguments[0]);
                 newDoc.close();
-                swal("Eliminado exitosamente!", "Click en el bot\u00F3n!", "success");
+                    swal({ title: "Eliminado exitosamente!", timer: 2000, type: "success", showConfirmButton: false });
             });
         });
     });
@@ -46,7 +46,7 @@ $('a[name="eliminaracademico"]').on('click', function () {
                 var newDoc = document.open("text/html", "replace");
                 newDoc.write(arguments[0]);
                 newDoc.close();
-                swal("Eliminado exitosamente!", "Click en el bot\u00F3n!", "success");
+                swal({ title: "Eliminado exitosamente!", timer: 2000, type: "success", showConfirmButton: false });
             });
         });
     });
