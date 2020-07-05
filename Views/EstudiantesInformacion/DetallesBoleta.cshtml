@@ -63,6 +63,13 @@
                                                         <div class="panel">
                                                             <header class="panel-heading panel-heading-blue">
                                                                 @Html.DisplayFor(modelItem => item.Nombreexpe)
+                                                                
+                                                                <a data-value="@item.idTbHorario"  data-controlador="EstudiantesInformacion" data-accion="EliminarCalif" data-regreso="Index" name="laeliminacion" class="btn btn-danger btn-xs eliminar" title="Eliminar" style="float:right">
+                                                                    <i class="fa fa-trash-o "></i>
+                                                                </a>
+                                                                <a asp-route-idalumno="@alumno" asp-route-idboleta="@item.idTbHorario" asp-controller="EstudiantesInformacion" asp-action="EditarCalif" class="btn btn-primary btn-xs editar" title="Editar" style="float:right">
+                                                                   <i class="fa fa-pencil"></i>
+                                                                </a>
                                                             </header>
                                                             <div class="panel-body" style="background-color:#4CB36E;">
                                                                 <p style="color: white;" id="">NRC:        @Html.DisplayFor(modelItem => item.Nrc)</p>

@@ -126,8 +126,6 @@ namespace SGCFIEE.Controllers
             DatosAlumno datosalumno = new DatosAlumno();
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var x = context.ProgramaEducativo.ToList();
-                ViewData["programa"] = x;
                 var alumno = context.Alumnos.Where(s => s.IdAlumnos == id).Single();
                 var datos = context.DatosPersonales.Where(s => s.IdDatosPersonales == id).Single();
                 datosalumno.IdDatosPersonales = id;
@@ -151,12 +149,9 @@ namespace SGCFIEE.Controllers
                 datosalumno.RecidenciaActual = datos.RecidenciaActual;
                 datosalumno.Trabaja = datos.Trabaja;
                 datosalumno.IngresoMensual = datos.IngresoMensual;
-                datosalumno.Matricula = alumno.Matricula;
-                datosalumno.CorreoInstitucional = alumno.CorreoInstitucional;
+                
                 datosalumno.RDatosPerson = datos.IdDatosPersonales;
-                datosalumno.AnioIngreso = alumno.AnioIngreso;
-                datosalumno.Modalidad = alumno.Modalidad;
-                datosalumno.Bachillerato = alumno.Bachillerato;
+                
 
                 return View(datosalumno);
             }
@@ -167,8 +162,7 @@ namespace SGCFIEE.Controllers
         public IActionResult Editar(DatosAlumno alumno)
         {
             DatosPersonales datos = new DatosPersonales();
-            Alumnos alum = new Alumnos();
-            ProgramaEducativo progra = new ProgramaEducativo();
+            
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 datos.IdDatosPersonales = alumno.IdDatosPersonales;
@@ -192,6 +186,51 @@ namespace SGCFIEE.Controllers
                 datos.RecidenciaActual = alumno.RecidenciaActual;
                 datos.Trabaja = alumno.Trabaja;
                 datos.IngresoMensual = alumno.IngresoMensual;
+              
+
+                context.DatosPersonales.Update(datos);
+                context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+                return RedirectToAction("Detalles",new { id = alumno.IdDatosPersonales});
+            }
+
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult EditarInfoAcademica(int id)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            List<DatosAlumno> ListAlumno = new List<DatosAlumno>();
+            DatosAlumno datosalumno = new DatosAlumno();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var x = context.ProgramaEducativo.ToList();
+                ViewData["programa"] = x;
+                var alumno = context.Alumnos.Where(s => s.IdAlumnos == id).Single();
+                var datos = context.DatosPersonales.Where(s => s.IdDatosPersonales == id).Single();
+                datosalumno.IdDatosPersonales = id;
+                datosalumno.Matricula = alumno.Matricula;
+                datosalumno.CorreoInstitucional = alumno.CorreoInstitucional;
+                datosalumno.RDatosPerson = datos.IdDatosPersonales;
+                datosalumno.AnioIngreso = alumno.AnioIngreso;
+                datosalumno.Modalidad = alumno.Modalidad;
+                datosalumno.Bachillerato = alumno.Bachillerato;
+                datosalumno.RProgramaEducativo = alumno.RProgramaEducativo;
+
+                return View(datosalumno);
+            }
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult GuardarInfoAcademica(DatosAlumno alumno)
+        {
+            
+            Alumnos alum = new Alumnos();
+            ProgramaEducativo progra = new ProgramaEducativo();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                
                 alum.IdAlumnos = alumno.IdDatosPersonales;
                 alum.RDatosPerson = alumno.IdDatosPersonales;
                 alum.Matricula = alumno.Matricula;
@@ -204,14 +243,96 @@ namespace SGCFIEE.Controllers
 
                 context.Alumnos.Update(alum);
                 context.SaveChanges();
+
                 
-                context.DatosPersonales.Update(datos);
-                context.SaveChanges();
                 TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
-                return RedirectToAction("Index");
+                return RedirectToAction("DetallesInfoAcademica", new { id = alumno.IdDatosPersonales});
             }
 
         }
+
+        [HttpGet]
+        public IActionResult EditarCalif(int idboleta, int idalumno)
+        {
+
+            int id = (int)HttpContext.Session.GetInt32("IdUsu");
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.TbHorario.Where(t => t.IdPeriodoActual == idboleta).SingleOrDefault();
+
+
+                if (datos != null)
+                {
+                    TablaBoleta lista = (from h in context.TbHorario
+                                         join z in context.ExperienciaEducativaPeriodo on h.RExperienciaPeriodo equals z.IdExperienciaEducativaPeriodo
+                                         join acad in context.Academicos on z.IdAcademico equals acad.IdAcademicos
+                                         join per in context.TipoPeriodo on z.IdPeriodo equals per.IdPeriodo
+                                         join sal in context.TbSalones on z.IdSalon equals sal.IdTbSalones
+                                         join mapa in context.MapaCurricular on z.IdMapaCurricular equals mapa.IdMapaCurricular
+                                         join Expe in context.ExperienciaEducativa on mapa.IdExperienciaEducativa equals Expe.IdExperienciaEducativa
+                                         join tipo in context.TbCalificacion on h.RTipoCalif equals tipo.IdTbCalificacion
+                                         join tipoEx in context.CtTipoCalificacion on tipo.RTipoCalificacion equals tipoEx.IdCtTipoCalificacion
+                                         select
+                                         new TablaBoleta
+                                         {
+                                             IdHorario = h.IdPeriodoActual,
+                                             IdExpericiaEducPerio = z.IdExperienciaEducativaPeriodo,
+                                             IdTipoCalif = tipoEx.IdCtTipoCalificacion,
+                                             Nrc = z.Nrc,
+                                             Maestro = acad.Nombre + " " + acad.ApellidoPaterno + " " + acad.ApellidoMaterno,
+                                             Periodo = per.Nombre,
+                                             Salon = sal.Edificio + "-" + sal.ClaveSalon,
+                                             Experiencia = Expe.Nombre,
+                                             Calif = h.Calificacion
+                                         }).Where(n => n.IdHorario == idboleta).Single();
+                    var TipoCalif = context.CtTipoCalificacion.ToList();
+                    ViewData["tipocalif"] = TipoCalif;
+                    ViewData["info"] = lista;
+                    ViewData["idalumno"] = idalumno;
+
+                }
+                else
+                {
+                    TempData["msg"] = "<script language='javascript'> swal({ title:'" + "El NRC no existe!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
+                    return RedirectToAction("CrearCali", new { idalum = idalumno });
+                }
+
+            }
+
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActulizarBoleta(CalificacionAlumno calialum)
+        {
+            TbCalificacion calificacion = new TbCalificacion();
+            TbHorario horario = new TbHorario();
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                calificacion.IdTbCalificacion = calialum.idTbHorario;
+                calificacion.RTipoCalificacion = calialum.RTipoCalificacion;
+                calificacion.Calificacion = calialum.Calificacion;
+                context.TbCalificacion.Update(calificacion);
+                context.SaveChanges();
+
+            }
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                horario.RAlumno = calialum.idalumno;
+                horario.RExperienciaPeriodo = calialum.IdExperienciaEducativaPeriodo;
+                horario.RTipoCalif = calialum.idTbHorario;
+                horario.Calificacion = calialum.Calificacion;
+                horario.IdPeriodoActual = calialum.idTbHorario;
+                context.TbHorario.Update(horario);
+                context.SaveChanges();
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+
+                return RedirectToAction("DetallesBoleta", new { id = calialum.idalumno });
+            }
+        }
+
         [Authorize]
         [HttpGet]
         public IActionResult Detalles(int id)
@@ -313,11 +434,13 @@ namespace SGCFIEE.Controllers
                     foreach (var item in horario)
                     {
                         var a = context.ExperienciaEducativaPeriodo.Where(s => s.IdExperienciaEducativaPeriodo == item.RExperienciaPeriodo).FirstOrDefault();
-                        var b = context.CtTipoCalificacion.Where(s => s.IdCtTipoCalificacion == item.RTipoCalif).FirstOrDefault();
+                        var tbcalif = context.TbCalificacion.Where(s => s.IdTbCalificacion == item.RTipoCalif).FirstOrDefault();
+                        var b = context.CtTipoCalificacion.Where(s => s.IdCtTipoCalificacion == tbcalif.RTipoCalificacion).FirstOrDefault();
                         var c = context.Academicos.Where(s => s.IdAcademicos == a.IdAcademico).FirstOrDefault();
                         var d = context.MapaCurricular.Where(s => s.IdMapaCurricular == a.IdMapaCurricular).FirstOrDefault();
                         var e = context.ExperienciaEducativa.Where(s => s.IdExperienciaEducativa == d.IdExperienciaEducativa).FirstOrDefault();
                         var f = context.TipoPeriodo.Where(s => s.IdPeriodo == a.IdPeriodo).FirstOrDefault();
+                        cali.idTbHorario = item.IdPeriodoActual;
                         cali.Nombreexpe = e.Nombre;
                         cali.Nrc = a.Nrc;
                         cali.IdPeriodo = f.IdPeriodo;
@@ -542,7 +665,7 @@ namespace SGCFIEE.Controllers
                                 string fechainicio = b.FechaInicio.ToString();
                                 string[] resultadoinicio = fechainicio.Split(' ');
 
-                                string fechafin = b.FechaInicio.ToString();
+                                string fechafin = b.FechaFin.ToString();
                                 string[] resultadofin = fechafin.Split(' ');
 
                                 datosfinal.fechainiserv = resultadoinicio;

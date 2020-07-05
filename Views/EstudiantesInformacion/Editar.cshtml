@@ -19,7 +19,7 @@
                 <div class="white-box">
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <form asp-action="Editar" asp-antiforgery="true">
+                        <form asp-controller="EstudiantesInformacion" asp-action="Editar" asp-antiforgery="true">
                             <div class="tab-pane fontawesome-demo active show" id="tab1">
 
                                 <div class="row">
@@ -154,71 +154,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> <br /> <br />
-                            <div class="tab-pane" id="tab2">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12">
-                                        <div class="card-head">
-                                            <header>Académicos</header>
-                                        </div>
-                                        <div class="card-body " id="bar-parent2">
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-6">
-                                                    <!-- text input -->
-                                                    <div class="form-group">
-                                                        <label asp-for="Matricula">Matrícula</label>
-                                                        <input asp-for="Matricula" type="text" class="form-control" placeholder="Matricula">
-                                                        <span asp-validation-for="Matricula" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label asp-for="CorreoInstitucional">Correo Institucional</label>
-                                                        <input asp-for="CorreoInstitucional" type="text" class="form-control" placeholder="Correo institucional">
-                                                        <span asp-validation-for="CorreoInstitucional" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label asp-for="AnioIngreso">Año de ingreso</label>
-                                                        <input asp-for="AnioIngreso" type="number" class="form-control" placeholder="Año de ingreso">
-                                                        <span asp-validation-for="AnioIngreso" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label asp-for="Modalidad">Modalidad</label>
-                                                        <input asp-for="Modalidad" type="text" class="form-control" placeholder="Modalidad">
-                                                        <span asp-validation-for="Modalidad" class="text-danger"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-sm-6">
-
-                                                    <div class="form-group">
-                                                        <label asp-for="Bachillerato">Bachillerato de Procedencia</label>
-                                                        <input asp-for="Bachillerato" type="text" class="form-control" placeholder="Bachillerato de procedencia">
-                                                        <span asp-validation-for="Bachillerato" class="text-danger"></span>
-                                                    </div>
-                                                    <div class="form-group">
-
-                                                        <label >Programa Educativo</label>
-                                                        <select asp-for="RProgramaEducativo" class="form-control" id="programa">
-                                                            @foreach (var item in y)
-                                                            {
-                                                                <option value="@item.IdProgramaEducativo">@Html.DisplayFor(modelItem => item.Nombre) </option>
-                                                            }
-                                                        </select>
-
-                                                    </div>
-
-                                                    <br /><br /><br /><br /><br /><br />
-                                                    <input id="enviadatosa" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
-                                                    <a asp-controller="EstudiantesInformacion" asp-action="Index" class="btn btn-default btn-sm m-b-10" style="float:right">
-                                                        Cancelar
-                                                    </a>
-                                                    
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            </div>
+                            
+                            <br /><br /><br /><br /><br /><br />
+                            <input id="enviadatosa" type="submit" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                            <a asp-route-id="@Model.IdDatosPersonales" asp-controller="EstudiantesInformacion" asp-action="Detalles" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                Cancelar
+                            </a>
                         </form>
                     </div>
                 </div>

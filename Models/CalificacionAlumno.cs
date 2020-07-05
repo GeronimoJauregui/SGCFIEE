@@ -27,7 +27,7 @@ namespace SGCFIEE.Models
         public int IdTbCalificacion { get; set; }
         public int? Calificacion { get; set; }
         public int? RTipoCalificacion { get; set; }
-        
+        public int idTbHorario { get; set; }
 
     }
 }

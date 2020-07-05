@@ -32,9 +32,13 @@
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab5">
                             <div class="row">
+                                
                                 <div class="col-md-12 col-sm-12">
-
+                                        
                                     <div class="card-body " id="bar-parent2">
+                                        <a asp-controller="EstudiantesInformacion" asp-action="Editar" class="btn btn-primary btn-xs editar" title="Editar" style="float:right">
+                                            Editar
+                                        </a>
                                         <div class="card-head">
                                             Examen ingreso
                                         </div> <br>
@@ -59,7 +63,7 @@
                                         <div class="row">
                                             @foreach (var item2 in examen)
                                             {
-                                                @if (item2.tipoexa == 2)
+                                                @if (item2.tipoexa == 0)
                                                 {
 
 

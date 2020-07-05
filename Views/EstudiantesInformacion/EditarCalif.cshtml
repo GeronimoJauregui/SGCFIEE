@@ -1,0 +1,120 @@
+﻿@model SGCFIEE.Models.CalificacionAlumno;
+@{
+    ViewData["Title"] = "Informacion";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var idalumno = (int)ViewData["idalumno"];
+    var info = (TablaBoleta)ViewData["info"];
+    var tipocalif = (IEnumerable<CtTipoCalificacion>)ViewData["tipocalif"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+                    <div class="card-head" id="idDatosPersonales">
+                        <header>Calificación</header>
+                    </div>
+                </div>
+                <div class="white-box">
+                    <div class="tab-content">
+                        <div class="tab-pane fontawesome-demo active show" id="tab1">
+                            
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+
+                                                    <div class="card-body" id="bar-parent2">
+                                                        <div class="row">
+                                                            <div class="col-md-6 col-6 b-r center">
+                                                                <strong>NRC</strong>
+                                                                <br>
+                                                                <p  class="text-muted">@info.Nrc</p>
+                                                                <br>
+                                                                <strong>Nombre del académico</strong>
+                                                                <br>
+                                                                <p  class="text-muted">@info.Maestro</p>
+                                                                <br>
+                                                                <strong>Periodo</strong>
+                                                                <br>
+                                                                <p  class="text-muted">@info.Periodo</p>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-md-6 col-6 b-r center">
+                                                                <strong>Nombre de la EE</strong>
+                                                                <br>
+                                                                <p  class="text-muted">@info.Experiencia</p>
+                                                                <br>
+                                                                <strong>Salon</strong>
+                                                                <br>
+                                                                <p  class="text-muted">@info.Salon</p>
+                                                                <br>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <form asp-controller="EstudiantesInformacion" asp-action="ActulizarBoleta" asp-antiforgery="true">
+                                                <div class="row">
+                                                    <input  hidden asp-for="idalumno" value="@idalumno" />
+                                                    <input  hidden asp-for="idTbHorario" value="@info.IdHorario" />
+                                                    <input  hidden asp-for="IdExperienciaEducativaPeriodo" value="@info.IdExpericiaEducPerio" />
+                                                    <div class="col-md-1 col-1 b-r center"></div>
+                                                    <div class="col-md-4 col-4 b-r center">
+                                                        <div class="form-group">
+                                                            <strong>Tipo de examen</strong>
+                                                            <select asp-for="RTipoCalificacion" class="form-control">
+                                                                @foreach (CtTipoCalificacion item in tipocalif)
+                                                                {
+                                                                    @if (item.IdCtTipoCalificacion != info.IdTipoCalif)
+                                                                    {
+                                                                        <option  value="@item.IdCtTipoCalificacion">@Html.DisplayFor(modelItem => item.Tipo)</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option selected value="@item.IdCtTipoCalificacion">@Html.DisplayFor(modelItem => item.Tipo)</option>
+                                                                    }
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1 col-1 b-r center"></div>
+                                                    <div class="col-md-1 col-1 b-r center"></div>
+                                                    <div class="col-md-4 col-4 b-r center">
+                                                        <div class="form-group">
+                                                            <strong>Calificación</strong>
+                                                            <input asp-for="Calificacion" type="number" class="form-control" value="@info.Calif" placeholder="Ingresar..." required="required">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1 col-1 b-r center"></div>
+                                                    <div class="col-md-12 col-sm-12 center">
+                                                        <br />
+                                                        <button type="submit" class="btn btn-success btn-sm m-b-10" style="float:right">Guardar</button>
+                                                        <a asp-route-id="@idalumno" asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                            Cancelar
+                                                        </a>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
