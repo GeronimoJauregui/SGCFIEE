@@ -10,5 +10,6 @@ namespace SGCFIEE.Models
         public string tipoeve { get; set; }
         public string nombreeve { get; set; }
         public string fecha { get; set; }
+        public int ideventos { get; set; }
     }
 }

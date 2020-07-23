@@ -144,6 +144,30 @@ namespace SGCFIEE.Controllers
             }
             return View(aca);
         }
+        public IActionResult Restablecercontra(int idd)
+        {
+            Usuarios usu = new Usuarios();
+            Academicos aca = new Academicos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                
+                
+                usu = context.Usuarios.Where(w => w.IdAcademico == idd).Single();
+                aca = context.Academicos.Where(w => w.IdAcademicos == idd).Single();
+                string subcurp = aca.Curp.Substring(0, 10);
+                String p = string.Concat(aca.NumeroPersonal, subcurp);
+                //String p = string.Concat("15344", "POBL660419");
+                SHA1 sha = new SHA1CryptoServiceProvider();
+                byte[] input2 = (new UnicodeEncoding()).GetBytes(p);
+                byte[] h = sha.ComputeHash(input2);
+                string pa = Convert.ToBase64String(h);
+                usu.Contrasenia = pa;
+                context.Usuarios.Update(usu);
+                context.SaveChanges();
+            }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Restablecido exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+            return RedirectToAction("DetallesDG", new { id = idd });
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -153,6 +177,7 @@ namespace SGCFIEE.Controllers
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 datos.RTipoPersonal = 2;
+                datos.Curp.ToUpper();
                 context.Academicos.Add(datos);
                 context.SaveChanges();
                 Academicos last = context.Academicos.Last();
@@ -191,6 +216,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                datos.Curp.ToUpper();
                 context.Academicos.Update(datos);
                 context.SaveChanges();
             }
@@ -1014,6 +1040,17 @@ namespace SGCFIEE.Controllers
 
                       }
                                    ).ToList();
+
+                foreach (pExperienciaProfesional item in EP)
+                {
+                    int inicio = int.Parse(item.FechaInicio.Substring(0, 4));
+                    int fin = int.Parse(item.FechaFin.Substring(0, 4));
+                    int exp = fin - inicio;
+                    if (exp == 0)
+                        exp = 1;
+                    item.FechaInicio = exp.ToString();
+
+                }
 
 
                 ViewData["ies"] = ies;

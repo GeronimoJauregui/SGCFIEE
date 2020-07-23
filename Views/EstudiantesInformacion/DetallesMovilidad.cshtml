@@ -51,11 +51,8 @@
                                                 @foreach (var item in movilidad)
                                                 {
                                                 <div class="col-md-4 col-4 b-r" name="movilidad-@item.idperiodo">
-                                                    <a data-controlador="EstudiantesInformacion" data-accion="Eliminar" name="laeliminacion" class="btn btn-danger btn-xs eliminar" title="Eliminar" style="float:right">
+                                                    <a data-value="@item.IdTbMovilidad" data-controlador="EstudiantesInformacion" class="btn btn-danger btn-xs eliminar" data-accion="EliminarMovilidad" data-id="@alumno" data-regreso="DetallesMovilidad" name="eliminaracademico" title="Eliminar" style="float:right">
                                                         <i class="fa fa-trash-o "></i>
-                                                    </a>
-                                                    <a asp-controller="EstudiantesInformacion" asp-action="Editar" class="btn btn-primary btn-xs editar" title="Editar" style="float:right">
-                                                        <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <strong>Información</strong> <hr />
                                                     @if (item.tipomovi == 1)

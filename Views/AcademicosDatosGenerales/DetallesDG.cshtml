@@ -3,16 +3,23 @@
     ViewData["Title"] = "DetallesDG";
     Layout = "~/Views/Home/Principal.cshtml";
     var aca = (pAcademicos)ViewData["academicos"];
-    var tipo = (int) ViewData["tipo"];
-    var academico = (int) ViewData["academico"];
+    var tipo = (int)ViewData["tipo"];
+    var academico = (int)ViewData["academico"];
 }
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 
 <!DOCTYPE html>
 
 <html>
+@if (TempData["msg"] != null)
+{
+    @Html.Raw(TempData["msg"])
+}
 <div class="card card-topline-green">
     <div class="white-box">
-        @if (tipo == 2) { 
+        @if (tipo == 2)
+        {
             <button id="modificar_academico" type="button" class="btn btn-success btn-sm m-b-10">
                 Modificar <i class="fa fa-plus"></i>
             </button>
@@ -30,6 +37,13 @@
         </div>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
+                <div class="col-md-6 col-sm-6 col-6">
+                    <div class="card-body" id="bar-parent2">
+                        <a asp-route-idd="@academico" asp-controller="AcademicosDatosGenerales" asp-action="Restablecercontra" class="btn btn-primary btn-xs editar" title="Editar" style="float:right">
+                            Restablecer Contraseña
+                        </a>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4 col-6 b-r">
                         <strong>Nombre</strong>
@@ -121,194 +135,194 @@
                 </div>
             </div>
             @*<div class="tab-pane" id="tab2">
-                <div class="row">
-                    <div class="table-scrollable">
-                        <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
-                            <thead>
-                                <tr>
-                                    <th class="mdl-data-table__cell--non-numeric center">Nombre</th>
-                                    <th class="mdl-data-table__cell--non-numeric center">Grado</th>
-                                    <th class="mdl-data-table__cell--non-numeric center">Institución</th>
-                                    <th class="mdl-data-table__cell--non-numeric center">Reconocimiento</th>
-                                    <th class="mdl-data-table__cell--non-numeric center">Fecha de egreso</th>
-                                    <th class="mdl-data-table__cell--non-numeric center">Fecha de titulación</th>
-                                    <th class="mdl-data-table__cell--non-numeric center">Titulo</th>
-                                    <th class="mdl-data-table__cell--non-numeric center">Cedula</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${requestScope.estudios}" var="estudios">
+                    <div class="row">
+                        <div class="table-scrollable">
+                            <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
+                                <thead>
                                     <tr>
-                                        <td class="mdl-data-table__cell--non-numeric">${estudios.nombre_titulo}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${estudios.grado_titulo}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${estudios.institucion}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${estudios.acre_pnpc}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${estudios.fecha_de_egreso}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${estudios.fecha_de_titulacion}</td>
-                                        <td class="center">
-                                            <button class="btn btn-primary btn-xs">
-                                                <i class="fa fa-download"></i>
-                                            </button>
-                                        </td>
-                                        <td class="mdl-data-table__cell--non-numeric center">
-                                            <button class="btn btn-primary btn-xs">
-                                                <i class="fa fa-download"></i>
-                                            </button>
-                                        </td>
+                                        <th class="mdl-data-table__cell--non-numeric center">Nombre</th>
+                                        <th class="mdl-data-table__cell--non-numeric center">Grado</th>
+                                        <th class="mdl-data-table__cell--non-numeric center">Institución</th>
+                                        <th class="mdl-data-table__cell--non-numeric center">Reconocimiento</th>
+                                        <th class="mdl-data-table__cell--non-numeric center">Fecha de egreso</th>
+                                        <th class="mdl-data-table__cell--non-numeric center">Fecha de titulación</th>
+                                        <th class="mdl-data-table__cell--non-numeric center">Titulo</th>
+                                        <th class="mdl-data-table__cell--non-numeric center">Cedula</th>
                                     </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.estudios}" var="estudios">
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric">${estudios.nombre_titulo}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${estudios.grado_titulo}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${estudios.institucion}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${estudios.acre_pnpc}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${estudios.fecha_de_egreso}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${estudios.fecha_de_titulacion}</td>
+                                            <td class="center">
+                                                <button class="btn btn-primary btn-xs">
+                                                    <i class="fa fa-download"></i>
+                                                </button>
+                                            </td>
+                                            <td class="mdl-data-table__cell--non-numeric center">
+                                                <button class="btn btn-primary btn-xs">
+                                                    <i class="fa fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="tab3">
-                <div class="row">
-                    <div class="table-scrollable">
-                        <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
-                            <thead>
-                                <tr>
-                                    <th class="mdl-data-table__cell--non-numeric">Nombre</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Tipo</th>
-                                    <th class="mdl-data-table__cell--non-numeric" style="width: 100px;">Evidencia</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${requestScope.certificaciones}" var="certificacion">
+                <div class="tab-pane" id="tab3">
+                    <div class="row">
+                        <div class="table-scrollable">
+                            <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
+                                <thead>
                                     <tr>
-                                        <td class="mdl-data-table__cell--non-numeric">${certificacion.nombre}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${certificacion.tipo_certificacion}</td>
-                                        <td class="mdl-data-table__cell--non-numeric center">
-                                            <button class="btn btn-primary btn-xs">
-                                                <i class="fa fa-download"></i>
-                                            </button>
-                                        </td>
+                                        <th class="mdl-data-table__cell--non-numeric">Nombre</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Tipo</th>
+                                        <th class="mdl-data-table__cell--non-numeric" style="width: 100px;">Evidencia</th>
                                     </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.certificaciones}" var="certificacion">
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric">${certificacion.nombre}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${certificacion.tipo_certificacion}</td>
+                                            <td class="mdl-data-table__cell--non-numeric center">
+                                                <button class="btn btn-primary btn-xs">
+                                                    <i class="fa fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="tab4">
-                <div class="row">
-                    <div class="table-scrollable">
-                        <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
-                            <thead>
-                                <tr>
-                                    <th class="mdl-data-table__cell--non-numeric">Curso/Diplomado</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Nombre</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Número de horas</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Pedagógico/Disciplinar</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Nombre de la empresa/IES</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Lugar</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Fecha</th>
-                                    <th class="mdl-data-table__cell--non-numeric" style="width: 100px;">Evidencia</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${requestScope.cd}" var="cd">
+                <div class="tab-pane" id="tab4">
+                    <div class="row">
+                        <div class="table-scrollable">
+                            <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
+                                <thead>
                                     <tr>
-                                        <td class="mdl-data-table__cell--non-numeric"><c:if test="${cd.curso_Diplomado==0}">Curso</c:if><c:if test="${cd.curso_Diplomado==1}">Diplomado</c:if></td>
-                                        <td class="mdl-data-table__cell--non-numeric">${cd.nombre}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${cd.horas}</td>
-                                        <td class="mdl-data-table__cell--non-numeric"><c:if test="${cd.p_d==0}">Pedagógico</c:if><c:if test="${cd.p_d==1}">Disciplinar</c:if></td>
-                                        <td class="mdl-data-table__cell--non-numeric" c>${cd.instituciones_empresas}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${cd.lugar}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${cd.fecha}</td>
-                                        <td class="mdl-data-table__cell--non-numeric center">
-                                            <button class="btn btn-primary btn-xs">
-                                                <i class="fa fa-download"></i>
-                                            </button>
-                                        </td>
+                                        <th class="mdl-data-table__cell--non-numeric">Curso/Diplomado</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Nombre</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Número de horas</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Pedagógico/Disciplinar</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Nombre de la empresa/IES</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Lugar</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Fecha</th>
+                                        <th class="mdl-data-table__cell--non-numeric" style="width: 100px;">Evidencia</th>
                                     </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.cd}" var="cd">
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric"><c:if test="${cd.curso_Diplomado==0}">Curso</c:if><c:if test="${cd.curso_Diplomado==1}">Diplomado</c:if></td>
+                                            <td class="mdl-data-table__cell--non-numeric">${cd.nombre}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${cd.horas}</td>
+                                            <td class="mdl-data-table__cell--non-numeric"><c:if test="${cd.p_d==0}">Pedagógico</c:if><c:if test="${cd.p_d==1}">Disciplinar</c:if></td>
+                                            <td class="mdl-data-table__cell--non-numeric" c>${cd.instituciones_empresas}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${cd.lugar}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${cd.fecha}</td>
+                                            <td class="mdl-data-table__cell--non-numeric center">
+                                                <button class="btn btn-primary btn-xs">
+                                                    <i class="fa fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="tab5">
-                <div class="row">
-                    <div class="table-scrollable">
-                        <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
-                            <thead>
-                                <tr>
-                                    <th class="mdl-data-table__cell--non-numeric">Empresa</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Puesto</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Área de desarrollo profesional</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Años de antigüedad en años</th>
-                                    <th class="mdl-data-table__cell--non-numeric" style="width: 100px;">Evidencia</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${requestScope.ep}" var="ep">
+                <div class="tab-pane" id="tab5">
+                    <div class="row">
+                        <div class="table-scrollable">
+                            <table class="mdl-data-table ml-table-bordered mdl-js-data-table mdl-data-table--selectable is-upgraded" data-upgraded=",MaterialDataTable">
+                                <thead>
                                     <tr>
-                                        <td class="mdl-data-table__cell--non-numeric">${ep.nombre_empresa}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${ep.tipo_puesto}</td>
-                                        <td class="mdl-data-table__cell--non-numeric">${ep.area_Desarrollo}</td>
-                                        <td class="mdl-data-table__cell--non-numeric" c>${ep.antiguedad}</td>
-                                        <td class="mdl-data-table__cell--non-numeric center">
-                                            <button class="btn btn-primary btn-xs">
-                                                <i class="fa fa-download"></i>
-                                            </button>
-                                        </td>
+                                        <th class="mdl-data-table__cell--non-numeric">Empresa</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Puesto</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Área de desarrollo profesional</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Años de antigüedad en años</th>
+                                        <th class="mdl-data-table__cell--non-numeric" style="width: 100px;">Evidencia</th>
                                     </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${requestScope.ep}" var="ep">
+                                        <tr>
+                                            <td class="mdl-data-table__cell--non-numeric">${ep.nombre_empresa}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${ep.tipo_puesto}</td>
+                                            <td class="mdl-data-table__cell--non-numeric">${ep.area_Desarrollo}</td>
+                                            <td class="mdl-data-table__cell--non-numeric" c>${ep.antiguedad}</td>
+                                            <td class="mdl-data-table__cell--non-numeric center">
+                                                <button class="btn btn-primary btn-xs">
+                                                    <i class="fa fa-download"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="tab6">
-                <div class="row center">
-                    <div class="col-md-5 col-6 b-r">
-                        <strong>Tipo de contratación</strong>
-                        <br>
-                        <p class="text-muted" id="tipo_contratacion">${requestScope.academico.tipo_Personal}</p>
-                    </div>
-                    <div class="col-md-5 col-6 b-r" id="laboratorio">
-                        <strong>Laboratorio</strong>
-                        <br>
-                        <p class="text-muted">${requestScope.tc.laboratorio}</p>
-                    </div>
-                    <div class="col-md-5 col-6 b-r" id="nombramiento">
-                        <strong>Fecha de nombramiento</strong>
-                        <br>
-                        <p class="text-muted">${requestScope.tc.fecha_nombramiento}</p>
-                    </div>
-                    <div class="col-md-5 col-6 b-r" id="evidencia">
-                        <strong>Evidencia</strong><br>
-                        <button class="btn btn-primary btn-xs center">
-                            <i class="fa fa-download"></i>
-                        </button>
+                <div class="tab-pane" id="tab6">
+                    <div class="row center">
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Tipo de contratación</strong>
+                            <br>
+                            <p class="text-muted" id="tipo_contratacion">${requestScope.academico.tipo_Personal}</p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r" id="laboratorio">
+                            <strong>Laboratorio</strong>
+                            <br>
+                            <p class="text-muted">${requestScope.tc.laboratorio}</p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r" id="nombramiento">
+                            <strong>Fecha de nombramiento</strong>
+                            <br>
+                            <p class="text-muted">${requestScope.tc.fecha_nombramiento}</p>
+                        </div>
+                        <div class="col-md-5 col-6 b-r" id="evidencia">
+                            <strong>Evidencia</strong><br>
+                            <button class="btn btn-primary btn-xs center">
+                                <i class="fa fa-download"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="tab7">
-                <div class="row center">
-                    <div class="col-md-5 col-6 b-r">
-                        <strong>Tipo de distinción</strong>
-                        <br>
-                        <p class="text-muted">${requestScope.dta.distincion}</p>
-                    </div>
+                <div class="tab-pane" id="tab7">
+                    <div class="row center">
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Tipo de distinción</strong>
+                            <br>
+                            <p class="text-muted">${requestScope.dta.distincion}</p>
+                        </div>
 
-                    <div class="col-md-5 col-6 b-r">
-                        <strong>Vigencia</strong>
-                        <br>
-                        <p class="text-muted">${requestScope.dta.vigencia}</p>
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Vigencia</strong>
+                            <br>
+                            <p class="text-muted">${requestScope.dta.vigencia}</p>
+                        </div>
                     </div>
-                </div>
-                <br>
-                <div class="row center">
-                    <div class="col-md-5 col-6 b-r">
-                        <strong>Evidencia</strong><br>
-                        <button class="btn btn-primary btn-xs center">
-                            <i class="fa fa-download"></i>
-                        </button>
+                    <br>
+                    <div class="row center">
+                        <div class="col-md-5 col-6 b-r">
+                            <strong>Evidencia</strong><br>
+                            <button class="btn btn-primary btn-xs center">
+                                <i class="fa fa-download"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
         </div>
     </div>
 </div>

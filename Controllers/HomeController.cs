@@ -24,7 +24,7 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Principal(SGCFIEE.Models.UsuarioLogin user)
         {
-            String usuario = user.matricula;
+            String usuario = user.matricula.ToLower();
             if (usuario.Equals("Administrador"))
             {
                 using(sgcfieeContext context = new sgcfieeContext())
@@ -74,7 +74,7 @@ namespace SGCFIEE.Controllers
             }
             var x = 2;
             Usuarios usu = new Usuarios();
-            String pass = string.Concat(user.matricula,user.password);
+            String pass = string.Concat(user.matricula.ToLower(), user.password);
             SHA1 sha1 = new SHA1CryptoServiceProvider();
             byte[] input = (new UnicodeEncoding()).GetBytes(pass);
             byte[] hash = sha1.ComputeHash(input);

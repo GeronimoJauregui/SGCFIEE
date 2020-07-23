@@ -87,8 +87,18 @@
                                                    
 			                                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 			                                            data-mdl-for = "feedMenu1">
-			                                            <li class = "mdl-menu__item"><i class="material-icons">edit</i>Editar</li>
-			                                            <li class = "mdl-menu__item"><i class="material-icons">delete</i>Eliminar</li>
+                                                        <li class="mdl-menu__item">
+                                                            <i class="material-icons">edit</i>
+                                                            <a asp-route-idalumno="@alumno" asp-route-idFinal="@item.idservicio" asp-controller="EstudiantesInformacion" asp-action="EditarFinal" title="Editar" >
+                                                                Editar
+                                                            </a>
+                                                        </li>
+                                                        <li class="mdl-menu__item">
+                                                            <i class="material-icons">delete</i>
+                                                            <a data-value="@item.idinstancia" data-controlador="EstudiantesInformacion" data-accion="EliminarFinal" data-id="@alumno" data-regreso="DetallesInstancias" name="eliminaracademico" title="Eliminar" >
+                                                                Eliminar
+                                                            </a>
+                                                        </li>
 			                                                   
 			                                        </ul>
                                                     <h5 class=" center">Servicio Social</h5>
@@ -105,27 +115,39 @@
                                         {
                                             @if (item.tiposervprac == 2)
                                             {
-                                                <div class="col-md-6 col-6">
-                                                    <button id = "feedMenu2" 
-			                                            class = "mdl-button mdl-js-button mdl-button--icon pull-right" 
-			                                            data-upgraded = ",MaterialButton">
-			                                            <i class = "material-icons">more_vert</i>
-			                                        </button>
-                                                   
-			                                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-			                                            data-mdl-for = "feedMenu2">
-			                                            <li class = "mdl-menu__item"><i class="material-icons">edit</i>Editar</li>
-			                                            <li class = "mdl-menu__item"><i class="material-icons">delete</i>Eliminar</li>
-			                                                   
-			                                        </ul>
-                                                    <h5 class=" center">Prácticas Profesionales</h5>
-                                                    <hr>
-                                                    <p>Empresa: @Html.DisplayFor(modelItem => item.nombreempresa)</p>
-                                                    <p>Dierección: @Html.DisplayFor(modelItem => item.direccion)</p>
-                                                    <p>Teléfono: @Html.DisplayFor(modeltem => item.telefono)</p>
-                                                    <p>Fecha de inicio (mm/dd/aa): @Html.DisplayFor(modelItem => item.fechainiserv[0])</p>
-                                                    <p>Fecha de termino (mm/dd/aa): @Html.DisplayFor(modelItem => item.fechafinserv[0])</p>
-                                                </div>
+                                    <div class="col-md-6 col-6">
+                                        <button id="feedMenu2"
+                                                class="mdl-button mdl-js-button mdl-button--icon pull-right"
+                                                data-upgraded=",MaterialButton">
+                                            <i class="material-icons">more_vert</i>
+                                        </button>
+
+                                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                            data-mdl-for="feedMenu2">
+
+                                            <li class="mdl-menu__item">
+                                                <i class="material-icons">edit</i>
+                                                <a asp-route-idalumno="@alumno" asp-route-idFinal="@item.rexprep" asp-controller="EstudiantesInformacion" asp-action="EditarFinal" title="Editar">
+                                                    Editar
+                                                </a>
+                                            </li>
+
+                                            <li class="mdl-menu__item">
+                                                <i class="material-icons">delete</i>
+                                                <a data-value="@item.idinstancia" data-controlador="EstudiantesInformacion" data-accion="EliminarFinal" data-id="@alumno" data-regreso="DetallesInstancias" name="eliminaracademico" title="Eliminar">
+                                                    Eliminar
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                        <h5 class=" center">Prácticas Profesionales</h5>
+                                        <hr>
+                                        <p>Empresa: @Html.DisplayFor(modelItem => item.nombreempresa)</p>
+                                        <p>Dierección: @Html.DisplayFor(modelItem => item.direccion)</p>
+                                        <p>Teléfono: @Html.DisplayFor(modeltem => item.telefono)</p>
+                                        <p>Fecha de inicio (mm/dd/aa): @Html.DisplayFor(modelItem => item.fechainiserv[0])</p>
+                                        <p>Fecha de termino (mm/dd/aa): @Html.DisplayFor(modelItem => item.fechafinserv[0])</p>
+                                    </div>
                                             }
                                         }
                                     </div><br />
@@ -142,12 +164,23 @@
 			                                            <i class = "material-icons">more_vert</i>
 			                                        </button>
                                                    
-			                                        <ul class = "mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-			                                            data-mdl-for = "feedMenu3">
-			                                            <li class = "mdl-menu__item"><i class="material-icons">edit</i>Editar</li>
-			                                            <li class = "mdl-menu__item"><i class="material-icons">delete</i>Eliminar</li>
-			                                                   
-			                                        </ul>
+                                                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                                                        data-mdl-for="feedMenu3">
+                                                        <li class="mdl-menu__item">
+                                                            <i class="material-icons">edit</i>
+                                                            <a asp-route-idalumno="@alumno" asp-route-idFinal="@item.rexprep" asp-controller="EstudiantesInformacion" asp-action="EditarExprep" title="Editar">
+                                                                Editar
+                                                            </a>
+                                                        </li>
+
+                                                        <li class="mdl-menu__item">
+                                                            <i class="material-icons">delete</i>
+                                                            <a data-value="@item.idinstancia" data-controlador="EstudiantesInformacion" data-accion="EliminarExprep" data-id="@alumno" data-regreso="DetallesInstancias" name="eliminaracademico" title="Eliminar">
+                                                                Eliminar
+                                                            </a>
+                                                        </li>
+
+                                                    </ul>
                                                     <h5 class=" center">Experiencia Recepcional</h5>
                                                     <hr>
                                                     <p>@Html.DisplayFor(modelItem => item.nombreexpre)</p>

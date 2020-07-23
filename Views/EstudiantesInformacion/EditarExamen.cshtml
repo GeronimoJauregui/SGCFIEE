@@ -1,0 +1,79 @@
+﻿@model SGCFIEE.Models.TbExamenalumno
+@{
+
+
+    ViewData["Title"] = "Crear";
+    Layout = "~/Views/Home/Principal.cshtml";
+    var idAlu = (int)ViewData["idAlu"];
+    var tipo = (int)ViewData["tipo"];
+    var rubro = (IEnumerable<TbRubrosexamenes>)ViewData["rubros"];
+    var calif = (IEnumerable<TbExamenalumno>)ViewData["calif"];
+}
+
+<!DOCTYPE html>
+
+<html>
+<div class="profile-content">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-topline-green">
+                    <div class="card-head">
+                        @if (tipo == 1)
+                        {
+                            <header>Editar Examen  de ingreso</header>
+                        }
+                        else
+                        {
+                            <header>Editar Examen  interno</header>
+                        }
+
+                    </div>
+                </div>
+                <div class="white-box">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <form asp-action="ActualizarExamen"  asp-controller="EstudiantesInformacion" asp-antiforgery="true">
+                            <div class="tab-pane" id="examenAlumno2">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+
+                                        <div class="card-body " id="bar-parent2">
+                                            <div class="row">
+                                                @foreach (var item in calif)
+                                                {
+                                                        <div class="col-md-6 col-sm-6 calificacion">
+                                                            <div class="form-group">
+                                                                <strong asp-for="CalificacionExamen">@Html.DisplayFor(modelItem => item.IdRubroExamenNavigation.RubroExamen)</strong>
+                                                                <input asp-for="CalificacionExamen" value="@item.CalificacionExamen" type="number" class="form-control" placeholder="Ingresar..." name="calificacion" required="required">
+
+                                                                <input asp-for="IdRubroExamen" value="@item.IdRubroExamen" type="hidden" name="rubro">
+                                                                <input asp-for="IdTbExamenAlumno" value="@item.IdTbExamenAlumno" type="hidden" name="idExamenAlum">
+                                                                <input asp-for="IdAlumno" value="@item.IdAlumno" type="hidden" name="alumno">
+
+                                                            </div>
+                                                            <br /> <br />
+                                                        </div>
+
+                                                }
+                                                <div class="col-md-12 col-sm-12">
+                                                    <input id="actualizarexamen" type="button" value="Guardar" class="btn btn-success btn-sm m-b-10" style="float:right">
+                                                    <a asp-route-id="@idAlu" asp-controller="EstudiantesInformacion" asp-action="DetallesExamen" class="btn btn-default btn-sm m-b-10" style="float:right">
+                                                        Cancelar
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

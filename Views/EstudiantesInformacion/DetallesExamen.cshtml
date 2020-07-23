@@ -6,11 +6,18 @@
     var tipo = (int)ViewData["tipo"];
     var alumno = (int)ViewData["alumno"];
 }
+<link rel="stylesheet" href="~/assets/plugins/sweet-alert/sweetalert.min.css">
+<script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="~/assets/js/pages/sweet-alert/sweet-alert-data.js"></script>
 
 <!DOCTYPE html>
 
 <html>
 <div class="profile-content">
+    @if (TempData["msg"] != null)
+    {
+        @Html.Raw(TempData["msg"])
+    }
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="card">
@@ -19,24 +26,24 @@
                     <div class="p-rl-20">
                         <ul class="nav customtab nav-tabs" role="tablist">
                             <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="Detalles" class="nav-link ">Información general</a></li>
-                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInfoAcademica" class="nav-link " >Información académica</a></li>
-                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" class="nav-link" >Boleta</a></li>
-                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesPafis" class="nav-link" >PAFIs</a></li>
-                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesExamen" class="nav-link active" >Examen ingreso e interno</a></li>
-                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesEventos" class="nav-link" >Participación en eventos</a></li>
-                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesMovilidad" class="nav-link" >Información movilidad</a></li>
-                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInstancias" class="nav-link" >Instancias finales</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInfoAcademica" class="nav-link ">Información académica</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesBoleta" class="nav-link">Boleta</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesPafis" class="nav-link">PAFIs</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesExamen" class="nav-link active">Examen ingreso e interno</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesEventos" class="nav-link">Participación en eventos</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesMovilidad" class="nav-link">Información movilidad</a></li>
+                            <li class="nav-item"><a asp-route-id="@alumno" asp-controller="EstudiantesInformacion" asp-action="DetallesInstancias" class="nav-link">Instancias finales</a></li>
                         </ul>
                     </div>
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab5">
                             <div class="row">
-                                
+
                                 <div class="col-md-12 col-sm-12">
-                                        
+
                                     <div class="card-body " id="bar-parent2">
-                                        <a asp-controller="EstudiantesInformacion" asp-action="Editar" class="btn btn-primary btn-xs editar" title="Editar" style="float:right">
+                                        <a asp-controller="EstudiantesInformacion" asp-action="EditarExamen" asp-route-idalum="@alumno" asp-route-tipoexam="1" class="btn btn-primary btn-xs editar" title="Editar" style="float:right">
                                             Editar
                                         </a>
                                         <div class="card-head">
@@ -50,13 +57,16 @@
                                                     <div class="col-md-6 col-6 b-r">
                                                         <strong>@Html.DisplayFor(modelItem => item.rubroexamen)</strong>
                                                         <p id="Comprension" class="text-muted">@Html.DisplayFor(modelItem => item.calificacion)</p>
-                                                        
+
                                                     </div>
 
                                                 }
 
                                             }
                                         </div>
+                                        <a asp-controller="EstudiantesInformacion" asp-action="EditarExamen" asp-route-idalum="@alumno" asp-route-tipoexam="0" class="btn btn-primary btn-xs editar" title="Editar" style="float:right">
+                                            Editar
+                                        </a>
                                         <div class="card-head">
                                             Examen interno
                                         </div> <br>
@@ -82,7 +92,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         @if (tipo == 1)
                         {
                             <div class="row">

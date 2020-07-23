@@ -7,6 +7,7 @@ namespace SGCFIEE.Models
 {
     public class AlumnoMovilidad
     {
+        public int IdTbMovilidad { get; set; }
         public int? idperiodo { get; set; }
         public int? tipomovi { get; set; }
         public string paisdestino { get; set; }

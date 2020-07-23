@@ -13,6 +13,7 @@ using System.Net;
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using Nancy.Json;
 
 namespace SGCFIEE.Controllers
 {
@@ -77,6 +78,7 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Crear(Alumnos datos)
         {
+            datos.Matricula.ToLower();
             string mat = datos.Matricula;
             Usuarios usu = null;
             using (sgcfieeContext context = new sgcfieeContext())
@@ -85,6 +87,7 @@ namespace SGCFIEE.Controllers
                 if (usu == null)
                 {
                     datos.RStatus = 0;
+                    datos.Matricula.ToLower();
                     context.Alumnos.Add(datos);
                     context.SaveChanges();
                     Alumnos alu = context.Alumnos.Last();
@@ -126,8 +129,8 @@ namespace SGCFIEE.Controllers
             DatosAlumno datosalumno = new DatosAlumno();
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                var alumno = context.Alumnos.Where(s => s.IdAlumnos == id).Single();
-                var datos = context.DatosPersonales.Where(s => s.IdDatosPersonales == id).Single();
+                var alumno = context.Alumnos.Where(s => s.IdAlumnos == id).SingleOrDefault();
+                var datos = context.DatosPersonales.Where(s => s.IdDatosPersonales == id).SingleOrDefault();
                 datosalumno.IdDatosPersonales = id;
                 datosalumno.Nombre = datos.Nombre;
                 datosalumno.ApellidoPaterno = datos.ApellidoPaterno;
@@ -137,7 +140,7 @@ namespace SGCFIEE.Controllers
                 datosalumno.Nacionalidad = datos.Nacionalidad;
                 datosalumno.EstadoCivil = datos.EstadoCivil;
                 datosalumno.Genero = datos.Genero;
-                datosalumno.Curp = datos.Curp;
+                datosalumno.Curp = datos.Curp.ToUpper();
                 datosalumno.Calle = datos.Calle;
                 datosalumno.Colonia = datos.Colonia;
                 datosalumno.Ciudad = datos.Ciudad;
@@ -174,7 +177,7 @@ namespace SGCFIEE.Controllers
                 datos.Nacionalidad = alumno.Nacionalidad;
                 datos.EstadoCivil = alumno.EstadoCivil;
                 datos.Genero = alumno.Genero;
-                datos.Curp = alumno.Curp;
+                datos.Curp = alumno.Curp.ToUpper();
                 datos.Calle = alumno.Calle;
                 datos.Colonia = alumno.Colonia;
                 datos.Ciudad = alumno.Ciudad;
@@ -233,7 +236,7 @@ namespace SGCFIEE.Controllers
                 
                 alum.IdAlumnos = alumno.IdDatosPersonales;
                 alum.RDatosPerson = alumno.IdDatosPersonales;
-                alum.Matricula = alumno.Matricula;
+                alum.Matricula = alumno.Matricula.ToLower();
                 alum.CorreoInstitucional = alumno.CorreoInstitucional;
                 alum.Modalidad = alumno.Modalidad;
                 alum.RProgramaEducativo = alumno.RProgramaEducativo;
@@ -333,6 +336,19 @@ namespace SGCFIEE.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult EliminarCalif(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.TbHorario.Where(t => t.IdPeriodoActual == id).SingleOrDefault();
+                if (datos != null)
+                    context.TbHorario.Remove(datos);
+                    context.SaveChanges();
+                return RedirectToAction("DetallesBoleta", new { id = id_acad });
+            }
+        }
+
         [Authorize]
         [HttpGet]
         public IActionResult Detalles(int id)
@@ -378,6 +394,29 @@ namespace SGCFIEE.Controllers
                 return View(datosalumno);
             }
 
+        }
+        public IActionResult Restablecercontra(int idd)
+        {
+            Usuarios usu = new Usuarios();
+            DatosPersonales alu = new DatosPersonales();
+            Alumnos alumno = new Alumnos();
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                usu = context.Usuarios.Where(w => w.IdAlumno == idd).Single();
+                alu = context.DatosPersonales.Where(w => w.IdDatosPersonales == idd).Single();
+                alumno = context.Alumnos.Where(w => w.IdAlumnos == idd).Single();
+                string subcurp = alu.Curp.Substring(0, 10);
+                String p = string.Concat(alumno.Matricula, subcurp);
+                SHA1 sha = new SHA1CryptoServiceProvider();
+                byte[] input2 = (new UnicodeEncoding()).GetBytes(p);
+                byte[] h = sha.ComputeHash(input2);
+                string pa = Convert.ToBase64String(h);
+                usu.Contrasenia = pa;
+                context.Usuarios.Update(usu);
+                context.SaveChanges();
+            }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Restablecido exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+            return RedirectToAction("Detalles", new { id = idd });
         }
         [Authorize]
         [HttpGet]
@@ -531,7 +570,6 @@ namespace SGCFIEE.Controllers
                     foreach (var item in examen)
                     {
                         var a = context.TbRubrosexamenes.Where(s => s.IdTbRubrosExamenes == item.IdRubroExamen).FirstOrDefault();
-                        //datosexamen.tipoexa = item.TipoExamen;
                         datosexamen.calificacion = item.CalificacionExamen;
                         datosexamen.rubroexamen = a.RubroExamen;
                         datosexamen.tipoexa = a.TipoExamen;
@@ -544,6 +582,80 @@ namespace SGCFIEE.Controllers
                 return View();
             }
 
+        }
+        [HttpGet]
+        public IActionResult EditarExamen(int idalum, int tipoexam)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                List<TbExamenalumno> examen = new List<TbExamenalumno>();
+                examen = context.TbExamenalumno.Where(s => s.IdAlumno == idalum && s.IdRubroExamenNavigation.TipoExamen == tipoexam).ToList();
+                if (!examen.Any())
+                {
+                    return RedirectToAction("CrearExamen", new { id = idalum, tipo = tipoexam });
+                }
+                else {
+                        var calif = context.TbExamenalumno.ToList();
+                        var x = context.TbRubrosexamenes.ToList();
+                        ViewData["idAlu"] = idalum;
+                        ViewData["rubros"] = x;
+                        ViewData["tipo"] = tipoexam;
+                        ViewData["calif"] = examen;
+                        return View();
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult CrearExamen(int id, int tipo)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            ViewData["idAlu"] = id;
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var calif = context.TbExamenalumno.ToList();
+                var x = context.TbRubrosexamenes.ToList();
+                ViewData["rubros"] = x;
+                ViewData["tipo"] = tipo;
+                ViewData["calif"] = calif;
+                return View();
+            }
+
+        }
+        [HttpPost]
+        public IActionResult GuardarExamen(JSON examen)
+        {
+            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+            List<TbExamenalumno> lista =
+               json_serializer.Deserialize<List<TbExamenalumno>>(examen.json);
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                foreach (var item in lista)
+                {
+                    context.TbExamenalumno.Add(item);
+                    context.SaveChanges();
+                }
+            }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+            return RedirectToAction("DetallesExamen", new { id = lista[0].IdAlumno });
+        }
+        [HttpPost]
+        public IActionResult ActualizarExamen(JSON examen)
+        {
+            JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+            List<TbExamenalumno> lista =
+               json_serializer.Deserialize<List<TbExamenalumno>>(examen.json);
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                foreach (var item in lista)
+                {
+                    context.TbExamenalumno.Update(item);
+                    context.SaveChanges();
+                }
+            }
+            TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+            return RedirectToAction("DetallesExamen", new { id = lista[0].IdAlumno });
         }
         [Authorize]
         [HttpGet]
@@ -574,6 +686,8 @@ namespace SGCFIEE.Controllers
                         datoseve.nombreeve = a.Nombre;
                         datoseve.fecha = item.Fecha.ToString();
                         datoseve.tipoeve = b.Nombre;
+                        datoseve.ideventos = item.IdEventosAlumnos;
+
                         listevento.Add(datoseve);
                         datoseve = new AlumnoEvento();
                     }
@@ -584,6 +698,18 @@ namespace SGCFIEE.Controllers
                 return View();
             }
 
+        }
+        [HttpGet]
+        public IActionResult EliminarEvento(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.EventosAlumnos.Where(t => t.IdEventosAlumnos == id).SingleOrDefault();
+                if (datos != null)
+                    context.EventosAlumnos.Remove(datos);
+                context.SaveChanges();
+                return RedirectToAction("DetallesEventos", new { id = id_acad });
+            }
         }
         [Authorize]
         [HttpGet]
@@ -618,6 +744,7 @@ namespace SGCFIEE.Controllers
                         datosmovi.escueladestino = a.EscuelaDestinoMovilidad;
                         datosmovi.tiempoperma = a.TiempoPermanenciaMovilidad;
                         datosmovi.idperiodo = item.RPeriodo;
+                        datosmovi.IdTbMovilidad = item.IdTbMovilidad;
                         listmovi.Add(datosmovi);
                         datosmovi = new AlumnoMovilidad();
 
@@ -628,6 +755,18 @@ namespace SGCFIEE.Controllers
                 return View();
             }
 
+        }
+        [HttpGet]
+        public IActionResult EliminarMovilidad(int id, int id_acad)
+        {
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.TbMovilidad.Where(t => t.IdTbMovilidad == id).SingleOrDefault();
+                if (datos != null)
+                    context.TbMovilidad.Remove(datos);
+                context.SaveChanges();
+                return RedirectToAction("DetallesMovilidad", new { id = id_acad });
+            }
         }
         [Authorize]
         [HttpGet]
@@ -674,6 +813,8 @@ namespace SGCFIEE.Controllers
                                 datosfinal.direccion = c.Direccion;
                                 datosfinal.tiposervprac = b.Tipo;
                                 datosfinal.telefono = c.Telefono;
+                                datosfinal.idinstancia = item.IdTbInstanciaFinalAlumno;
+                                datosfinal.idservicio = b.IdTbServicioPracticas;
                                 listfinal.Add(datosfinal);
                                 datosfinal = new AlumnoFinal2();
                             }
@@ -691,6 +832,7 @@ namespace SGCFIEE.Controllers
                                 datosfinal.nombreexpre = a.Nombre;
                                 datosfinal.fechafinexp = resultadofin;
                                 datosfinal.tipoexpre = a.Tipo;
+                                datosfinal.idinstancia = item.IdTbInstanciaFinalAlumno;
                                 datosfinal.rexprep = item.RExpRep;
                                 if (d != null) datosfinal.nombreasesor = d.Nombre;
                                 listfinal.Add(datosfinal);
@@ -850,6 +992,78 @@ namespace SGCFIEE.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        public IActionResult EditarFinal(int idalumno, int idFinal)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.TbServiciopracticas.Where(t => t.IdTbServicioPracticas == idFinal).SingleOrDefault();
+                AlumnoFinal fin = new AlumnoFinal();
+                fin.ralumno = idalumno;
+                fin.idinstancia = datos.IdTbServicioPracticas;
+                fin.rempresa = int.Parse(datos.REmpresa.ToString());
+                fin.fechainiserv = datos.FechaInicio;
+                fin.fechafinserv = datos.FechaFin;
+                fin.tiposervprac = datos.Tipo;
+
+                var x = context.Academicos.ToList();
+                var y = context.CtEmpresaServPrac.ToList();
+                ViewData["academicos"] = x;
+                ViewData["idalumno"] = idalumno;
+                ViewData["empresa"] = y;
+                return View(fin);
+            }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarFinal(AlumnoFinal final)
+        {
+            TbServiciopracticas servprac = new TbServiciopracticas();
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                servprac.IdTbServicioPracticas = final.idinstancia;
+                servprac.FechaInicio = final.fechainiserv;
+                servprac.FechaFin = final.fechafinserv;
+                servprac.REmpresa = final.rempresa;
+                servprac.Tipo = final.tiposervprac;
+                context.TbServiciopracticas.Update(servprac);
+                context.SaveChanges();
+
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+
+                return RedirectToAction("DetallesInstancias", new { id = final.ralumno });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Eliminarfinal(int id, int id_acad)
+        {
+            int? n = 0;
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.TbInstanciafinalAlumno.Where(t => t.IdTbInstanciaFinalAlumno == id).SingleOrDefault();
+                n = datos.RServPrac;
+                if (datos != null)
+                    context.TbInstanciafinalAlumno.Remove(datos);
+                context.SaveChanges();
+            }
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.TbServiciopracticas.Where(t => t.IdTbServicioPracticas == n).SingleOrDefault();
+                if (datos != null)
+                    context.TbServiciopracticas.Remove(datos);
+                context.SaveChanges();
+                return RedirectToAction("DetallesInstancias", new { id = id_acad });
+            }
+        }
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CrearServicio(AlumnoFinal final)
@@ -943,6 +1157,72 @@ namespace SGCFIEE.Controllers
 
 
                 return RedirectToAction("DetallesInstancias", new { id = exprecepcional.ralumno });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult EditarExprep(int idalumno, int idFinal)
+        {
+            ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.CtExperienciarecepcional.Where(t => t.IdCtExperienciaRecepcional == idFinal).SingleOrDefault();
+                AlumnoFinal fin = new AlumnoFinal();
+                fin.ralumno = idalumno;
+                fin.rexprep = datos.IdCtExperienciaRecepcional;
+                fin.nombreexpre = datos.Nombre;
+                fin.fechafinexp = datos.FechaFin;
+                fin.rasesor = datos.RAsesor;
+                fin.tipoexpre = datos.Tipo;
+
+                var x = context.Academicos.ToList();
+                ViewData["academicos"] = x;
+                ViewData["idalumno"] = idalumno;
+                return View(fin);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ActualizarExprep(AlumnoFinal final)
+        {
+            CtExperienciarecepcional exp = new CtExperienciarecepcional();
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                exp.IdCtExperienciaRecepcional = final.idinstancia;
+                exp.Nombre = final.nombreexpre;
+                exp.FechaFin = final.fechafinexp;
+                exp.RAsesor = final.rasesor;
+                exp.Tipo = final.tipoexpre;
+                context.CtExperienciarecepcional.Update(exp);
+                context.SaveChanges();
+
+                TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+
+                return RedirectToAction("DetallesInstancias", new { id = final.ralumno });
+            }
+        }
+        [HttpGet]
+        public IActionResult EliminarExprep(int id, int id_acad)
+        {
+            int? n = 0;
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.TbInstanciafinalAlumno.Where(t => t.IdTbInstanciaFinalAlumno == id).SingleOrDefault();
+                n = datos.RExpRep;
+                if (datos != null)
+                    context.TbInstanciafinalAlumno.Remove(datos);
+                context.SaveChanges();
+            }
+
+            using (sgcfieeContext context = new sgcfieeContext())
+            {
+                var datos = context.CtExperienciarecepcional.Where(t => t.IdCtExperienciaRecepcional == n).SingleOrDefault();
+                if (datos != null)
+                    context.CtExperienciarecepcional.Remove(datos);
+                context.SaveChanges();
+                return RedirectToAction("DetallesInstancias", new { id = id_acad });
             }
         }
         [HttpGet]

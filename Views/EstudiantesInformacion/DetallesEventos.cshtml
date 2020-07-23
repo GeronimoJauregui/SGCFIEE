@@ -41,17 +41,14 @@
                                         <div class="row">
                                             @foreach (var item in evento)
                                             {
-                                                <div class="col-md-3 col-6 b-r">
-                                                    <a data-controlador="EstudiantesInformacion" data-accion="Eliminar" name="laeliminacion" class="btn btn-danger btn-xs eliminar" title="Eliminar" style="float:right">
-                                                        <i class="fa fa-trash-o "></i>
-                                                    </a>
-                                                    <a asp-controller="EstudiantesInformacion" asp-action="Editar" class="btn btn-primary btn-xs editar" title="Editar" style="float:right">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <strong>@Html.DisplayFor(modelItem => item.tipoeve)</strong> <hr>
-                                                    <p id="" class="text-muted">@Html.DisplayFor(modelItem => item.nombreeve)</p> 
-                                                    <p id="" class="text-muted">@Html.DisplayFor(modelItem => item.fecha)</p> <br>
-                                                </div>
+                                            <div class="col-md-3 col-6 b-r">
+                                                <a data-value="@item.ideventos" data-controlador="EstudiantesInformacion" class="btn btn-danger btn-xs eliminar" data-accion="EliminarEvento" data-id="@alumno" data-regreso="DetallesEventos" name="eliminaracademico" title="Eliminar" style="float:right">
+                                                    <i class="fa fa-trash-o "></i>
+                                                </a>
+                                                <strong>@Html.DisplayFor(modelItem => item.tipoeve)</strong> <hr>
+                                                <p id="" class="text-muted">@Html.DisplayFor(modelItem => item.nombreeve)</p>
+                                                <p id="" class="text-muted">@Html.DisplayFor(modelItem => item.fecha)</p> <br>
+                                            </div>
                                             }
                                         </div>
                                     </div>
