@@ -1,24 +1,11 @@
 ﻿<Properties StartupConfiguration="{188BE2D8-F72A-4A60-AE24-3F8004CE3276}|Default">
   <MonoDevelop.Ide.ItemProperties.SGCFIEE PreferredExecutionTarget="/Applications/Safari.app" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/EstudiantesInformacion/EditarCalif.cshtml">
-    <Files>
-      <File FileName="Controllers/EstudiantesInformacionController.cs" Line="307" Column="58" />
-      <File FileName="Views/EstudiantesInformacion/EditarCalif.cshtml" Line="69" Column="123" />
-      <File FileName="Models/CalificacionAlumno.cs" Line="10" Column="32" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="SGCFIEE" expanded="True">
-            <Node name="SGCFIEE" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True" />
-              <Node name="Views" expanded="True">
-                <Node name="EstudiantesInformacion" expanded="True">
-                  <Node name="EditarCalif.cshtml" selected="True" />
-                </Node>
-              </Node>
-            </Node>
+            <Node name="SGCFIEE" expanded="True" />
           </Node>
         </State>
       </Pad>

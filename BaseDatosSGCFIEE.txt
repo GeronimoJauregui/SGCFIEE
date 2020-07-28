@@ -185,7 +185,6 @@ DROP TABLE IF EXISTS `SGCFIEE`.`Estudios` ;
 
 CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Estudios` (
   `idEstudios` INT NOT NULL AUTO_INCREMENT,
-  `idNombreTitulo` INT NOT NULL,
   `idInstitucion` INT NOT NULL,
   `id_Academico` INT NOT NULL,
   `id_grado_titulo` INT NULL,
@@ -985,10 +984,10 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Jurado_Examen_Oposicion` (
   `Fecha` DATE NULL,
   `Archivo` VARCHAR(500) NULL,
   PRIMARY KEY (`id_JExposicion`),
-  INDEX `fk_Jexposicion_EE_idx` (`id_EE` ASC) ,
+  INDEX `fk_exposicion_EE_idx` (`id_EE` ASC) ,
   CONSTRAINT `fk_exposicion_EE`
     FOREIGN KEY (`id_EE`)
-    REFERENCES `SGCFIEE`.`Experiencia_Educativa` (`idExperiencia_Educativa`)
+    REFERENCES `SGCFIEE`.`Mapa_Curricular` (`idMapa_Curricular`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -1425,12 +1424,10 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_Horario` (
   `R_alumno` INT NULL,
   `Status` INT NULL,
   `Calificacion` INT NULL,
-  `R_Salon` INT NULL,
   `R_Tipo_Calif` INT NULL,
   PRIMARY KEY (`id_periodo_Actual`),
   INDEX `fk_periodo_alumno_idx` (`R_alumno` ASC) ,
   INDEX `fk_horario_calificacion_idx` (`R_Tipo_Calif` ASC) ,
-  INDEX `fk_horario_salon_idx` (`R_Salon` ASC) ,
   INDEX `fk_horario_exp_educ_periodo_idx` (`R_Experiencia_Periodo` ASC) ,
   CONSTRAINT `fk_horario_alum`
     FOREIGN KEY (`R_alumno`)
@@ -1440,11 +1437,6 @@ CREATE TABLE IF NOT EXISTS `SGCFIEE`.`Tb_Horario` (
   CONSTRAINT `fk_horario_calif`
     FOREIGN KEY (`R_Tipo_Calif`)
     REFERENCES `SGCFIEE`.`Tb_calificacion` (`id_Tb_calificacion`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_horario_salon`
-    FOREIGN KEY (`R_Salon`)
-    REFERENCES `SGCFIEE`.`Tb_Salones` (`idTb_Salones`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_horario_exp_educ_periodo`
