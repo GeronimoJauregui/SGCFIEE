@@ -25,7 +25,7 @@ namespace SGCFIEE.Controllers
         public IActionResult Principal(SGCFIEE.Models.UsuarioLogin user)
         {
             String usuario = user.matricula.ToLower();
-            if (usuario.Equals("Administrador"))
+            if (usuario.Equals("administrador"))
             {
                 using(sgcfieeContext context = new sgcfieeContext())
                 {
