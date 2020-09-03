@@ -1,4 +1,4 @@
-﻿
+﻿//scripts para darle el formato a las tablas que se muestran en sistema.//
 $(document).ready(function () {
     /*Módulo Datos Generales*/
     $("#tabla_academicos").DataTable();
