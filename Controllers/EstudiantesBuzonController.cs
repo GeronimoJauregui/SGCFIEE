@@ -14,71 +14,78 @@ namespace SGCFIEE.Controllers
 {
     public class EstudiantesBuzonController : Controller
     {
-        private string from = "pruebasgcfiee@gmail.com";
-        private string to = "jonathan9623@hotmail.es";
-        private string pass = "Qwerty.12";
+        private string from = "pruebasgcfiee@gmail.com"; //Datos globales para el envio de quejas a un correo.
+        private string to = "jonathan9623@hotmail.es"; //Datos globales para el envio de quejas a un correo.
+        private string pass = "Qwerty.12"; //Datos globales para el envio de quejas a un correo.
         MailMessage m = new MailMessage();
         SmtpClient smtp = new SmtpClient();
 
         [HttpGet]
         [Authorize]
+        //Función para acceder a la vista de agregar una sugerencia sobre la infraestructura y obtener los datos necesarios para los select.
         public IActionResult Index()
         {
-            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            if(tipo == 1)
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario"); //tipo es la variable donde se guarda el permiso según tipo de usuario (1=director, 2=académico, 3=alumno).
+            if (tipo == 1)
             {
+                //Si el usuario que ingreso es de tipo 1 (director), se redireccionara a la vista de SeleccionarQueja.
                 return RedirectToAction("SeleccionarQueja");
             }
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
 
-                var x = context.CtProblemas.ToList();
-                ViewData["problema"] = x;
-                var y = context.TipoPeriodo.ToList();
-                ViewData["periodo"] = y;
+                var x = context.CtProblemas.ToList(); //Obtención de los problemas registrados en el sistema.
+                ViewData["problema"] = x; //Paso de los datos a la vista por medio del diccionario ViewData.
+                var y = context.TipoPeriodo.ToList(); //Obtención de los periodos registrados en el sistema.
+                ViewData["periodo"] = y; //Paso de los datos a la vista por medio del diccionario ViewData.
                 return View();
             }
 
         }
         [HttpGet]
         [Authorize]
+        //Función para acceder a la vista de agregar una sugerencia sobre el desempeño académico y obtener los datos necesarios para los select.
         public IActionResult IndexDesempenio()
         {
-            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario"); //tipo es la variable donde se guarda el permiso según tipo de usuario (1=director, 2=académico, 3=alumno).
             if (tipo == 1)
             {
+                //Si el usuario que ingreso es de tipo 1 (director), se redireccionara a la vista de SeleccionarQueja.
                 return RedirectToAction("SeleccionarQueja");
             }
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
 
-                var y = context.TipoPeriodo.ToList();
-                ViewData["periodo"] = y;
-                var z = context.Academicos.ToList();
-                ViewData["academico"] = z;
+                var y = context.TipoPeriodo.ToList(); //Obtención de los periodos registrados en el sistema.
+                ViewData["periodo"] = y; //Paso de los datos a la vista por medio del diccionario ViewData.
+                var z = context.Academicos.ToList(); //Obtención de los académicos registrados en el sistema.
+                ViewData["academico"] = z; //Paso de los datos a la vista por medio del diccionario ViewData.
                 return View();
             }
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //Función para guardar los datos obtenidos de la vista de agregar sugerencia sobre la infraestructura.
         public IActionResult CrearSugerencia(BuzonSugerencias suge)
         {
             TbBuzonDeQuejas buzon = new TbBuzonDeQuejas();
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                //Paso de los datos a sus campos correspondientes.
                 buzon.RPeriodo = suge.RPeriodo;
                 buzon.RProblema = suge.RProblema;
-                buzon.RAlumno = (int)HttpContext.Session.GetInt32("IdUsu");
+                buzon.RAlumno = (int)HttpContext.Session.GetInt32("IdUsu"); //guarda al ID del usuario segun la tabla de usuario de la base de datos.
                 buzon.Sugerencia = suge.Sugerencia;
                 buzon.Propuesta = suge.Propuesta;
-                context.TbBuzonDeQuejas.Add(buzon);
+                context.TbBuzonDeQuejas.Add(buzon); //Guardado de la información.
                 context.SaveChanges();
                 TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Enviado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 var problem = context.CtProblemas.Where(s => s.IdCtProblemas == buzon.RProblema).Single();
                 string problema = problem.NombreProblemas;
+                //Envio de correo.
                 try
                 {
                     m.From = new MailAddress(from, "Jonathan Trujillo");
@@ -103,22 +110,25 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //Función para guardar los datos obtenidos de la vista de agregar sugerencia sobre el desempeño académico.
         public IActionResult CrearSugerenciaAca(BuzonSugerencias sugere)
         {
 
             TbBuzonAcademicos buzon = new TbBuzonAcademicos();
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                //Paso de los datos a sus campos correspondientes.
                 buzon.RAcademicos = sugere.RAcademicos;
                 buzon.RPeriodo = sugere.RPeriodo.Value;
                 buzon.Propuesta = sugere.Propuesta;
-                buzon.RAlumno = (int)HttpContext.Session.GetInt32("IdUsu");
+                buzon.RAlumno = (int)HttpContext.Session.GetInt32("IdUsu"); //guarda al ID del usuario segun la tabla de usuario de la base de datos.
                 buzon.Sugerencia = sugere.Sugerencia;
-                context.TbBuzonAcademicos.Add(buzon);
+                context.TbBuzonAcademicos.Add(buzon); //Guardado de la información.
                 context.SaveChanges();
                 TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Enviado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
                 var aca = context.Academicos.Where(s => s.IdAcademicos == sugere.RAcademicos).Single();
                 string academico = aca.Nombre;
+                //Envio de correo.
                 try
                 {
                     m.From = new MailAddress(from);
@@ -141,6 +151,7 @@ namespace SGCFIEE.Controllers
         }
         [HttpGet]
         [Authorize]
+        //Función para acceder a la vista de crear un nuevo problema.
         public IActionResult CrearProblema()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -148,14 +159,15 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //Función para guardar el problema que se ingrese en la vista de crear problema.
         public IActionResult CrearProblema(CtProblemas problema)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
-                context.CtProblemas.Add(problema);
+                context.CtProblemas.Add(problema); //Guardado de la información.
                 context.SaveChanges();
                 TempData["mensaje"] = "Dato guardado";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); //Retorno a la vista index.
             }
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -165,6 +177,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        //Función que muestra un select con los dos tipos de sugerencias.
         public IActionResult SeleccionarQueja()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -172,30 +185,35 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        //Una vez seleccionada una opción en la vista SeleccionarQueja, dicho dato llegara ha esta función.
         public IActionResult CargarTabla(CtMovilidades queja)
         {
+            //Dependiendo de cual haya sido la opción seleccionada, sera la condición que se cumpla.
             int x = queja.TipoMovilidades.Value;
             if(x == 0)
             {
-                return RedirectToAction("SeleccionarQueja");
+                return RedirectToAction("SeleccionarQueja"); //Redirección a la vista de SeleccionarQueja (Aparece el menu para seleccionar quejas).
             }
             if(x == 1)
             {
-                return RedirectToAction("TablaInfrestructura");
+                return RedirectToAction("TablaInfrestructura"); //Redirección a la vista de TablaInfrestructura (Aparecen las quejas sobre la infraestructura).
             }
             else
             {
-                return RedirectToAction("TablaAcademicos");
+                return RedirectToAction("TablaAcademicos"); //Redirección a la vista de TablaAcademicos (Aparecen las quejas sobre el desempeño académico).
             }
         }
 
         [Authorize]
+        //Función para mostrar la tabla de quejas sobre la infraestructura.
         public IActionResult TablaInfrestructura()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            List<TablaSugerenciasBuzon> suge = new List<TablaSugerenciasBuzon>();
+            //La clase TablaSugerenciasBuzon fue creada manualmente, esto para poder tener acceso a los datos de un solo lugar.
+            List<TablaSugerenciasBuzon> suge = new List<TablaSugerenciasBuzon>(); //Declaración de la lista donde se obtendran los datos.
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                //Consulta para obtener todas las quejas de los alumnos.
                 suge = (from t in context.TbBuzonDeQuejas
                            join
                             p in context.CtProblemas on t.RProblema equals p.IdCtProblemas
@@ -224,12 +242,15 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        //Función para mostrar la tabla de quejas sobre el desempeño académico.
         public IActionResult TablaAcademicos()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
-            List<TablaSugerenciasBuzon> suge = new List<TablaSugerenciasBuzon>();
+            //La clase TablaSugerenciasBuzon fue creada manualmente, esto para poder tener acceso a los datos de un solo lugar.
+            List<TablaSugerenciasBuzon> suge = new List<TablaSugerenciasBuzon>(); //Declaración de la lista donde se obtendran los datos.
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                //Consulta para obtener todas las quejas de los alumnos.
                 suge = (from t in context.TbBuzonAcademicos
                         join
                          p in context.Academicos on t.RAcademicos equals p.IdAcademicos
