@@ -13,13 +13,14 @@ namespace SGCFIEE.Controllers
     {
         [Authorize]
         public IActionResult Index()
-        {
+        { // vista principal del submodulo, EE de la UV
             List<pExperienciaEduPeriodo> ListEEP = new List<pExperienciaEduPeriodo>();
+            // siempre verificamos el tipo de usuario que hace la petición
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             ViewData["tipo"] = tipo;
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // si es tipo 1 mostramos todas las EE de la facultad
                 if (tipo == 1) {
                     ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
                                join per in context.TipoPeriodo on EEP.IdPeriodo equals per.IdPeriodo
@@ -31,6 +32,7 @@ namespace SGCFIEE.Controllers
                                join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
                                join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
                                join are in context.AreaExperienciaEducativa on EE.IdArea equals are.IdAreaExperienciaEducativa
+                               // hacemos la comparación explicita con la unversidad para buscar las materias internas
                                where ies.Nombre == "Universidad Veracruzana"
 
                                select new pExperienciaEduPeriodo
@@ -58,7 +60,7 @@ namespace SGCFIEE.Controllers
                                    horas = EE.Horas
                                }
                         ).ToList();
-                }
+                } // si es tipo 2 solo mastramos las materias del académico
                 if (tipo == 2)
                 {
                     ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
@@ -71,6 +73,8 @@ namespace SGCFIEE.Controllers
                                join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
                                join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
                                join are in context.AreaExperienciaEducativa on EE.IdArea equals are.IdAreaExperienciaEducativa
+                               // hacemos la comparación explicita con la unversidad para buscar las materias internas
+                               // y buscamos las EE donde aparezca el academico
                                where ies.Nombre == "Universidad Veracruzana" && aca.IdAcademicos == idUsu
 
                                select new pExperienciaEduPeriodo
@@ -107,7 +111,8 @@ namespace SGCFIEE.Controllers
 
         [Authorize]
         public IActionResult CrearEEUV()
-        {
+        { 
+          // Dato: las EE se encuentran en una tabla y a su vez estan contenidas en mapas curriculares, de aqui se toman para EE por periodo
             List<MCEE> ListMCEE = new List<MCEE>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
@@ -121,6 +126,7 @@ namespace SGCFIEE.Controllers
                 ListMCEE = (from MC in context.MapaCurricular
                                         join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
                                         join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                                        // buscamos los Mapas curriculares que sean de la UV
                                         where  PE.Nombre != "Externo"
                                         select new MCEE
                                         {
@@ -154,11 +160,13 @@ namespace SGCFIEE.Controllers
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+              // si es un academico quien crea el registro, solo se crea con su id, ya no se pregunta por el académico
                 if (tipo == 2) {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
                 }
+                // buscamos el id de la UV 
                 InstitucionesEmpresas uv = context.InstitucionesEmpresas.Where(w => w.Nombre == "Universidad Veracruzana").Single();
-                
+                // guardamos
                 datos.IdInstitucionSuperior = uv.IdIE;
                 datos.Status = 1;
                 context.ExperienciaEducativaPeriodo.Add(datos);
@@ -170,6 +178,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // recibe el id de la EEP a buscar
         public IActionResult DetallesEEUV( int id)
         {
             List<pExperienciaEduPeriodo> ListEEP = new List<pExperienciaEduPeriodo>();
@@ -211,7 +220,7 @@ namespace SGCFIEE.Controllers
                                creditos = EE.Creditos,
                                area = are.Nombre,
                                horas = EE.Horas
-                           }
+                           } // filtramos por el id de la EEP
                             ).Where(EEP => EEP.IdExperienciaEducativaPeriodo == id).ToList();
                 ViewData["EEP"] = ListEEP;
             }
@@ -238,6 +247,7 @@ namespace SGCFIEE.Controllers
                 ListMCEE = (from MC in context.MapaCurricular
                             join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
                             join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                            // carreras que sean de la UV
                             where PE.Nombre != "Externo"
                             select new MCEE
                             {
@@ -270,13 +280,13 @@ namespace SGCFIEE.Controllers
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // si es un academico quien crea el registro, solo se crea con su id, ya no se pregunta por el académico
                 if (tipo == 2)
                 {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
                 }
 
-
+                // se guadan los datos
                 context.ExperienciaEducativaPeriodo.Update(datos);
                 context.SaveChanges();
                 TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
@@ -296,6 +306,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // experiencias educativas externas a la UV ( estas representan la experiencia profesional de algunos académicos)
         public IActionResult IndexEEEUV()
         {
             List<pExperienciaEduPeriodo> ListEEP = new List<pExperienciaEduPeriodo>();
@@ -303,7 +314,7 @@ namespace SGCFIEE.Controllers
             int idUsu = (int)HttpContext.Session.GetInt32("IdUsu");
             ViewData["tipo"] = tipo;
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // si es tipo 1 mostramos todas las EE de la facultad
                 if (tipo == 1) {
                     ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
                                join per in context.TipoPeriodo on EEP.IdPeriodo equals per.IdPeriodo
@@ -311,6 +322,7 @@ namespace SGCFIEE.Controllers
                                join ies in context.InstitucionesEmpresas on EEP.IdInstitucionSuperior equals ies.IdIE
                                join MC in context.MapaCurricular on EEP.IdMapaCurricular equals MC.IdMapaCurricular
                                join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
+                               // en este caso buscamos todas las EE donde la UV no sea la IES
                                where ies.Nombre != "Universidad Veracruzana"
 
                                select new pExperienciaEduPeriodo
@@ -328,7 +340,7 @@ namespace SGCFIEE.Controllers
                                    EE = EE.Nombre,
                                }
                             ).ToList();
-                }
+                } // si es tipo 2 solo mastramos las materias del académico
                 if (tipo == 2)
                 {
                     ListEEP = (from EEP in context.ExperienciaEducativaPeriodo
@@ -372,11 +384,13 @@ namespace SGCFIEE.Controllers
                 var acad = context.Academicos.ToList();
                 var perio = context.TipoPeriodo.ToList();
                 var salones = context.TbSalones.ToList();
+                // solo mostramos las ies que no sean la UV
                 var ies = context.InstitucionesEmpresas.Where(w => w.Nombre != "Universidad Veracruzana" && w.IesEmpresa == 2).ToList();
 
                 var mc = (from MC in context.MapaCurricular
                             join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
                             join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                            // para poder agregar estas EEE se necesita tener un Mapa curricular el cual se llama "Externo"
                             where PE.Nombre == "Externo"
                             select new MCEE
                             {
@@ -403,24 +417,26 @@ namespace SGCFIEE.Controllers
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // si es un académico no se pide su id en el formulario, se busca aqui
                 if (tipo == 2)
                 {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
                 }
-
+                // si el usuario no encontro la ies, entonces puede agregar una nueva
                 if (nuevaInstitucion != null)
                 {
                     InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
                     nuevo.Nombre = nuevaInstitucion;
+                    // 2 = institución
                     nuevo.IesEmpresa = 2;
                     context.InstitucionesEmpresas.Add(nuevo);
                     context.SaveChanges();
                     InstitucionesEmpresas ultima = context.InstitucionesEmpresas.Last();
                     datos.IdInstitucionSuperior = ultima.IdIE;
-                }
+                }// de igual forma si no encontro la EE en el catalogp, puede agregar una nueva
                 if (nuevaEEE != null)
                 {
+                    // todas las EE llevan un area, en este caso se asigna "Externo"
                     var ListAEE = context.AreaExperienciaEducativa.ToList();
                     AreaExperienciaEducativa datoAEE = new AreaExperienciaEducativa();
                     foreach (AreaExperienciaEducativa item in ListAEE)
@@ -430,7 +446,7 @@ namespace SGCFIEE.Controllers
                             datoAEE = item;
                             break;
                         }
-                    }
+                    } // se crea la materia
                     ExperienciaEducativa nuevo = new ExperienciaEducativa();
                     nuevo.Nombre = nuevaEEE;
                     nuevo.Creditos = 0;
@@ -451,6 +467,7 @@ namespace SGCFIEE.Controllers
                             break;
                         }
                     }
+                    // se agrega al mapa curricular
                     MapaCurricular nuevainfo = new MapaCurricular();
                     nuevainfo.IdProgramaEducativo = datoPE.IdProgramaEducativo;
                     nuevainfo.IdExperienciaEducativa = ultima.IdExperienciaEducativa;
@@ -472,23 +489,25 @@ namespace SGCFIEE.Controllers
             return RedirectToAction("IndexEEEUV");
         }
 
-        [Authorize]
+        [Authorize] // recibe el id del registro a editar
         public IActionResult EditarEEEUV(int id)
         {
             List<MCEE> ListMCEE = new List<MCEE>();
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            {   // buscamos ese id
                 ExperienciaEducativaPeriodo Datoseep = context.ExperienciaEducativaPeriodo.Where(s => s.IdExperienciaEducativaPeriodo == id).Single();
 
                 var acad = context.Academicos.ToList();
                 var perio = context.TipoPeriodo.ToList();
                 var salones = context.TbSalones.ToList();
+                // buscamos todas las ies que no sean la UV
                 var ies = context.InstitucionesEmpresas.Where(w => w.Nombre != "Universidad Veracruzana" && w.IesEmpresa == 2).ToList();
 
                 var mc = (from MC in context.MapaCurricular
                           join EE in context.ExperienciaEducativa on MC.IdExperienciaEducativa equals EE.IdExperienciaEducativa
                           join PE in context.ProgramaEducativo on MC.IdProgramaEducativo equals PE.IdProgramaEducativo
+                          // buscamos el programa externo
                           where PE.Nombre == "Externo"
                           select new MCEE
                           {
@@ -516,15 +535,17 @@ namespace SGCFIEE.Controllers
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // si es un academico no se pregunta su id en el formulario, aquí se busca
                 if (tipo == 2)
                 {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
                 }
-
+                // si la institución no aparece, se puede agregar
                 if (nuevaInstitucion != null)
                 {
                     InstitucionesEmpresas nuevo = new InstitucionesEmpresas();
                     nuevo.Nombre = nuevaInstitucion;
+                    // 2 == institución
                     nuevo.IesEmpresa = 2;
                     context.InstitucionesEmpresas.Add(nuevo);
                     context.SaveChanges();

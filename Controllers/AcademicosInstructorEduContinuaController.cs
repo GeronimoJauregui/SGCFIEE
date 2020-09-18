@@ -17,7 +17,7 @@ namespace SGCFIEE.Controllers
     {
         //Función index, obtiene la información que se mostrara en la vista index del submodulo Intructor de educación continua.
         // GET: /<controller>/
-        [Authorize]
+        [Authorize] // vista principal
         public IActionResult Index()
         {
             List<TablaInstructorEduCont> ListInstructorEdu = new List<TablaInstructorEduCont>(); //Se crea una clase manualmente, para poder manipular la información con mayor facilidad.

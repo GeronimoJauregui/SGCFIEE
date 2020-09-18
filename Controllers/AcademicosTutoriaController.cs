@@ -10,21 +10,27 @@ using SGCFIEE.Models;
 namespace SGCFIEE.Controllers
 {
     public class AcademicosTutoriaController : Controller
+    //en este submodulo tenemos 2 vistas principales, una es solo vista generica,
+    //la segunda ya recibe un id para buscar
     {
         [Authorize]
+        // primera vista (generica)
         public IActionResult Index()
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             ViewData["tipo"] = tipo;
+            //si se trata de un académico redireccionamos al otro metodo index, pasando su id
             if (tipo == 2) {
                 Academicos aca = new Academicos();
                 aca.IdAcademicos = (int)HttpContext.Session.GetInt32("IdUsu");
                 return RedirectToAction("IdIndex", aca );            
-            }
+            } // usamos un modelo personalizado para los tutorados internos
             List<pAcademicosAlumnos> tutoI = new List<pAcademicosAlumnos>();
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // para esta vista generica siempre vamos a mostrar los tutorados del primer academico en la DB
                 var acad = context.Academicos.ToList();
+                // buscamos los tutorados externos
                 var tutoE = context.TutoradosExternos.Where( w => w.IdAcademico == acad[0].IdAcademicos).ToList();
 
                 tutoI = (from tuto in context.Tutores
@@ -48,13 +54,17 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // vista que recibe id del academico,este metodo se manda a llamar cada vez que el select de la vista cambie 
+        // se recibe en un modelo de académicos aunque lo unico que contiene es el id
         public IActionResult IdIndex(Academicos datos)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             List<pAcademicosAlumnos> tutoI = new List<pAcademicosAlumnos>();
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // necesitamos tener la lista de todos los académicos otra vez para el select 
                 var acad = context.Academicos.ToList();
+                // buscamos al académico 
                 var esp_aca = context.Academicos.Where(w => w.IdAcademicos == datos.IdAcademicos).Single();
                 var tutoE = context.TutoradosExternos.Where(w => w.IdAcademico == esp_aca.IdAcademicos).ToList();
 
@@ -107,14 +117,16 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
+        // usamos el mismo modelo para recibir los datos de internos y externos
         public IActionResult Guardar(ptutorados datos)
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            // si es tipo 2 no se le preguntan sus datos en la vista, aqui obtenemos su id
             if (tipo == 2) {
                 datos.IdAcademicos = (int)HttpContext.Session.GetInt32("IdUsu");
             }
             using (sgcfieeContext context = new sgcfieeContext())
-            {   
+            {   // si es un tutorado interno
                 if (datos.Tipotutorado == 0)
                 {
                     Tutores tuto = new Tutores();
@@ -123,6 +135,7 @@ namespace SGCFIEE.Controllers
                     tuto.Status = 1;
                     context.Tutores.Add(tuto);
                 }
+                // si es un tutorado externo
                 else
                 {
                     TutoradosExternos tuto = new TutoradosExternos();
@@ -138,6 +151,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // editar tutorado interno
         public IActionResult EditarI(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -167,6 +181,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // editar externo
         public IActionResult EditarE(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -190,7 +205,7 @@ namespace SGCFIEE.Controllers
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            {   // si es un academico en la vista no se piden sus datos, se buscan aqui
                 if (tipo == 2)
                 {
                     datos.IdAcademicos = (int)HttpContext.Session.GetInt32("IdUsu");
@@ -210,7 +225,7 @@ namespace SGCFIEE.Controllers
         {
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            {   // si es un academico en la vista no se piden sus datos, se buscan aqui
                 if (tipo == 2)
                 {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
@@ -221,7 +236,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        // eliminar tutorado interno
         public IActionResult EliminarI(int id)
         {
             using (sgcfieeContext context = new sgcfieeContext())
@@ -232,7 +247,7 @@ namespace SGCFIEE.Controllers
                 return RedirectToAction("Index");
             }
         }
-
+        // eliminar tutorado externo
         public IActionResult EliminarE(int id)
         {
             using (sgcfieeContext context = new sgcfieeContext())

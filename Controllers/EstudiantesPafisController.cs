@@ -13,6 +13,7 @@ namespace SGCFIEE.Controllers
     public class EstudiantesPafisController : Controller
     {
         [Authorize]
+        // vista principal del submodulo
         public IActionResult Index()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -20,7 +21,7 @@ namespace SGCFIEE.Controllers
             List<TbPafisAlumno> pafi_alum = new List<TbPafisAlumno>();
             int alum = (int)HttpContext.Session.GetInt32("IdUsu");
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            {  // pafis activos
                 tb_pafi = (from d in context.PafisAcademicos
                            join
                             p in context.ProgramaEducativo on d.IdProgramaImpacta equals p.IdProgramaEducativo
@@ -45,6 +46,7 @@ namespace SGCFIEE.Controllers
                                estado = d.Estado.Value
                            }
                           ).Where(s => s.estado == 0).ToList();
+                // tabla donde esta la relacion del pafi con el alumno
                 pafi_alum = context.TbPafisAlumno.ToList();
             }
             foreach (TablaPafi item1 in tb_pafi)
@@ -72,6 +74,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // recibe el id del registro a buscar
         public IActionResult DetallesPafi(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -109,7 +112,7 @@ namespace SGCFIEE.Controllers
 
 
 
-
+        // por si ocurre algun error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -117,6 +120,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // vista para solicitar un pafi
         public IActionResult SolicitudPafi()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -133,6 +137,7 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
+        // metodo de guardado el pafi solicitado
         public IActionResult Crear(PafisSolicitados pafis)
         {
             pafis.IdAlumno = (int)HttpContext.Session.GetInt32("IdUsu");
@@ -145,13 +150,14 @@ namespace SGCFIEE.Controllers
             return RedirectToAction("Index");
         }
         [Authorize]
+        // inscribirse a un pafi activo
         public IActionResult Inscribir(int id)
         {
             TbPafisAlumno pafis = null;
             TbPafisAlumno nuevo = new TbPafisAlumno();
             int alum = (int)HttpContext.Session.GetInt32("IdUsu");
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // verificamos que no este inscrito ya
                 pafis = context.TbPafisAlumno.Where(a => a.RAlumno == alum && a.RInfopafi == id).FirstOrDefault();
                 if (pafis == null)
                 {
@@ -170,7 +176,7 @@ namespace SGCFIEE.Controllers
             int alum = (int)HttpContext.Session.GetInt32("IdUsu");
             TbPafisAlumno tbpafi = null;
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // verificamos que en verdad exista
                 tbpafi = context.TbPafisAlumno.Where(s => s.RAlumno == alum && s.RInfopafi.Value == id).SingleOrDefault();
                 if (tbpafi != null)
                 {

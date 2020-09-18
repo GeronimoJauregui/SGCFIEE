@@ -17,13 +17,17 @@ namespace SGCFIEE.Controllers
     {
         [Authorize]
         public IActionResult Index()
-        {
+        { // modelo personalizado de pafi
+            // la vista muestra dos tablas
+            // 1.- pafis en curso y finalizados
             List<pPafisAcademicos> ListPafis = new List<pPafisAcademicos>();
+            // 2.- pafis que solicitan los alumnos
             List<ListPafisSolic> ListPafisSolic = new List<ListPafisSolic>();
+            // siempre es necesario saber el tipo de usuario
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             ViewData["tipo"] = tipo;
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            {   // si se trata del director, se muestran todos  los pafis
                 if (tipo == 1) {
                     ListPafis = (from pafis in context.PafisAcademicos
                                  join per in context.TipoPeriodo on pafis.IdPeriodo equals per.IdPeriodo
@@ -75,6 +79,7 @@ namespace SGCFIEE.Controllers
                                 ).ToList();
                     ViewData["pafisSolic"] = ListPafisSolic;
                 }
+                // si se trata de un académico solo se muestran los pafis donde esta involucrado
                 if (tipo == 2)
                 {
                     ListPafis = (from pafis in context.PafisAcademicos
@@ -113,6 +118,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // crear un pafi
         public IActionResult Crear()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -135,17 +141,19 @@ namespace SGCFIEE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
+        // guardar un pafi
         public async Task<IActionResult> Guardar(List<IFormFile> file, PafisAcademicos datos)
         {
 
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // si se trata de un academico no se pide el id, se asigna aquí
                 if (tipo == 2)
                 {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
                 }
                 var pa = context.PafisAcademicos.ToList();
+                // verificamos que los datos no sean repetidos
                 foreach (PafisAcademicos item in pa)
                 {
                     if (datos.IdAcademico == item.IdAcademico && datos.IdPeriodo == item.IdPeriodo && datos.IdSalon == item.IdSalon && datos.Horario == item.Horario)
@@ -153,7 +161,7 @@ namespace SGCFIEE.Controllers
                         TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("Index");
                     }
-                }
+                } // guardamos los datos en la DB
                 var new_name_table = "Pafi" + "_" + datos.IdAcademico + "_" + file[0].GetFilename();
                 var new_name_table2 = "Acta" + "_" + datos.IdAcademico + "_" + file[1].GetFilename();
                 datos.ArchivoPafi = new_name_table;
@@ -161,10 +169,10 @@ namespace SGCFIEE.Controllers
                 context.PafisAcademicos.Add(datos);
                 context.SaveChanges();
             }
-
+            // si no hay archivo, regresa este mensaje
             if (file[0] == null || file[0].Length == 0)
                 return Content("file not selected");
-
+            // guardamos el archivo en el servidor
             var new_name_file = "Pafi" + "_" + datos.IdAcademico + "_" + file[0].GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/PafisAcademicos", new_name_file);
 
@@ -172,10 +180,10 @@ namespace SGCFIEE.Controllers
             {
                 await file[0].CopyToAsync(stream);
             }
-
+            // si no hay archivo, regresa este mensaje
             if (file[1] == null || file[1].Length == 0)
                 return Content("file not selected");
-
+            // guardamos los archivos en el servidor
             var new_name_file2 = "Acta" + "_" + datos.IdAcademico + "_" + file[1].GetFilename();
             var path2 = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/PafisAcademicos", new_name_file2);
 
@@ -188,6 +196,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // recibe el id del registro
         public IActionResult Detalles(int id)
         {
             pPafisAcademicos Pafis = new pPafisAcademicos();
@@ -231,6 +240,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // recibe el id del registro a editar
         public IActionResult Editar(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -263,6 +273,7 @@ namespace SGCFIEE.Controllers
             int tipo = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // si es un académico no se pide el id en el formulario, se busca aquí
                 if (tipo == 2)
                 {
                     datos.IdAcademico = (int)HttpContext.Session.GetInt32("IdUsu");
@@ -279,7 +290,7 @@ namespace SGCFIEE.Controllers
                 //}
             }
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // si hay archivo, se modifica la ruta
                 if (file.Count() > 0)
                 {
                     var new_name_table = "Pafi" + "_" + datos.IdAcademico + "_" + file[0].GetFilename();
@@ -287,7 +298,7 @@ namespace SGCFIEE.Controllers
 
                     var new_name_table2 = "Acta" + "_" + datos.IdAcademico + "_" + file[1].GetFilename();
                     datos.ArchivoActaA = new_name_table2;
-                }
+                } // en caso contrario se guardan los mismas rutas
                 else
                 {
                     var nomArchivo = context.PafisAcademicos.Where(w => w.IdPafis == datos.IdPafis).Single();
@@ -297,18 +308,19 @@ namespace SGCFIEE.Controllers
 
             }
             TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
+            // se guardan los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.PafisAcademicos.Update(datos);
                 context.SaveChanges();
                 
             }
-
+            // si no hay archivos, acabamos y regresamos
             if (file.Count() == 0)
             {
                 return RedirectToAction("Index");
             }
-
+            // si hay archivo, lo guardamos primero en el servidor
             var new_name_file = "Pafi" + "_" + datos.IdAcademico + "_" + file[0].GetFilename();
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Archivos/PafisAcademicos", new_name_file);
 
@@ -351,7 +363,7 @@ namespace SGCFIEE.Controllers
 
         public async Task<IActionResult> Descargar(string filename)
         {
-
+            // si no hay url regresa el siguiente mensaje
             if (filename == null)
                 return Content("filename not present");
 
@@ -374,6 +386,7 @@ namespace SGCFIEE.Controllers
             var ext = Path.GetExtension(path).ToLowerInvariant();
             return types[ext];
         }
+        // formatos que son compatibles
         private Dictionary<string, string> GetMimeTypes()
         {
             return new Dictionary<string, string>

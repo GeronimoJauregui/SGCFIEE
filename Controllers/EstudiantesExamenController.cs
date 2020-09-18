@@ -11,7 +11,7 @@ namespace SGCFIEE.Controllers
 {
     public class EstudiantesExamenController : Controller
     {
-        [HttpGet]
+        [HttpGet] // vista principal
         public IActionResult Index()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -27,14 +27,16 @@ namespace SGCFIEE.Controllers
                 
         }
         [HttpPost]
+        // al crear las calificaciones se obtiene en un json porque se reciben de diferentes rubros
         public IActionResult Crear(JSON examen)
         {
             JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+            // se transforman del json a un modelo y se guardan en lista
              List<TbExamenalumno> lista =
                 json_serializer.Deserialize<List<TbExamenalumno>>(examen.json);
             //  AlumnoExamenTB list = new AlumnoExamenTB();
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // se guardan unno por uno
                 foreach (var item in lista)
                 {
                     context.TbExamenalumno.Update(item);

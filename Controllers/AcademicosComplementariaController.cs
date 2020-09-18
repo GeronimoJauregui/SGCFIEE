@@ -9,6 +9,12 @@ using SGCFIEE.Models;
 
 namespace SGCFIEE.Controllers
 {
+    // aqui se encuentran todos los catalogos del sistema
+    // de esta forma los usuarios pueden hacer cambios en el futuro
+    // siempre es necesario obtener el id del tipo de usuario que esta haciendo las solicutudes
+    // ya que solo el administrador debe tener acceso a esa parte
+
+    // vista principal con los catálogos
     public class AcademicosComplementariaController : Controller
     {
         [Authorize]
@@ -22,6 +28,7 @@ namespace SGCFIEE.Controllers
 
 
         [Authorize]
+        // muestra los tipos de localización: local, nacional, internacional 
         public IActionResult MostrarLocalizacion()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -42,18 +49,20 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult GuardarLocalizacion(TipoLocNacInter datos)
         {
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.TipoLocNacInter.ToList();
                 foreach(TipoLocNacInter item in info)
                 {
                     if(item.Nombre == datos.Nombre)
-                    {
+                    {   // retornamos un mensaje cuando los datos ya existan
                         TempData["msg"] = "<script language='javascript'> swal({ title:'" + "La información ya se encuentra registrada!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                         return RedirectToAction("MostrarLocalizacion");
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoLocNacInter.Add(datos);
@@ -63,6 +72,7 @@ namespace SGCFIEE.Controllers
             return RedirectToAction("MostrarLocalizacion");
         }
         [Authorize]
+        // obtenemos el id del registro a Editar
         public IActionResult EditarLocalizacion(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -78,6 +88,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoLocNacInter.Where(i => i.IdTipo != datos.IdTipo).ToList();
                 foreach (TipoLocNacInter item in info)
                 {
@@ -88,6 +99,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoLocNacInter.Update(datos);
@@ -106,7 +118,6 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarLocalizacion");
         }
-
 
 
 
@@ -133,6 +144,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.Editorial.ToList();
                 foreach (Editorial item in info)
                 {
@@ -143,6 +155,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // se guardan los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.Editorial.Add(datos);
@@ -167,6 +180,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.Editorial.Where(e => e.IdEditorial != datos.IdEditorial).ToList();
                 foreach (Editorial item in info)
                 {
@@ -177,6 +191,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.Editorial.Update(datos);
@@ -196,10 +211,8 @@ namespace SGCFIEE.Controllers
             return RedirectToAction("MostrarEditorial");
         }
 
-
-
-
         [Authorize]
+        // nivel jerarquico de los cuerpos académicos
         public IActionResult MostrarNivel()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -222,6 +235,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.CanivelJerarquico.ToList();
                 foreach (CanivelJerarquico item in info)
                 {
@@ -232,6 +246,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CanivelJerarquico.Add(datos);
@@ -256,6 +271,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.CanivelJerarquico.Where(c => c.IdCanivelJerarquico != datos.IdCanivelJerarquico).ToList();
                 foreach (CanivelJerarquico item in info)
                 {
@@ -266,6 +282,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // actualizamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CanivelJerarquico.Update(datos);
@@ -311,6 +328,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoEvaluador.ToList();
                 foreach (TipoEvaluador item in info)
                 {
@@ -321,6 +339,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoEvaluador.Add(datos);
@@ -330,6 +349,7 @@ namespace SGCFIEE.Controllers
             return RedirectToAction("MostrarProducto");
         }
         [Authorize]
+        // recibe el id del registro
         public IActionResult EditarProducto(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -345,6 +365,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoEvaluador.Where(t => t.IdTipoEvaluador != datos.IdTipoEvaluador).ToList();
                 foreach (TipoEvaluador item in info)
                 {
@@ -355,6 +376,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoEvaluador.Update(datos);
@@ -398,6 +420,7 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult GuardarModalidad(TipoModalidad datos)
         {
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.TipoModalidad.ToList();
@@ -410,6 +433,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoModalidad.Add(datos);
@@ -432,6 +456,7 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ActualizarModalidad(TipoModalidad datos)
         {
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.TipoModalidad.Where(t => t.IdModalidad != datos.IdModalidad).ToList();
@@ -444,6 +469,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoModalidad.Update(datos);
@@ -469,6 +495,7 @@ namespace SGCFIEE.Controllers
         public IActionResult MostrarCuerpos()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
+            // obtenemos los datos en un modelo personalizado
             List<TablaCuerpo> cuerpoAca = new List<TablaCuerpo>();
             using (sgcfieeContext context = new sgcfieeContext())
             {
@@ -501,12 +528,14 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos si se ingreso un estado: en consolidacion, consolidado
                 if(datos.IdEstado == null)
                 {
                     TempData["msg"] = "<script language='javascript'> swal({ title:'" + "No se ha encontrado el estado del cuerpo académico!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                     return RedirectToAction("InsertarCuerpo");
                 }
             }
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.CuerposAcademicos.ToList();
@@ -519,6 +548,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CuerposAcademicos.Add(datos);
@@ -543,6 +573,7 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ActualizarCuerpo(CuerposAcademicos datos)
         {
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.CuerposAcademicos.Where(c => c.IdCuerpoAcademico != datos.IdCuerpoAcademico).ToList();
@@ -555,6 +586,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CuerposAcademicos.Update(datos);
@@ -576,6 +608,7 @@ namespace SGCFIEE.Controllers
 
 
         [Authorize]
+        // estados de los cuerpos académicos
         public IActionResult MostrarEstado()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -596,6 +629,7 @@ namespace SGCFIEE.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult GuardarEstado(CuerpoEstados datos)
         {
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.CuerpoEstados.ToList();
@@ -608,6 +642,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CuerpoEstados.Add(datos);
@@ -628,8 +663,10 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // estado de cuerpos académicos
         public IActionResult ActualizarEstado(CuerpoEstados datos)
         {
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.CuerpoEstados.Where(e => e.IdEstado != datos.IdEstado).ToList();
@@ -642,6 +679,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CuerpoEstados.Update(datos);
@@ -666,6 +704,7 @@ namespace SGCFIEE.Controllers
 
 
         [Authorize]
+        // tipo de personal
         public IActionResult MostrarPersonal()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -678,6 +717,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // tipos de puestos de experiencia profesional
         public IActionResult MostrarPuestos()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -690,6 +730,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // los laboratorios que se ligan con los académicos
         public IActionResult MostrarLaboratorios()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -702,6 +743,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // periodos escolares
         public IActionResult MostrarPeriodos()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -714,6 +756,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // grado de titulo de un academico
         public IActionResult MostrarGTitulo()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -726,6 +769,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // distinciones del trabajo académico
         public IActionResult MostrarDistincionesTA()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -738,6 +782,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // tipos de certificaciones que pueden tener los académicos
         public IActionResult MostrarCertificacion()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -750,6 +795,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // instituciones / empresas
         public IActionResult MostrarInstiEmpre()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -762,6 +808,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // academias de la universidad
         public IActionResult MostrarAcademias()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -774,6 +821,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // programas transversales
         public IActionResult MostrarProTransversales()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -786,6 +834,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // tipos de contratación
         public IActionResult MostrarTContratacion()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -798,6 +847,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // programas educativos
         public IActionResult VCarreras()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -808,7 +858,7 @@ namespace SGCFIEE.Controllers
             }
             return View();
         }
-
+        // pendiente
         [Authorize]
         public IActionResult TablaMatPE(ProgramaEducativo map)
         {
@@ -849,6 +899,7 @@ namespace SGCFIEE.Controllers
             return View();
         }
 
+        // eliminar mapa curricular
         public IActionResult EliminarMC(int id)
         {
             MapaCurricular mc;
@@ -875,8 +926,10 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // tipo de personal
         public IActionResult CrearPersonal(TipoPersonal personal)
         {
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.TipoPersonal.ToList();
@@ -889,6 +942,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPersonal.Add(personal);
@@ -899,6 +953,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // puestos de experiencia recepcional
         public IActionResult InsertarPuestos()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -907,10 +962,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // puestos de experiencia recepcional
         public IActionResult CrearPuesto(TipoPuesto puesto)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoPuesto.ToList();
                 foreach (TipoPuesto item in info)
                 {
@@ -921,6 +978,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPuesto.Add(puesto);
@@ -931,6 +989,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // tipo de laboratorio
         public IActionResult InsertarLaboratorios()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -943,6 +1002,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoLaboratorio.ToList();
                 foreach (TipoLaboratorio item in info)
                 {
@@ -953,6 +1013,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoLaboratorio.Add(lab);
@@ -975,6 +1036,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoPeriodo.ToList();
                 foreach (TipoPeriodo item in info)
                 {
@@ -985,6 +1047,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPeriodo.Add(periodo);
@@ -996,6 +1059,7 @@ namespace SGCFIEE.Controllers
         
 
         [Authorize]
+        // grado de titulo
         public IActionResult InsertarGTitulo()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1004,10 +1068,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // grado de titulo
         public IActionResult CrearGTitulo(GradoTitulo titulo)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.GradoTitulo.ToList();
                 foreach (GradoTitulo item in info)
                 {
@@ -1018,6 +1084,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.GradoTitulo.Add(titulo);
@@ -1028,6 +1095,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // distinciones del trabajo academico
         public IActionResult InsertarDistincionesTA()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1036,10 +1104,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // distinciones del trabajo academico
         public IActionResult CrearDistincionTA(TipoDistincionTa distincion)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoDistincionTa.ToList();
                 foreach (TipoDistincionTa item in info)
                 {
@@ -1050,6 +1120,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoDistincionTa.Add(distincion);
@@ -1072,6 +1143,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoCertificacion.ToList();
                 foreach (TipoCertificacion item in info)
                 {
@@ -1082,6 +1154,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoCertificacion.Add(certificado);
@@ -1092,6 +1165,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // instituciones / empresas
         public IActionResult InsertarIE()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1100,10 +1174,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // instituciones / empresas
         public IActionResult CrearIE(InstitucionesEmpresas IE)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.InstitucionesEmpresas.ToList();
                 foreach (InstitucionesEmpresas item in info)
                 {
@@ -1114,6 +1190,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.InstitucionesEmpresas.Add(IE);
@@ -1136,6 +1213,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.Academias.ToList();
                 foreach (Academias item in info)
                 {
@@ -1146,6 +1224,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.Academias.Add(aca);
@@ -1156,6 +1235,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // programa transversal
         public IActionResult InsertarPTransversal()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1164,10 +1244,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // programa transversal
         public IActionResult CrearPTransversal(ProgramasTrasversales PT)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.ProgramasTrasversales.ToList();
                 foreach (ProgramasTrasversales item in info)
                 {
@@ -1178,6 +1260,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardar datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.ProgramasTrasversales.Add(PT);
@@ -1188,6 +1271,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // tipo de contratacion
         public IActionResult InsertarTContratacion()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1196,10 +1280,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // tipo de contratacion
         public IActionResult CrearTContratacion(TipoContratacionee ee)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoContratacionee.ToList();
                 foreach (TipoContratacionee item in info)
                 {
@@ -1210,6 +1296,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoContratacionee.Add(ee);
@@ -1220,6 +1307,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // elegir programa educativo
         public IActionResult SeleccionarCarrera()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1230,7 +1318,7 @@ namespace SGCFIEE.Controllers
             }
             return View();
         }
-
+        // pendiente
         [Authorize]
         public IActionResult MostrarMaterias(ProgramaEducativo pe)
         {
@@ -1286,14 +1374,17 @@ namespace SGCFIEE.Controllers
 
             return View();
         }
-
+        // mapa curricular
         public IActionResult CrearMapaC(int id)
         {
+            // mapa curricular contiene el id de la materia y el id del programa educativo al que pertenece
             MapaCurricular mc = new MapaCurricular();
             mc.IdExperienciaEducativa = id;
             int pe = (int)HttpContext.Session.GetInt32("programaE");
             mc.IdProgramaEducativo = pe;
+            // en vigencia
             mc.Estado = 1;
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.MapaCurricular.Add(mc);
@@ -1327,7 +1418,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarCertificacion");
         }
-
+        // distincion academica
         public IActionResult EliminarDistincion(int id)
         {
             TipoDistincionTa dis;
@@ -1339,7 +1430,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarDistincionesTA");
         }
-
+        // grado de titulo
         public IActionResult EliminarGTitulo(int id)
         {
             GradoTitulo gt;
@@ -1351,7 +1442,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarGTitulo");
         }
-
+        // instituciones / empresas
         public IActionResult EliminarInstiEmp(int id)
         {
             InstitucionesEmpresas b;
@@ -1375,7 +1466,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarLaboratorios");
         }
-
+        // periodo escolar
         public IActionResult EliminarPeriodo(int id)
         {
             TipoPeriodo periodo;
@@ -1387,7 +1478,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarPeriodos");
         }
-
+        // tipo de personal
         public IActionResult EliminarTPersonal(int id)
         {
             TipoPersonal personal;
@@ -1399,7 +1490,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarPersonal");
         }
-
+        // eliminar programa transversal
         public IActionResult EliminarPTransversal(int id)
         {
             ProgramasTrasversales pt;
@@ -1411,7 +1502,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarProTransversales");
         }
-
+        // eliminar tipo de puesto
         public IActionResult EliminarTPuesto(int id)
         {
             TipoPuesto puesto;
@@ -1423,7 +1514,7 @@ namespace SGCFIEE.Controllers
             }
             return RedirectToAction("MostrarPuestos");
         }
-
+        // tipo de contratacion
         public IActionResult EliminarTContratacion(int id)
         {
             TipoContratacionee contratacionee;
@@ -1455,6 +1546,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.Academias.Where(a => a.IdAcademias != aca.IdAcademias).ToList();
                 foreach (Academias item in info)
                 {
@@ -1465,6 +1557,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.Academias.Update(aca);
@@ -1475,6 +1568,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // certificaciones académicas
         public IActionResult FormEditarCertificacion(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1488,10 +1582,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public IActionResult EditarCertificacion(TipoCertificacion cert)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoCertificacion.Where(c => c.IdCertificacion != cert.IdCertificacion).ToList();
                 foreach (TipoCertificacion item in info)
                 {
@@ -1502,6 +1598,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoCertificacion.Update(cert);
@@ -1512,6 +1609,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // distincion academica
         public IActionResult FormEditarDistincion(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1525,10 +1623,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // distincion academica
         public IActionResult EditarDistincion(TipoDistincionTa ta)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoDistincionTa.Where(t => t.IdDistincion != ta.IdDistincion).ToList();
                 foreach (TipoDistincionTa item in info)
                 {
@@ -1539,6 +1639,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoDistincionTa.Update(ta);
@@ -1549,6 +1650,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // grado de titulo
         public IActionResult FormEditarGTitulo(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1562,11 +1664,13 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // grado de titulo
         public IActionResult EditarGTitulo(GradoTitulo gt)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.GradoTitulo.Where(g => g.IdGradoTitulo != gt.IdGradoTitulo).ToList();
                 foreach (GradoTitulo item in info)
                 {
@@ -1577,6 +1681,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.GradoTitulo.Update(gt);
@@ -1587,6 +1692,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // Instituciones / empresas
         public IActionResult FormEditarIE(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1600,6 +1706,7 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // instituciones / empresas
         public IActionResult EditarIE(InstitucionesEmpresas ie)
         {
             using (sgcfieeContext context = new sgcfieeContext())
@@ -1614,6 +1721,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.InstitucionesEmpresas.Update(ie);
@@ -1624,6 +1732,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // laboratorio
         public IActionResult FormEditarLab(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1640,6 +1749,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoLaboratorio.Where(l => l.IdTipoLaboratorio != lab.IdTipoLaboratorio).ToList();
                 foreach (TipoLaboratorio item in info)
                 {
@@ -1649,7 +1759,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarLaboratorios");
                     }
                 }
-            }
+            }// guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoLaboratorio.Update(lab);
@@ -1660,6 +1770,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // periodo escolar
         public IActionResult FormEditarPeriodo(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1677,6 +1788,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoPeriodo.Where(p => p.IdPeriodo != per.IdPeriodo).ToList();
                 foreach (TipoPeriodo item in info)
                 {
@@ -1686,7 +1798,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarPeriodos");
                     }
                 }
-            }
+            }// guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPeriodo.Update(per);
@@ -1697,6 +1809,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // tipo personal
         public IActionResult FormEditarTPersonal(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1710,10 +1823,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // tipo de personal académico
         public IActionResult EditarPersonal(TipoPersonal per)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoPersonal.Where( p => p.IdTipoPersonal != per.IdTipoPersonal).ToList();
                 foreach (TipoPersonal item in info)
                 {
@@ -1723,7 +1838,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarPersonal");
                     }
                 }
-            }
+            } // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPersonal.Update(per);
@@ -1734,6 +1849,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // programa transversal
         public IActionResult FormEditarProTra(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1747,10 +1863,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // programa transversal
         public IActionResult EditarProTra(ProgramasTrasversales pt)
         {
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { 
+                // verificamos que los datos no sean repetidos
                 var info = context.ProgramasTrasversales.Where( p => p.IdProgramasTrasversales != pt.IdProgramasTrasversales).ToList();
                 foreach (ProgramasTrasversales item in info)
                 {
@@ -1760,7 +1878,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarProTransversales");
                     }
                 }
-            }
+            } // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.ProgramasTrasversales.Update(pt);
@@ -1771,6 +1889,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // puestos de experiencia profesional
         public IActionResult FormEditarPuesto(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1784,10 +1903,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // puestos de experiencia profesioal
         public IActionResult EditarPuesto(TipoPuesto puesto)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoPuesto.Where(p => p.IdPuesto != puesto.IdPuesto).ToList();
                 foreach (TipoPuesto item in info)
                 {
@@ -1798,6 +1919,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoPuesto.Update(puesto);
@@ -1808,6 +1930,7 @@ namespace SGCFIEE.Controllers
         }
 
         [Authorize]
+        // tipo de contratación
         public IActionResult FormEditarTContratacion(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1821,10 +1944,12 @@ namespace SGCFIEE.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // tipo de contratación
         public IActionResult EditarTContratacion(TipoContratacionee ee)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoContratacionee.Where(e => e.IdTipoContratacion != ee.IdTipoContratacion).ToList();
                 foreach (TipoContratacionee item in info)
                 {
@@ -1834,7 +1959,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarTContratacion");
                     }
                 }
-            }
+            } // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoContratacionee.Update(ee);
@@ -1845,13 +1970,9 @@ namespace SGCFIEE.Controllers
         }
 
 
-
-
-
-
-
         [HttpGet]
         [Authorize]
+        // programa educativo
         public IActionResult CrearPrograma()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1863,6 +1984,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.ProgramaEducativo.ToList();
                 foreach (ProgramaEducativo item in info)
                 {
@@ -1872,7 +1994,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarProgramas");
                     }
                 }
-            }
+            }// guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.ProgramaEducativo.Add(programa);
@@ -1882,6 +2004,7 @@ namespace SGCFIEE.Controllers
             }
         }
         [Authorize]
+        // programas académicos
         public IActionResult MostrarProgramas()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1893,6 +2016,7 @@ namespace SGCFIEE.Controllers
 
         }
         [Authorize]
+        // programas aducativos
         public IActionResult DetallesPrograma(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1904,6 +2028,7 @@ namespace SGCFIEE.Controllers
         }
         [HttpGet]
         [Authorize]
+        // programas educativos
         public IActionResult EditarPrograma(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1915,10 +2040,12 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // programas educativos
         public IActionResult EditarPrograma(ProgramaEducativo programa)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.ProgramaEducativo.Where(p => p.IdProgramaEducativo != programa.IdProgramaEducativo).ToList();
                 foreach (ProgramaEducativo item in info)
                 {
@@ -1928,7 +2055,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarProgramas");
                     }
                 }
-            }
+            }// guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.ProgramaEducativo.Update(programa);
@@ -1952,6 +2079,7 @@ namespace SGCFIEE.Controllers
         }
         [HttpGet]
         [Authorize]
+        // rubro de examen interno o externo
         public IActionResult CrearRubro()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1963,6 +2091,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TbRubrosexamenes.ToList();
                 foreach (TbRubrosexamenes item in info)
                 {
@@ -1972,7 +2101,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarRubro");
                     }
                 }
-            }
+            } // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TbRubrosexamenes.Add(rubro);
@@ -1982,6 +2111,7 @@ namespace SGCFIEE.Controllers
             }
         }
         [Authorize]
+        // rubros de examen interno o externo
         public IActionResult MostrarRubro()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -1993,6 +2123,7 @@ namespace SGCFIEE.Controllers
         }
         [HttpGet]
         [Authorize]
+        // rubro de examen interno o externo (vista)
         public IActionResult EditarRubro(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2004,10 +2135,12 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // (metodo de guadadado)
         public IActionResult EditarRubro(TbRubrosexamenes rubro)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TbRubrosexamenes.Where(r => r.IdTbRubrosExamenes != rubro.IdTbRubrosExamenes).ToList();
                 foreach (TbRubrosexamenes item in info)
                 {
@@ -2017,7 +2150,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarRubro");
                     }
                 }
-            }
+            } // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TbRubrosexamenes.Update(rubro);
@@ -2054,6 +2187,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // // verificamos que los datos no sean repetidos
                 var info = context.TbSalones.ToList();
                 foreach (TbSalones item in info)
                 {
@@ -2063,7 +2197,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarSalon");
                     }
                 }
-            }
+            } // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TbSalones.Add(salon);
@@ -2099,6 +2233,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TbSalones.Where(s => s.IdTbSalones != salon.IdTbSalones).ToList();
                 foreach (TbSalones item in info)
                 {
@@ -2108,7 +2243,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarSalon");
                     }
                 }
-            }
+            } // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TbSalones.Update(salon);
@@ -2132,6 +2267,7 @@ namespace SGCFIEE.Controllers
         }
         [Authorize]
         [HttpGet]
+        // area a la cual pertenencen las EE
         public IActionResult CrearArea()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2143,6 +2279,7 @@ namespace SGCFIEE.Controllers
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.AreaExperienciaEducativa.ToList();
                 foreach (AreaExperienciaEducativa item in info)
                 {
@@ -2152,7 +2289,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarArea");
                     }
                 }
-            }
+            } // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.AreaExperienciaEducativa.Add(area);
@@ -2173,6 +2310,7 @@ namespace SGCFIEE.Controllers
         }
         [Authorize]
         [HttpGet]
+        // vista
         public IActionResult EditarArea(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2184,6 +2322,7 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // método de guardado
         public IActionResult EditarArea(AreaExperienciaEducativa area)
         {
             using (sgcfieeContext context = new sgcfieeContext())
@@ -2221,6 +2360,7 @@ namespace SGCFIEE.Controllers
         }
         [Authorize]
         [HttpGet]
+        // experiencia educativa (vista)
         public IActionResult CrearExperiencia()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2233,10 +2373,12 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // experiencia educativa (método de guardado)
         public IActionResult CrearExperiencia(ExperienciaEducativa expe)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.ExperienciaEducativa.ToList();
                 foreach (ExperienciaEducativa item in info)
                 {
@@ -2247,6 +2389,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // verificamos que el area de para las EE exista
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 if (expe.IdArea == null)
@@ -2254,6 +2397,7 @@ namespace SGCFIEE.Controllers
                     TempData["msg"] = "<script language='javascript'> swal({ title:'" + "No se ha encontrado el área de la Experiencia Educativa!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                     return RedirectToAction("CrearExperiencia");
                 }
+                // guardamos datos
                 context.ExperienciaEducativa.Add(expe);
                 context.SaveChanges();
                 TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Guardado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
@@ -2261,6 +2405,7 @@ namespace SGCFIEE.Controllers
             }
         }
         [Authorize]
+        // experiencia educativa
         public IActionResult MostrarExperiencia()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2284,6 +2429,7 @@ namespace SGCFIEE.Controllers
         }
         [Authorize]
         [HttpGet]
+        // experiencia educativa
         public IActionResult EditarExperiencia(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2297,10 +2443,12 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // experiencia edacativa
         public IActionResult EditarExperiencia(ExperienciaEducativa expe)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.ExperienciaEducativa.Where(e => e.IdArea != expe.IdArea).ToList();
                 foreach (ExperienciaEducativa item in info)
                 {
@@ -2310,10 +2458,9 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarExperiencia");
                     }
                 }
-            }
+            } // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
-
                 context.ExperienciaEducativa.Update(expe);
                 context.SaveChanges();
                 TempData["msg"] = "<script language='javascript'> swal({ title:'" + "Actualizado exitosamente!" + "', timer:'" + "2000" + "',type: '" + "success" + "', showConfirmButton: false })" + "</script>";
@@ -2342,10 +2489,12 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // movilidades para los alumnos
         public IActionResult CrearMovilidad(CtMovilidades movi)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.CtMovilidades.ToList();
                 foreach (CtMovilidades item in info)
                 {
@@ -2355,7 +2504,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarMovilidad");
                     }
                 }
-            }
+            } // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CtMovilidades.Add(movi);
@@ -2365,6 +2514,7 @@ namespace SGCFIEE.Controllers
             }
         }
         [Authorize]
+        // movilidades de alumnos
         public IActionResult MostrarMovilidad()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2373,7 +2523,7 @@ namespace SGCFIEE.Controllers
                 var lista = context.CtMovilidades.ToList();
                 return View(lista);
             }
-        }
+        } // modalidades de alumnos
         [Authorize]
         public IActionResult DetallesMovilidad(int id)
         {
@@ -2401,7 +2551,7 @@ namespace SGCFIEE.Controllers
         public IActionResult EditarMovilidad(CtMovilidades movi)
         {
             using (sgcfieeContext context = new sgcfieeContext())
-            {
+            { // verificamos que los datos no sean repetidos
                 var info = context.CtMovilidades.Where(m => m.IdCtMovilidades != movi.IdCtMovilidades).ToList();
                 foreach (CtMovilidades item in info)
                 {
@@ -2411,7 +2561,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarMovilidad");
                     }
                 }
-            }
+            } // guardamos los datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CtMovilidades.Update(movi);
@@ -2435,6 +2585,7 @@ namespace SGCFIEE.Controllers
         }
         [Authorize]
         [HttpGet]
+        // modalidad de la calificación: primera, extra, repite, etc. (vista)
         public IActionResult CrearTipo()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2442,8 +2593,10 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // modalidad de la calificación: primera, extra, repite, etc. (método)
         public IActionResult CrearTipo(CtTipoCalificacion tip)
         {
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.CtTipoCalificacion.ToList();
@@ -2455,7 +2608,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarTipo");
                     }
                 }
-            }
+            } // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CtTipoCalificacion.Add(tip);
@@ -2465,6 +2618,7 @@ namespace SGCFIEE.Controllers
             }
         }
         [Authorize]
+        // tipo de modalidad de calificación
         public IActionResult MostrarTipo()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2476,6 +2630,7 @@ namespace SGCFIEE.Controllers
         }
         [Authorize]
         [HttpGet]
+        // tipo de modalidad de calificación (vista)
         public IActionResult EditarTipo(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2487,10 +2642,12 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // tipo de modalidad de calificación (método)
         public IActionResult EditarTipo(CtTipoCalificacion cali)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // se guarda el archivo en el servidor
                 var info = context.CtTipoCalificacion.Where(c => c.IdCtTipoCalificacion != cali.IdCtTipoCalificacion).ToList();
                 foreach (CtTipoCalificacion item in info)
                 {
@@ -2500,7 +2657,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarTipo");
                     }
                 }
-            }
+            } // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.CtTipoCalificacion.Update(cali);
@@ -2524,6 +2681,7 @@ namespace SGCFIEE.Controllers
         }
         [Authorize]
         [HttpGet]
+        // tipo de evento (vista)
         public IActionResult CrearTipoe()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2531,8 +2689,10 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // tipo de evento ( método)
         public IActionResult CrearTipoe(TipoEventos tipoe)
         {
+            // verificamos que los datos no sean repetidos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 var info = context.TipoEventos.ToList();
@@ -2545,6 +2705,7 @@ namespace SGCFIEE.Controllers
                     }
                 }
             }
+            // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoEventos.Add(tipoe);
@@ -2554,6 +2715,7 @@ namespace SGCFIEE.Controllers
             }
         }
         [Authorize]
+        // tipo de evento
         public IActionResult MostrarTipoe()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2565,6 +2727,7 @@ namespace SGCFIEE.Controllers
         }
         [Authorize]
         [HttpGet]
+        // tipo de evento (vista)
         public IActionResult EditarTipoe(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2576,10 +2739,12 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // tipo de evento (método)
         public IActionResult EditarTipoe(TipoEventos tipoe)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TipoEventos.Where( t => t.IdEventos != tipoe.IdEventos).ToList();
                 foreach (TipoEventos item in info)
                 {
@@ -2589,7 +2754,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarTipoe");
                     }
                 }
-            }
+            }// guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TipoEventos.Update(tipoe);
@@ -2613,6 +2778,7 @@ namespace SGCFIEE.Controllers
         }
         [HttpGet]
         [Authorize]
+        // evento académico ( vista)
         public IActionResult CrearEvento()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2625,8 +2791,9 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // evento académico (método)
         public IActionResult CrearEvento(TbEventos evento)
-        {
+        {   // verificamos que el tipo de evento exista
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 if (evento.RTioEvento == null)
@@ -2634,7 +2801,7 @@ namespace SGCFIEE.Controllers
                     TempData["msg"] = "<script language='javascript'> swal({ title:'" + "No se ha encontrado el tipo del evento!" + "', timer:'" + "3500" + "',type: '" + "info" + "', showConfirmButton: false })" + "</script>";
                     return RedirectToAction("CrearEvento");
                 }
-
+                // verificamos que los datos no sean repetidos
                 var info = context.TbEventos.ToList();
                 foreach (TbEventos item in info)
                 {
@@ -2644,7 +2811,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarEvento");
                     }
                 }
-            }
+            } // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TbEventos.Add(evento);
@@ -2654,6 +2821,7 @@ namespace SGCFIEE.Controllers
             }
         }
         [Authorize]
+        // evento académico
         public IActionResult MostrarEvento()
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2675,6 +2843,7 @@ namespace SGCFIEE.Controllers
         }
         [Authorize]
         [HttpGet]
+        // evento académico ( vista)
         public IActionResult EditarEvento(int id)
         {
             ViewData["tipo"] = (int)HttpContext.Session.GetInt32("TipoUsuario");
@@ -2688,10 +2857,12 @@ namespace SGCFIEE.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        // evento académico (método)
         public IActionResult EditarEvento(TbEventos eve)
         {
             using (sgcfieeContext context = new sgcfieeContext())
             {
+                // verificamos que los datos no sean repetidos
                 var info = context.TbEventos.Where(e => e.IdEventos != eve.IdEventos).ToList();
                 foreach (TbEventos item in info)
                 {
@@ -2701,7 +2872,7 @@ namespace SGCFIEE.Controllers
                         return RedirectToAction("MostrarEvento");
                     }
                 }
-            }
+            } // guardamos datos
             using (sgcfieeContext context = new sgcfieeContext())
             {
                 context.TbEventos.Update(eve);
@@ -2711,6 +2882,7 @@ namespace SGCFIEE.Controllers
             }
         }
         [HttpGet]
+        // eventos académicos
         public IActionResult EliminarEventoe(int id)
         {
             using (sgcfieeContext context = new sgcfieeContext())
